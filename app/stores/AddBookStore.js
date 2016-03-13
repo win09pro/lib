@@ -76,5 +76,14 @@ class AddBookStore {
     	this.directorValidationState='has-error';
     	this.helpBlockDirector='Please enter Director';	
     }
+    onResetState(){
+      this.id='';
+      this.name = '';
+      this.director = '';
+      this.helpBlockName = '';
+      this.helpBlockDirector = '';
+      this.nameValidationState = '';
+      this.directorValidationState = '';
+    }
 }
 export default alt.createStore(AddBookStore);

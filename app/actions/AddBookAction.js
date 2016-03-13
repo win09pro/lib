@@ -10,7 +10,8 @@ class AddBookAction {
       'invalidName',
       'invalidDirector',
       'getBookSuccess',
-      'getBookFail'
+      'getBookFail',
+      'resetState'
      
     );
   }

@@ -16,17 +16,13 @@ export default class ActionBar extends React.Component {
     return (
       <div className="action">
         <span className="action-buttons">
-          <button
-            className="btn btn-success">
-            <Link to={'/book/'+this.props.itembook._id}>View</Link>
-          </button>                  
+                          
           <button
             className="btn btn-warning"
             onClick={this.edit.bind(this)}>Edit         
             </button>  
-          <button
-            className="btn btn-danger"   
-            onClick={this.delete.bind(this)}>Delete</button>
+          <a   
+            onClick={this.delete.bind(this)}><i className="glyphicon glyphicon-trash"></i></a>
         </span>
       </div>
     );
