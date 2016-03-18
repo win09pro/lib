@@ -14,7 +14,7 @@ class ListBooks extends React.Component {
   }
  componentDidMount() {
     listBooksStore.listen(this.onChange);
-    listBooksActions.getBook();
+    listBooksActions.get2();
   }
 
   componentWillUnmount() {
@@ -32,7 +32,7 @@ class ListBooks extends React.Component {
           <td>{index+1}</td>
           <td>{book.name}</td>
           <td>{book.director}</td>
-          <td><ActionBar viewAction={bookActions} editAction={AddBookAction} deleteAction={listBooksActions} itembook={book} /></td>
+          <td><ActionBar viewAction={bookActions} editAction={AddBookAction} deleteAction={listBooksActions} item={book} /></td>
         </tr>
       );
     });

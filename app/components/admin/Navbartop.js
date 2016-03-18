@@ -70,7 +70,8 @@ class Navbartop extends React.Component {
 					</form>
 					<ul className='nav navbar-nav'>
 						<li><Link to='/admin'>Home</Link></li>            
-						<li><Link to='/category/listBooks' onClick={AddBookAction.resetState()}>Listbook</Link></li>           
+						<li><Link to='/category/listBooks' onClick={AddBookAction.resetState()}>Listbook</Link></li>        
+						<li><Link to='/admin/user/view'>User</Link></li>              
 					</ul>
 				</div>
 			</div>

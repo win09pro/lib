@@ -7275,9 +7275,9 @@ body {
 footer {
   position: absolute;
   bottom: 0;
-  width: auto;
+  width: 100%;
   color: #fff;
-  background-color: #cccccc;
+  background-color: #3366ff;
 }
 footer a {
   color: #fff;

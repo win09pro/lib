@@ -12,6 +12,16 @@ class AddBookStore {
     this.nameValidationState = '';
     this.directorValidationState = '';
   }  
+  onEesetState()
+  {
+    this.id='';
+    this.name = '';
+    this.director = '';
+    this.helpBlockName = '';
+    this.helpBlockDirector = '';
+    this.nameValidationState = '';
+    this.directorValidationState = '';
+  }
    onGetBookSuccess(data)
    {
       this.id=data._id;
@@ -35,7 +45,7 @@ class AddBookStore {
     this.id='';
     this.name = '';
     this.director = '';
-    listBooksActions.getBook();
+    listBooksActions.get();
    }
 
     onAddBookFail(errorMessage)
@@ -75,15 +85,6 @@ class AddBookStore {
     {
     	this.directorValidationState='has-error';
     	this.helpBlockDirector='Please enter Director';	
-    }
-    onResetState(){
-      this.id='';
-      this.name = '';
-      this.director = '';
-      this.helpBlockName = '';
-      this.helpBlockDirector = '';
-      this.nameValidationState = '';
-      this.directorValidationState = '';
     }
 }
 export default alt.createStore(AddBookStore);

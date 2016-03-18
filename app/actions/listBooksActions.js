@@ -23,7 +23,7 @@ class listBooksActions {
         this.actions.deletefail(jqXhr.responseJSON.message);
       });
   }
-  getBook() {
+  get() {
     $.ajax({    
       url: '/api/book'      
     })

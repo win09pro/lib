@@ -15,7 +15,7 @@ class AddBookAction {
      
     );
   }
-   getBook(bookid) {
+   getById(bookid) {
     $.ajax({
       url: '/api/book/'+bookid})
       .done((data) => {

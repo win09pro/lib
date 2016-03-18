@@ -23,8 +23,8 @@ var AddBookAction = function () {
   }
 
   _createClass(AddBookAction, [{
-    key: 'getBook',
-    value: function getBook(bookid) {
+    key: 'getById',
+    value: function getById(bookid) {
       var _this = this;
 
       $.ajax({
@@ -56,7 +56,7 @@ var AddBookAction = function () {
 
 exports.default = _alt2.default.createActions(AddBookAction);
 
-},{"../alt":7}],2:[function(require,module,exports){
+},{"../alt":9}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -98,7 +98,7 @@ var FooterActions = function () {
 
 exports.default = _alt2.default.createActions(FooterActions);
 
-},{"../alt":7}],3:[function(require,module,exports){
+},{"../alt":9}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -146,7 +146,7 @@ var NavbarActions = function () {
 
 exports.default = _alt2.default.createActions(NavbarActions);
 
-},{"../alt":7,"underscore":"underscore"}],4:[function(require,module,exports){
+},{"../alt":9,"underscore":"underscore"}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -194,7 +194,130 @@ var NavbartopActions = function () {
 
 exports.default = _alt2.default.createActions(NavbartopActions);
 
-},{"../alt":7,"underscore":"underscore"}],5:[function(require,module,exports){
+},{"../alt":9,"underscore":"underscore"}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _alt = require('../../../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var AddUserActions = function () {
+  function AddUserActions() {
+    _classCallCheck(this, AddUserActions);
+
+    this.generateActions('addUserSuccess', 'addUserFail', 'updateuserName', 'updatepassword', 'updaterepassword', 'updatefirstName', 'updatelastName', 'updateType', 'invaliduserName', 'invalidpassword', 'invalidrepassword', 'invalidfirstName', 'invalidlastName', 'invalidType', 'passwordNotSame', 'resetAll', 'getUserSuccess', 'getUserFail');
+  }
+
+  _createClass(AddUserActions, [{
+    key: 'getById',
+    value: function getById(userId) {
+      var _this = this;
+
+      $.ajax({
+        url: '/api/user/' + userId }).done(function (data) {
+        _this.actions.getUserSuccess(data);
+      }).fail(function (jqXhr) {
+        _this.actions.getUserFail(jqXhr.responseJSON.message);
+      });
+    }
+  }, {
+    key: 'addUser',
+    value: function addUser(payload) {
+      var _this2 = this;
+
+      $.ajax({
+        type: 'POST',
+        url: '/api/user',
+        data: { id: payload.id,
+          userName: payload.userName,
+          password: payload.pass,
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          barcode: payload.barcode,
+          type: payload.type }
+      }).done(function (data) {
+        _this2.actions.addUserSuccess(data.message);
+      }).fail(function (jqXhr) {
+        _this2.actions.addUserFail(jqXhr.responseJSON.message);
+      });
+    }
+  }]);
+
+  return AddUserActions;
+}();
+
+exports.default = _alt2.default.createActions(AddUserActions);
+
+},{"../../../alt":9}],6:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _alt = require('../../../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var listUsersActions = function () {
+  function listUsersActions() {
+    _classCallCheck(this, listUsersActions);
+
+    this.generateActions('getUsersuccess', 'getUserfail', 'deletesuccess', 'deletefail');
+  }
+
+  _createClass(listUsersActions, [{
+    key: 'delete',
+    value: function _delete(user) {
+      var _this = this;
+
+      $.ajax({
+        type: 'POST',
+        url: '/api/deleteuser',
+        data: { id: user._id }
+      }).done(function (data) {
+        _this.actions.deletesuccess(data.message);
+      }).fail(function (jqXhr) {
+        _this.actions.deletefail(jqXhr.responseJSON.message);
+      });
+    }
+  }, {
+    key: 'get',
+    value: function get() {
+      var _this2 = this;
+
+      $.ajax({
+        url: '/api/user'
+      }).done(function (data) {
+        _this2.actions.getUsersuccess(data);
+      }).fail(function (jqXhr) {
+        _this2.actions.getUserfail(jqXhr.responseJSON.message);
+      });
+    }
+  }]);
+
+  return listUsersActions;
+}();
+
+exports.default = _alt2.default.createActions(listUsersActions);
+
+},{"../../../alt":9}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -237,7 +360,7 @@ var bookActions = function () {
 
 exports.default = _alt2.default.createActions(bookActions);
 
-},{"../alt":7}],6:[function(require,module,exports){
+},{"../alt":9}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -277,8 +400,8 @@ var listBooksActions = function () {
       });
     }
   }, {
-    key: 'getBook',
-    value: function getBook() {
+    key: 'get',
+    value: function get() {
       var _this2 = this;
 
       $.ajax({
@@ -296,7 +419,7 @@ var listBooksActions = function () {
 
 exports.default = _alt2.default.createActions(listBooksActions);
 
-},{"../alt":7}],7:[function(require,module,exports){
+},{"../alt":9}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -311,7 +434,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = new _alt2.default();
 
-},{"alt":"alt"}],8:[function(require,module,exports){
+},{"alt":"alt"}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -403,7 +526,7 @@ var App = function (_React$Component) {
 
 exports.default = App;
 
-},{"./Footer":9,"./Navbar":10,"./Navbartop":11,"./SidebarLeft":12,"react":"react"}],9:[function(require,module,exports){
+},{"./Footer":11,"./Navbar":12,"./Navbartop":13,"./SidebarLeft":14,"react":"react"}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -463,7 +586,7 @@ var Footer = function (_React$Component) {
 
 exports.default = Footer;
 
-},{"../../actions/FooterActions":2,"../../stores/FooterStore":21,"react":"react","react-router":"react-router"}],10:[function(require,module,exports){
+},{"../../actions/FooterActions":2,"../../stores/FooterStore":27,"react":"react","react-router":"react-router"}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -651,7 +774,7 @@ var Navbar = function (_React$Component) {
 
 exports.default = Navbar;
 
-},{"../../actions/NavbarActions":3,"../../stores/NavbarStore":22,"react":"react","react-router":"react-router"}],11:[function(require,module,exports){
+},{"../../actions/NavbarActions":3,"../../stores/NavbarStore":28,"react":"react","react-router":"react-router"}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -808,6 +931,15 @@ var Navbartop = function (_React$Component) {
 									{ to: '/category/listBooks', onClick: _AddBookAction2.default.resetState() },
 									'Listbook'
 								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement(
+									_reactRouter.Link,
+									{ to: '/admin/user/view' },
+									'User'
+								)
 							)
 						)
 					)
@@ -821,7 +953,7 @@ var Navbartop = function (_React$Component) {
 
 exports.default = Navbartop;
 
-},{"../../actions/AddBookAction":1,"../../actions/NavbartopActions":4,"../../stores/NavbartopStore":23,"react":"react","react-router":"react-router"}],12:[function(require,module,exports){
+},{"../../actions/AddBookAction":1,"../../actions/NavbartopActions":4,"../../stores/NavbartopStore":29,"react":"react","react-router":"react-router"}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -945,7 +1077,7 @@ var SidebarLeft = function (_React$Component) {
 
 exports.default = SidebarLeft;
 
-},{"react":"react","react-router":"react-router"}],13:[function(require,module,exports){
+},{"react":"react","react-router":"react-router"}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1101,7 +1233,7 @@ var Addbook = function (_React$Component) {
 
 exports.default = Addbook;
 
-},{"../../../actions/AddBookAction":1,"../../../stores/AddBookStore":20,"react":"react"}],14:[function(require,module,exports){
+},{"../../../actions/AddBookAction":1,"../../../stores/AddBookStore":26,"react":"react"}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1216,7 +1348,7 @@ var Book = function (_React$Component) {
 
 exports.default = Book;
 
-},{"../../../actions/bookActions":5,"../../../shared/ActionBar":19,"../../../stores/bookStore":24,"react":"react"}],15:[function(require,module,exports){
+},{"../../../actions/bookActions":7,"../../../shared/ActionBar":25,"../../../stores/bookStore":32,"react":"react"}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1270,7 +1402,7 @@ var Home = function (_React$Component) {
 
 exports.default = Home;
 
-},{"./Addbook":13,"./ListBooks":16,"react":"react"}],16:[function(require,module,exports){
+},{"./Addbook":15,"./ListBooks":18,"react":"react"}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1334,7 +1466,7 @@ var ListBooks = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _listBooksStore2.default.listen(this.onChange);
-      _listBooksActions2.default.getBook();
+      _listBooksActions2.default.get();
     }
   }, {
     key: 'componentWillUnmount',
@@ -1381,7 +1513,7 @@ var ListBooks = function (_React$Component) {
           _react2.default.createElement(
             'td',
             null,
-            _react2.default.createElement(_ActionBar2.default, { editAction: _AddBookAction2.default, deleteAction: _listBooksActions2.default, itembook: book })
+            _react2.default.createElement(_ActionBar2.default, { editAction: _AddBookAction2.default, deleteAction: _listBooksActions2.default, item: book })
           )
         );
       });
@@ -1461,7 +1593,695 @@ var ListBooks = function (_React$Component) {
 
 exports.default = ListBooks;
 
-},{"../../../actions/AddBookAction":1,"../../../actions/bookActions":5,"../../../actions/listBooksActions":6,"../../../shared/ActionBar":19,"../../../stores/listBooksStore":25,"./Addbook":13,"react":"react","react-router":"react-router"}],17:[function(require,module,exports){
+},{"../../../actions/AddBookAction":1,"../../../actions/bookActions":7,"../../../actions/listBooksActions":8,"../../../shared/ActionBar":25,"../../../stores/listBooksStore":33,"./Addbook":15,"react":"react","react-router":"react-router"}],19:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _AddUserStore = require('../../../stores/admin/usermanage/AddUserStore');
+
+var _AddUserStore2 = _interopRequireDefault(_AddUserStore);
+
+var _AddUserActions = require('../../../actions/admin/usermanage/AddUserActions');
+
+var _AddUserActions2 = _interopRequireDefault(_AddUserActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddUser = function (_React$Component) {
+  _inherits(AddUser, _React$Component);
+
+  function AddUser(props) {
+    _classCallCheck(this, AddUser);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddUser).call(this, props));
+
+    _this.state = _AddUserStore2.default.getState();
+    _this.onChange = _this.onChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(AddUser, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _AddUserStore2.default.listen(this.onChange);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _AddUserStore2.default.unlisten(this.onChange);
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(state) {
+      this.setState(state);
+    }
+  }, {
+    key: 'reset',
+    value: function reset() {
+      _AddUserActions2.default.resetAll();
+      console.log(this.state.userNameValidationState);
+    }
+  }, {
+    key: 'handleSubmitUser',
+    value: function handleSubmitUser(event) {
+      event.preventDefault();
+      var id = this.state.id;
+      var username = this.state.userName.trim();
+      var password = this.state.passWord;
+      var repassword = this.state.repassWord;
+      var firstname = this.state.firstName;
+      var lastname = this.state.lastName;
+      var barcode = '';
+      var type = this.state.Type;
+      if (!type) {
+        _AddUserActions2.default.invalidType();
+        this.refs.typeTextField.focus();
+      }
+      if (!lastname) {
+        _AddUserActions2.default.invalidlastName();
+        this.refs.lastNameTextField.focus();
+      }
+      if (!firstname) {
+        _AddUserActions2.default.invalidfirstName();
+        this.refs.firstNameTextField.focus();
+      }
+      if (!repassword) {
+        _AddUserActions2.default.invalidrepassword();
+        this.refs.repasswordTextField.focus();
+      }
+      if (!password) {
+        _AddUserActions2.default.invalidpassword();
+        this.refs.passwordTextField.focus();
+      }
+      if (!username) {
+        _AddUserActions2.default.invaliduserName();
+        this.refs.userNameTextField.focus();
+      }
+      if (repassword != password) {
+        _AddUserActions2.default.passwordNotSame();
+        this.refs.repasswordTextField.focus();
+      }
+      if (username && repassword && password && firstname && lastname && type) {
+        _AddUserActions2.default.addUser({
+          id: id,
+          userName: username,
+          pass: password,
+          firstName: firstname,
+          lastName: lastname,
+          barcode: barcode,
+          type: Number(type)
+        });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'row flipInX animated' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-sm-4' },
+            _react2.default.createElement(
+              'div',
+              { className: 'panel panel-danger' },
+              _react2.default.createElement(
+                'div',
+                { className: 'panel-heading' },
+                _react2.default.createElement(
+                  'strong',
+                  null,
+                  'Thêm người dùng'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'panel-body' },
+                _react2.default.createElement(
+                  'form',
+                  { onSubmit: this.handleSubmitUser.bind(this) },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group ' + this.state.userNameValidationState },
+                    _react2.default.createElement(
+                      'label',
+                      { className: 'control-label' },
+                      'Tên đăng nhập'
+                    ),
+                    _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'userNameTextField', value: this.state.userName,
+                      onChange: _AddUserActions2.default.updateuserName, autoFocus: true }),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'help-block' },
+                      this.state.helpBlockuserName
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group ' + this.state.passWordValidationState },
+                    _react2.default.createElement(
+                      'label',
+                      { className: 'control-label' },
+                      'Mật khẩu'
+                    ),
+                    _react2.default.createElement('input', { type: 'password', className: 'form-control', ref: 'passwordTextField', value: this.state.passWord,
+                      onChange: _AddUserActions2.default.updatepassword }),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'help-block' },
+                      this.state.helpBlockpassword
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group ' + this.state.repassWordValidationState },
+                    _react2.default.createElement(
+                      'label',
+                      { className: 'control-label' },
+                      'Nhập lại mật khẩu'
+                    ),
+                    _react2.default.createElement('input', { type: 'password', className: 'form-control', ref: 'repasswordTextField', value: this.state.repassWord,
+                      onChange: _AddUserActions2.default.updaterepassword }),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'help-block' },
+                      this.state.helpBlockrepassword
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group ' + this.state.fistNameValidationState },
+                    _react2.default.createElement(
+                      'label',
+                      { className: 'control-label' },
+                      'Họ'
+                    ),
+                    _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'firstNameTextField', value: this.state.firstName,
+                      onChange: _AddUserActions2.default.updatefirstName }),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'help-block' },
+                      this.state.helpBlockfirstName
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group ' + this.state.lastNameValidationState },
+                    _react2.default.createElement(
+                      'label',
+                      { className: 'control-label' },
+                      'Tên'
+                    ),
+                    _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'lastNameTextField', value: this.state.lastName,
+                      onChange: _AddUserActions2.default.updatelastName }),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'help-block' },
+                      this.state.helpBlocklastName
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group ' + this.state.typeValidationState },
+                    _react2.default.createElement(
+                      'label',
+                      { className: 'control-label' },
+                      'Kiểu người dùng'
+                    ),
+                    _react2.default.createElement(
+                      'select',
+                      { className: 'form-control', value: this.state.Type, onChange: _AddUserActions2.default.updateType },
+                      _react2.default.createElement(
+                        'option',
+                        { value: '1' },
+                        'Admin1'
+                      ),
+                      _react2.default.createElement(
+                        'option',
+                        { value: '2' },
+                        'Admin2'
+                      ),
+                      _react2.default.createElement(
+                        'option',
+                        { value: '3' },
+                        'User'
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'help-block' },
+                      this.state.helpBlocktype
+                    )
+                  ),
+                  _react2.default.createElement('input', { type: 'button', className: 'btn btn-warning', onClick: this.reset.bind(this), value: 'Reset' }),
+                  _react2.default.createElement(
+                    'button',
+                    { type: 'submit', className: 'btn btn-primary' },
+                    'Submit'
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return AddUser;
+}(_react2.default.Component);
+
+exports.default = AddUser;
+
+},{"../../../actions/admin/usermanage/AddUserActions":5,"../../../stores/admin/usermanage/AddUserStore":30,"react":"react"}],20:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouter = require('react-router');
+
+var _AddUserActions = require('../../../actions/admin/usermanage/AddUserActions');
+
+var _AddUserActions2 = _interopRequireDefault(_AddUserActions);
+
+var _listUsersStore = require('../../../stores/admin/usermanage/listUsersStore');
+
+var _listUsersStore2 = _interopRequireDefault(_listUsersStore);
+
+var _listUsersActions = require('../../../actions/admin/usermanage/listUsersActions');
+
+var _listUsersActions2 = _interopRequireDefault(_listUsersActions);
+
+var _ActionBar = require('../../../shared/ActionBar');
+
+var _ActionBar2 = _interopRequireDefault(_ActionBar);
+
+var _AddUser = require('./AddUser');
+
+var _AddUser2 = _interopRequireDefault(_AddUser);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListBooks = function (_React$Component) {
+  _inherits(ListBooks, _React$Component);
+
+  function ListBooks(props) {
+    _classCallCheck(this, ListBooks);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ListBooks).call(this, props));
+
+    _this.state = _listUsersStore2.default.getState();
+    _this.onChange = _this.onChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(ListBooks, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _listUsersStore2.default.listen(this.onChange);
+      _listUsersActions2.default.get();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _listUsersStore2.default.unlisten(this.onChange);
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(state) {
+      this.setState(state);
+    }
+  }, {
+    key: 'getComponent',
+    value: function getComponent(event) {
+      console.log('a');
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      function Type_User(type) {
+        if (type == 1) return "Admin1";else if (type == 2) return "Admin2";else return "User3";
+      }
+      var userList = this.state.users.map(function (user, index) {
+        return _react2.default.createElement(
+          'tr',
+          { key: index, onClick: _this2.getComponent.bind(_this2) },
+          _react2.default.createElement(
+            'td',
+            null,
+            index + 1
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/admin/user/' + user._id },
+              user.username
+            )
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            user.password
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            user.name.first
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            user.name.last
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            user.barcode
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            Type_User(user.type)
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
+            _react2.default.createElement(_ActionBar2.default, { viewAction: _AddUserActions2.default, editAction: _AddUserActions2.default, deleteAction: _listUsersActions2.default, item: user })
+          )
+        );
+      });
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'row flipInX animated' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-sm-12' },
+            _react2.default.createElement(
+              'div',
+              { className: 'panel panel-default' },
+              _react2.default.createElement(
+                'div',
+                { className: 'panel-heading' },
+                'List books'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'panel-body' },
+                _react2.default.createElement(
+                  'table',
+                  { className: 'table' },
+                  _react2.default.createElement(
+                    'thead',
+                    null,
+                    _react2.default.createElement(
+                      'tr',
+                      null,
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        '#'
+                      ),
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        'UserName'
+                      ),
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        'Password'
+                      ),
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        'Firstname'
+                      ),
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        'LastName'
+                      ),
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        'Barcode'
+                      ),
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        'Type'
+                      ),
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        'Status'
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'tbody',
+                    null,
+                    userList
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return ListBooks;
+}(_react2.default.Component);
+
+exports.default = ListBooks;
+
+},{"../../../actions/admin/usermanage/AddUserActions":5,"../../../actions/admin/usermanage/listUsersActions":6,"../../../shared/ActionBar":25,"../../../stores/admin/usermanage/listUsersStore":31,"./AddUser":19,"react":"react","react-router":"react-router"}],21:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _AddUser = require('./AddUser');
+
+var _AddUser2 = _interopRequireDefault(_AddUser);
+
+var _ListUsers = require('./ListUsers');
+
+var _ListUsers2 = _interopRequireDefault(_ListUsers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var user = function (_React$Component) {
+  _inherits(user, _React$Component);
+
+  function user() {
+    _classCallCheck(this, user);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(user).apply(this, arguments));
+  }
+
+  _createClass(user, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_AddUser2.default, null),
+        _react2.default.createElement(_ListUsers2.default, null)
+      );
+    }
+  }]);
+
+  return user;
+}(_react2.default.Component);
+
+exports.default = user;
+
+},{"./AddUser":19,"./ListUsers":20,"react":"react"}],22:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _AddUserStore = require('../../../stores/admin/usermanage/AddUserStore');
+
+var _AddUserStore2 = _interopRequireDefault(_AddUserStore);
+
+var _AddUserActions = require('../../../actions/admin/usermanage/AddUserActions');
+
+var _AddUserActions2 = _interopRequireDefault(_AddUserActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var viewuser = function (_React$Component) {
+  _inherits(viewuser, _React$Component);
+
+  function viewuser(props) {
+    _classCallCheck(this, viewuser);
+
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(viewuser).call(this, props));
+
+    _this.state = _AddUserStore2.default.getState();
+    _this.onChange = _this.onChange.bind(_this);
+    return _this;
+  }
+
+  _createClass(viewuser, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _AddUserStore2.default.listen(this.onChange);
+      _AddUserActions2.default.getById(this.props.params.id);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _AddUserStore2.default.unlisten(this.onChange);
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(state) {
+      this.setState(state);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'row flipInX animated' },
+          _react2.default.createElement(
+            'div',
+            { className: 'panel panel-default' },
+            _react2.default.createElement(
+              'div',
+              { className: 'panel-heading' },
+              'View'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'panel-body' },
+              _react2.default.createElement(
+                'label',
+                { className: 'control-label' },
+                'Tên đăng nhập'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'text-success' },
+                this.state.userName
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'control-label' },
+                'Tên người dùng'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'text-success' },
+                this.state.firstName + " " + this.state.lastName
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'control-label' },
+                'Barcode'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'text-success' },
+                this.state.barcode
+              ),
+              _react2.default.createElement(
+                'label',
+                { className: 'control-label' },
+                'Kiểu người dùng'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'text-success' },
+                this.state.Type
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return viewuser;
+}(_react2.default.Component);
+
+exports.default = viewuser;
+
+},{"../../../actions/admin/usermanage/AddUserActions":5,"../../../stores/admin/usermanage/AddUserStore":30,"react":"react"}],23:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -1494,7 +2314,7 @@ _reactDom2.default.render(_react2.default.createElement(
   _routes2.default
 ), document.getElementById('app'));
 
-},{"./routes":18,"history/lib/createBrowserHistory":34,"react":"react","react-dom":"react-dom","react-router":"react-router"}],18:[function(require,module,exports){
+},{"./routes":24,"history/lib/createBrowserHistory":40,"react":"react","react-dom":"react-dom","react-router":"react-router"}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1527,6 +2347,14 @@ var _Book = require('./components/admin/category/Book');
 
 var _Book2 = _interopRequireDefault(_Book);
 
+var _user = require('./components/admin/usermanage/user');
+
+var _user2 = _interopRequireDefault(_user);
+
+var _viewuser = require('./components/admin/usermanage/viewuser');
+
+var _viewuser2 = _interopRequireDefault(_viewuser);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _react2.default.createElement(
@@ -1535,10 +2363,12 @@ exports.default = _react2.default.createElement(
   _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _Home2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: '/category/book/:id', component: _Book2.default }),
   _react2.default.createElement(_reactRouter.Route, { path: '/category/Addbook', component: _Addbook2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/category/listBooks', component: _ListBooks2.default })
+  _react2.default.createElement(_reactRouter.Route, { path: '/category/listBooks', component: _ListBooks2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/view', component: _user2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/:id', component: _viewuser2.default })
 );
 
-},{"./components/admin/App":8,"./components/admin/category/Addbook":13,"./components/admin/category/Book":14,"./components/admin/category/Home":15,"./components/admin/category/ListBooks":16,"react":"react","react-router":"react-router"}],19:[function(require,module,exports){
+},{"./components/admin/App":10,"./components/admin/category/Addbook":15,"./components/admin/category/Book":16,"./components/admin/category/Home":17,"./components/admin/category/ListBooks":18,"./components/admin/usermanage/user":21,"./components/admin/usermanage/viewuser":22,"react":"react","react-router":"react-router"}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1573,13 +2403,13 @@ var ActionBar = function (_React$Component) {
   _createClass(ActionBar, [{
     key: 'delete',
     value: function _delete() {
-      this.props.deleteAction.delete(this.props.itembook);
-      this.props.deleteAction.getBook();
+      this.props.deleteAction.delete(this.props.item);
+      this.props.deleteAction.get();
     }
   }, {
     key: 'edit',
     value: function edit() {
-      this.props.editAction.getBook(this.props.itembook._id);
+      this.props.editAction.getById(this.props.item._id);
     }
   }, {
     key: 'showProfile',
@@ -1616,7 +2446,7 @@ var ActionBar = function (_React$Component) {
 
 exports.default = ActionBar;
 
-},{"react":"react","react-router":"react-router"}],20:[function(require,module,exports){
+},{"react":"react","react-router":"react-router"}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1656,6 +2486,17 @@ var AddBookStore = function () {
   }
 
   _createClass(AddBookStore, [{
+    key: 'onEesetState',
+    value: function onEesetState() {
+      this.id = '';
+      this.name = '';
+      this.director = '';
+      this.helpBlockName = '';
+      this.helpBlockDirector = '';
+      this.nameValidationState = '';
+      this.directorValidationState = '';
+    }
+  }, {
     key: 'onGetBookSuccess',
     value: function onGetBookSuccess(data) {
       this.id = data._id;
@@ -1680,7 +2521,7 @@ var AddBookStore = function () {
       this.id = '';
       this.name = '';
       this.director = '';
-      _listBooksActions2.default.getBook();
+      _listBooksActions2.default.get();
     }
   }, {
     key: 'onAddBookFail',
@@ -1721,17 +2562,6 @@ var AddBookStore = function () {
       this.directorValidationState = 'has-error';
       this.helpBlockDirector = 'Please enter Director';
     }
-  }, {
-    key: 'onResetState',
-    value: function onResetState() {
-      this.id = '';
-      this.name = '';
-      this.director = '';
-      this.helpBlockName = '';
-      this.helpBlockDirector = '';
-      this.nameValidationState = '';
-      this.directorValidationState = '';
-    }
   }]);
 
   return AddBookStore;
@@ -1739,7 +2569,7 @@ var AddBookStore = function () {
 
 exports.default = _alt2.default.createStore(AddBookStore);
 
-},{"../actions/AddBookAction":1,"../actions/listBooksActions":6,"../alt":7}],21:[function(require,module,exports){
+},{"../actions/AddBookAction":1,"../actions/listBooksActions":8,"../alt":9}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1792,7 +2622,7 @@ var FooterStore = function () {
 
 exports.default = _alt2.default.createStore(FooterStore);
 
-},{"../actions/FooterActions":2,"../alt":7}],22:[function(require,module,exports){
+},{"../actions/FooterActions":2,"../alt":9}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1869,7 +2699,7 @@ var NavbarStore = function () {
 
 exports.default = _alt2.default.createStore(NavbarStore);
 
-},{"../actions/NavbarActions":3,"../alt":7}],23:[function(require,module,exports){
+},{"../actions/NavbarActions":3,"../alt":9}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1946,7 +2776,314 @@ var NavbartopStore = function () {
 
 exports.default = _alt2.default.createStore(NavbartopStore);
 
-},{"../actions/NavbartopActions":4,"../alt":7}],24:[function(require,module,exports){
+},{"../actions/NavbartopActions":4,"../alt":9}],30:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+      value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _alt = require('../../../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _AddUserActions = require('../../../actions/admin/usermanage/AddUserActions');
+
+var _AddUserActions2 = _interopRequireDefault(_AddUserActions);
+
+var _listUsersActions = require('../../../actions/admin/usermanage/listUsersActions');
+
+var _listUsersActions2 = _interopRequireDefault(_listUsersActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var AddUserStore = function () {
+      function AddUserStore() {
+            _classCallCheck(this, AddUserStore);
+
+            this.bindActions(_AddUserActions2.default);
+            this.id = '';
+            this.userName = '';
+            this.passWord = '';
+            this.repassWord = '';
+            this.firstName = '';
+            this.lastName = '';
+
+            this.userNameValidationState = '';
+            this.passWordValidationState = '';
+            this.repassWordValidationState = '';
+            this.fistNameValidationState = '';
+            this.lastNameValidationState = '';
+            this.typeValidationState = '';
+
+            this.helpBlockuserName = '';
+            this.helpBlockpassword = '';
+            this.helpBlockrepassword = '';
+            this.helpBlockfirstName = '';
+            this.helpBlocklastName = '';
+            this.helpBlocktype = '';
+      }
+
+      _createClass(AddUserStore, [{
+            key: 'onGetUserSuccess',
+            value: function onGetUserSuccess(data) {
+                  this.id = data._id;
+                  this.userName = data.username;
+                  this.passWord = '';
+                  this.repassWord = '';
+                  this.firstName = data.name.first;
+                  this.lastName = data.name.last;
+                  this.Type = data.type;
+
+                  this.userNameValidationState = '';
+                  this.passWordValidationState = '';
+                  this.repassWordValidationState = '';
+                  this.fistNameValidationState = '';
+                  this.lastNameValidationState = '';
+                  this.typeValidationState = '';
+
+                  this.helpBlockuserName = '';
+                  this.helpBlockpassword = '';
+                  this.helpBlockrepassword = '';
+                  this.helpBlockfirstName = '';
+                  this.helpBlocklastName = '';
+                  this.helpBlocktype = '';
+            }
+      }, {
+            key: 'onGetUserFail',
+            value: function onGetUserFail(jqXhr) {
+                  toastr.error(jqXhr.responseJSON.message);
+            }
+      }, {
+            key: 'onAddUserSuccess',
+            value: function onAddUserSuccess(SuccessMessage) {
+                  this.id = '';
+                  this.userName = '';
+                  this.passWord = '';
+                  this.repassWord = '';
+                  this.firstName = '';
+                  this.lastName = '';
+                  this.Type = 3;
+                  this.userNameValidationState = 'has-success';
+                  this.passWordValidationState = 'has-success';
+                  this.repassWordValidationState = 'has-success';
+                  this.fistNameValidationState = 'has-success';
+                  this.lastNameValidationState = 'has-success';
+                  this.typeValidationState = 'has-success';
+
+                  this.helpBlockuserName = '';
+                  this.helpBlockpassword = '';
+                  this.helpBlockrepassword = '';
+                  this.helpBlockfirstName = '';
+                  this.helpBlocklastName = '';
+                  this.helpBlocktype = SuccessMessage;
+                  _listUsersActions2.default.get();
+            }
+      }, {
+            key: 'onAddUserFail',
+            value: function onAddUserFail(errorMessage) {
+
+                  this.userNameValidationState = 'has-error';
+                  this.passWordValidationState = 'has-error';
+                  this.repassWordValidationState = 'has-error';
+                  this.fistNameValidationState = 'has-error';
+                  this.lastNameValidationState = 'has-error';
+                  this.typeValidationState = 'has-error';
+
+                  this.id = '';
+                  this.userName = '';
+                  this.passWord = '';
+                  this.repassWord = '';
+                  this.firstName = '';
+                  this.lastName = '';
+                  this.Type = 3;
+
+                  this.helpBlockuserName = errorMessage;
+                  this.helpBlockpassword = errorMessage;
+                  this.helpBlockrepassword = errorMessage;
+                  this.helpBlockfirstName = errorMessage;
+                  this.helpBlocklastName = errorMessage;
+                  this.helpBlocktype = errorMessage;
+            }
+      }, {
+            key: 'onUpdateuserName',
+            value: function onUpdateuserName(event) {
+                  this.userName = event.target.value;
+                  this.userNameValidationState = '';
+                  this.helpBlockuserName = '';
+            }
+      }, {
+            key: 'onUpdatepassword',
+            value: function onUpdatepassword(event) {
+                  this.passWord = event.target.value;
+                  this.directorValidationState = '';
+                  this.helpBlockpassword = '';
+            }
+      }, {
+            key: 'onUpdaterepassword',
+            value: function onUpdaterepassword(event) {
+                  this.repassWord = event.target.value;
+                  this.repassWordValidationState = '';
+                  this.helpBlockrepassword = '';
+            }
+      }, {
+            key: 'onUpdatefirstName',
+            value: function onUpdatefirstName(event) {
+                  this.firstName = event.target.value;
+                  this.fistNameValidationState = '';
+                  this.helpBlockfirstName = '';
+            }
+      }, {
+            key: 'onUpdatelastName',
+            value: function onUpdatelastName(event) {
+                  this.lastName = event.target.value;
+                  this.lastNameValidationState = '';
+                  this.helpBlocklastName = '';
+            }
+      }, {
+            key: 'onUpdateType',
+            value: function onUpdateType(event) {
+                  this.Type = event.target.value;
+                  this.typeValidationState = '';
+                  this.helpBlocktype = '';
+                  console.log(this.Type);
+            }
+      }, {
+            key: 'onInvaliduserName',
+            value: function onInvaliduserName() {
+                  this.userNameValidationState = 'has-error';
+                  this.helpBlockuserName = 'Please enter UserName';
+            }
+      }, {
+            key: 'onInvalidpassword',
+            value: function onInvalidpassword() {
+                  this.passWordValidationState = 'has-error';
+                  this.helpBlockpassword = 'Please enter Password';
+            }
+      }, {
+            key: 'onInvalidrepassword',
+            value: function onInvalidrepassword() {
+                  this.repassWordValidationState = 'has-error';
+                  this.helpBlockrepassword = 'Please enter Password';
+            }
+      }, {
+            key: 'onInvalidfirstName',
+            value: function onInvalidfirstName() {
+                  this.fistNameValidationState = 'has-error';
+                  this.helpBlockfirstName = 'Please enter your firstName';
+            }
+      }, {
+            key: 'onInvalidlastName',
+            value: function onInvalidlastName() {
+                  this.lastNameValidationState = 'has-error';
+                  this.helpBlocklastName = "Please enter your lastName";
+            }
+      }, {
+            key: 'onInvalidType',
+            value: function onInvalidType() {
+                  this.typeValidationState = 'has-error';
+                  this.helpBlocktype = 'Please choose type';
+            }
+      }, {
+            key: 'onPasswordNotSame',
+            value: function onPasswordNotSame() {
+                  this.passWord = '';
+                  this.repassWord = '';
+                  this.repassWordValidationState = 'has-error';
+                  this.helpBlockrepassword = 'Password not same! Enter again';
+            }
+      }, {
+            key: 'onResetAll',
+            value: function onResetAll() {
+                  this.userNameValidationState = '';
+                  this.passWordValidationState = '';
+                  this.repassWordValidationState = '';
+                  this.fistNameValidationState = '';
+                  this.lastNameValidationState = '';
+                  this.typeValidationState = '';
+
+                  this.helpBlockuserName = '';
+                  this.helpBlockpassword = '';
+                  this.helpBlockrepassword = '';
+                  this.helpBlockfirstName = '';
+                  this.helpBlocklastName = '';
+                  this.helpBlocktype = '';
+                  this.userName = '';
+                  this.passWord = '';
+                  this.repassWord = '';
+                  this.firstName = '';
+                  this.lastName = '';
+                  this.Type = 3;
+            }
+      }]);
+
+      return AddUserStore;
+}();
+
+exports.default = _alt2.default.createStore(AddUserStore);
+
+},{"../../../actions/admin/usermanage/AddUserActions":5,"../../../actions/admin/usermanage/listUsersActions":6,"../../../alt":9}],31:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _alt = require('../../../alt');
+
+var _alt2 = _interopRequireDefault(_alt);
+
+var _listUsersActions = require('../../../actions/admin/usermanage/listUsersActions');
+
+var _listUsersActions2 = _interopRequireDefault(_listUsersActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var listUsersStore = function () {
+  function listUsersStore() {
+    _classCallCheck(this, listUsersStore);
+
+    this.bindActions(_listUsersActions2.default);
+    this.users = [];
+    this.deletemessage = '';
+  }
+
+  _createClass(listUsersStore, [{
+    key: 'onGetUsersuccess',
+    value: function onGetUsersuccess(data) {
+      this.users = data;
+    }
+  }, {
+    key: 'onGetUserfail',
+    value: function onGetUserfail(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
+    }
+  }, {
+    key: 'onDeletesuccess',
+    value: function onDeletesuccess(message) {
+      this.deletemessage = message;
+    }
+  }, {
+    key: 'onDeletefail',
+    value: function onDeletefail(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
+    }
+  }]);
+
+  return listUsersStore;
+}();
+
+exports.default = _alt2.default.createStore(listUsersStore);
+
+},{"../../../actions/admin/usermanage/listUsersActions":6,"../../../alt":9}],32:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1994,7 +3131,7 @@ var bookStore = function () {
 
 exports.default = _alt2.default.createStore(bookStore);
 
-},{"../actions/bookActions":5,"../alt":7}],25:[function(require,module,exports){
+},{"../actions/bookActions":7,"../alt":9}],33:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2051,136 +3188,100 @@ var listBooksStore = function () {
 
 exports.default = _alt2.default.createStore(listBooksStore);
 
-},{"../actions/listBooksActions":6,"../alt":7}],26:[function(require,module,exports){
-var pSlice = Array.prototype.slice;
-var objectKeys = require('./lib/keys.js');
-var isArguments = require('./lib/is_arguments.js');
+},{"../actions/listBooksActions":8,"../alt":9}],34:[function(require,module,exports){
+// shim for using process in browser
 
-var deepEqual = module.exports = function (actual, expected, opts) {
-  if (!opts) opts = {};
-  // 7.1. All identical values are equivalent, as determined by ===.
-  if (actual === expected) {
-    return true;
+var process = module.exports = {};
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
 
-  } else if (actual instanceof Date && expected instanceof Date) {
-    return actual.getTime() === expected.getTime();
-
-  // 7.3. Other pairs that do not both pass typeof value == 'object',
-  // equivalence is determined by ==.
-  } else if (!actual || !expected || typeof actual != 'object' && typeof expected != 'object') {
-    return opts.strict ? actual === expected : actual == expected;
-
-  // 7.4. For all other Object pairs, including Array objects, equivalence is
-  // determined by having the same number of owned properties (as verified
-  // with Object.prototype.hasOwnProperty.call), the same set of keys
-  // (although not necessarily the same order), equivalent values for every
-  // corresponding key, and an identical 'prototype' property. Note: this
-  // accounts for both named and indexed properties on Arrays.
-  } else {
-    return objEquiv(actual, expected, opts);
-  }
-}
-
-function isUndefinedOrNull(value) {
-  return value === null || value === undefined;
-}
-
-function isBuffer (x) {
-  if (!x || typeof x !== 'object' || typeof x.length !== 'number') return false;
-  if (typeof x.copy !== 'function' || typeof x.slice !== 'function') {
-    return false;
-  }
-  if (x.length > 0 && typeof x[0] !== 'number') return false;
-  return true;
-}
-
-function objEquiv(a, b, opts) {
-  var i, key;
-  if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
-    return false;
-  // an identical 'prototype' property.
-  if (a.prototype !== b.prototype) return false;
-  //~~~I've managed to break Object.keys through screwy arguments passing.
-  //   Converting to array solves the problem.
-  if (isArguments(a)) {
-    if (!isArguments(b)) {
-      return false;
+function cleanUpNextTick() {
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
     }
-    a = pSlice.call(a);
-    b = pSlice.call(b);
-    return deepEqual(a, b, opts);
-  }
-  if (isBuffer(a)) {
-    if (!isBuffer(b)) {
-      return false;
+    if (queue.length) {
+        drainQueue();
     }
-    if (a.length !== b.length) return false;
-    for (i = 0; i < a.length; i++) {
-      if (a[i] !== b[i]) return false;
-    }
-    return true;
-  }
-  try {
-    var ka = objectKeys(a),
-        kb = objectKeys(b);
-  } catch (e) {//happens when one is a string literal and the other isn't
-    return false;
-  }
-  // having the same number of owned properties (keys incorporates
-  // hasOwnProperty)
-  if (ka.length != kb.length)
-    return false;
-  //the same set of keys (although not necessarily the same order),
-  ka.sort();
-  kb.sort();
-  //~~~cheap key test
-  for (i = ka.length - 1; i >= 0; i--) {
-    if (ka[i] != kb[i])
-      return false;
-  }
-  //equivalent values for every corresponding key, and
-  //~~~possibly expensive deep test
-  for (i = ka.length - 1; i >= 0; i--) {
-    key = ka[i];
-    if (!deepEqual(a[key], b[key], opts)) return false;
-  }
-  return typeof a === typeof b;
 }
 
-},{"./lib/is_arguments.js":27,"./lib/keys.js":28}],27:[function(require,module,exports){
-var supportsArgumentsClass = (function(){
-  return Object.prototype.toString.call(arguments)
-})() == '[object Arguments]';
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = setTimeout(cleanUpNextTick);
+    draining = true;
 
-exports = module.exports = supportsArgumentsClass ? supported : unsupported;
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    clearTimeout(timeout);
+}
 
-exports.supported = supported;
-function supported(object) {
-  return Object.prototype.toString.call(object) == '[object Arguments]';
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        setTimeout(drainQueue, 0);
+    }
 };
 
-exports.unsupported = unsupported;
-function unsupported(object){
-  return object &&
-    typeof object == 'object' &&
-    typeof object.length == 'number' &&
-    Object.prototype.hasOwnProperty.call(object, 'callee') &&
-    !Object.prototype.propertyIsEnumerable.call(object, 'callee') ||
-    false;
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
 };
 
-},{}],28:[function(require,module,exports){
-exports = module.exports = typeof Object.keys === 'function'
-  ? Object.keys : shim;
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
 
-exports.shim = shim;
-function shim (obj) {
-  var keys = [];
-  for (var key in obj) keys.push(key);
-  return keys;
-}
-
-},{}],29:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /**
  * Indicates that navigation was caused by a call to history.push.
  */
@@ -2212,7 +3313,7 @@ exports['default'] = {
   REPLACE: REPLACE,
   POP: POP
 };
-},{}],30:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -2239,7 +3340,7 @@ function loopAsync(turns, work, callback) {
 
   next();
 }
-},{}],31:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 (function (process){
 /*eslint-disable no-empty */
 'use strict';
@@ -2311,7 +3412,7 @@ function readState(key) {
 }
 }).call(this,require('_process'))
 
-},{"_process":43,"warning":44}],32:[function(require,module,exports){
+},{"_process":34,"warning":52}],38:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -2392,13 +3493,13 @@ function supportsGoWithoutReloadUsingHash() {
   var ua = navigator.userAgent;
   return ua.indexOf('Firefox') === -1;
 }
-},{}],33:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
 var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 exports.canUseDOM = canUseDOM;
-},{}],34:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2580,7 +3681,7 @@ exports['default'] = createBrowserHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"./Actions":29,"./DOMStateStorage":31,"./DOMUtils":32,"./ExecutionEnvironment":33,"./createDOMHistory":35,"./parsePath":40,"_process":43,"invariant":42}],35:[function(require,module,exports){
+},{"./Actions":35,"./DOMStateStorage":37,"./DOMUtils":38,"./ExecutionEnvironment":39,"./createDOMHistory":41,"./parsePath":46,"_process":34,"invariant":51}],41:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2624,7 +3725,7 @@ exports['default'] = createDOMHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"./DOMUtils":32,"./ExecutionEnvironment":33,"./createHistory":36,"_process":43,"invariant":42}],36:[function(require,module,exports){
+},{"./DOMUtils":38,"./ExecutionEnvironment":39,"./createHistory":42,"_process":34,"invariant":51}],42:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -2916,7 +4017,7 @@ function createHistory() {
 
 exports['default'] = createHistory;
 module.exports = exports['default'];
-},{"./Actions":29,"./AsyncUtils":30,"./createLocation":37,"./deprecate":38,"./parsePath":40,"./runTransitionHook":41,"deep-equal":26}],37:[function(require,module,exports){
+},{"./Actions":35,"./AsyncUtils":36,"./createLocation":43,"./deprecate":44,"./parsePath":46,"./runTransitionHook":47,"deep-equal":48}],43:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -2971,7 +4072,7 @@ function createLocation() {
 
 exports['default'] = createLocation;
 module.exports = exports['default'];
-},{"./Actions":29,"./parsePath":40}],38:[function(require,module,exports){
+},{"./Actions":35,"./parsePath":46}],44:[function(require,module,exports){
 //import warning from 'warning'
 
 "use strict";
@@ -2987,7 +4088,7 @@ function deprecate(fn) {
 
 exports["default"] = deprecate;
 module.exports = exports["default"];
-},{}],39:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -3001,7 +4102,7 @@ function extractPath(string) {
 
 exports["default"] = extractPath;
 module.exports = exports["default"];
-},{}],40:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3049,7 +4150,7 @@ exports['default'] = parsePath;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"./extractPath":39,"_process":43,"warning":44}],41:[function(require,module,exports){
+},{"./extractPath":45,"_process":34,"warning":52}],47:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3077,7 +4178,136 @@ exports['default'] = runTransitionHook;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"_process":43,"warning":44}],42:[function(require,module,exports){
+},{"_process":34,"warning":52}],48:[function(require,module,exports){
+var pSlice = Array.prototype.slice;
+var objectKeys = require('./lib/keys.js');
+var isArguments = require('./lib/is_arguments.js');
+
+var deepEqual = module.exports = function (actual, expected, opts) {
+  if (!opts) opts = {};
+  // 7.1. All identical values are equivalent, as determined by ===.
+  if (actual === expected) {
+    return true;
+
+  } else if (actual instanceof Date && expected instanceof Date) {
+    return actual.getTime() === expected.getTime();
+
+  // 7.3. Other pairs that do not both pass typeof value == 'object',
+  // equivalence is determined by ==.
+  } else if (!actual || !expected || typeof actual != 'object' && typeof expected != 'object') {
+    return opts.strict ? actual === expected : actual == expected;
+
+  // 7.4. For all other Object pairs, including Array objects, equivalence is
+  // determined by having the same number of owned properties (as verified
+  // with Object.prototype.hasOwnProperty.call), the same set of keys
+  // (although not necessarily the same order), equivalent values for every
+  // corresponding key, and an identical 'prototype' property. Note: this
+  // accounts for both named and indexed properties on Arrays.
+  } else {
+    return objEquiv(actual, expected, opts);
+  }
+}
+
+function isUndefinedOrNull(value) {
+  return value === null || value === undefined;
+}
+
+function isBuffer (x) {
+  if (!x || typeof x !== 'object' || typeof x.length !== 'number') return false;
+  if (typeof x.copy !== 'function' || typeof x.slice !== 'function') {
+    return false;
+  }
+  if (x.length > 0 && typeof x[0] !== 'number') return false;
+  return true;
+}
+
+function objEquiv(a, b, opts) {
+  var i, key;
+  if (isUndefinedOrNull(a) || isUndefinedOrNull(b))
+    return false;
+  // an identical 'prototype' property.
+  if (a.prototype !== b.prototype) return false;
+  //~~~I've managed to break Object.keys through screwy arguments passing.
+  //   Converting to array solves the problem.
+  if (isArguments(a)) {
+    if (!isArguments(b)) {
+      return false;
+    }
+    a = pSlice.call(a);
+    b = pSlice.call(b);
+    return deepEqual(a, b, opts);
+  }
+  if (isBuffer(a)) {
+    if (!isBuffer(b)) {
+      return false;
+    }
+    if (a.length !== b.length) return false;
+    for (i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+  try {
+    var ka = objectKeys(a),
+        kb = objectKeys(b);
+  } catch (e) {//happens when one is a string literal and the other isn't
+    return false;
+  }
+  // having the same number of owned properties (keys incorporates
+  // hasOwnProperty)
+  if (ka.length != kb.length)
+    return false;
+  //the same set of keys (although not necessarily the same order),
+  ka.sort();
+  kb.sort();
+  //~~~cheap key test
+  for (i = ka.length - 1; i >= 0; i--) {
+    if (ka[i] != kb[i])
+      return false;
+  }
+  //equivalent values for every corresponding key, and
+  //~~~possibly expensive deep test
+  for (i = ka.length - 1; i >= 0; i--) {
+    key = ka[i];
+    if (!deepEqual(a[key], b[key], opts)) return false;
+  }
+  return typeof a === typeof b;
+}
+
+},{"./lib/is_arguments.js":49,"./lib/keys.js":50}],49:[function(require,module,exports){
+var supportsArgumentsClass = (function(){
+  return Object.prototype.toString.call(arguments)
+})() == '[object Arguments]';
+
+exports = module.exports = supportsArgumentsClass ? supported : unsupported;
+
+exports.supported = supported;
+function supported(object) {
+  return Object.prototype.toString.call(object) == '[object Arguments]';
+};
+
+exports.unsupported = unsupported;
+function unsupported(object){
+  return object &&
+    typeof object == 'object' &&
+    typeof object.length == 'number' &&
+    Object.prototype.hasOwnProperty.call(object, 'callee') &&
+    !Object.prototype.propertyIsEnumerable.call(object, 'callee') ||
+    false;
+};
+
+},{}],50:[function(require,module,exports){
+exports = module.exports = typeof Object.keys === 'function'
+  ? Object.keys : shim;
+
+exports.shim = shim;
+function shim (obj) {
+  var keys = [];
+  for (var key in obj) keys.push(key);
+  return keys;
+}
+
+},{}],51:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -3133,100 +4363,7 @@ module.exports = invariant;
 
 }).call(this,require('_process'))
 
-},{"_process":43}],43:[function(require,module,exports){
-// shim for using process in browser
-
-var process = module.exports = {};
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = setTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    clearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}],44:[function(require,module,exports){
+},{"_process":34}],52:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -3291,7 +4428,7 @@ module.exports = warning;
 
 }).call(this,require('_process'))
 
-},{"_process":43}]},{},[17])
+},{"_process":34}]},{},[23])
 
 
 //# sourceMappingURL=bundle.js.map

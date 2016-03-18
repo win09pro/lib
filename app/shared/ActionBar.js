@@ -3,11 +3,11 @@ import {Link} from 'react-router';
 
 export default class ActionBar extends React.Component {
   delete() {
-    this.props.deleteAction.delete(this.props.itembook);
-    this.props.deleteAction.getBook();
+    this.props.deleteAction.delete(this.props.item);
+    this.props.deleteAction.get();
   }
   edit() {   
-    this.props.editAction.getBook(this.props.itembook._id); 
+    this.props.editAction.getById(this.props.item._id); 
   }
   showProfile(){   
 
