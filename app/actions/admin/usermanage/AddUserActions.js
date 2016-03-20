@@ -28,12 +28,12 @@ class AddUserActions {
       );
   }    
 
-  uploadImage(imageurl)
+  uploadImage(imgfile)
   {   
     $.ajax({
       type:'POST',
       url:'/api/imageupload',
-      data:{path:"123"}     
+      data:{file:imgfile}     
     })
     .done((data) => {
       this.actions.uploadSuccess(data);

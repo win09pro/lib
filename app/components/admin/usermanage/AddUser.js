@@ -34,8 +34,8 @@ class AddUser extends React.Component {
      event.preventDefault();
      var imgfile = this.state.fileAvatar;
      var imgURL = this.state.imagePreviewUrl;
-     AddUserActions.uploadImage(imgURL);
-     console.log(imgURL);
+     AddUserActions.uploadImage(imgfile);
+     //console.log(imgURL);
   
     var id = this.state.id;
     var username = this.state.userName.trim();

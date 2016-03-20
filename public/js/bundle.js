@@ -220,13 +220,13 @@ var AddUserActions = function () {
 
   _createClass(AddUserActions, [{
     key: 'uploadImage',
-    value: function uploadImage(imageurl) {
+    value: function uploadImage(imgfile) {
       var _this = this;
 
       $.ajax({
         type: 'POST',
         url: '/api/imageupload',
-        data: { path: "123" }
+        data: { file: imgfile }
       }).done(function (data) {
         _this.actions.uploadSuccess(data);
       }).fail(function (jqXhr) {
@@ -1685,8 +1685,8 @@ var AddUser = function (_React$Component) {
       event.preventDefault();
       var imgfile = this.state.fileAvatar;
       var imgURL = this.state.imagePreviewUrl;
-      _AddUserActions2.default.uploadImage(imgURL);
-      console.log(imgURL);
+      _AddUserActions2.default.uploadImage(imgfile);
+      //console.log(imgURL);
 
       var id = this.state.id;
       var username = this.state.userName.trim();
@@ -2533,11 +2533,13 @@ var ImgUpload = function (_React$Component) {
     value: function handleFile(e) {
       var reader = new FileReader();
       var file = e.target.files[0];
+      console.log(file);
       if (!file) return;
 
       reader.onload = function (img) {
         _reactDom2.default.findDOMNode(this.refs.in).value = '';
         this.props.actions.updateAvatarpreview(img.target.result);
+
         this.props.actions.updateAvatarfile(file);
       }.bind(this);
       reader.readAsDataURL(file);

@@ -23,6 +23,9 @@ var User = require('./models/User');
 var config = require('./config');
 
 mongoose.connect(config.database);
+
+console.log(config.database);
+
 mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
 });
@@ -37,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 /**UPLOAD**/
 app.post('/api/imageupload',function(req,res,next) {
-  var path = req.body.path;
+  var file = req.body.file;
   
   fs.readFile(path, function(err, data)
   {    
