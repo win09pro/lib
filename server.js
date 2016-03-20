@@ -9,6 +9,9 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan'); //HTTP request logger.
 var bodyParser = require('body-parser');  //For parsing POST request data.
+var multiparty = require('multiparty');
+var fs = require('fs');
+
 
 var async = require('async');
 var request = require('request');
@@ -32,6 +35,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+/**UPLOAD**/
+app.post('/api/imageupload',function(req,res,next) {
+  var path = req.body.path;
+  
+  fs.readFile(path, function(err, data)
+  {    
+    var newPath  = __dirname + "uploads/"+path;
+    fs.writeFile(newPath, data, function (err) {
+  
+ })
+  });  
+});
+
+
 /**USER**/
 /**
  * POST /api/user
