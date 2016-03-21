@@ -40,8 +40,8 @@ class ListBooks extends React.Component {
     let userList = this.state.users.map((user, index) => {
       return (
         <tr key ={index} onClick = {this.getComponent.bind(this)}>
-          <td>{index+1}</td>
-          <td><Link to={'/admin/user/'+user._id}>{user.username}</Link></td>
+          <td><img src ={user.avatar} width = "35px" height ="35px" /></td>
+          <td><Link to={'/admin/user/'+user._id}>{user.username}</Link></td>          
           <td>{user.password}</td>
           <td>{user.name.first}</td>
           <td>{user.name.last}</td>
@@ -62,7 +62,7 @@ class ListBooks extends React.Component {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>UserName</th>
+                      <th>UserName</th>                      
                       <th>Password</th>        
                       <th>Firstname</th>  
                       <th>LastName</th>

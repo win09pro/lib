@@ -20,7 +20,8 @@ var userSchema = new mongoose.Schema({
   type:{
   	type:Number,
   	default:3
-  } 
+  },
+  avatar: String  
 });
 
 userSchema.pre('save', function(next) {

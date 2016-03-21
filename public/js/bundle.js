@@ -207,6 +207,10 @@ var _alt = require('../../../alt');
 
 var _alt2 = _interopRequireDefault(_alt);
 
+var _formData = require('form-data');
+
+var _formData2 = _interopRequireDefault(_formData);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -223,12 +227,16 @@ var AddUserActions = function () {
     value: function uploadImage(imgfile) {
       var _this = this;
 
+      var fd = new _formData2.default();
+      fd.append('file', imgfile);
       $.ajax({
-        type: 'POST',
         url: '/api/imageupload',
-        data: { file: imgfile }
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST'
       }).done(function (data) {
-        _this.actions.uploadSuccess(data);
+        _this.actions.uploadSuccess(data.link);
       }).fail(function (jqXhr) {
         _this.actions.uploadFail(jqXhr.responseJSON.message);
       });
@@ -259,7 +267,9 @@ var AddUserActions = function () {
           firstName: payload.firstName,
           lastName: payload.lastName,
           barcode: payload.barcode,
-          type: payload.type }
+          type: payload.type,
+          avatar: payload.avatar
+        }
       }).done(function (data) {
         _this3.actions.addUserSuccess(data.message);
       }).fail(function (jqXhr) {
@@ -273,7 +283,7 @@ var AddUserActions = function () {
 
 exports.default = _alt2.default.createActions(AddUserActions);
 
-},{"../../../alt":9}],6:[function(require,module,exports){
+},{"../../../alt":9,"form-data":36}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1625,6 +1635,14 @@ var _reactDropzone = require('react-dropzone');
 
 var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
 
+var _formData = require('form-data');
+
+var _formData2 = _interopRequireDefault(_formData);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _AddUserStore = require('../../../stores/admin/usermanage/AddUserStore');
 
 var _AddUserStore2 = _interopRequireDefault(_AddUserStore);
@@ -1680,13 +1698,22 @@ var AddUser = function (_React$Component) {
       //console.log(this.state.userNameValidationState);
     }
   }, {
-    key: 'handleSubmitUser',
-    value: function handleSubmitUser(event) {
-      event.preventDefault();
+    key: 'upload',
+    value: function upload(event) {
       var imgfile = this.state.fileAvatar;
       var imgURL = this.state.imagePreviewUrl;
       _AddUserActions2.default.uploadImage(imgfile);
-      //console.log(imgURL);
+      console.log(this.state.imageUrl);
+    }
+  }, {
+    key: 'detele',
+    value: function detele(event) {
+
+      console.log(this.state.imageUrl);
+    }
+  }, {
+    key: 'handleSubmitUser',
+    value: function handleSubmitUser(event) {
 
       var id = this.state.id;
       var username = this.state.userName.trim();
@@ -1732,9 +1759,11 @@ var AddUser = function (_React$Component) {
           firstName: firstname,
           lastName: lastname,
           barcode: barcode,
-          type: Number(type)
+          type: Number(type),
+          avatar: this.state.imageUrl
         });
       }
+      event.preventDefault();
     }
   }, {
     key: 'render',
@@ -1887,6 +1916,7 @@ var AddUser = function (_React$Component) {
                       { className: 'control-label' },
                       'Chọn ảnh đại diện'
                     ),
+                    _react2.default.createElement('div', { className: 'clear-both' }),
                     _react2.default.createElement(
                       'div',
                       { className: 'avatar-photo' },
@@ -1896,9 +1926,24 @@ var AddUser = function (_React$Component) {
                         { className: 'avatar-edit' },
                         _react2.default.createElement('i', { className: 'fa fa-camera' })
                       ),
-                      _react2.default.createElement('img', { src: this.state.imagePreviewUrl, height: '200px', width: '200px' })
+                      _react2.default.createElement('img', { src: this.state.imagePreviewUrl, height: '200px', width: '200px', alt: 'avatar' })
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      null,
+                      _react2.default.createElement(
+                        'button',
+                        { type: 'button', className: 'btn btn-success', onClick: this.upload.bind(this) },
+                        _react2.default.createElement('i', { className: 'fa fa-check' })
+                      ),
+                      _react2.default.createElement(
+                        'button',
+                        { type: 'button', className: 'btn btn-danger', onClick: this.detele.bind(this) },
+                        _react2.default.createElement('i', { className: 'fa fa-times' })
+                      )
                     )
                   ),
+                  _react2.default.createElement('div', { className: 'clear-both' }),
                   _react2.default.createElement('input', { type: 'button', className: 'btn btn-warning', onClick: this.reset.bind(this), value: 'Reset' }),
                   _react2.default.createElement(
                     'button',
@@ -1919,7 +1964,7 @@ var AddUser = function (_React$Component) {
 
 exports.default = AddUser;
 
-},{"../../../actions/admin/usermanage/AddUserActions":5,"../../../shared/ImgUpload":26,"../../../stores/admin/usermanage/AddUserStore":31,"react":"react","react-dropzone":54}],20:[function(require,module,exports){
+},{"../../../actions/admin/usermanage/AddUserActions":5,"../../../shared/ImgUpload":26,"../../../stores/admin/usermanage/AddUserStore":31,"form-data":36,"react":"react","react-dom":"react-dom","react-dropzone":55}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2011,7 +2056,7 @@ var ListBooks = function (_React$Component) {
           _react2.default.createElement(
             'td',
             null,
-            index + 1
+            _react2.default.createElement('img', { src: user.avatar, width: '35px', height: '35px' })
           ),
           _react2.default.createElement(
             'td',
@@ -2362,7 +2407,7 @@ _reactDom2.default.render(_react2.default.createElement(
   _routes2.default
 ), document.getElementById('app'));
 
-},{"./routes":24,"history/lib/createBrowserHistory":41,"react":"react","react-dom":"react-dom","react-router":"react-router"}],24:[function(require,module,exports){
+},{"./routes":24,"history/lib/createBrowserHistory":42,"react":"react","react-dom":"react-dom","react-router":"react-router"}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2533,13 +2578,10 @@ var ImgUpload = function (_React$Component) {
     value: function handleFile(e) {
       var reader = new FileReader();
       var file = e.target.files[0];
-      console.log(file);
       if (!file) return;
-
       reader.onload = function (img) {
         _reactDom2.default.findDOMNode(this.refs.in).value = '';
         this.props.actions.updateAvatarpreview(img.target.result);
-
         this.props.actions.updateAvatarfile(file);
       }.bind(this);
       reader.readAsDataURL(file);
@@ -2928,8 +2970,8 @@ var AddUserStore = function () {
             this.lastName = '';
             this.Type = '';
             this.fileAvatar = {};
-            this.imagePreviewUrl = 'http://i57.servimg.com/u/f57/16/18/15/10/1866.jpg';
-            this.imageUrl = '';
+            this.imagePreviewUrl = '/uploads/avatar.jpg';
+            this.imageUrl = '/uploads/avatar.jpg';
             this.userNameValidationState = '';
             this.passWordValidationState = '';
             this.repassWordValidationState = '';
@@ -2955,6 +2997,8 @@ var AddUserStore = function () {
                   this.firstName = data.name.first;
                   this.lastName = data.name.last;
                   this.Type = data.type;
+                  this.imagePreviewUrl = data.avatar;
+                  this.imageUrl = data.avatar;
 
                   this.userNameValidationState = '';
                   this.passWordValidationState = '';
@@ -2986,8 +3030,8 @@ var AddUserStore = function () {
                   this.lastName = '';
                   this.Type = '';
                   this.fileAvatar = {};
-                  this.imagePreviewUrl = 'http://i57.servimg.com/u/f57/16/18/15/10/1866.jpg';
-                  this.imageUrl = '';
+                  this.imagePreviewUrl = '/uploads/avatar.jpg';
+                  this.imageUrl = '/uploads/avatar.jpg';
                   this.userNameValidationState = 'has-success';
                   this.passWordValidationState = 'has-success';
                   this.repassWordValidationState = 'has-success';
@@ -3022,8 +3066,8 @@ var AddUserStore = function () {
                   this.lastName = '';
                   this.Type = 3;
                   this.fileAvatar = {};
-                  this.imagePreviewUrl = 'http://i57.servimg.com/u/f57/16/18/15/10/1866.jpg';
-                  this.imageUrl = '';
+                  this.imagePreviewUrl = '/uploads/avatar.jpg';
+                  this.imageUrl = '/uploads/avatar.jpg';
 
                   this.helpBlockuserName = errorMessage;
                   this.helpBlockpassword = errorMessage;
@@ -3139,8 +3183,8 @@ var AddUserStore = function () {
                   this.lastName = '';
                   this.Type = '';
                   this.fileAvatar = {};
-                  this.imagePreviewUrl = 'http://i57.servimg.com/u/f57/16/18/15/10/1866.jpg';
-                  this.imageUrl = '';
+                  this.imagePreviewUrl = '/uploads/avatar.jpg';
+                  this.imageUrl = '/uploads/avatar.jpg';
                   this.userNameValidationState = '';
                   this.passWordValidationState = '';
                   this.repassWordValidationState = '';
@@ -3157,8 +3201,9 @@ var AddUserStore = function () {
             }
       }, {
             key: 'onUploadSuccess',
-            value: function onUploadSuccess(data) {
-                  console.log('ok');
+            value: function onUploadSuccess(link) {
+                  this.imageUrl = link;
+                  console.log(this.imageUrl);
             }
       }, {
             key: 'onUploadFail',
@@ -3428,6 +3473,10 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],36:[function(require,module,exports){
+/* eslint-env browser */
+module.exports = FormData;
+
+},{}],37:[function(require,module,exports){
 /**
  * Indicates that navigation was caused by a call to history.push.
  */
@@ -3459,7 +3508,7 @@ exports['default'] = {
   REPLACE: REPLACE,
   POP: POP
 };
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -3486,7 +3535,7 @@ function loopAsync(turns, work, callback) {
 
   next();
 }
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 (function (process){
 /*eslint-disable no-empty */
 'use strict';
@@ -3558,7 +3607,7 @@ function readState(key) {
 }
 }).call(this,require('_process'))
 
-},{"_process":35,"warning":53}],39:[function(require,module,exports){
+},{"_process":35,"warning":54}],40:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -3639,13 +3688,13 @@ function supportsGoWithoutReloadUsingHash() {
   var ua = navigator.userAgent;
   return ua.indexOf('Firefox') === -1;
 }
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
 var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 exports.canUseDOM = canUseDOM;
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3827,7 +3876,7 @@ exports['default'] = createBrowserHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"./Actions":36,"./DOMStateStorage":38,"./DOMUtils":39,"./ExecutionEnvironment":40,"./createDOMHistory":42,"./parsePath":47,"_process":35,"invariant":52}],42:[function(require,module,exports){
+},{"./Actions":37,"./DOMStateStorage":39,"./DOMUtils":40,"./ExecutionEnvironment":41,"./createDOMHistory":43,"./parsePath":48,"_process":35,"invariant":53}],43:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3871,7 +3920,7 @@ exports['default'] = createDOMHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"./DOMUtils":39,"./ExecutionEnvironment":40,"./createHistory":43,"_process":35,"invariant":52}],43:[function(require,module,exports){
+},{"./DOMUtils":40,"./ExecutionEnvironment":41,"./createHistory":44,"_process":35,"invariant":53}],44:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -4163,7 +4212,7 @@ function createHistory() {
 
 exports['default'] = createHistory;
 module.exports = exports['default'];
-},{"./Actions":36,"./AsyncUtils":37,"./createLocation":44,"./deprecate":45,"./parsePath":47,"./runTransitionHook":48,"deep-equal":49}],44:[function(require,module,exports){
+},{"./Actions":37,"./AsyncUtils":38,"./createLocation":45,"./deprecate":46,"./parsePath":48,"./runTransitionHook":49,"deep-equal":50}],45:[function(require,module,exports){
 //import warning from 'warning'
 'use strict';
 
@@ -4218,7 +4267,7 @@ function createLocation() {
 
 exports['default'] = createLocation;
 module.exports = exports['default'];
-},{"./Actions":36,"./parsePath":47}],45:[function(require,module,exports){
+},{"./Actions":37,"./parsePath":48}],46:[function(require,module,exports){
 //import warning from 'warning'
 
 "use strict";
@@ -4234,7 +4283,7 @@ function deprecate(fn) {
 
 exports["default"] = deprecate;
 module.exports = exports["default"];
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -4248,7 +4297,7 @@ function extractPath(string) {
 
 exports["default"] = extractPath;
 module.exports = exports["default"];
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -4296,7 +4345,7 @@ exports['default'] = parsePath;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"./extractPath":46,"_process":35,"warning":53}],48:[function(require,module,exports){
+},{"./extractPath":47,"_process":35,"warning":54}],49:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -4324,7 +4373,7 @@ exports['default'] = runTransitionHook;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"_process":35,"warning":53}],49:[function(require,module,exports){
+},{"_process":35,"warning":54}],50:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
 var objectKeys = require('./lib/keys.js');
 var isArguments = require('./lib/is_arguments.js');
@@ -4420,7 +4469,7 @@ function objEquiv(a, b, opts) {
   return typeof a === typeof b;
 }
 
-},{"./lib/is_arguments.js":50,"./lib/keys.js":51}],50:[function(require,module,exports){
+},{"./lib/is_arguments.js":51,"./lib/keys.js":52}],51:[function(require,module,exports){
 var supportsArgumentsClass = (function(){
   return Object.prototype.toString.call(arguments)
 })() == '[object Arguments]';
@@ -4442,7 +4491,7 @@ function unsupported(object){
     false;
 };
 
-},{}],51:[function(require,module,exports){
+},{}],52:[function(require,module,exports){
 exports = module.exports = typeof Object.keys === 'function'
   ? Object.keys : shim;
 
@@ -4453,7 +4502,7 @@ function shim (obj) {
   return keys;
 }
 
-},{}],52:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -4509,7 +4558,7 @@ module.exports = invariant;
 
 }).call(this,require('_process'))
 
-},{"_process":35}],53:[function(require,module,exports){
+},{"_process":35}],54:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -4574,7 +4623,7 @@ module.exports = warning;
 
 }).call(this,require('_process'))
 
-},{"_process":35}],54:[function(require,module,exports){
+},{"_process":35}],55:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -4855,7 +4904,7 @@ Dropzone.propTypes = {
 
 exports['default'] = Dropzone;
 module.exports = exports['default'];
-},{"attr-accept":55,"react":"react"}],55:[function(require,module,exports){
+},{"attr-accept":56,"react":"react"}],56:[function(require,module,exports){
 module.exports=function(t){function n(e){if(r[e])return r[e].exports;var o=r[e]={exports:{},id:e,loaded:!1};return t[e].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var r={};return n.m=t,n.c=r,n.p="",n(0)}([function(t,n,r){"use strict";n.__esModule=!0,r(8),r(9),n["default"]=function(t,n){if(t&&n){var r=function(){var r=n.split(","),e=t.name||"",o=t.type||"",i=o.replace(/\/.*$/,"");return{v:r.some(function(t){var n=t.trim();return"."===n.charAt(0)?e.toLowerCase().endsWith(n.toLowerCase()):/\/\*$/.test(n)?i===n.replace(/\/.*$/,""):o===n})}}();if("object"==typeof r)return r.v}return!0},t.exports=n["default"]},function(t,n){var r=t.exports={version:"1.2.2"};"number"==typeof __e&&(__e=r)},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n,r){var e=r(2),o=r(1),i=r(4),u=r(19),c="prototype",f=function(t,n){return function(){return t.apply(n,arguments)}},s=function(t,n,r){var a,p,l,d,y=t&s.G,h=t&s.P,v=y?e:t&s.S?e[n]||(e[n]={}):(e[n]||{})[c],x=y?o:o[n]||(o[n]={});y&&(r=n);for(a in r)p=!(t&s.F)&&v&&a in v,l=(p?v:r)[a],d=t&s.B&&p?f(l,e):h&&"function"==typeof l?f(Function.call,l):l,v&&!p&&u(v,a,l),x[a]!=l&&i(x,a,d),h&&((x[c]||(x[c]={}))[a]=l)};e.core=o,s.F=1,s.G=2,s.S=4,s.P=8,s.B=16,s.W=32,t.exports=s},function(t,n,r){var e=r(5),o=r(18);t.exports=r(22)?function(t,n,r){return e.setDesc(t,n,o(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n){var r=Object;t.exports={create:r.create,getProto:r.getPrototypeOf,isEnum:{}.propertyIsEnumerable,getDesc:r.getOwnPropertyDescriptor,setDesc:r.defineProperty,setDescs:r.defineProperties,getKeys:r.keys,getNames:r.getOwnPropertyNames,getSymbols:r.getOwnPropertySymbols,each:[].forEach}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(20)("wks"),o=r(2).Symbol;t.exports=function(t){return e[t]||(e[t]=o&&o[t]||(o||r(6))("Symbol."+t))}},function(t,n,r){r(26),t.exports=r(1).Array.some},function(t,n,r){r(25),t.exports=r(1).String.endsWith},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n,r){var e=r(10);t.exports=function(t,n,r){if(e(t),void 0===n)return t;switch(r){case 1:return function(r){return t.call(n,r)};case 2:return function(r,e){return t.call(n,r,e)};case 3:return function(r,e,o){return t.call(n,r,e,o)}}return function(){return t.apply(n,arguments)}}},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n,r){t.exports=function(t){var n=/./;try{"/./"[t](n)}catch(e){try{return n[r(7)("match")]=!1,!"/./"[t](n)}catch(o){}}return!0}},function(t,n){t.exports=function(t){try{return!!t()}catch(n){return!0}}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n,r){var e=r(16),o=r(11),i=r(7)("match");t.exports=function(t){var n;return e(t)&&(void 0!==(n=t[i])?!!n:"RegExp"==o(t))}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,r){var e=r(2),o=r(4),i=r(6)("src"),u="toString",c=Function[u],f=(""+c).split(u);r(1).inspectSource=function(t){return c.call(t)},(t.exports=function(t,n,r,u){"function"==typeof r&&(o(r,i,t[n]?""+t[n]:f.join(String(n))),"name"in r||(r.name=n)),t===e?t[n]=r:(u||delete t[n],o(t,n,r))})(Function.prototype,u,function(){return"function"==typeof this&&this[i]||c.call(this)})},function(t,n,r){var e=r(2),o="__core-js_shared__",i=e[o]||(e[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n,r){var e=r(17),o=r(13);t.exports=function(t,n,r){if(e(n))throw TypeError("String#"+r+" doesn't accept regex!");return String(o(t))}},function(t,n,r){t.exports=!r(15)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?e:r)(t)}},function(t,n,r){var e=r(23),o=Math.min;t.exports=function(t){return t>0?o(e(t),9007199254740991):0}},function(t,n,r){"use strict";var e=r(3),o=r(24),i=r(21),u="endsWith",c=""[u];e(e.P+e.F*r(14)(u),"String",{endsWith:function(t){var n=i(this,t,u),r=arguments,e=r.length>1?r[1]:void 0,f=o(n.length),s=void 0===e?f:Math.min(o(e),f),a=String(t);return c?c.call(n,a,s):n.slice(s-a.length,s)===a}})},function(t,n,r){var e=r(5),o=r(3),i=r(1).Array||Array,u={},c=function(t,n){e.each.call(t.split(","),function(t){void 0==n&&t in i?u[t]=i[t]:t in[]&&(u[t]=r(12)(Function.call,[][t],n))})};c("pop,reverse,shift,keys,values,entries",1),c("indexOf,every,some,forEach,map,filter,find,findIndex,includes",3),c("join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill"),o(o.S,"Array",u)}]);
 },{}]},{},[23])
 

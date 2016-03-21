@@ -1,4 +1,5 @@
 import alt from '../../../alt';
+import FormData from 'form-data';
 
 class AddUserActions {
   constructor() {
@@ -30,13 +31,18 @@ class AddUserActions {
 
   uploadImage(imgfile)
   {   
+     var fd = new FormData();    
+    fd.append( 'file', imgfile);
     $.ajax({
-      type:'POST',
-      url:'/api/imageupload',
-      data:{file:imgfile}     
+        url: '/api/imageupload',
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST'       
     })
     .done((data) => {
-      this.actions.uploadSuccess(data);
+      this.actions.uploadSuccess(data.link);     
+      
     })
     .fail((jqXhr) =>{
       this.actions.uploadFail(jqXhr.responseJSON.message);
@@ -56,6 +62,7 @@ class AddUserActions {
   }
   addUser(payload)
   {
+
     $.ajax({
       type:'POST',
       url:'/api/user',
@@ -65,7 +72,9 @@ class AddUserActions {
             firstName:payload.firstName,
             lastName:payload.lastName,
             barcode:payload.barcode,
-            type:payload.type}
+            type:payload.type,
+            avatar :payload.avatar
+          }
     })
     .done((data) => {
       this.actions.addUserSuccess(data.message);

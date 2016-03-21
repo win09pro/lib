@@ -5,15 +5,12 @@ import ReactDom from 'react-dom';
 export default class ImgUpload extends React.Component {
    handleFile(e){
     var reader = new FileReader();
-    var file = e.target.files[0];
-      console.log(file); 
+    var file = e.target.files[0];   
     if (!file) return;
-
     reader.onload = function(img) {
       ReactDom.findDOMNode(this.refs.in).value = '';
       this.props.actions.updateAvatarpreview(img.target.result);   
-
-      this.props.actions.updateAvatarfile(file);
+      this.props.actions.updateAvatarfile(file);      
     }.bind(this);
     reader.readAsDataURL(file);
 }

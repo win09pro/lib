@@ -12,8 +12,8 @@ class AddUserStore {
       this.lastName= '';   
       this.Type ='';
       this.fileAvatar ={};
-      this.imagePreviewUrl='http://i57.servimg.com/u/f57/16/18/15/10/1866.jpg';
-      this.imageUrl='';
+      this.imagePreviewUrl='/uploads/avatar.jpg';
+      this.imageUrl='/uploads/avatar.jpg';
       this.userNameValidationState='';
       this.passWordValidationState='';
       this.repassWordValidationState='';
@@ -27,7 +27,7 @@ class AddUserStore {
       this.helpBlockfirstName='';
       this.helpBlocklastName='';
       this.helpBlocktype='';
-      }  
+      }
 
       onGetUserSuccess(data)
       {
@@ -38,6 +38,8 @@ class AddUserStore {
       this.firstName= data.name.first;
       this.lastName= data.name.last
       this.Type=data.type;
+      this.imagePreviewUrl = data.avatar;
+      this.imageUrl=data.avatar;
 
       this.userNameValidationState='';
       this.passWordValidationState='';
@@ -70,8 +72,8 @@ class AddUserStore {
             this.lastName= '';
             this.Type='';
             this.fileAvatar={};
-            this.imagePreviewUrl='http://i57.servimg.com/u/f57/16/18/15/10/1866.jpg';
-            this.imageUrl='';
+            this.imagePreviewUrl='/uploads/avatar.jpg';
+            this.imageUrl='/uploads/avatar.jpg';
             this.userNameValidationState='has-success';
             this.passWordValidationState='has-success';
             this.repassWordValidationState='has-success';
@@ -108,8 +110,8 @@ class AddUserStore {
             this.lastName= '';
             this.Type=3;
             this.fileAvatar={};
-            this.imagePreviewUrl='http://i57.servimg.com/u/f57/16/18/15/10/1866.jpg';
-            this.imageUrl='';
+            this.imagePreviewUrl='/uploads/avatar.jpg';
+            this.imageUrl='/uploads/avatar.jpg';
 
             this.helpBlockuserName=errorMessage;
             this.helpBlockpassword=errorMessage;
@@ -214,8 +216,8 @@ class AddUserStore {
       this.lastName= '';   
       this.Type ='';
       this.fileAvatar={};
-      this.imagePreviewUrl='http://i57.servimg.com/u/f57/16/18/15/10/1866.jpg';
-      this.imageUrl='';
+      this.imagePreviewUrl='/uploads/avatar.jpg';
+      this.imageUrl='/uploads/avatar.jpg';
       this.userNameValidationState='';
       this.passWordValidationState='';
       this.repassWordValidationState='';
@@ -230,9 +232,10 @@ class AddUserStore {
       this.helpBlocklastName='';
       this.helpBlocktype='';
       }
-      onUploadSuccess(data)
-      {
-            console.log('ok');
+      onUploadSuccess(link)
+      {            
+          this.imageUrl = link;
+          console.log(this.imageUrl);
       }
       onUploadFail(jqXhr)
       {

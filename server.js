@@ -12,6 +12,9 @@ var bodyParser = require('body-parser');  //For parsing POST request data.
 var multiparty = require('multiparty');
 var fs = require('fs');
 
+var multer = require('multer');
+
+var path = require('path');
 
 var async = require('async');
 var request = require('request');
@@ -39,17 +42,33 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 /**UPLOAD**/
-app.post('/api/imageupload',function(req,res,next) {
-  var file = req.body.file;
-  
-  fs.readFile(path, function(err, data)
-  {    
-    var newPath  = __dirname + "uploads/"+path;
-    fs.writeFile(newPath, data, function (err) {
-  
- })
-  });  
+
+var storage = multer.diskStorage({
+  destination: __dirname + '/public/uploads/',
+  filename: function (req, file, cb) {
+    cb(null, path.basename(file.originalname, path.extname(file.originalname)) + Date.now() + path.extname(file.originalname));
+  }
+})
+
+var upload = multer({ storage: storage });
+app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
+  // req.file is the `avatar` file
+  // req.body will hold the text fields, if there were any
+  res.send({link:"/uploads/"+req.file.filename});
+ 
 });
+// 
+// app.post('/api/imageupload', function (req, res) {
+//   console.log
+//   // var filename =  upload(req, res, function (err) {
+    
+//   //   console.log(req.filename);
+
+//   //   // Everything went fine
+//   // });
+//   res.status(200);
+// });
+
 
 
 /**USER**/
@@ -66,6 +85,7 @@ app.post('/api/user', function(req, res, next) {
   var lastName = req.body.lastName;
   var barcode = req.body.barcode;
   var type = req.body.type;
+  var avatar = req.body.avatar;
   
    User.findOne({ _id: userID }, function(err, user) {
   if ( (err)|| (!user) )
@@ -76,11 +96,12 @@ app.post('/api/user', function(req, res, next) {
         {
           try{ 
          var user = new User({           
-                    username: userName ,
+                    username:userName,
                     password:password,
                     name:{first:firstName,last:lastName} ,
                     barcode:barcode,
-                    type:type           
+                    type:type,
+                    avatar:avatar          
                   });   
          user.save(function(err) {
          if (err) return next(err);     
@@ -103,7 +124,8 @@ app.post('/api/user', function(req, res, next) {
                     password:password,
                     name:{first:firstName,last:lastName} ,
                     barcode:barcode,
-                    type:type           
+                    type:type,
+                    avatar:avatar      
         } }, function(err) {
             if (err) return next(err);
             res.send({ message: userName + ' has been updated successfully!' });

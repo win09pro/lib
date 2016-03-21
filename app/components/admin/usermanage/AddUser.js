@@ -1,5 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import FormData from 'form-data';
+import ReactDOM from 'react-dom';
 import AddUserStore from '../../../stores/admin/usermanage/AddUserStore';
 import AddUserActions from '../../../actions/admin/usermanage/AddUserActions';
 import ImgUpload from '../../../shared/ImgUpload';
@@ -28,15 +30,22 @@ class AddUser extends React.Component {
   {
     AddUserActions.resetAll();   
     //console.log(this.state.userNameValidationState);
-  }  
-  handleSubmitUser(event)
+  }
+  upload(event)
   {
-     event.preventDefault();
-     var imgfile = this.state.fileAvatar;
-     var imgURL = this.state.imagePreviewUrl;
-     AddUserActions.uploadImage(imgfile);
-     //console.log(imgURL);
-  
+      var imgfile = this.state.fileAvatar;
+         var imgURL = this.state.imagePreviewUrl;
+          AddUserActions.uploadImage(imgfile);     
+           console.log(this.state.imageUrl);
+  }
+   detele(event)
+  {
+    
+           console.log(this.state.imageUrl);
+  }
+  handleSubmitUser(event)
+  { 
+    
     var id = this.state.id;
     var username = this.state.userName.trim();
     var password = this.state.passWord;
@@ -74,7 +83,7 @@ class AddUser extends React.Component {
       AddUserActions.passwordNotSame();
       this.refs.repasswordTextField.focus();
     }
-    if (username && repassword && password &&firstname &&lastname &&type) {
+    if (username && repassword && password &&firstname &&lastname &&type) {         
           AddUserActions.addUser({
             id:id,
             userName:username,
@@ -82,9 +91,11 @@ class AddUser extends React.Component {
             firstName:firstname,
             lastName:lastname ,
             barcode:barcode,
-            type: Number(type)       
+            type: Number(type),
+            avatar:this.state.imageUrl       
           });
     }
+     event.preventDefault();
   } 
   render() {   
     return (            
@@ -141,25 +152,29 @@ class AddUser extends React.Component {
                   </div>
                   <div className='form-group has-success'>
                    <label className='control-label'>Chọn ảnh đại diện</label>
+                   <div className ="clear-both"></div>
                     <div className="avatar-photo">
                       <ImgUpload actions ={AddUserActions} />
                       <div className="avatar-edit">                     
                       <i className="fa fa-camera"></i>
                       </div>
-                      <img src ={this.state.imagePreviewUrl} height ="200px" width="200px"/>
+                      <img src ={this.state.imagePreviewUrl} height ="200px" width="200px" alt = "avatar"/>                     
+                    </div>   
+                    <div>
+                     <button type='button' className = 'btn btn-success'onClick = {this.upload.bind(this)} ><i className="fa fa-check"></i></button>                               
+                     <button type='button' className = 'btn btn-danger' onClick = {this.detele.bind(this)} ><i className="fa fa-times"></i></button>         
                     </div>
-                  </div>               
-
-
+                  </div> 
+                   <div className ="clear-both"></div>               
+                 
                   <input type="button" className='btn btn-warning' onClick = {this.reset.bind(this)} value ='Reset'/>                  
                   <button type='submit' className='btn btn-primary'>Submit</button>                 
-                </form>
-                    
+                </form>                    
               </div>
             </div>            
           </div>          
         </div>
-      </div>      
+      </div>        
     );
   }
 }
