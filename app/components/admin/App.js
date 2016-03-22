@@ -7,7 +7,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="page-container">
-	      	<Navbartop />
+	      	<Navbar />
 	      	<div className='clearfix'></div>
 	      	<div className="container-fluid">
 		      	<div className="row row-offcanvas row-offcanvas-left">

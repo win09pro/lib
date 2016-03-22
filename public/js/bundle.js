@@ -511,7 +511,7 @@ var App = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'page-container' },
-				_react2.default.createElement(_Navbartop2.default, null),
+				_react2.default.createElement(_Navbar2.default, null),
 				_react2.default.createElement('div', { className: 'clearfix' }),
 				_react2.default.createElement(
 					'div',
