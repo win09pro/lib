@@ -18,11 +18,12 @@ export default class ActionBar extends React.Component {
         <span className="action-buttons">
                           
           <button
-            className="btn btn-warning"
-            onClick={this.edit.bind(this)}>Edit         
+            className="btn btn-success"
+            onClick={this.edit.bind(this)}><i className="fa fa-pencil"></i>        
             </button>  
-          <a   
-            onClick={this.delete.bind(this)}><i className="glyphicon glyphicon-trash"></i></a>
+           <button
+              className="btn btn-danger"
+            onClick={this.delete.bind(this)}><i className="fa fa-times"></i> </button>  
         </span>
       </div>
     );

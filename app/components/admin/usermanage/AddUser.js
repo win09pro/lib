@@ -101,11 +101,11 @@ class AddUser extends React.Component {
     return (            
       <div className='container'>
         <div className='row flipInX animated'>
-          <div className='col-sm-4'>
+          <div className='col-sm-8'>
             <div className='panel panel-danger'>
               <div className='panel-heading'><strong>Thêm người dùng</strong></div>
               <div className='panel-body'>
-                <form onSubmit={this.handleSubmitUser.bind(this)} enctype="multipart/form-data"> 
+                <form onSubmit={this.handleSubmitUser.bind(this)}  enctype="multipart/form-data"> 
                   <div className={'form-group ' + this.state.userNameValidationState}>
                     <label className='control-label'>Tên đăng nhập</label>                    
                     <input type='text' className='form-control' ref='userNameTextField' value={this.state.userName}

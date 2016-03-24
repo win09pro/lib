@@ -6,40 +6,33 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<title>BachKhoa Admin</title>
-<	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900"/>
 	<link rel="stylesheet" href="/css/main.css"/>
 	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="/css/quill.snow.css">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<link rel="stylesheet" href="/css/AdminLTE.min.css">
-	<link rel="stylesheet" href="/css/skins/skin-blue.min.css">
-
-    <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+   
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
- <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/app.min.js"></script>
+  <link rel="stylesheet" href="/css/skin-blue.min.css">
 </head>
-<body>
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
 	
 
 	<div id="app">{{ html|safe }}</div>
+      <!-- Control Sidebar -->     
+         
+    
 
 			
 
@@ -49,6 +42,12 @@
   <script src="/js/vendor.bundle.js"></script>
   <script src="/js/bundle.js"></script>
   <script src="/js/bootstrap.min.js"></script>
+<!-- jQuery 2.1.4 -->
+    <script src="/js/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/js/app.min.js"></script>
   <script type="text/javascript">
   		$(document).ready(function() {
 		  $('[data-toggle=offcanvas]').click(function() {

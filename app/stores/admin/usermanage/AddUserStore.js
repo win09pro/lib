@@ -160,11 +160,11 @@ class AddUserStore {
       this.typeValidationState = '';    
       this.helpBlocktype = '';     
       }             
-      onUpdateAvatarpreview(imgURL)
+      onUpdateImagepreview(imgURL)
       {          
             this.imagePreviewUrl = imgURL;           
       }
-      onUpdateAvatarfile(file)
+      onUpdateImagefile(file)
       {
             this.fileAvatar = file;           
       }

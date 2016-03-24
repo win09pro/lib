@@ -9,8 +9,8 @@ export default class ImgUpload extends React.Component {
     if (!file) return;
     reader.onload = function(img) {
       ReactDom.findDOMNode(this.refs.in).value = '';
-      this.props.actions.updateAvatarpreview(img.target.result);   
-      this.props.actions.updateAvatarfile(file);      
+      this.props.actions.updateImagepreview(img.target.result);   
+      this.props.actions.updateImagefile(file);      
     }.bind(this);
     reader.readAsDataURL(file);
 }

@@ -7,11 +7,13 @@ class Footer extends React.Component {
 
   render() {
     return (
-        <footer className="footer">
-          
-            <p className="text-muted">Place sticky footer content here.</p>
-          
-        </footer>
+        <div className="main-footer">       
+        <div className="pull-right hidden-xs">
+          Anything you want
+        </div>
+      
+        <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+      </div>
     );
   }
 }
