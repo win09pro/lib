@@ -2122,6 +2122,7 @@ var AddUser = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var stylesquill = {};
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -2194,6 +2195,7 @@ var AddUser = function (_React$Component) {
                       { className: 'col-sm-10' },
                       _react2.default.createElement(_reactQuill2.default, {
                         theme: 'snow',
+
                         value: this.state.text,
                         onChange: _AddPostActions2.default.updateContent })
                     )
@@ -2489,7 +2491,7 @@ var AddUser = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'select',
-                      { className: 'form-control', value: this.state.Type, onChange: _AddUserActions2.default.updateType },
+                      { className: 'form-control', defaultValue: this.state.Type, onChange: _AddUserActions2.default.updateType },
                       _react2.default.createElement(
                         'option',
                         { value: '1' },
