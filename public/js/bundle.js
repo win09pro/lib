@@ -1400,7 +1400,7 @@ var SidebarLeft = function (_React$Component) {
             _react2.default.createElement(
               'li',
               { className: 'header' },
-              'HEADER'
+              'Quản lý'
             ),
             _react2.default.createElement(
               'li',
@@ -1421,15 +1421,15 @@ var SidebarLeft = function (_React$Component) {
               'li',
               null,
               _react2.default.createElement(
-                'a',
-                { href: '#' },
-                _react2.default.createElement('i', { className: 'fa fa-times' }),
-                ' ',
+                _reactRouter.Link,
+                { to: '/admin/post/view' },
+                _react2.default.createElement('i', { className: 'fa fa-file-text' }),
                 _react2.default.createElement(
                   'span',
                   null,
-                  'Another Link'
-                )
+                  ' Tin tức '
+                ),
+                ' '
               )
             ),
             _react2.default.createElement(
@@ -1442,22 +1442,7 @@ var SidebarLeft = function (_React$Component) {
                 _react2.default.createElement(
                   'span',
                   null,
-                  ' User '
-                ),
-                ' '
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouter.Link,
-                { to: '/admin/post/view' },
-                _react2.default.createElement('i', { className: 'fa fa-user' }),
-                _react2.default.createElement(
-                  'span',
-                  null,
-                  ' User '
+                  ' Người dùng '
                 ),
                 ' '
               )
@@ -2122,6 +2107,7 @@ var AddUser = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var stylesquill = {};
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -2194,6 +2180,7 @@ var AddUser = function (_React$Component) {
                       { className: 'col-sm-10' },
                       _react2.default.createElement(_reactQuill2.default, {
                         theme: 'snow',
+                        styles: {},
                         value: this.state.text,
                         onChange: _AddPostActions2.default.updateContent })
                     )
@@ -2489,7 +2476,7 @@ var AddUser = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'select',
-                      { className: 'form-control', value: this.state.Type, onChange: _AddUserActions2.default.updateType },
+                      { className: 'form-control', defaultValue: this.state.Type, onChange: _AddUserActions2.default.updateType },
                       _react2.default.createElement(
                         'option',
                         { value: '1' },

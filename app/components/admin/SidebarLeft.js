@@ -56,12 +56,11 @@ class SidebarLeft extends React.Component {
       
 
           <ul className="sidebar-menu">
-            <li className="header">HEADER</li>
+            <li className="header">Quản lý</li>
         
-            <li className="active"><a href="#"><i className="fa fa-link"></i> <span>Link</span></a></li>
-             <li><a href="#"><i className="fa fa-times"></i> <span>Another Link</span></a></li>
-            <li><Link to='/admin/user/view'><i className="fa fa-user"></i><span> User </span> </Link></li>
-            <li><Link to='/admin/post/view'><i className="fa fa-user"></i><span> User </span> </Link></li>
+            <li className="active"><a href="#"><i className="fa fa-link"></i> <span>Link</span></a></li>        
+            <li><Link to='/admin/post/view'><i className="fa fa-file-text"></i><span> Tin tức </span> </Link></li>       
+            <li><Link to='/admin/user/view'><i className="fa fa-user"></i><span> Người dùng </span> </Link></li>                    
             <li className="treeview">
               <a href="#"><i className="fa fa-link"></i> <span>Multilevel</span> <i className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">
