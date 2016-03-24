@@ -77,9 +77,7 @@ class AddUser extends React.Component {
                     <div  className ='col-sm-10'>                   
                       <ReactQuill
                        theme="snow"
-                           styles={{                           
-          
-      }}
+                         
                       value={this.state.text}
                       onChange={AddPostActions.updateContent} />        
                     </div>

@@ -2180,7 +2180,7 @@ var AddUser = function (_React$Component) {
                       { className: 'col-sm-10' },
                       _react2.default.createElement(_reactQuill2.default, {
                         theme: 'snow',
-                        styles: {},
+
                         value: this.state.text,
                         onChange: _AddPostActions2.default.updateContent })
                     )
