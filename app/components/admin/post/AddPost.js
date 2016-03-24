@@ -46,6 +46,7 @@ class AddUser extends React.Component {
 
   } 
   render() {   
+    let stylesquill ={}
     return (            
       <div className='container'>
         <div className='row flipInX animated'>
@@ -76,6 +77,7 @@ class AddUser extends React.Component {
                     <div  className ='col-sm-10'>                   
                       <ReactQuill
                        theme="snow"
+                         
                       value={this.state.text}
                       onChange={AddPostActions.updateContent} />        
                     </div>
