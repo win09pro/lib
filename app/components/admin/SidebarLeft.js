@@ -56,27 +56,16 @@ class SidebarLeft extends React.Component {
       
         <ul className="sidebar-menu">
             <li className="header">Quản lý</li>
-        
-<<<<<<< HEAD
             <li className="active"><a href="#"><i className="fa fa-link"></i> <span>Link</span></a></li>         
-            <li><Link to="/admin/post/view"><i className="fa fa-file-text"></i> 
+            <li><Link to="/admin/post/viewa"><i className="fa fa-file-text"></i> 
                     <span>Tin tức</span>
                     <small className="label pull-right bg-green">4</small>
                 </Link>                   
             </li>
-            <li><Link to="/admin/user/view"><i className="fa fa-user"></i> <span>Người dùng</span></Link></li>
-             <li><a href="#"><i className="fa fa-link"></i> <span>Another Link</span></a></li>
-                 <li className="treeview">
-=======
-            <li className="active"><a href="#"><i className="fa fa-link"></i> <span>Link</span></a></li>
-
-            <li><Link to='/admin/document-type'><i className="fa fa-user"></i><span> Document Type </span> </Link></li> 
+            <li><Link to="/admin/user/view"><i className="fa fa-user"></i><span>Người dùng</span></Link></li>        
+            <li><Link to='/admin/document-type'><i className="fa fa-user"></i><span> Document Type </span></Link></li> 
             <li><Link to='/admin/category'><i className="fa fa-user"></i><span> Category </span> </Link></li> 
-
-            <li><Link to='/admin/post/view'><i className="fa fa-file-text"></i><span> Tin tức </span> </Link></li>       
-            <li><Link to='/admin/user/view'><i className="fa fa-user"></i><span> Người dùng </span> </Link></li>                    
             <li className="treeview">
->>>>>>> master
               <a href="#"><i className="fa fa-link"></i> <span>Multilevel</span> <i className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">
                 <li><a href="#">Link in level 2</a></li>
@@ -84,8 +73,7 @@ class SidebarLeft extends React.Component {
               </ul>
             </li>
               <li><a href="#"><i className="fa fa-link"></i> <span>Another Link</span></a></li>
-              <li><a href="#"><i className="fa fa-link"></i> <span>Another Link</span></a></li>
-        
+              <li><a href="#"><i className="fa fa-link"></i> <span>Another Link</span></a></li>        
           </ul>
         </section>      
       </aside>

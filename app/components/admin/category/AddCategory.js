@@ -4,7 +4,6 @@ import AddCategoryAction from '../../../actions/admin/category/AddCategoryAction
 import DocumentTypeListAction from '../../../actions/admin/documenttype/DocumentTypeListAction';
 import DocumentTypeListStore from '../../../stores/admin/documenttype/DocumentTypeListStore';
 
-import Select from '../../../shared/Select';
 
 class AddCategory extends React.Component {
   constructor(props)
