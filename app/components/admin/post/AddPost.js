@@ -4,6 +4,9 @@ import AddPostStore from '../../../stores/admin/post/AddPostStore';
 import AddPostActions from '../../../actions/admin/post/AddPostActions';
 import ImgUpload from '../../../shared/ImgUpload';
 import ReactQuill  from 'react-quill';
+import moment from 'moment';
+import Datetime from 'react-datetime';
+import HtmlToReact from 'html-to-react';
 
 
 class AddUser extends React.Component {
@@ -36,59 +39,87 @@ class AddUser extends React.Component {
   //         AddPostActions.uploadImage(imgfile);     
   //          console.log(this.state.imageUrl);
   // }
-   detele(event)
-  {
+ 
+  handleSubmitPost(event)
+   { 
     
-           console.log(this.state.imageUrl);
-  }
-  handleSubmitUser(event)
-  { 
-
+    var id = this.state.id;
+    var title = this.state.title.trim();
+    var introduce = this.state.introduce.trim();   
+    var dateStart = this.state.dateStart;
+    if (!dateStart) {
+      AddPostActions.invalidDateStart();      
+    }
+    if (!introduce) {
+      AddPostActions.invalidIntroduce();
+      this.refs.introduceField.focus();
+    }
+    if (!title) {
+      AddPostActions.invalidTitle();
+      this.refs.titleField.focus();
+    }
+   
+    
+    if (title) {         
+          AddPostActions.addPost({
+            id:id,
+            title:title
+          });
+    }
+     event.preventDefault();
   } 
   render() {   
-    let stylesquill ={}
-    return (            
+    var htmlInput = '<div><div>LG V10 là chiếc smaray.</div><div>bcab</div></div>';
+    var htmlToReactParser = new HtmlToReact.Parser(React);
+    var reactComponent = htmlToReactParser.parse(htmlInput);
+     return (            
       <div className='container'>
         <div className='row flipInX animated'>
           <div className='col-sm-8'>
             <div className='panel panel-danger'>
-              <div className='panel-heading'><strong>Thêm người dùng</strong></div>
+              <div className='panel-heading'><strong>Thêm tin tức</strong></div>
               <div className='panel-body'>
-                <form onSubmit={this.handleSubmitUser.bind(this)} className= "form-horizontal" enctype="multipart/form-data"> 
-                  <div className={'form-group ' }>
+                <form onSubmit={this.handleSubmitPost.bind(this)} className= "form-horizontal" enctype="multipart/form-data"> 
+                  <div className={'form-group ' + this.state.titleValidationState }>
                     <label className='col-sm-2 control-label'>Chủ đề</label> 
-                    <div  className ='col-sm-10'>                   
+                    <div  className ='col-sm-10 right-inner-addon'>    
+                      <i className="fa fa-newspaper-o"></i>                      
                       <input type='text' className='form-control' ref='titleField' value={this.state.title} 
                       onChange={AddPostActions.updateTitle} autoFocus/>                    
-                      <span className='help-block'>{}</span>
+                      <span className='help-block'>{this.state.helpBlockTitle}</span>
                     </div>
                   </div>
-                   <div className={'form-group ' }>
+                   <div className={'form-group ' + this.state.introduceValidationState}>
                     <label className='col-sm-2 control-label'>Giới thiệu</label> 
-                    <div  className ='col-sm-10'>                   
-                      <input type='text' className='form-control' ref='titleField' value={this.state.introduce}
-                      onChange={AddPostActions.updateIntroduce}   autoFocus/>                    
-                      <span className='help-block'>{}</span>
+                   <div className ='col-sm-10 right-inner-addon'>       
+                     <i className="fa fa-paint-brush"></i>    
+                      <input type='text' className='form-control' ref='introduceField' value={this.state.introduce}
+                      onChange={AddPostActions.updateIntroduce}  />                    
+                      <span className='help-block'>{ this.state.helpBlockIntroduce}</span>
                     </div>
                   </div>
+                  <div className={'form-group ' + this.state.dateStartvalidationState}>
+                    <label className='col-sm-2 control-label'>Thời gian bắt đầu</label> 
+                    <div  className ='col-sm-10'>                                     
+                      <Datetime value ={this.state.dateStart} onChange={AddPostActions.updateDateStart}/>                       
+                      <span className='help-block'>{this.state.helpBlockDateStart}</span>
+                    </div>
+                  </div>            
 
-                   <div className={'form-group ' }>
+                   <div className={'form-group ' + this.state.contentvalidationState}>
                     <label className='col-sm-2 control-label'>Nội dung</label> 
                     <div  className ='col-sm-10'>                   
                       <ReactQuill
-                       theme="snow"
-                         
-                      value={this.state.text}
-                      onChange={AddPostActions.updateContent} />        
+                       theme="snow"                                           
+                      value={this.state.content}
+                      onChange={AddPostActions.updateContent} />      
+                      <span className='help-block'>{this.state.helpBlockContent}</span>  
                     </div>
                   </div>
-
-                  <p>{this.state.text}</p>
+                  <p>{this.state.content}</p>
+                  {reactComponent}
                   <button type='submit' className='btn btn-primary'>Submit</button>                 
-                </form>                        
-                         
-
-
+                </form>    
               </div>              
             </div>            
           </div>          

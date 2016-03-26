@@ -97,7 +97,18 @@ class AddUser extends React.Component {
     }
      event.preventDefault();
   } 
-  render() {   
+  render() {  
+  var styles = {
+      '.quill': {
+          'border': '1px solid #d5d5d5'
+      },
+      '.ql-toolbar': {
+          'box-shadow': '0 1px 10px rgba(0, 0, 0, .1)'
+      },
+      '.quill-contents ': {
+          'height': '250px'
+      }
+  }; 
     return (            
       <div className='container'>
         <div className='row flipInX animated'>
@@ -144,6 +155,7 @@ class AddUser extends React.Component {
                   <div className={'form-group ' + this.state.typeValidationState}>
                     <label className='control-label'>Kiểu người dùng</label>
                      <select className='form-control' defaultValue ={this.state.Type} onChange ={AddUserActions.updateType} >
+                      <option value =''>----</option>
                       <option value ='1'>Admin1</option>
                       <option value ='2'>Admin2</option>
                       <option value ='3'>User</option>
