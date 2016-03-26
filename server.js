@@ -23,6 +23,10 @@ var xml2js = require('xml2js');
 var mongoose = require('mongoose');
 var Book = require('./models/Book');
 var User = require('./models/User');
+
+var category = require('./models/category');
+var documenttype = require('./models/documenttype');
+
 var config = require('./config');
 
 mongoose.connect(config.database);
@@ -293,6 +297,182 @@ app.get('/api/book', function(req, res, next) {
       res.status(e).send({ message: bookname+ 'and' +bookdirector + 'error when add new book' });
           }
         });  
+
+// GET list document type
+// 
+app.get('/api/document-type', function(req, res, next) {
+  try{
+    documenttype
+    .find()
+    .exec(function(err, documentTypes){
+      if(err) next(err);
+      res.send(documentTypes);
+    })
+  } catch(e){
+    res.status(e).send({ message: 'Error when add new Document Type'});
+  }
+});
+// end get list document type
+
+// get document type by id
+app.get('/api/document-type/:id', function(req, res, next){
+  var id = req.params.id;
+  documenttype.findOne({ _id: id }, function(err, doc) {
+    if (err) return next(err);
+
+    if (!doc) {
+      return res.status(404).send({ message: 'Document Type not found.' });
+    }     
+    res.send(doc);
+  });
+});
+// end get document type by id
+
+// add document type
+app.post('/api/document-type', function(req, res, next) {
+  //document name
+  var docname = req.body.name;
+  //document description
+  var docdescription = req.body.description;
+  var id=req.body.id;
+   documenttype.findOne({ _id: id }, function(err, doc) {
+  if ( (err)|| (!doc) )
+  {
+    try{ 
+         var doc = new documenttype({           
+                    name: docname ,
+                    description: docdescription            
+                  });   
+         doc.save(function(err) {
+         if (err) return next(err);     
+         res.send({ message: docname + ' has been added successfully!' });
+         });
+         } catch (e) {
+            res.status(e).send({ message: docname+ 'and' +docdescription + 'error when add new.' });
+        }
+  }
+  else
+  {
+        doc.update({ $set: { name: docname, description: docdescription } }, function(err) {
+            if (err) return next(err);
+            res.send({ message: docname + ' has been updated successfully!' });
+          });
+             
+          
+  }})
+});
+// end add document type
+
+// DELETE document type
+app.post('/api/deleteDoc', function(req, res, next) {
+  var docId = req.body.id;
+  documenttype.remove({name:''})  ;
+  documenttype.findOne({ _id: docId }, function(err, doc) {
+    if (err) return next(err);
+
+    if (!doc) {
+      return res.status(404).send({ message: 'Document Type not found.' });
+    }   
+      doc.remove();
+      res.send({ message: doc.name + ' has been deleted.' });
+
+ 
+  });
+});
+//end delete document type
+
+/*
+  Category
+*/
+
+// Add API for Category
+
+//get List Category
+app.get('/api/category', function(req, res, next) {
+  try{
+    category
+    .find()
+    .exec(function(err, listcategory){
+      if(err) next(err);
+      res.send(listcategory);
+    })
+  } catch(e){
+    res.status(e).send({ message: 'Error when get Category'});
+  }
+});
+// end get list category
+
+// get category by id
+app.get('/api/category/:id', function(req, res, next){
+  var id = req.params.id;
+  category.findOne({ _id: id }, function(err, cate) {
+    if (err) return next(err);
+
+    if (!cate) {
+      return res.status(404).send({ message: 'Category not found.' });
+    }     
+    res.send(cate);
+  });
+});
+// end get category by id
+
+// add category
+app.post('/api/category', function(req, res, next) {
+  //category name
+  var catename = req.body.name;
+  //category description
+  var catedescription = req.body.description;
+  //category doctype
+  var _documenttype = req.body._documenttype;
+
+  var id=req.body.id;
+
+   category.findOne({ _id: id }, function(err, cate) {
+  if ( (err)|| (!cate) )
+  {
+    try{ 
+         var cate = new category({           
+                    name: catename ,
+                    description: catedescription,
+                    _documenttype: _documenttype            
+                  });   
+         cate.save(function(err) {
+         if (err) return next(err);     
+         res.send({ message: catename + ' has been added successfully!' });
+         });
+         } catch (e) {
+            res.status(e).send({ message: catename+ 'and' +catedescription + 'error when add new.' });
+        }
+  }
+  else
+  {
+        cate.update({ $set: { name: catename, description: catedescription, _documenttype: _documenttype } }, function(err) {
+            if (err) return next(err);
+            res.send({ message: docname + ' has been updated successfully!' });
+          });
+             
+          
+  }})
+});
+// end add category
+
+// DELETE category
+app.post('/api/delete-category', function(req, res, next) {
+  var cateId = req.body.id;
+  category.remove({name:''})  ;
+  category.findOne({ _id: cateId }, function(err, cate) {
+    if (err) return next(err);
+
+    if (!cate) {
+      return res.status(404).send({ message: 'Category not found.' });
+    }   
+      cate.remove();
+      res.send({ message: cate.name + ' has been deleted.' });
+
+ 
+  });
+});
+// end Add API for Category
 
 
 app.use(function(req, res) {
