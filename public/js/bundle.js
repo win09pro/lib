@@ -219,37 +219,39 @@ var AddPostActions = function () {
   function AddPostActions() {
     _classCallCheck(this, AddPostActions);
 
-    this.generateActions('updateContent', 'updateTitle', 'updateIntroduce', 'updateDateStart', 'invalidTitle', 'invalidIntroduce', 'invalidDateStart');
+    this.generateActions('updateContent', 'updateTitle', 'updateIntroduce', 'updateDateStart', 'invalidTitle', 'invalidIntroduce', 'invalidDateStart', 'invalidContent', 'addPostSuccess', 'addPostFail');
   }
 
   _createClass(AddPostActions, [{
     key: 'addPost',
     value: function addPost(payload) {
+      var _this = this;
 
-      // $.ajax({
-      //   type:'POST',
-      //   url:'/api/post',
-      //   data:{id:payload.id,
-      //         title:payload.title
-      //       }
-      // })
-      // .done((data) => {
-      //   this.actions.addPostSuccess(data.message);
-      // })
-      // .fail((jqXhr) =>{
-      //   this.actions.addPostFail(jqXhr.responseJSON.message);
-      // });
+      $.ajax({
+        type: 'POST',
+        url: '/api/post',
+        data: { id: payload.id,
+          title: payload.title,
+          introduce: payload.introduce,
+          dateStart: payload.dateStart,
+          content: content
+        }
+      }).done(function (data) {
+        _this.actions.addPostSuccess(data.message);
+      }).fail(function (jqXhr) {
+        _this.actions.addPostFail(jqXhr.responseJSON.message);
+      });
     }
   }, {
     key: 'getPost',
     value: function getPost(id) {
-      var _this = this;
+      var _this2 = this;
 
       $.ajax({
         url: '/api/Post/' + bookid }).done(function (data) {
-        _this.actions.getPostSuccess(data);
+        _this2.actions.getPostSuccess(data);
       }).fail(function (jqXhr) {
-        _this.actions.getPostFail(jqXhr.responseJSON.message);
+        _this2.actions.getPostFail(jqXhr.responseJSON.message);
       });
     }
   }]);
@@ -2182,7 +2184,13 @@ var AddUser = function (_React$Component) {
       var title = this.state.title.trim();
       var introduce = this.state.introduce.trim();
       var dateStart = this.state.dateStart;
+      var content = this.state.content;
+      if (!content) {
+        _AddPostActions2.default.invalidContent();
+      }
       if (!dateStart) {
+        _AddPostActions2.default.invalidDateStart();
+      } else if (!(0, _moment2.default)(dateStart, "MM/DD/YY h:mm A").isValid()) {
         _AddPostActions2.default.invalidDateStart();
       }
       if (!introduce) {
@@ -2194,10 +2202,13 @@ var AddUser = function (_React$Component) {
         this.refs.titleField.focus();
       }
 
-      if (title) {
+      if (title && dateStart && introduce && content) {
         _AddPostActions2.default.addPost({
           id: id,
-          title: title
+          title: title,
+          introduce: introduce,
+          dateStart: dateStart,
+          content: content
         });
       }
       event.preventDefault();
@@ -2298,7 +2309,7 @@ var AddUser = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.contentvalidationState },
+                    { className: 'form-group ' + this.state.contentValidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'col-sm-2 control-label' },
@@ -3711,7 +3722,7 @@ var AddPostStore = function () {
 
     this.bindActions(_AddPostActions2.default);
     this.id = '';
-    this.content = '<div><span style="color: rgb(255, 153, 0);">&nbsp;<b>abace</b>  123123</span></div>';
+    this.content = '<div><span style="color: green;">Host</span></div>';
     this.title = '';
     this.introduce = '';
     this.dateStart = new Date();
@@ -3732,7 +3743,6 @@ var AddPostStore = function () {
     key: 'onUpdateDateStart',
     value: function onUpdateDateStart(date) {
       this.dateStart = date._d;
-      console.log(this.dateStart);
       this.dateStartvalidationState = '';
       this.helpBlockDateStart = '';
     }
@@ -3740,6 +3750,8 @@ var AddPostStore = function () {
     key: 'onUpdateContent',
     value: function onUpdateContent(value) {
       this.content = value[0];
+      this.contentValidationState = '';
+      this.helpBlockContent = '';
     }
   }, {
     key: 'onUpdateTitle',
@@ -3772,6 +3784,53 @@ var AddPostStore = function () {
     value: function onInvalidDateStart() {
       this.dateStartvalidationState = 'has-error';
       this.helpBlockDateStart = 'Chưa cập nhập ngày bắt đầu';
+    }
+  }, {
+    key: 'onInvalidContent',
+    value: function onInvalidContent() {
+      this.contentValidationState = 'has-error';
+      this.helpBlockContent = 'Chưa cập nhập nội dung';
+    }
+  }, {
+    key: 'onAddPostSuccess',
+    value: function onAddPostSuccess(SuccessMessage) {
+      this.id = '';
+      this.content = '';
+      this.title = '';
+      this.introduce = '';
+      this.dateStart = new Date();
+
+      this.helpBlockTitle = '';
+      this.helpBlockIntroduce = '';
+      this.helpBlockContent = '';
+      this.helpBlockDateStart = '';
+
+      this.titleValidationState = 'has-success';
+      this.contentValidationState = 'has-success';
+      this.introduceValidationState = 'has-success';
+      this.dateStartvalidationState = 'has-success';
+
+      //listUsersActions.get();
+    }
+  }, {
+    key: 'onAddPostFail',
+    value: function onAddPostFail(errorMessage) {
+
+      this.id = '';
+      this.content = '';
+      this.title = '';
+      this.introduce = '';
+      this.dateStart = new Date();
+
+      this.helpBlockTitle = errorMessage;
+      this.helpBlockIntroduce = errorMessage;
+      this.helpBlockContent = errorMessage;
+      this.helpBlockDateStart = errorMessage;
+
+      this.titleValidationState = 'has-error';
+      this.contentValidationState = 'has-error';
+      this.introduceValidationState = 'has-error';
+      this.dateStartvalidationState = 'has-error';
     }
   }]);
 

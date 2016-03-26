@@ -4,9 +4,9 @@ import moment from 'moment';
 
 class AddPostStore {
   constructor() {
-       this.bindActions(AddPostActions);
+      this.bindActions(AddPostActions);
       this.id='';
-      this.content ='<div><span style="color: rgb(255, 153, 0);">&nbsp;<b>abace</b>  123123</span></div>';
+      this.content ='<div><span style="color: green;">Host</span></div>';
       this.title ='';
       this.introduce='';
       this.dateStart =new Date();
@@ -24,14 +24,15 @@ class AddPostStore {
     }
     onUpdateDateStart(date)
     {             
-      this.dateStart = date._d;      
-      console.log(this.dateStart);
+      this.dateStart = date._d;          
       this.dateStartvalidationState ='';
       this.helpBlockDateStart ='';             
     }
     onUpdateContent(value)
     {
       this.content = value[0];     
+      this.contentValidationState ='';
+      this.helpBlockContent ='';             
     }
     onUpdateTitle(event)
     {
@@ -60,5 +61,52 @@ class AddPostStore {
       this.dateStartvalidationState ='has-error';
       this.helpBlockDateStart ='Chưa cập nhập ngày bắt đầu';             
     }
+    onInvalidContent()
+    {
+      this.contentValidationState ='has-error';
+      this.helpBlockContent ='Chưa cập nhập nội dung';             
+    }
+
+    onAddPostSuccess(SuccessMessage)
+      {
+            this.id='';
+            this.content ='';
+            this.title ='';
+            this.introduce='';
+            this.dateStart =new Date();
+
+            this.helpBlockTitle='';
+            this.helpBlockIntroduce='';
+            this.helpBlockContent='';
+            this.helpBlockDateStart='';
+
+            this.titleValidationState ='has-success';
+            this.contentValidationState='has-success';
+            this.introduceValidationState='has-success';
+            this.dateStartvalidationState='has-success';
+            
+            //listUsersActions.get(); 
+           
+      }
+    onAddPostFail(errorMessage)
+      {
+
+        this.id='';
+        this.content ='';
+        this.title ='';
+        this.introduce='';
+        this.dateStart =new Date();
+
+        this.helpBlockTitle=errorMessage;
+        this.helpBlockIntroduce=errorMessage;
+        this.helpBlockContent=errorMessage;
+        this.helpBlockDateStart=errorMessage;
+
+        this.titleValidationState ='has-error';
+        this.contentValidationState='has-error';
+        this.introduceValidationState='has-error';
+        this.dateStartvalidationState='has-error';
+      }
+
 }
 export default alt.createStore(AddPostStore);

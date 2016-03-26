@@ -49,7 +49,20 @@ var storage = multer.diskStorage({
     cb(null, path.basename(file.originalname, path.extname(file.originalname)) + Date.now() + path.extname(file.originalname));
   }
 })
+// var  options = {
+//             dest: '/public/uploads/test',
+//             rename: function (fieldname, filename) {
+//                 return filename + Date.now();
+//             },
+//             onFileUploadStart: function (file) {
+//                 console.log(file.originalname + ' is starting ...');
+//             },
+//             onFileUploadComplete: function (file) {
+//                 console.log(file.fieldname + ' uploaded to  ' + file.path);
+//             }
+//         };
 
+// var upload = multer(options);
 var upload = multer({ storage: storage });
 app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
   // req.file is the `avatar` file

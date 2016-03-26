@@ -47,8 +47,17 @@ class AddUser extends React.Component {
     var title = this.state.title.trim();
     var introduce = this.state.introduce.trim();   
     var dateStart = this.state.dateStart;
+    var content = this.state.content;
+    if (!content)
+    {
+      AddPostActions.invalidContent();
+    }
     if (!dateStart) {
       AddPostActions.invalidDateStart();      
+    }
+    else if (!moment(dateStart,"MM/DD/YY h:mm A").isValid())
+    {
+        AddPostActions.invalidDateStart();  
     }
     if (!introduce) {
       AddPostActions.invalidIntroduce();
@@ -60,11 +69,14 @@ class AddUser extends React.Component {
     }
    
     
-    if (title) {         
+    if (title && dateStart && introduce && content) {             
           AddPostActions.addPost({
-            id:id,
-            title:title
-          });
+             id:id,
+             title:title,
+             introduce:introduce,
+             dateStart:dateStart,
+             content:content
+           });
     }
      event.preventDefault();
   } 
@@ -106,7 +118,7 @@ class AddUser extends React.Component {
                     </div>
                   </div>            
 
-                   <div className={'form-group ' + this.state.contentvalidationState}>
+                   <div className={'form-group ' + this.state.contentValidationState}>
                     <label className='col-sm-2 control-label'>Nội dung</label> 
                     <div  className ='col-sm-10'>                   
                       <ReactQuill

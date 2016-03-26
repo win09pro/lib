@@ -12,26 +12,33 @@ class AddPostActions{
 
      'invalidTitle',
      'invalidIntroduce',
-     'invalidDateStart'
+     'invalidDateStart',
+     'invalidContent',
+
+     'addPostSuccess',
+     'addPostFail'
 
       );
   }
   addPost(payload)
   {
 
-    // $.ajax({
-    //   type:'POST',
-    //   url:'/api/post',
-    //   data:{id:payload.id,
-    //         title:payload.title
-    //       }
-    // })
-    // .done((data) => {
-    //   this.actions.addPostSuccess(data.message);
-    // })
-    // .fail((jqXhr) =>{
-    //   this.actions.addPostFail(jqXhr.responseJSON.message);
-    // });
+     $.ajax({
+       type:'POST',
+       url:'/api/post',
+       data:{id:payload.id,
+             title:payload.title,
+             introduce:payload.introduce,
+             dateStart:payload.dateStart,
+             content:content
+           }
+     })
+     .done((data) => {
+       this.actions.addPostSuccess(data.message);
+     })
+     .fail((jqXhr) =>{
+       this.actions.addPostFail(jqXhr.responseJSON.message);
+     });
   }
   getPost(id) {
     $.ajax({
