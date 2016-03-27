@@ -62,7 +62,7 @@ class ListBooks extends React.Component {
           <td>{post.content.substr(0,100)+'...'}</td>        
           <td><ActionBar viewAction={AddPostActions} editAction={AddPostActions} deleteAction={listPostsActions} item={post} /></td>
           <td>            
-            <input type ='checkbox' data-ref ={post._id} checked =false onClick = {this.handleChange.bind(this)} />             
+            <input type ='checkbox' data-ref ={post._id} onClick = {this.handleChange.bind(this)} />             
           </td>
         </tr>             
       );

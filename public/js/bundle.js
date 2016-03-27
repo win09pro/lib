@@ -3359,7 +3359,6 @@ var ListBooks = function (_React$Component) {
       var _this2 = this;
 
       var style = { 'text-align': 'center' };
-      var arrayid = [];
       var postlist = this.state.posts.map(function (post, index) {
         var checked = false;
         return _react2.default.createElement(
