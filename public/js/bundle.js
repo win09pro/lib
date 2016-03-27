@@ -541,7 +541,7 @@ var AddPostActions = function () {
   function AddPostActions() {
     _classCallCheck(this, AddPostActions);
 
-    this.generateActions('updateContent', 'updateTitle', 'updateIntroduce', 'updateDateStart', 'invalidTitle', 'invalidIntroduce', 'invalidDateStart', 'invalidContent', 'addPostSuccess', 'addPostFail');
+    this.generateActions('updateContent', 'updateTitle', 'updateIntroduce', 'updateDateStart', 'invalidTitle', 'invalidIntroduce', 'invalidDateStart', 'invalidContent', 'addPostSuccess', 'addPostFail', 'getPostSuccess', 'getPostFail');
   }
 
   _createClass(AddPostActions, [{
@@ -556,7 +556,7 @@ var AddPostActions = function () {
           title: payload.title,
           introduce: payload.introduce,
           dateStart: payload.dateStart,
-          content: content
+          content: payload.content
         }
       }).done(function (data) {
         _this.actions.addPostSuccess(data.message);
@@ -565,8 +565,8 @@ var AddPostActions = function () {
       });
     }
   }, {
-    key: 'getPost',
-    value: function getPost(id) {
+    key: 'getById',
+    value: function getById(bookid) {
       var _this2 = this;
 
       $.ajax({
