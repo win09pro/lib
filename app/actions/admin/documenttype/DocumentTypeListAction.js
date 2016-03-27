@@ -9,12 +9,12 @@ class DocumentTypeListAction {
       'deleteDocFail'     
     );
   }
-  delete(doc)
+  delete(id)
    {
       $.ajax({
         type: 'POST',
         url: '/api/deleteDoc',
-        data: { id: doc._id}
+        data: { id: id}
       })
         .done((data) => {
           this.actions.deleteDocSucess(data.message);

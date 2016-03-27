@@ -497,3 +497,17 @@ td.rdtYear:hover {
     padding: 10px 30px;
     pointer-events: none;   
 }
+.deletegroup
+{
+  color: #cc6600;
+}
+.deletegroup { 
+  -webkit-transition: all 5s linear;
+          transition: all 5s linear;
+  -webkit-transform: scale3d(1, 1, 1);
+          transform: scale3d(1, 1, 1);}
+.deletegroup:hover { 
+   -webkit-transform: scale3d(1.5, 1.5, 1);
+          transform: scale3d(1.5, 1.5, 1);
+  color:red;
+}

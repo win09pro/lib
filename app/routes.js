@@ -10,7 +10,8 @@ import ViewCategory from './components/admin/category/ViewCategory';
 
 import Users from './components/admin/usermanage/user';
 import ViewUser from './components/admin/usermanage/viewuser';
-import Post from './components/admin/post/AddPost';
+import Post from './components/admin/post/Post';
+
 export default (
   <Route component={App}>
     <Route path='/admin' component={HomeDocumentType} />

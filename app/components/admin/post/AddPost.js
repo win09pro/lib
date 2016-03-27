@@ -55,10 +55,7 @@ class AddUser extends React.Component {
     if (!dateStart) {
       AddPostActions.invalidDateStart();      
     }
-    else if (!moment(dateStart,"MM/DD/YY h:mm A").isValid())
-    {
-        AddPostActions.invalidDateStart();  
-    }
+    
     if (!introduce) {
       AddPostActions.invalidIntroduce();
       this.refs.introduceField.focus();
@@ -66,15 +63,14 @@ class AddUser extends React.Component {
     if (!title) {
       AddPostActions.invalidTitle();
       this.refs.titleField.focus();
-    }
-   
-    
-    if (title && dateStart && introduce && content) {             
+    }   
+    if (title && dateStart && introduce && content)
+     {             
           AddPostActions.addPost({
              id:id,
              title:title,
              introduce:introduce,
-             dateStart:dateStart,
+             dateStart:moment(dateStart).format('x'),
              content:content
            });
     }
@@ -86,7 +82,7 @@ class AddUser extends React.Component {
     var reactComponent = htmlToReactParser.parse(htmlInput);
      return (            
       <div className='container'>
-        <div className='row flipInX animated'>
+        <div className='row'>
           <div className='col-sm-8'>
             <div className='panel panel-danger'>
               <div className='panel-heading'><strong>Thêm tin tức</strong></div>
