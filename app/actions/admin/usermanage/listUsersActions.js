@@ -9,12 +9,12 @@ class listUsersActions {
       'deletefail'     
     );
   }
-  delete(user)
+  delete(id)
  {
     $.ajax({
       type: 'POST',
       url: '/api/deleteuser',
-      data: { id: user._id}
+      data: { id: id}
     })
       .done((data) => {
         this.actions.deletesuccess(data.message);

@@ -57,7 +57,7 @@ class SidebarLeft extends React.Component {
         <ul className="sidebar-menu">
             <li className="header">Quản lý</li>
             <li className="active"><a href="#"><i className="fa fa-link"></i> <span>Link</span></a></li>         
-            <li><Link to="/admin/post/viewa"><i className="fa fa-file-text"></i> 
+            <li><Link to="/admin/post/view"><i className="fa fa-file-text"></i> 
                     <span>Tin tức</span>
                     <small className="label pull-right bg-green">4</small>
                 </Link>                   

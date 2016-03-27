@@ -9,12 +9,12 @@ class CategoryListAction {
       'deleteCateFail'     
     );
   }
-  delete(category)
+  delete(id)
  {
     $.ajax({
       type: 'POST',
       url: '/api/delete-category',
-      data: { id: category._id}
+      data: { id: id}
     })
       .done((data) => {
         this.actions.deleteCateSucess(data.message);

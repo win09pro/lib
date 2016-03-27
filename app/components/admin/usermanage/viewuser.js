@@ -24,7 +24,7 @@ class viewuser extends React.Component {
   render() {  	
     return (    
       <div className='container'>
-        <div className='row flipInX animated'>
+        <div className='row'>
           <div className='panel panel-default'>
             <div className='panel-heading'>View</div>
             <div className='panel-body'>

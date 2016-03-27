@@ -1,12 +1,13 @@
 import alt from '../../../alt';
 import AddPostActions from '../../../actions/admin/post/AddPostActions';
+import listPostsActions from '../../../actions/admin/post/listPostsActions';
 import moment from 'moment';
 
 class AddPostStore {
   constructor() {
       this.bindActions(AddPostActions);
       this.id='';
-      this.content ='<div><span style="color: green;">Host</span></div>';
+      this.content ='<div></div>';
       this.title ='';
       this.introduce='';
       this.dateStart =new Date();
@@ -29,8 +30,8 @@ class AddPostStore {
       this.helpBlockDateStart ='';             
     }
     onUpdateContent(value)
-    {
-      this.content = value[0];     
+    {      
+      this.content = value[0];       
       this.contentValidationState ='';
       this.helpBlockContent ='';             
     }
@@ -68,28 +69,30 @@ class AddPostStore {
     }
 
     onAddPostSuccess(SuccessMessage)
-      {
-            this.id='';
-            this.content ='';
-            this.title ='';
-            this.introduce='';
-            this.dateStart =new Date();
+      {        
+        this.titleValidationState ='has-success';
+        this.contentValidationState='has-success';
+        this.introduceValidationState='has-success';
+        this.dateStartvalidationState='has-success';
+        
+        this.id='';
+     //   this.content = this.id;
+        this.title ='';
+        this.introduce='';
+        this.dateStart =new Date();
 
-            this.helpBlockTitle='';
-            this.helpBlockIntroduce='';
-            this.helpBlockContent='';
-            this.helpBlockDateStart='';
-
-            this.titleValidationState ='has-success';
-            this.contentValidationState='has-success';
-            this.introduceValidationState='has-success';
-            this.dateStartvalidationState='has-success';
-            
-            //listUsersActions.get(); 
-           
+        this.helpBlockTitle='';
+        this.helpBlockIntroduce='';
+        this.helpBlockContent =SuccessMessage;     
+        this.helpBlockDateStart='';
+        listPostsActions.get();            
       }
     onAddPostFail(errorMessage)
       {
+        this.helpBlockTitle=errorMessage;
+        this.helpBlockIntroduce=errorMessage;
+        this.helpBlockContent=errorMessage;
+        this.helpBlockDateStart=errorMessage;
 
         this.id='';
         this.content ='';
@@ -97,16 +100,38 @@ class AddPostStore {
         this.introduce='';
         this.dateStart =new Date();
 
-        this.helpBlockTitle=errorMessage;
-        this.helpBlockIntroduce=errorMessage;
-        this.helpBlockContent=errorMessage;
-        this.helpBlockDateStart=errorMessage;
-
         this.titleValidationState ='has-error';
         this.contentValidationState='has-error';
         this.introduceValidationState='has-error';
         this.dateStartvalidationState='has-error';
+      } 
+      onGetPostSuccess(data)
+      {
+        this.id=data._id;
+        this.content = data.content;      
+        this.title= data.title;
+        this.introduce= data.introduce;
+        this.dateStart=new Date(data.dateStart);
+      
+        this.userNameValidationState='';
+        this.passWordValidationState='';
+        this.repassWordValidationState='';
+        this.fistNameValidationState='';
+        this.lastNameValidationState='';
+        this.typeValidationState='';
+
+        this.helpBlockuserName='';
+        this.helpBlockpassword='';
+        this.helpBlockrepassword='';
+        this.helpBlockfirstName='';
+        this.helpBlocklastName='';
+        this.helpBlocktype='';
       }
+      onGetPostFail(jqXhr)
+      {
+      toastr.error(jqXhr.responseJSON.message);
+      }
+
 
 }
 export default alt.createStore(AddPostStore);
