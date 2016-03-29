@@ -112,9 +112,8 @@ class AddUser extends React.Component {
                       <Datetime value ={this.state.dateStart} onChange={AddPostActions.updateDateStart}/>                       
                       <span className='help-block'>{this.state.helpBlockDateStart}</span>
                     </div>
-                  </div>            
-
-                   <div className={'form-group ' + this.state.contentValidationState}>
+                  </div> 
+                    <div className={'form-group ' + this.state.contentValidationState}>
                     <label className='col-sm-2 control-label'>Nội dung</label> 
                     <div  className ='col-sm-10'>                   
                       <ReactQuill

@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import NavbartopStore from '../../stores/NavbartopStore';
 import NavbartopActions from '../../actions/NavbartopActions';
 import AddBookAction from '../../actions/AddBookAction';
+import {Modal} from 'react-bootstrap';
 
 class Navbartop extends React.Component {
 	constructor(props) {
@@ -40,9 +41,9 @@ class Navbartop extends React.Component {
 		       <div className="container-fluid">
 		    	<div className="navbar-header">
 		           <button type="button" className="navbar-toggle" data-toggle="offcanvas" data-target="#navbar">
-		             <span class="icon-bar"></span>
-		             <span class="icon-bar"></span>
-		             <span class="icon-bar"></span>
+		             <span className="icon-bar"></span>
+		             <span className="icon-bar"></span>
+		             <span className="icon-bar"></span>
 		           </button>
 					<Link to='/admin' className='navbar-brand'>
 						<span ref='triangles' className={'triangles animated ' + this.state.ajaxAnimationClass}>

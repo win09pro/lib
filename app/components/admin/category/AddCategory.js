@@ -11,22 +11,25 @@ class AddCategory extends React.Component {
   	super(props);
   	this.state = AddCategoryStore.getState();
     this.docState = DocumentTypeListStore.getState();
+   
   	this.onChange = this.onChange.bind(this);
-
+    
+    
   }
   
    componentDidMount() {    
     AddCategoryStore.listen(this.onChange);
-    // DocumentTypeListStore.listen(this.onChange);
+    DocumentTypeListStore.listen(this.onChange);
     DocumentTypeListAction.get();
   }
 
   componentWillUnmount() {
     AddCategoryStore.unlisten(this.onChange);
-    // DocumentTypeListStore.unlisten(onChange);
+    DocumentTypeListStore.unlisten(this.onChange);
   }
 
   onChange(state) {
+    console.log(state);
     this.setState(state);
     // this.setState(docState);
   }

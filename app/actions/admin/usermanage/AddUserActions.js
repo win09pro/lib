@@ -25,7 +25,8 @@ class AddUserActions {
       'getUserSuccess',
       'getUserFail',
       'uploadSuccess',
-      'uploadFail'
+      'uploadFail',
+      'handleUpload'
       );
   }    
 

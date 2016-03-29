@@ -38,7 +38,7 @@ mongoose.connection.on('error', function() {
 });
 
 //=================SRC-SERVER===================
-var Postserver = require('./src-server/post/Postserver');
+var Postserver = require('./src-server/admin/post/Postserver');
 
 //==============================================
 
