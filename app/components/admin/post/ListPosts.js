@@ -13,10 +13,12 @@ class ListBooks extends React.Component {
     super(props);
     this.state = listPostsStore.getState();
     this.onChange = this.onChange.bind(this);
+
   }
  componentDidMount() {
     listPostsStore.listen(this.onChange);
     listPostsActions.get();  
+    console.log('aa');
   }
 
   componentWillUnmount() {
@@ -58,7 +60,7 @@ class ListBooks extends React.Component {
           <td>{index}</td>   
           <td><Link to={'/admin/user/'+post._id}>{post.title}</Link></td>          
           <td>{post.introduce}</td>
-          <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM A')}</td>
+          <td>{moment(post.dateStart).format('DD-MM-YYYY H:MM A')}</td>
           <td>{post.content.substr(0,100)+'...'}</td>        
           <td><ActionBar viewAction={AddPostActions} editAction={AddPostActions} deleteAction={listPostsActions} item={post} /></td>
           <td>            

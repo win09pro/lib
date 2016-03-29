@@ -35,6 +35,7 @@ class AddUser extends React.Component {
   {
       var imgfile = this.state.fileAvatar;
          var imgURL = this.state.imagePreviewUrl;
+          AddUserActions.handleUpload();
           AddUserActions.uploadImage(imgfile);     
            console.log(this.state.imageUrl);
   }
@@ -175,7 +176,8 @@ class AddUser extends React.Component {
                     <div>
                      <button type='button' className = 'btn btn-success'onClick = {this.upload.bind(this)} ><i className="fa fa-check"></i></button>                               
                      <button type='button' className = 'btn btn-danger' onClick = {this.detele.bind(this)} ><i className="fa fa-times"></i></button>         
-                    </div>
+                    <span className='help-block'>{this.state.helpBlockUpload}</span>
+                   </div>
                   </div> 
                    <div className ="clear-both"></div>               
                  

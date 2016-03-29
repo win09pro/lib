@@ -27,8 +27,12 @@ class AddUserStore {
       this.helpBlockfirstName='';
       this.helpBlocklastName='';
       this.helpBlocktype='';
+      this.helpBlockUpload ='';
       }
-
+      onHandleUpload()
+      {
+       this.helpBlockUpload ="Đang tải lên....";
+      }
       onGetUserSuccess(data)
       {
       this.id=data._id;
@@ -208,7 +212,7 @@ class AddUserStore {
       }
       onResetAll()
       {
-      
+      this.helpBlockUpload ='';
       this.userName = '';
       this.passWord = '';
       this.repassWord = '';
@@ -234,11 +238,12 @@ class AddUserStore {
       }
       onUploadSuccess(link)
       {            
-          this.imageUrl = link;
+          this.helpBlockUpload ="Tải lên thành công";  
           console.log(this.imageUrl);
       }
       onUploadFail(jqXhr)
       {
+       this.helpBlockUpload ="Quá trình tải thất bại";     
        toastr.error(jqXhr.responseJSON.message);
       }
 }

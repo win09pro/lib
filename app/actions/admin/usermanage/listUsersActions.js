@@ -6,7 +6,13 @@ class listUsersActions {
       'getUsersuccess',
       'getUserfail', 
       'deletesuccess',
-      'deletefail'     
+      'deletefail',
+
+      'updateArrayId',
+      'removeArrayId',
+
+      'openModal',
+      'closeModal'      
     );
   }
   delete(id)
