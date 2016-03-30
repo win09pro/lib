@@ -18,6 +18,11 @@ class AddUser extends React.Component {
   }
    componentDidMount() {    
   AddPostStore.listen(this.onChange);
+  CKEDITOR.replace( 'ckedit', {
+  allowedContent : true,      
+  pasteFromWordRemoveFontStyles : false,
+  pasteFromWordRemoveStyles : false
+  }); 
   }
 
   componentWillUnmount() {
@@ -25,8 +30,9 @@ class AddUser extends React.Component {
   }
 
   onChange(state) {
-    this.setState(state);
+    this.setState(state);       
   }
+
   // reset()
   // {
   //   AddPostActions.resetAll();   
@@ -42,12 +48,14 @@ class AddUser extends React.Component {
  
   handleSubmitPost(event)
    { 
-    
+    for ( var instance in CKEDITOR.instances )
+        CKEDITOR.instances[instance].updateElement();
+    console.log(CKEDITOR.instances.ckedit._.data);
     var id = this.state.id;
     var title = this.state.title.trim();
     var introduce = this.state.introduce.trim();   
     var dateStart = this.state.dateStart;
-    var content = this.state.content;
+    var content = React.findDOMNode(this.refs.body).value;
     if (!content)
     {
       AddPostActions.invalidContent();
@@ -80,10 +88,11 @@ class AddUser extends React.Component {
     var htmlInput = '<div><div>LG V10 là chiếc smaray.</div><div>bcab</div></div>';
     var htmlToReactParser = new HtmlToReact.Parser(React);
     var reactComponent = htmlToReactParser.parse(htmlInput);
+
      return (            
       <div className='container'>
         <div className='row'>
-          <div className='col-sm-8'>
+          <div className='col-sm-12'>
             <div className='panel panel-danger'>
               <div className='panel-heading'><strong>Thêm tin tức</strong></div>
               <div className='panel-body'>
@@ -115,15 +124,12 @@ class AddUser extends React.Component {
                   </div> 
                     <div className={'form-group ' + this.state.contentValidationState}>
                     <label className='col-sm-2 control-label'>Nội dung</label> 
-                    <div  className ='col-sm-10'>                   
-                      <ReactQuill
-                       theme="snow"                                           
-                      value={this.state.content}
-                      onChange={AddPostActions.updateContent} />      
+                      <div  className ='col-sm-10'>                    
+                      <textarea id ='ckedit' value ={this.state.content} ref ='body' ></textarea>
                       <span className='help-block'>{this.state.helpBlockContent}</span>  
                     </div>
                   </div>
-                  <p>{this.state.content}</p>
+                  <p>{this.state.content}</p> 
                   {reactComponent}
                   <button type='submit' className='btn btn-primary'>Submit</button>                 
                 </form>    

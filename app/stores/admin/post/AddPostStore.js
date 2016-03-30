@@ -7,7 +7,7 @@ class AddPostStore {
   constructor() {
       this.bindActions(AddPostActions);
       this.id='';
-      this.content ='<div></div>';
+      this.content ='<div>aaaaaaaaaaaaaa</div>';
       this.title ='';
       this.introduce='';
       this.dateStart =new Date();
@@ -31,6 +31,7 @@ class AddPostStore {
     }
     onUpdateContent(value)
     {      
+      console.log("value = " + value);
       this.content = value[0];       
       this.contentValidationState ='';
       this.helpBlockContent ='';             
