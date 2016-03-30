@@ -26,9 +26,7 @@ class AddCategory extends React.Component {
   }
 
   onChange(state) {
-
     this.setState({state1:AddCategoryStore.getState(),state2:DocumentTypeListStore.getState()});
-    this.setState(state2);
   }
   
 
