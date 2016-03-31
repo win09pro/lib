@@ -24,7 +24,7 @@ var mongoose = require('mongoose');
 var Book = require('./models/Book');
 var User = require('./models/User');
 
-var category = require('./models/category');
+
 var documenttype = require('./models/documenttype');
 
 var config = require('./config');
@@ -39,6 +39,7 @@ mongoose.connection.on('error', function() {
 
 //=================SRC-SERVER===================
 var Postserver = require('./src-server/admin/post/Postserver');
+var CategoryServer = require('./src-server/admin/category/CategoryServer');
 
 //==============================================
 
@@ -389,97 +390,9 @@ app.post('/api/deleteDoc', function(req, res, next) {
 //end delete document type
 
 /*
-  Category
+Category
 */
-
-// Add API for Category
-
-//get List Category
-app.get('/api/category', function(req, res, next) {
-  try{
-    category
-    .find()
-    .exec(function(err, listcategory){
-      if(err) next(err);
-      res.send(listcategory);
-    })
-  } catch(e){
-    res.status(e).send({ message: 'Error when get Category'});
-  }
-});
-// end get list category
-
-// get category by id
-app.get('/api/category/:id', function(req, res, next){
-  var id = req.params.id;
-  category.findOne({ _id: id }, function(err, cate) {
-    if (err) return next(err);
-
-    if (!cate) {
-      return res.status(404).send({ message: 'Category not found.' });
-    }     
-    res.send(cate);
-  });
-});
-// end get category by id
-
-// add category
-app.post('/api/category', function(req, res, next) {
-  //category name
-  var catename = req.body.name;
-  //category description
-  var catedescription = req.body.description;
-  //category doctype
-  var _documenttype = req.body._documenttype;
-
-  var id=req.body.id;
-
-   category.findOne({ _id: id }, function(err, cate) {
-  if ( (err)|| (!cate) )
-  {
-    try{ 
-         var cate = new category({           
-                    name: catename ,
-                    description: catedescription,
-                    _documenttype: _documenttype            
-                  });   
-         cate.save(function(err) {
-         if (err) return next(err);     
-         res.send({ message: catename + ' has been added successfully!' });
-         });
-         } catch (e) {
-            res.status(e).send({ message: catename+ 'and' +catedescription + 'error when add new.' });
-        }
-  }
-  else
-  {
-        cate.update({ $set: { name: catename, description: catedescription, _documenttype: _documenttype } }, function(err) {
-            if (err) return next(err);
-            res.send({ message: docname + ' has been updated successfully!' });
-          });
-             
-          
-  }})
-});
-// end add category
-
-// DELETE category
-app.post('/api/delete-category', function(req, res, next) {
-  var cateId = req.body.id;
-  category.remove({name:''})  ;
-  category.findOne({ _id: cateId }, function(err, cate) {
-    if (err) return next(err);
-
-    if (!cate) {
-      return res.status(404).send({ message: 'Category not found.' });
-    }   
-      cate.remove();
-      res.send({ message: cate.name + ' has been deleted.' });
-
- 
-  });
-});
-// end Add API for Category
+CategoryServer(app);
 
 
 app.use(function(req, res) {

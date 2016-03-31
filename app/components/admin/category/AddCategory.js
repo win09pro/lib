@@ -33,10 +33,10 @@ class AddCategory extends React.Component {
   handleSubmitCategory(event)
   {
   	event.preventDefault();
-    var id = this.state.state1id;
-    var name = this.state.state1name.trim();
-    var description = this.state.state1description;
-    var _documenttype = this.state.state1_documenttype;
+    var id = this.state.state1.id;
+    var name = this.state.state1.name.trim();
+    var description = this.state.state1.description;
+    var _documenttype = this.state.state1._documenttype;
 
     if (!name) {
       AddCategoryAction.invalidName();
@@ -79,27 +79,27 @@ class AddCategory extends React.Component {
               <div className='panel-body'>
                 <form onSubmit={this.handleSubmitCategory.bind(this)}>
 
-                  <div className={'form-group ' + this.state.state1nameValidationState}>
+                  <div className={'form-group ' + this.state.state1.nameValidationState}>
                     <label className='control-label'>Name</label>
-                    <input type='text' className='form-control' ref='nameTextField' value={this.state.state1name}
+                    <input type='text' className='form-control' ref='nameTextField' value={this.state.state1.name}
                            onChange={AddCategoryAction.updateName} autoFocus/>
 
-                    <span className='help-block'>{this.state.state1helpBlockName}</span>
+                    <span className='help-block'>{this.state.state1.helpBlockName}</span>
                   </div>
-                  <div className={'form-group ' + this.state.state1descriptionValidationState}>
+                  <div className={'form-group ' + this.state.state1.descriptionValidationState}>
                     <label className='control-label'>Description</label>
-                    <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.state1description}
+                    <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.state1.description}
                            onChange={AddCategoryAction.updateDescription}/>
-                    <span className='help-block'>{this.state.state1helpBlockDescription}</span>                    
+                    <span className='help-block'>{this.state.state1.helpBlockDescription}</span>                    
                   </div>
 
-                  <div className={'form-group ' + this.state.state1documentTypeValidationState}>
+                  <div className={'form-group ' + this.state.state1.documentTypeValidationState}>
                     <label className='control-label'>Document Type</label>
-                    <select className='form-control' ref='DocumentTypeSelectField' value={this.state.state1_documentType} onChange={AddCategoryAction.updateDocumentType}>
+                    <select className='form-control' ref='DocumentTypeSelectField' value={this.state.state1._documentType} onChange={AddCategoryAction.updateDocumentType}>
                       <option value='0'>--Select document type--</option>
                       {documentTypeList}
                     </select>
-                    <span className='help-block'>{this.state.state1helpBlockDocumentType}</span>                    
+                    <span className='help-block'>{this.state.state1.helpBlockDocumentType}</span>                    
                   </div> 
 
                   <button type='submit' className='btn btn-primary'>Submit</button>
