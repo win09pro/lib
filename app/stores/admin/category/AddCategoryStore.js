@@ -15,6 +15,7 @@ class AddCategoryStore {
     this.nameValidationState = '';
     this.descriptionValidationState = '';
     this.documentTypeValidationState = '';
+  
   }  
   onResetState()
   {

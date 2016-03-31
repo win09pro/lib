@@ -9,39 +9,34 @@ class AddCategory extends React.Component {
   constructor(props)
   {
   	super(props);
-  	this.state = AddCategoryStore.getState();
-    this.docState = DocumentTypeListStore.getState();
-   
-  	this.onChange = this.onChange.bind(this);
-    
-    
+  	this.state = {state1:AddCategoryStore.getState(),state2:DocumentTypeListStore.getState()};     
+  	this.onChange = this.onChange.bind(this);   
   }
   
    componentDidMount() {    
-    AddCategoryStore.listen(this.onChange);
-    DocumentTypeListStore.listen(this.onChange);
+    AddCategoryStore.listen(this.onChange);   
+    DocumentTypeListStore.listen(this.onChange);   
     DocumentTypeListAction.get();
   }
 
   componentWillUnmount() {
     AddCategoryStore.unlisten(this.onChange);
-    DocumentTypeListStore.unlisten(this.onChange);
+    DocumentTypeListStore.unlisten(this.onChange);   
+   
   }
 
   onChange(state) {
-    console.log(state);
-    this.setState(state);
-    // this.setState(docState);
+    this.setState({state1:AddCategoryStore.getState(),state2:DocumentTypeListStore.getState()});
   }
   
 
   handleSubmitCategory(event)
   {
   	event.preventDefault();
-    var id = this.state.id;
-    var name = this.state.name.trim();
-    var description = this.state.description;
-    var _documenttype = this.state._documenttype;
+    var id = this.state.state1id;
+    var name = this.state.state1name.trim();
+    var description = this.state.state1description;
+    var _documenttype = this.state.state1_documenttype;
 
     if (!name) {
       AddCategoryAction.invalidName();
@@ -65,7 +60,7 @@ class AddCategory extends React.Component {
 
   render() {
     // DocumentTypeListAction.get();
-    let documentTypeList = this.docState.documentTypes.map((documentType, index) => {
+    let documentTypeList = this.state.state2.documentTypes.map((documentType, index) => {
       return (
         
         <option value={documentType._id} key ={index+1}>
@@ -84,27 +79,27 @@ class AddCategory extends React.Component {
               <div className='panel-body'>
                 <form onSubmit={this.handleSubmitCategory.bind(this)}>
 
-                  <div className={'form-group ' + this.state.nameValidationState}>
+                  <div className={'form-group ' + this.state.state1nameValidationState}>
                     <label className='control-label'>Name</label>
-                    <input type='text' className='form-control' ref='nameTextField' value={this.state.name}
+                    <input type='text' className='form-control' ref='nameTextField' value={this.state.state1name}
                            onChange={AddCategoryAction.updateName} autoFocus/>
 
-                    <span className='help-block'>{this.state.helpBlockName}</span>
+                    <span className='help-block'>{this.state.state1helpBlockName}</span>
                   </div>
-                  <div className={'form-group ' + this.state.descriptionValidationState}>
+                  <div className={'form-group ' + this.state.state1descriptionValidationState}>
                     <label className='control-label'>Description</label>
-                    <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.description}
+                    <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.state1description}
                            onChange={AddCategoryAction.updateDescription}/>
-                    <span className='help-block'>{this.state.helpBlockDescription}</span>                    
+                    <span className='help-block'>{this.state.state1helpBlockDescription}</span>                    
                   </div>
 
-                  <div className={'form-group ' + this.state.documentTypeValidationState}>
+                  <div className={'form-group ' + this.state.state1documentTypeValidationState}>
                     <label className='control-label'>Document Type</label>
-                    <select className='form-control' ref='DocumentTypeSelectField' value={this.state._documentType} onChange={AddCategoryAction.updateDocumentType}>
+                    <select className='form-control' ref='DocumentTypeSelectField' value={this.state.state1_documentType} onChange={AddCategoryAction.updateDocumentType}>
                       <option value='0'>--Select document type--</option>
                       {documentTypeList}
                     </select>
-                    <span className='help-block'>{this.state.helpBlockDocumentType}</span>                    
+                    <span className='help-block'>{this.state.state1helpBlockDocumentType}</span>                    
                   </div> 
 
                   <button type='submit' className='btn btn-primary'>Submit</button>

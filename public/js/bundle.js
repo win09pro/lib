@@ -109,7 +109,7 @@ var AddCategoryAction = function () {
   function AddCategoryAction() {
     _classCallCheck(this, AddCategoryAction);
 
-    this.generateActions('addCategorySuccess', 'addCategoryFail', 'updateName', 'updateDescription', 'updateDocumentType', 'invalidName', 'invalidDescription', 'invalidDocumentType', 'getCategorySuccess', 'getCategoryFail', 'resetState');
+    this.generateActions('addCategorySuccess', 'addCategoryFail', 'updateName', 'updateDescription', 'updateDocumentType', 'invalidName', 'invalidDescription', 'invalidDocumentType', 'getCategorySuccess', 'getCategoryFail', 'resetState', 'getDocListSuccess', 'getDocListFail');
   }
 
   _createClass(AddCategoryAction, [{
@@ -137,6 +137,20 @@ var AddCategoryAction = function () {
         _this2.actions.addCategorySuccess(data.message);
       }).fail(function (jqXhr) {
         _this2.actions.addCategoryFail(jqXhr.responseJSON.message);
+      });
+    }
+  }, {
+    key: 'get',
+    value: function get() {
+      var _this3 = this;
+
+      $.ajax({
+        type: 'GET',
+        url: '/api/document-type'
+      }).done(function (data) {
+        _this3.actions.getDocListSuccess(data);
+      }).fail(function (jqXhr) {
+        _this3.actions.getDocListFail(jqXhr.responseJSON.message);
       });
     }
   }]);
@@ -1867,8 +1881,7 @@ var AddCategory = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddCategory).call(this, props));
 
-    _this.state = _AddCategoryStore2.default.getState();
-    _this.docState = _DocumentTypeListStore2.default.getState();
+    _this.state = { state1: _AddCategoryStore2.default.getState(), state2: _DocumentTypeListStore2.default.getState() };
 
     _this.onChange = _this.onChange.bind(_this);
 
@@ -1891,18 +1904,18 @@ var AddCategory = function (_React$Component) {
   }, {
     key: 'onChange',
     value: function onChange(state) {
-      console.log(state);
-      this.setState(state);
-      // this.setState(docState);
+
+      this.setState({ state1: _AddCategoryStore2.default.getState(), state2: _DocumentTypeListStore2.default.getState() });
+      this.setState(state2);
     }
   }, {
     key: 'handleSubmitCategory',
     value: function handleSubmitCategory(event) {
       event.preventDefault();
-      var id = this.state.id;
-      var name = this.state.name.trim();
-      var description = this.state.description;
-      var _documenttype = this.state._documenttype;
+      var id = this.state.state1id;
+      var name = this.state.state1name.trim();
+      var description = this.state.state1description;
+      var _documenttype = this.state.state1_documenttype;
 
       if (!name) {
         _AddCategoryAction2.default.invalidName();
@@ -1927,7 +1940,7 @@ var AddCategory = function (_React$Component) {
     key: 'render',
     value: function render() {
       // DocumentTypeListAction.get();
-      var documentTypeList = this.docState.documentTypes.map(function (documentType, index) {
+      var documentTypeList = this.state.state2.documentTypes.map(function (documentType, index) {
         return _react2.default.createElement(
           'option',
           { value: documentType._id, key: index + 1 },
@@ -1960,39 +1973,39 @@ var AddCategory = function (_React$Component) {
                   { onSubmit: this.handleSubmitCategory.bind(this) },
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.nameValidationState },
+                    { className: 'form-group ' + this.state.state1nameValidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'control-label' },
                       'Name'
                     ),
-                    _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'nameTextField', value: this.state.name,
+                    _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'nameTextField', value: this.state.state1name,
                       onChange: _AddCategoryAction2.default.updateName, autoFocus: true }),
                     _react2.default.createElement(
                       'span',
                       { className: 'help-block' },
-                      this.state.helpBlockName
+                      this.state.state1helpBlockName
                     )
                   ),
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.descriptionValidationState },
+                    { className: 'form-group ' + this.state.state1descriptionValidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'control-label' },
                       'Description'
                     ),
-                    _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'DescriptionTextField', value: this.state.description,
+                    _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'DescriptionTextField', value: this.state.state1description,
                       onChange: _AddCategoryAction2.default.updateDescription }),
                     _react2.default.createElement(
                       'span',
                       { className: 'help-block' },
-                      this.state.helpBlockDescription
+                      this.state.state1helpBlockDescription
                     )
                   ),
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.documentTypeValidationState },
+                    { className: 'form-group ' + this.state.state1documentTypeValidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'control-label' },
@@ -2000,7 +2013,7 @@ var AddCategory = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       'select',
-                      { className: 'form-control', ref: 'DocumentTypeSelectField', value: this.state._documentType, onChange: _AddCategoryAction2.default.updateDocumentType },
+                      { className: 'form-control', ref: 'DocumentTypeSelectField', value: this.state.state1_documentType, onChange: _AddCategoryAction2.default.updateDocumentType },
                       _react2.default.createElement(
                         'option',
                         { value: '0' },
@@ -2011,7 +2024,7 @@ var AddCategory = function (_React$Component) {
                     _react2.default.createElement(
                       'span',
                       { className: 'help-block' },
-                      this.state.helpBlockDocumentType
+                      this.state.state1helpBlockDocumentType
                     )
                   ),
                   _react2.default.createElement(
@@ -3009,6 +3022,11 @@ var AddUser = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _AddPostStore2.default.listen(this.onChange);
+      CKEDITOR.replace('ckedit', {
+        allowedContent: true,
+        pasteFromWordRemoveFontStyles: false,
+        pasteFromWordRemoveStyles: false
+      });
     }
   }, {
     key: 'componentWillUnmount',
@@ -3020,6 +3038,7 @@ var AddUser = function (_React$Component) {
     value: function onChange(state) {
       this.setState(state);
     }
+
     // reset()
     // {
     //   AddPostActions.resetAll();  
@@ -3036,12 +3055,14 @@ var AddUser = function (_React$Component) {
   }, {
     key: 'handleSubmitPost',
     value: function handleSubmitPost(event) {
-
+      for (var instance in CKEDITOR.instances) {
+        CKEDITOR.instances[instance].updateElement();
+      }console.log(CKEDITOR.instances.ckedit._.data);
       var id = this.state.id;
       var title = this.state.title.trim();
       var introduce = this.state.introduce.trim();
       var dateStart = this.state.dateStart;
-      var content = this.state.content;
+      var content = _react2.default.findDOMNode(this.refs.body).value;
       if (!content) {
         _AddPostActions2.default.invalidContent();
       }
@@ -3074,6 +3095,7 @@ var AddUser = function (_React$Component) {
       var htmlInput = '<div><div>LG V10 là chiếc smaray.</div><div>bcab</div></div>';
       var htmlToReactParser = new _htmlToReact2.default.Parser(_react2.default);
       var reactComponent = htmlToReactParser.parse(htmlInput);
+
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -3082,7 +3104,7 @@ var AddUser = function (_React$Component) {
           { className: 'row' },
           _react2.default.createElement(
             'div',
-            { className: 'col-sm-8' },
+            { className: 'col-sm-12' },
             _react2.default.createElement(
               'div',
               { className: 'panel panel-danger' },
@@ -3173,10 +3195,7 @@ var AddUser = function (_React$Component) {
                     _react2.default.createElement(
                       'div',
                       { className: 'col-sm-10' },
-                      _react2.default.createElement(_reactQuill2.default, {
-                        theme: 'snow',
-                        value: this.state.content,
-                        onChange: _AddPostActions2.default.updateContent }),
+                      _react2.default.createElement('textarea', { id: 'ckedit', value: this.state.content, ref: 'body' }),
                       _react2.default.createElement(
                         'span',
                         { className: 'help-block' },
@@ -4923,9 +4942,20 @@ var AddCategoryStore = function () {
     this.nameValidationState = '';
     this.descriptionValidationState = '';
     this.documentTypeValidationState = '';
+    this.documentTypes = [];
   }
 
   _createClass(AddCategoryStore, [{
+    key: 'onGetDocListSuccess',
+    value: function onGetDocListSuccess(data) {
+      this.documentTypes = data;
+    }
+  }, {
+    key: 'onGetDocListFail',
+    value: function onGetDocListFail(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
+    }
+  }, {
     key: 'onResetState',
     value: function onResetState() {
       this.id = '';
@@ -5405,7 +5435,7 @@ var AddPostStore = function () {
 
     this.bindActions(_AddPostActions2.default);
     this.id = '';
-    this.content = '<div></div>';
+    this.content = '<div>aaaaaaaaaaaaaa</div>';
     this.title = '';
     this.introduce = '';
     this.dateStart = new Date();
@@ -5432,6 +5462,7 @@ var AddPostStore = function () {
   }, {
     key: 'onUpdateContent',
     value: function onUpdateContent(value) {
+      console.log("value = " + value);
       this.content = value[0];
       this.contentValidationState = '';
       this.helpBlockContent = '';
