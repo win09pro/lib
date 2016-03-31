@@ -17,7 +17,7 @@ class ListBooks extends React.Component {
   }
  componentDidMount() {
     listPostsStore.listen(this.onChange);
-    listPostsActions.get();  
+    listPostsActions.get();
     console.log('aa');
   }
 
@@ -26,21 +26,21 @@ class ListBooks extends React.Component {
   }
 
   onChange(state) {
-    this.setState(state);   
+    this.setState(state);
   }
   handleChange(e)
   {
     var id = e.target.attributes['data-ref'].value;
     if (e.target.checked )
-    { 
-        listPostsActions.updateArrayId(id);       
-    } 
+    {
+        listPostsActions.updateArrayId(id);
+    }
     else
     {
      listPostsActions.removeArrayId (id);
-    }  
+    }
   //   console.log(this.state.arrayIDtoDel);
-   
+
   }
   deleteGroup()
    {
@@ -50,30 +50,30 @@ class ListBooks extends React.Component {
       });
       listPostsActions.closeModal();
    }
-   
-  render() {    
+
+  render() {
     let style={'text-align':'center'};
-    let postlist = this.state.posts.map((post, index) => {      
+    let postlist = this.state.posts.map((post, index) => {
       let checked=false;
       return (
-        <tr key ={index}>   
-          <td>{index}</td>   
-          <td><Link to={'/admin/user/'+post._id}>{post.title}</Link></td>          
-          <td>{post.introduce}</td>
-          <td>{moment(post.dateStart).format('DD-MM-YYYY H:MM A')}</td>
-          <td>{post.content.substr(0,100)+'...'}</td>        
+        <tr key ={index}>
+          <td>{index}</td>
+          <td><Link to={'/admin/post/'+post._id}>{post.title.substr(0,20) +' ...'}</Link></td>
+          <td>{post.introduce.substr(0,40)+' ...'}</td>
+          <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM')}</td>
+          <td>{post.content.substr(0,40)+' ...' }</td>
           <td><ActionBar viewAction={AddPostActions} editAction={AddPostActions} deleteAction={listPostsActions} item={post} /></td>
-          <td>            
-            <input type ='checkbox' data-ref ={post._id} onClick = {this.handleChange.bind(this)} />             
+          <td>
+            <input type ='checkbox' data-ref ={post._id} onClick = {this.handleChange.bind(this)} />
           </td>
-        </tr>             
+        </tr>
       );
     });
-  
-    return (    
-      <div className='container'>
+
+    return (
+      <div className='container-fluid'>
         <div className='row'>
-          <div className='col-sm-12'>  
+          <div className='col-sm-12'>
             <div className='panel panel-default'>
               <div className='panel-heading'>List books</div>
               <div className='panel-body'>
@@ -81,18 +81,18 @@ class ListBooks extends React.Component {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Chủ đề</th>                      
-                      <th>Giới thiệu</th>        
-                      <th>Ngày bắt đầu</th>  
+                      <th>Chủ đề</th>
+                      <th>Giới thiệu</th>
+                      <th>Ngày bắt đầu</th>
                       <th>Nội dung</th>
-                      <th>Hành động</th>  
-                      <th><a className ="deletegroup" onClick ={listPostsActions.openModal} > <i className="fa fa-trash fa-danger fa-fa2x"></i></a></th>                   
+                      <th>Hành động</th>
+                      <th><a className ="deletegroup" onClick ={listPostsActions.openModal} > <i className="fa fa-trash fa-danger fa-fa2x"></i></a></th>
                     </tr>
                   </thead>
-                  <tbody>                       
+                  <tbody>
                     {postlist}
-                  </tbody>                    
-                </table>       
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -107,14 +107,14 @@ class ListBooks extends React.Component {
       <div style={style}>
       <h3 style ={{'color':'green'}}>Đồng ý xóa ?</h3>
       </div>
-      </Modal.Body>      
+      </Modal.Body>
       <Modal.Footer>
           <button
               className="btn btn-warning"
-            onClick={listPostsActions.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+            onClick={listPostsActions.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
           <button
               className="btn btn-success"
-            onClick={this.deleteGroup.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+            onClick={this.deleteGroup.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
       </Modal.Footer>
     </Modal>
       </div>

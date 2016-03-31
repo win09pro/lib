@@ -13,7 +13,7 @@ class AddCategoryAction {
       'invalidDocumentType',
       'getCategorySuccess',
       'getCategoryFail',
-      'resetState',
+      'resetState'
    
      
     );
