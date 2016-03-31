@@ -8,11 +8,11 @@ class App extends React.Component {
     return (
       <div className="wrapper">
 	      	<Navbar />
-	      	<SidebarLeft />	      
-	      	    <div className="content-wrapper">			      
+	      	<SidebarLeft />
+	      	    <div className="content-wrapper">
 				{this.props.children}
-			     </div> 				     
-			<Footer />  
+			     </div>
+			<Footer />
       </div>
 
     );

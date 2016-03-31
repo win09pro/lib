@@ -6,40 +6,43 @@ function Postserver(app) {
   var id = req.body.id;
   var title =req.body.title;
   var introduce = req.body.introduce;
+  var pictureURL = req.body.pictureURL;
   var content = req.body.content;
-  var dateStart = req.body.dateStart;  
-  
+  var dateStart = req.body.dateStart;
+
    Post.findOne({ _id: id }, function(err, post) {
   if ( (err)|| (!post) )
   {
-    try{ 
-         var post = new Post({           
+    try{
+         var post = new Post({
                     title:title,
                     introduce:introduce,
-                    content:content,                   
-                    dateStart:dateStart          
-                  });   
+                    content:content,
+                    pictureURL:pictureURL,
+                    dateStart:dateStart
+                  });
          post.save(function(err) {
-         if (err) return next(err);     
+         if (err) return next(err);
          res.send({ message: title + ' được thêm thành công!' });
          });
          } catch (e) {
             res.status(e).send({ message: 'Có lỗi xảy ra khi thêm bài viết ' });
-        }        
+        }
   }
   else
   {
         post.update({ $set: {
                     title:title,
                     introduce:introduce,
-                    content:content,                   
-                    dateStart:dateStart          
+                    content:content,
+                    pictureURL:pictureURL,
+                    dateStart:dateStart
         } }, function(err) {
             if (err) return next(err);
             res.send({ message: title + ' has been updated successfully!' });
           });
-             
-          
+
+
   }})
    });
 /**
@@ -47,17 +50,17 @@ function Postserver(app) {
  * Delete a Post from the database.
  */
 app.post('/api/deletepost', function(req, res, next) {
-  var postId = req.body.id; 
+  var postId = req.body.id;
   Post.findOne({ _id: postId }, function(err, post) {
     if (err) return next(err);
 
     if (!post) {
       return res.status(404).send({ message: 'post not found.' });
-    }   
+    }
       post.remove();
       res.send({ message:'Bài đăng có chủ đề '+ post.title + ' đã được xóa' });
 
- 
+
   });
 });
 /**
@@ -71,16 +74,16 @@ app.get('/api/post', function(req, res, next) {
    .find()
    .exec(function(err,posts){
     if(err) next(err);
-    res.send(posts);    
+    res.send(posts);
    })
       } catch (e) {
       res.status(e);
           }
-        });  
+        });
 /**
  * GET /api/post/:id
  * Get a post from the database.
- */      
+ */
   app.get('/api/post/:id', function(req, res, next) {
   var id = req.params.id;
   Post.findOne({ _id: id }, function(err, post) {
@@ -88,7 +91,7 @@ app.get('/api/post', function(req, res, next) {
 
     if (!post) {
       return res.status(404).send({ message: 'Không tìm thấy bài đăng phù hợp' });
-    }     
+    }
     res.send(post);
   });
 });
@@ -96,14 +99,14 @@ app.get('/api/post', function(req, res, next) {
 /**
  * GET /api/post/count
  * Get number of posts from the database.
- */      
-  app.get('/api/post/count', function(req, res, next) { 
+ */
+  app.get('/api/post/count', function(req, res, next) {
   Post.count(function(err, number) {
-    if (err) return next(err);   
+    if (err) return next(err);
     res.send(number);
   });
 });
-  
+
 
 
 }

@@ -9,16 +9,23 @@ class AddPostActions{
      'updateTitle',
      'updateIntroduce',
      'updateDateStart',
+     'updatepictureURL',
 
      'invalidTitle',
      'invalidIntroduce',
      'invalidDateStart',
      'invalidContent',
+     'invalidPictureURL',
 
      'addPostSuccess',
      'addPostFail',
      'getPostSuccess',
-     'getPostFail'
+     'getPostFail',
+     'getPostViewSuccess',
+
+     'resetAll',
+     'clearAll'
+
 
 
 
@@ -34,7 +41,8 @@ class AddPostActions{
             title:payload.title,
             introduce:payload.introduce,
             dateStart:payload.dateStart,
-            content:payload.content         
+            pictureURL:payload.pictureURL,
+            content:payload.content
     }
     })
     .done((data) => {
@@ -44,9 +52,9 @@ class AddPostActions{
       this.actions.addPostFail(jqXhr.responseJSON.message);
     });
   }
-  getById(bookid) {
+  getById(postId) {
     $.ajax({
-      url: '/api/Post/'+bookid})
+      url: '/api/post/'+postId})
       .done((data) => {
         this.actions.getPostSuccess(data);
       })
@@ -54,7 +62,17 @@ class AddPostActions{
         this.actions.getPostFail(jqXhr.responseJSON.message);
       });
   }
-  
+  getByIdView(postId) {
+    $.ajax({
+      url: '/api/post/'+postId})
+      .done((data) => {
+        this.actions.getPostViewSuccess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getPostFail(jqXhr.responseJSON.message);
+      });
+  }
+
 }
 
 export default alt.createActions(AddPostActions);

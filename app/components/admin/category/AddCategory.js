@@ -9,26 +9,26 @@ class AddCategory extends React.Component {
   constructor(props)
   {
   	super(props);
-  	this.state = {state1:AddCategoryStore.getState(),state2:DocumentTypeListStore.getState()};     
-  	this.onChange = this.onChange.bind(this);   
+  	this.state = {state1:AddCategoryStore.getState(),state2:DocumentTypeListStore.getState()};
+  	this.onChange = this.onChange.bind(this);
   }
-  
-   componentDidMount() {    
-    AddCategoryStore.listen(this.onChange);   
-    DocumentTypeListStore.listen(this.onChange);   
+
+   componentDidMount() {
+    AddCategoryStore.listen(this.onChange);
+    DocumentTypeListStore.listen(this.onChange);
     DocumentTypeListAction.get();
   }
 
   componentWillUnmount() {
     AddCategoryStore.unlisten(this.onChange);
-    DocumentTypeListStore.unlisten(this.onChange);   
-   
+    DocumentTypeListStore.unlisten(this.onChange);
+
   }
 
   onChange(state) {
     this.setState({state1:AddCategoryStore.getState(),state2:DocumentTypeListStore.getState()});
   }
-  
+
 
   handleSubmitCategory(event)
   {
@@ -62,14 +62,14 @@ class AddCategory extends React.Component {
     // DocumentTypeListAction.get();
     let documentTypeList = this.state.state2.documentTypes.map((documentType, index) => {
       return (
-        
+
         <option value={documentType._id} key ={index+1}>
             {documentType.name}
         </option>
-        
+
       );
     });
-    
+
     return (
       <div className='container-fluid'>
         <div className='row flipInX animated'>
@@ -90,7 +90,7 @@ class AddCategory extends React.Component {
                     <label className='control-label'>Description</label>
                     <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.state1.description}
                            onChange={AddCategoryAction.updateDescription}/>
-                    <span className='help-block'>{this.state.state1.helpBlockDescription}</span>                    
+                    <span className='help-block'>{this.state.state1.helpBlockDescription}</span>
                   </div>
 
                   <div className={'form-group ' + this.state.state1.documentTypeValidationState}>
@@ -99,14 +99,14 @@ class AddCategory extends React.Component {
                       <option value='0'>--Select document type--</option>
                       {documentTypeList}
                     </select>
-                    <span className='help-block'>{this.state.state1.helpBlockDocumentType}</span>                    
-                  </div> 
+                    <span className='help-block'>{this.state.state1.helpBlockDocumentType}</span>
+                  </div>
 
                   <button type='submit' className='btn btn-primary'>Submit</button>
                 </form>
               </div>
-            </div>            
-          </div>          
+            </div>
+          </div>
         </div>
       </div>
     );
