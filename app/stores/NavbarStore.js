@@ -8,6 +8,7 @@ class NavbarStore {
     this.onlineUsers = 0;
     this.searchQuery = '';
     this.ajaxAnimationClass = '';
+    this.openModal =true;
   }
 
   onFindCharacterSuccess(payload) {
@@ -26,6 +27,13 @@ class NavbarStore {
   }
 
   onUpdateAjaxAnimation(className) {
+    if(className =='fadeIn')
+    {
+       this.openModal =true;
+    }
+    else {
+      this.openModal =false;
+    }
     this.ajaxAnimationClass = className; //fadein or fadeout
   }
 

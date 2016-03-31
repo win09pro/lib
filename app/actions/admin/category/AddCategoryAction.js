@@ -13,9 +13,7 @@ class AddCategoryAction {
       'invalidDocumentType',
       'getCategorySuccess',
       'getCategoryFail',
-      'resetState',
-      'getDocListSuccessC',
-      'getDocListFailC'
+      'resetState'
      
     );
   }
@@ -55,6 +53,7 @@ class AddCategoryAction {
         this.actions.addCategoryFail(jqXhr.responseJSON.message);
       });
   }
+   
 }
 
 export default alt.createActions(AddCategoryAction);
