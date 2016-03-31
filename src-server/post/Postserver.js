@@ -1,4 +1,4 @@
-var Post = require('../../models/Post');
+// var Post = require('../../models/Post');
 function Postserver(app) {
   app.post('/api/post', function(req, res, next) {
   var id = req.body.id;

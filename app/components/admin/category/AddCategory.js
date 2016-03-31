@@ -10,7 +10,7 @@ class AddCategory extends React.Component {
   {
   	super(props);
   	this.state = AddCategoryStore.getState();
-    this.docState = DocumentTypeListStore.getState();
+    // this.docState = DocumentTypeListStore.getState();
   	this.onChange = this.onChange.bind(this);
 
   }
@@ -18,7 +18,7 @@ class AddCategory extends React.Component {
    componentDidMount() {    
     AddCategoryStore.listen(this.onChange);
     // DocumentTypeListStore.listen(this.onChange);
-    DocumentTypeListAction.get();
+    AddCategoryAction.get();
   }
 
   componentWillUnmount() {
@@ -62,7 +62,7 @@ class AddCategory extends React.Component {
 
   render() {
     // DocumentTypeListAction.get();
-    let documentTypeList = this.docState.documentTypes.map((documentType, index) => {
+    let documentTypeList = this.state.documentTypesC.map((documentType, index) => {
       return (
         
         <option value={documentType._id} key ={index+1}>

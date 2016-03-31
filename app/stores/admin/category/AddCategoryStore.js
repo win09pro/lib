@@ -15,6 +15,7 @@ class AddCategoryStore {
     this.nameValidationState = '';
     this.descriptionValidationState = '';
     this.documentTypeValidationState = '';
+    this.documentTypesC = [];
   }  
   onResetState()
   {
@@ -116,6 +117,14 @@ class AddCategoryStore {
     {
       this.documentTypeValidationState='has-error';
       this.helpBlockDocumentType='Please select Document Type'; 
+    }
+
+    onGetDocListSuccessC(data)
+    {
+      this.documentTypesC = data;
+    }
+    onGetDocListFailC(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
     }
 }
 export default alt.createStore(AddCategoryStore);
