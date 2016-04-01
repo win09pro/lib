@@ -22,6 +22,7 @@ var xml2js = require('xml2js');
 
 var mongoose = require('mongoose');
 var Book = require('./models/Book');
+var Transition = require('./models/Transition');
 var User = require('./models/User');
 
 var category = require('./models/category');
@@ -213,16 +214,23 @@ app.get('/api/user', function(req, res, next) {
  */
 
 app.post('/api/book', function(req, res, next) {
-  var bookdirector = req.body.director;
   var bookname = req.body.name;
-  var id=req.body.id;
+  var bookdirector = req.body.director;
+  var bookcode = req.body.code;
+  var bookBarCode = req.body.borrowBarcode;
+  var bookimageUrl = req.body.imageUrl;
+  var bookDoctype = req.body.doctype;
+  var id = req.body.id;
    Book.findOne({ _id: id }, function(err, book) {
   if ( (err)|| (!book) )
   {
     try{ 
          var book = new Book({           
                     name: bookname ,
-                    director:bookdirector            
+                    director:bookdirector ,
+                    code : bookcode,
+                    borrowBarcode : bookBarCode,
+                    imageUrl : bookimageUrl           
                   });   
          book.save(function(err) {
          if (err) return next(err);     
@@ -234,7 +242,7 @@ app.post('/api/book', function(req, res, next) {
   }
   else
   {
-        book.update({ $set: { name: bookname,director: bookdirector } }, function(err) {
+        book.update({ $set: { name: bookname,director: bookdirector ,code :bookcode,borrowBarcode : bookBarCode,imageUrl : bookimageUrl} }, function(err) {
             if (err) return next(err);
             res.send({ message: bookname + ' has been updated successfully!' });
           });
@@ -298,6 +306,98 @@ app.get('/api/book', function(req, res, next) {
           }
         });  
 
+
+app.post('/api/tran', function(req, res, next) {
+  var bookId = req.body.bookId;
+  var bookName = req.body.bookName;
+  var dateBorrow = req.body.dateBorrow;
+  var dateReturn = req.body.dateReturn;
+  var timeBorrow = req.body.timeBorrow;
+  var id = req.body.id;
+   Transition.findOne({ _id: id }, function(err, tran) {
+  if ( (err)|| (!tran) )
+  {
+    try{ 
+         var tran1 = new Transition({           
+                    bookId: bookId ,
+                    bookName:bookName ,
+                    dateBorrow : dateBorrow,
+                    dateReturn : dateReturn,
+                    timeBorrow : timeBorrow           
+                  });   
+         tran1.save(function(err) {
+         if (err) return next(err);     
+         res.send({ message: bookName + ' has been added successfully!' });
+         });
+         } catch (e) {
+            res.status(e).send({ message: bookName+ ' error when add new book' });
+        }
+  }
+  else
+  {
+        tran.update({ $set: { bookId: bookId,bookName: bookName ,dateBorrow :dateBorrow,dateReturn : dateReturn,timeBorrow : timeBorrow} }, function(err) {
+            if (err) return next(err);
+            res.send({ message: bookName + ' has been updated successfully!' });
+          });
+             
+          
+  }})
+   });
+     
+/**
+ * GET /api/book/:id
+ * Get a book from the database.
+ */      
+  app.get('/api/tran/:id', function(req, res, next) {
+  var id = req.params.id;
+  Transition.findOne({ _id: id }, function(err, tran) {
+    if (err) return next(err);
+
+    if (!tran) {
+      return res.status(404).send({ message: 'Transition not found.' });
+    }     
+    res.send(tran);
+  });
+});
+
+
+/**
+ * POST /api/deletebook
+ * Delete a book from the database.
+ */
+app.post('/api/deletetran', function(req, res, next) {
+  var tranId = req.body.id;
+  Transition.remove({bookId:''});
+  Transition.findOne({ _id: tranId }, function(err, tran) {
+    if (err) return next(err);
+
+    if (!tran) {
+      return res.status(404).send({ message: 'Transition not found.' });
+    }   
+      tran.remove();
+      res.send({ message: tran.bookName + ' has been deleted.' });
+
+ 
+  });
+});
+
+/**
+ * GET /api/book
+ * Return books from the database.
+ */
+
+app.get('/api/tran', function(req, res, next) {
+  try{
+   Transition
+   .find()
+   .exec(function(err,trans){
+    if(err) next(err);
+    res.send(trans);    
+   })
+      } catch (e) {
+      res.status(e).send({ message: 'Error when GET TRAN ' });
+          }
+        });  
 // GET list document type
 // 
 app.get('/api/document-type', function(req, res, next) {
