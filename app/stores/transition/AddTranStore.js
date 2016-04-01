@@ -161,13 +161,15 @@ class AddTranStore {
     {
 
       this.bookId= event.target.value;
-      var i=null;
-      for (i =0;i<this.books.lenght;i++){
-        if(this.books[i]._id==this.bookId ){
+      console.log(this.books);
+      var i=0;
+      for (i =0 ;i< this.books.length ; i++){
+        if(this.books[i]._id ===this.bookId){
           this.bookName =this.books[i].name;
         }
       }
-      console.log(this.bookId, this.bookName);
+      console.log(this.bookId);
+      console.log(this.bookName);
 
     	this.bookNameValidationState = '';
     	this.helpBlockBookId = '';
