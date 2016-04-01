@@ -6,15 +6,21 @@ class listUsersActions {
       'getUsersuccess',
       'getUserfail', 
       'deletesuccess',
-      'deletefail'     
+      'deletefail',
+
+      'updateArrayId',
+      'removeArrayId',
+
+      'openModal',
+      'closeModal'      
     );
   }
-  delete(user)
+  delete(id)
  {
     $.ajax({
       type: 'POST',
       url: '/api/deleteuser',
-      data: { id: user._id}
+      data: { id: id}
     })
       .done((data) => {
         this.actions.deletesuccess(data.message);

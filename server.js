@@ -37,10 +37,13 @@ console.log(config.database);
 mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
 });
+
+//=================SRC-SERVER===================
+var Postserver = require('./src-server/admin/post/Postserver');
+
+//==============================================
+
 var app = express();
-
-
-
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -86,6 +89,10 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
 //   // });
 //   res.status(200);
 // });
+
+Postserver(app);
+
+
 
 
 

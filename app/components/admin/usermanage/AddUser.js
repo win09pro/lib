@@ -15,7 +15,7 @@ class AddUser extends React.Component {
   	this.state = AddUserStore.getState();
   	this.onChange = this.onChange.bind(this);
   }
-   componentDidMount() {    
+   componentDidMount() {
     AddUserStore.listen(this.onChange);
   }
 
@@ -26,26 +26,23 @@ class AddUser extends React.Component {
   onChange(state) {
     this.setState(state);
   }
-  reset()
-  {
-    AddUserActions.resetAll();   
-    //console.log(this.state.userNameValidationState);
-  }
+
   upload(event)
   {
       var imgfile = this.state.fileAvatar;
          var imgURL = this.state.imagePreviewUrl;
-          AddUserActions.uploadImage(imgfile);     
+          AddUserActions.handleUpload();
+          AddUserActions.uploadImage(imgfile);
            console.log(this.state.imageUrl);
   }
    detele(event)
   {
-    
+
            console.log(this.state.imageUrl);
   }
   handleSubmitUser(event)
-  { 
-    
+  {
+
     var id = this.state.id;
     var username = this.state.userName.trim();
     var password = this.state.passWord;
@@ -83,7 +80,7 @@ class AddUser extends React.Component {
       AddUserActions.passwordNotSame();
       this.refs.repasswordTextField.focus();
     }
-    if (username && repassword && password &&firstname &&lastname &&type) {         
+    if (username && repassword && password &&firstname &&lastname &&type) {
           AddUserActions.addUser({
             id:id,
             userName:username,
@@ -92,12 +89,12 @@ class AddUser extends React.Component {
             lastName:lastname ,
             barcode:barcode,
             type: Number(type),
-            avatar:this.state.imageUrl       
+            avatar:this.state.imageUrl
           });
     }
      event.preventDefault();
-  } 
-  render() {  
+  }
+  render() {
   var styles = {
       '.quill': {
           'border': '1px solid #d5d5d5'
@@ -108,33 +105,33 @@ class AddUser extends React.Component {
       '.quill-contents ': {
           'height': '250px'
       }
-  }; 
-    return (            
+  };
+    return (
       <div className='container'>
         <div className='row flipInX animated'>
           <div className='col-sm-8'>
             <div className='panel panel-danger'>
               <div className='panel-heading'><strong>Thêm người dùng</strong></div>
               <div className='panel-body'>
-                <form onSubmit={this.handleSubmitUser.bind(this)}  enctype="multipart/form-data"> 
+                <form onSubmit={this.handleSubmitUser.bind(this)}  enctype="multipart/form-data">
                   <div className={'form-group ' + this.state.userNameValidationState}>
-                    <label className='control-label'>Tên đăng nhập</label>                    
+                    <label className='control-label'>Tên đăng nhập</label>
                     <input type='text' className='form-control' ref='userNameTextField' value={this.state.userName}
-                           onChange={AddUserActions.updateuserName} autoFocus/>                    
+                           onChange={AddUserActions.updateuserName} autoFocus/>
                     <span className='help-block'>{this.state.helpBlockuserName}</span>
                   </div>
 
                   <div className={'form-group ' + this.state.passWordValidationState}>
-                    <label className='control-label'>Mật khẩu</label>                    
+                    <label className='control-label'>Mật khẩu</label>
                     <input type='password' className='form-control' ref='passwordTextField' value={this.state.passWord}
-                           onChange={AddUserActions.updatepassword}/>                    
+                           onChange={AddUserActions.updatepassword}/>
                     <span className='help-block'>{this.state.helpBlockpassword}</span>
                   </div>
 
                    <div className={'form-group ' + this.state.repassWordValidationState}>
-                    <label className='control-label'>Nhập lại mật khẩu</label>                    
+                    <label className='control-label'>Nhập lại mật khẩu</label>
                     <input type='password' className='form-control' ref='repasswordTextField' value={this.state.repassWord}
-                           onChange={AddUserActions.updaterepassword}/>                    
+                           onChange={AddUserActions.updaterepassword}/>
                     <span className='help-block'>{this.state.helpBlockrepassword}</span>
                   </div>
 
@@ -150,7 +147,7 @@ class AddUser extends React.Component {
                     <input type='text' className='form-control' ref='lastNameTextField' value={this.state.lastName}
                            onChange={AddUserActions.updatelastName}/>
                     <span className='help-block'>{this.state.helpBlocklastName}</span>
-                  </div>       
+                  </div>
 
                   <div className={'form-group ' + this.state.typeValidationState}>
                     <label className='control-label'>Kiểu người dùng</label>
@@ -159,7 +156,7 @@ class AddUser extends React.Component {
                       <option value ='1'>Admin1</option>
                       <option value ='2'>Admin2</option>
                       <option value ='3'>User</option>
-                      </select>                
+                      </select>
                     <span className='help-block'>{this.state.helpBlocktype}</span>
                   </div>
                   <div className='form-group has-success'>
@@ -167,26 +164,27 @@ class AddUser extends React.Component {
                    <div className ="clear-both"></div>
                     <div className="avatar-photo">
                       <ImgUpload actions ={AddUserActions} />
-                      <div className="avatar-edit">                     
+                      <div className="avatar-edit">
                       <i className="fa fa-camera"></i>
                       </div>
-                      <img src ={this.state.imagePreviewUrl} height ="200px" width="200px" alt = "avatar"/>                     
-                    </div>   
-                    <div>
-                     <button type='button' className = 'btn btn-success'onClick = {this.upload.bind(this)} ><i className="fa fa-check"></i></button>                               
-                     <button type='button' className = 'btn btn-danger' onClick = {this.detele.bind(this)} ><i className="fa fa-times"></i></button>         
+                      <img src ={this.state.imagePreviewUrl} height ="200px" width="200px" alt = "avatar"/>
                     </div>
-                  </div> 
-                   <div className ="clear-both"></div>               
-                 
-                  <input type="button" className='btn btn-warning' onClick = {this.reset.bind(this)} value ='Reset'/>                  
-                  <button type='submit' className='btn btn-primary'>Submit</button>                 
-                </form>                    
+                    <div>
+                     <button type='button' className = 'btn btn-success'onClick = {this.upload.bind(this)} ><i className="fa fa-check"></i></button>
+                     <button type='button' className = 'btn btn-danger' onClick = {this.detele.bind(this)} ><i className="fa fa-times"></i></button>
+                    <span className='help-block'>{this.state.helpBlockUpload}</span>
+                   </div>
+                  </div>
+                   <div className ="clear-both"></div>
+
+                  <input type="button" className='btn btn-warning' onClick =  {AddUserActions.clearAll} value ='Reset'/>
+                  <button type='submit' className='btn btn-primary'>Submit</button>
+                </form>
               </div>
-            </div>            
-          </div>          
+            </div>
+          </div>
         </div>
-      </div>        
+      </div>
     );
   }
 }

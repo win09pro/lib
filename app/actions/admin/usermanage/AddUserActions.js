@@ -12,37 +12,39 @@ class AddUserActions {
       'updatefirstName',
       'updatelastName',
       'updateType',
-      'updateImagepreview',      
-      'updateImagefile',      
+      'updateImagepreview',
+      'updateImagefile',
       'invaliduserName',
       'invalidpassword',
       'invalidrepassword',
       'invalidfirstName',
       'invalidlastName',
       'invalidType',
-      'passwordNotSame',      
+      'passwordNotSame',
       'resetAll',
+      'clearAll',
       'getUserSuccess',
       'getUserFail',
       'uploadSuccess',
-      'uploadFail'
+      'uploadFail',
+      'handleUpload'
       );
-  }    
+  }
 
   uploadImage(imgfile)
-  {   
-     var fd = new FormData();    
+  {
+     var fd = new FormData();
     fd.append( 'file', imgfile);
     $.ajax({
         url: '/api/imageupload',
         data: fd,
         processData: false,
         contentType: false,
-        type: 'POST'       
+        type: 'POST'
     })
     .done((data) => {
-      this.actions.uploadSuccess(data.link);     
-      
+      this.actions.uploadSuccess(data.link);
+
     })
     .fail((jqXhr) =>{
       this.actions.uploadFail(jqXhr.responseJSON.message);

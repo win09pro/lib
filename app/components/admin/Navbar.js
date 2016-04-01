@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import NavbarStore from '../../stores/NavbarStore';
 import NavbarActions from '../../actions/NavbarActions';
-
+import {Modal} from 'react-bootstrap';
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -50,9 +50,35 @@ class Navbar extends React.Component {
   }
 
   render() {
+    let style={'text-align':'center'};
     return (
        <header className="main-header">      
-        <a href="http://localhost:3000/admin" className="logo">       
+      <Modal style ={style} show={this.state.openModal}>
+      <Modal.Header>
+        <Modal.Title style={style}>       
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+      <div style={style}>
+      <h2 style ={{'color':'blue'}}>Đang tải, vui lòng đợi</h2>
+      </div>
+      </Modal.Body>     
+      <Modal.Footer>
+      </Modal.Footer>  
+    </Modal>
+
+        <a href="http://localhost:3000/admin1" className="logo">  
+            <span ref='triangles' className={'triangles animated ' + this.state.ajaxAnimationClass}>
+            <div className='tri invert'></div>
+            <div className='tri invert'></div>
+            <div className='tri'></div>
+            <div className='tri invert'></div>
+            <div className='tri invert'></div>
+            <div className='tri'></div>
+            <div className='tri invert'></div>
+            <div className='tri'></div>
+            <div className='tri invert'></div>
+            </span>     
           <span className="logo-mini"><b>BK</b></span>         
           <span className="logo-lg"><b>Admin</b> BKL</span>
 

@@ -9,7 +9,7 @@ class AddUserStore {
       this.passWord = '';
       this.repassWord = '';
       this.firstName= '';
-      this.lastName= '';   
+      this.lastName= '';
       this.Type ='';
       this.fileAvatar ={};
       this.imagePreviewUrl='/uploads/avatar.jpg';
@@ -27,8 +27,12 @@ class AddUserStore {
       this.helpBlockfirstName='';
       this.helpBlocklastName='';
       this.helpBlocktype='';
+      this.helpBlockUpload ='';
       }
-
+      onHandleUpload()
+      {
+       this.helpBlockUpload ="Đang tải lên....";
+      }
       onGetUserSuccess(data)
       {
       this.id=data._id;
@@ -87,9 +91,9 @@ class AddUserStore {
             this.helpBlockrepassword='';
             this.helpBlockfirstName='';
             this.helpBlocklastName='';
-            this.helpBlocktype=SuccessMessage;  
-            listUsersActions.get(); 
-           
+            this.helpBlocktype=SuccessMessage;
+            listUsersActions.get();
+
       }
 
       onAddUserFail(errorMessage)
@@ -125,54 +129,54 @@ class AddUserStore {
       {
             this.userName = event.target.value;
             this.userNameValidationState = '';
-            this.helpBlockuserName = '';      
+            this.helpBlockuserName = '';
       }
 
       onUpdatepassword(event)
       {
             this.passWord = event.target.value;
-            this.directorValidationState = '';    
+            this.directorValidationState = '';
             this.helpBlockpassword = '';
       }
       onUpdaterepassword(event)
       {
             this.repassWord = event.target.value;
-            this.repassWordValidationState = '';    
+            this.repassWordValidationState = '';
             this.helpBlockrepassword = '';
       }
 
       onUpdatefirstName(event)
       {
             this.firstName = event.target.value;
-            this.fistNameValidationState = '';    
+            this.fistNameValidationState = '';
             this.helpBlockfirstName = '';
       }
 
       onUpdatelastName(event)
       {
             this.lastName = event.target.value;
-            this.lastNameValidationState = '';    
+            this.lastNameValidationState = '';
             this.helpBlocklastName = '';
       }
       onUpdateType(event)
-      {      
+      {
       this.Type = event.target.value;
-      this.typeValidationState = '';    
-      this.helpBlocktype = '';     
-      }             
+      this.typeValidationState = '';
+      this.helpBlocktype = '';
+      }
       onUpdateImagepreview(imgURL)
-      {          
-            this.imagePreviewUrl = imgURL;           
+      {
+            this.imagePreviewUrl = imgURL;
       }
       onUpdateImagefile(file)
       {
-            this.fileAvatar = file;           
+            this.fileAvatar = file;
       }
       onInvaliduserName()
-      {         
+      {
             this.userNameValidationState ='has-error';
-            this.helpBlockuserName ='Please enter UserName';             
-      } 
+            this.helpBlockuserName ='Please enter UserName';
+      }
       onInvalidpassword()
       {
             this.passWordValidationState= 'has-error';
@@ -182,12 +186,12 @@ class AddUserStore {
       {
             this.repassWordValidationState= 'has-error';
             this.helpBlockrepassword= 'Please enter Password';
-      }     
+      }
       onInvalidfirstName()
       {
             this.fistNameValidationState = 'has-error';
             this.helpBlockfirstName = 'Please enter your firstName';
-      }     
+      }
       onInvalidlastName()
       {
             this.lastNameValidationState = 'has-error';
@@ -196,49 +200,77 @@ class AddUserStore {
       onInvalidType()
       {
             this.typeValidationState='has-error';
-            this.helpBlocktype='Please choose type'; 
+            this.helpBlocktype='Please choose type';
       }
       onPasswordNotSame()
       {
             this.passWord = '';
             this.repassWord = '';
-            this.repassWordValidationState= 'has-error'; 
+            this.repassWordValidationState= 'has-error';
             this.helpBlockrepassword= 'Password not same! Enter again';
-            
+
+      }
+      onClearAll()
+      {        
+        this.userName = '';
+        this.passWord = '';
+        this.repassWord = '';
+        this.firstName= '';
+        this.lastName= '';
+        this.Type ='';
+        this.fileAvatar ={};
+        this.imagePreviewUrl='/uploads/avatar.jpg';
+        this.imageUrl='/uploads/avatar.jpg';
+        this.userNameValidationState='';
+        this.passWordValidationState='';
+        this.repassWordValidationState='';
+        this.fistNameValidationState='';
+        this.lastNameValidationState='';
+        this.typeValidationState='';
+
+        this.helpBlockuserName='';
+        this.helpBlockpassword='';
+        this.helpBlockrepassword='';
+        this.helpBlockfirstName='';
+        this.helpBlocklastName='';
+        this.helpBlocktype='';
+        this.helpBlockUpload ='';
       }
       onResetAll()
       {
-      
-      this.userName = '';
-      this.passWord = '';
-      this.repassWord = '';
-      this.firstName= '';
-      this.lastName= '';   
-      this.Type ='';
-      this.fileAvatar={};
-      this.imagePreviewUrl='/uploads/avatar.jpg';
-      this.imageUrl='/uploads/avatar.jpg';
-      this.userNameValidationState='';
-      this.passWordValidationState='';
-      this.repassWordValidationState='';
-      this.fistNameValidationState='';
-      this.lastNameValidationState='';
-      this.typeValidationState='';
+        this.id='';
+        this.userName = '';
+        this.passWord = '';
+        this.repassWord = '';
+        this.firstName= '';
+        this.lastName= '';
+        this.Type ='';
+        this.fileAvatar ={};
+        this.imagePreviewUrl='/uploads/avatar.jpg';
+        this.imageUrl='/uploads/avatar.jpg';
+        this.userNameValidationState='';
+        this.passWordValidationState='';
+        this.repassWordValidationState='';
+        this.fistNameValidationState='';
+        this.lastNameValidationState='';
+        this.typeValidationState='';
 
-      this.helpBlockuserName='';
-      this.helpBlockpassword='';
-      this.helpBlockrepassword='';
-      this.helpBlockfirstName='';
-      this.helpBlocklastName='';
-      this.helpBlocktype='';
+        this.helpBlockuserName='';
+        this.helpBlockpassword='';
+        this.helpBlockrepassword='';
+        this.helpBlockfirstName='';
+        this.helpBlocklastName='';
+        this.helpBlocktype='';
+        this.helpBlockUpload ='';
       }
       onUploadSuccess(link)
-      {            
-          this.imageUrl = link;
+      {
+          this.helpBlockUpload ="Tải lên thành công";
           console.log(this.imageUrl);
       }
       onUploadFail(jqXhr)
       {
+       this.helpBlockUpload ="Quá trình tải thất bại";
        toastr.error(jqXhr.responseJSON.message);
       }
 }
