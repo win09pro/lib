@@ -75,13 +75,13 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
   res.send({link:"/uploads/"+req.file.filename});
- 
+
 });
-// 
+//
 // app.post('/api/imageupload', function (req, res) {
 //   console.log
 //   // var filename =  upload(req, res, function (err) {
-    
+
 //   //   console.log(req.filename);
 
 //   //   // Everything went fine
@@ -110,7 +110,7 @@ app.post('/api/user', function(req, res, next) {
   var barcode = req.body.barcode;
   var type = req.body.type;
   var avatar = req.body.avatar;
-  
+
    User.findOne({ _id: userID }, function(err, user) {
   if ( (err)|| (!user) )
   {
@@ -118,17 +118,17 @@ app.post('/api/user', function(req, res, next) {
     {
         if((err1)||(!alreadyUser))
         {
-          try{ 
-         var user = new User({           
+          try{
+         var user = new User({
                     username:userName,
                     password:password,
                     name:{first:firstName,last:lastName} ,
                     barcode:barcode,
                     type:type,
-                    avatar:avatar          
-                  });   
+                    avatar:avatar
+                  });
          user.save(function(err) {
-         if (err) return next(err);     
+         if (err) return next(err);
          res.send({ message: userName + ' has been added successfully!' });
          });
          } catch (e) {
@@ -139,7 +139,7 @@ app.post('/api/user', function(req, res, next) {
         {
            res.send({ message: userName + 'đã có trong hệ thống, thử tên khác' });
         }
-    })    
+    })
   }
   else
   {
@@ -149,20 +149,20 @@ app.post('/api/user', function(req, res, next) {
                     name:{first:firstName,last:lastName} ,
                     barcode:barcode,
                     type:type,
-                    avatar:avatar      
+                    avatar:avatar
         } }, function(err) {
             if (err) return next(err);
             res.send({ message: userName + ' has been updated successfully!' });
           });
-             
-          
+
+
   }})
    });
 
 /**
  * GET /api/user/:id
  * Get a user from the database.
- */      
+ */
   app.get('/api/user/:id', function(req, res, next) {
   var id = req.params.id;
   User.findOne({ _id: id }, function(err, user) {
@@ -170,7 +170,7 @@ app.post('/api/user', function(req, res, next) {
 
     if (!user) {
       return res.status(404).send({ message: 'User not found.' });
-    }     
+    }
     res.send(user);
   });
 });
@@ -187,11 +187,11 @@ app.post('/api/deleteuser', function(req, res, next) {
 
     if (!user) {
       return res.status(404).send({ message: 'user not found.' });
-    }   
+    }
       user.remove();
       res.send({ message: user.userName + ' has been deleted.' });
 
- 
+
   });
 });
 
@@ -207,12 +207,12 @@ app.get('/api/user', function(req, res, next) {
    .find()
    .exec(function(err,users){
     if(err) next(err);
-    res.send(users);    
+    res.send(users);
    })
       } catch (e) {
       res.status(e);
           }
-        });  
+        });
 
 /**
  * POST /api/book
@@ -226,13 +226,13 @@ app.post('/api/book', function(req, res, next) {
    Book.findOne({ _id: id }, function(err, book) {
   if ( (err)|| (!book) )
   {
-    try{ 
-         var book = new Book({           
+    try{
+         var book = new Book({
                     name: bookname ,
-                    director:bookdirector            
-                  });   
+                    director:bookdirector
+                  });
          book.save(function(err) {
-         if (err) return next(err);     
+         if (err) return next(err);
          res.send({ message: bookname + ' has been added successfully!' });
          });
          } catch (e) {
@@ -245,15 +245,15 @@ app.post('/api/book', function(req, res, next) {
             if (err) return next(err);
             res.send({ message: bookname + ' has been updated successfully!' });
           });
-             
-          
+
+
   }})
    });
-     
+
 /**
  * GET /api/book/:id
  * Get a book from the database.
- */      
+ */
   app.get('/api/book/:id', function(req, res, next) {
   var id = req.params.id;
   Book.findOne({ _id: id }, function(err, book) {
@@ -261,7 +261,7 @@ app.post('/api/book', function(req, res, next) {
 
     if (!book) {
       return res.status(404).send({ message: 'Book not found.' });
-    }     
+    }
     res.send(book);
   });
 });
@@ -279,11 +279,11 @@ app.post('/api/deletebook', function(req, res, next) {
 
     if (!book) {
       return res.status(404).send({ message: 'Book not found.' });
-    }   
+    }
       book.remove();
       res.send({ message: book.name + ' has been deleted.' });
 
- 
+
   });
 });
 
@@ -298,15 +298,15 @@ app.get('/api/book', function(req, res, next) {
    .find()
    .exec(function(err,books){
     if(err) next(err);
-    res.send(books);    
+    res.send(books);
    })
       } catch (e) {
       res.status(e).send({ message: bookname+ 'and' +bookdirector + 'error when add new book' });
           }
-        });  
+        });
 
 // GET list document type
-// 
+//
 app.get('/api/document-type', function(req, res, next) {
   try{
     documenttype
@@ -329,7 +329,7 @@ app.get('/api/document-type/:id', function(req, res, next){
 
     if (!doc) {
       return res.status(404).send({ message: 'Document Type not found.' });
-    }     
+    }
     res.send(doc);
   });
 });
@@ -345,13 +345,13 @@ app.post('/api/document-type', function(req, res, next) {
    documenttype.findOne({ _id: id }, function(err, doc) {
   if ( (err)|| (!doc) )
   {
-    try{ 
-         var doc = new documenttype({           
+    try{
+         var doc = new documenttype({
                     name: docname ,
-                    description: docdescription            
-                  });   
+                    description: docdescription
+                  });
          doc.save(function(err) {
-         if (err) return next(err);     
+         if (err) return next(err);
          res.send({ message: docname + ' has been added successfully!' });
          });
          } catch (e) {
@@ -364,8 +364,8 @@ app.post('/api/document-type', function(req, res, next) {
             if (err) return next(err);
             res.send({ message: docname + ' has been updated successfully!' });
           });
-             
-          
+
+
   }})
 });
 // end add document type
@@ -379,11 +379,11 @@ app.post('/api/deleteDoc', function(req, res, next) {
 
     if (!doc) {
       return res.status(404).send({ message: 'Document Type not found.' });
-    }   
+    }
       doc.remove();
       res.send({ message: doc.name + ' has been deleted.' });
 
- 
+
   });
 });
 //end delete document type
@@ -417,7 +417,7 @@ app.get('/api/category/:id', function(req, res, next){
 
     if (!cate) {
       return res.status(404).send({ message: 'Category not found.' });
-    }     
+    }
     res.send(cate);
   });
 });
@@ -437,14 +437,14 @@ app.post('/api/category', function(req, res, next) {
    category.findOne({ _id: id }, function(err, cate) {
   if ( (err)|| (!cate) )
   {
-    try{ 
-         var cate = new category({           
+    try{
+         var cate = new category({
                     name: catename ,
                     description: catedescription,
-                    _documenttype: _documenttype            
-                  });   
+                    _documenttype: _documenttype
+                  });
          cate.save(function(err) {
-         if (err) return next(err);     
+         if (err) return next(err);
          res.send({ message: catename + ' has been added successfully!' });
          });
          } catch (e) {
@@ -457,8 +457,8 @@ app.post('/api/category', function(req, res, next) {
             if (err) return next(err);
             res.send({ message: docname + ' has been updated successfully!' });
           });
-             
-          
+
+
   }})
 });
 // end add category
@@ -472,11 +472,11 @@ app.post('/api/delete-category', function(req, res, next) {
 
     if (!cate) {
       return res.status(404).send({ message: 'Category not found.' });
-    }   
+    }
       cate.remove();
       res.send({ message: cate.name + ' has been deleted.' });
 
- 
+
   });
 });
 // end Add API for Category
