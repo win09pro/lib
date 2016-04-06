@@ -1,10 +1,11 @@
 import React from 'react';
-import AddBookAction from '../actions/AddBookAction'
-import listBooksStore from '../stores/listBooksStore';
-import listBooksActions from '../actions/listBooksActions';
-import ActionBar from '../shared/ActionBar';
+import AddBookAction from '../../../actions/AddBookAction'
+import listBooksStore from '../../../stores/listBooksStore';
+import listBooksActions from '../../../actions/listBooksActions';
+import ActionBar from '../../../shared/ActionBar';
 import Addbook from './Addbook';
-import bookActions from '../actions/bookActions';
+import bookActions from '../../../actions/bookActions';
+import Upload  from '../../uploadimage/Upload';
 class ListBooks extends React.Component {
   constructor(props)
   {
@@ -14,7 +15,7 @@ class ListBooks extends React.Component {
   }
  componentDidMount() {
     listBooksStore.listen(this.onChange);
-    listBooksActions.get2();
+    listBooksActions.get();
   }
 
   componentWillUnmount() {
@@ -32,17 +33,27 @@ class ListBooks extends React.Component {
           <td>{index+1}</td>
           <td>{book.name}</td>
           <td>{book.director}</td>
+          <td>{book.code}</td>
+          <td>{book.borrowBarcode}</td>
+          <td>{book.imageUrl}</td>
+          <td>{book.doctype}</td>
           <td><ActionBar viewAction={bookActions} editAction={AddBookAction} deleteAction={listBooksActions} item={book} /></td>
         </tr>
       );
     });
     return (    
-      <div className='container'>
-        <div>
-         <Addbook  />
+      <div className='container-fluid'>
+        <div className ="row">
+          <div className="col-lg-6 col-md-6 col-sm-6">
+           <Addbook  />
+          </div>
+          <div className ="col-lg-4 col-md-4 col-sm-4">
+            <Upload />
+          </div>
         </div>
+        
         <div className='row flipInX animated'>
-          <div className='col-sm-8'>
+          <div className='col-lg-12 col-md-12 col-sm-12'>
             <div className='panel panel-default'>
               <div className='panel-heading'>List books</div>
               <div className='panel-body'>
@@ -52,7 +63,11 @@ class ListBooks extends React.Component {
                       <th>#</th>
                       <th>Name</th>
                       <th>Director</th>        
-                      <th>Status</th>                                   
+                      <th>Code</th> 
+                      <th>Barcode</th>
+                      <th>ImageUrl</th>        
+                      <th>Doctype</th> 
+                      <th>Functions</th>                                  
                     </tr>
                   </thead>
                   <tbody>                       

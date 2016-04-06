@@ -1,11 +1,11 @@
 import React from 'react';
-import listBooksStore from '../stores/listBooksStore';
-import listBooksActions from '../actions/listBooksActions';
-import ActionBar from '../shared/ActionBar';
+import listBooksStore from '../../../stores/listBooksStore';
+import listBooksActions from '../../../actions/listBooksActions';
+import ActionBar from '../../../shared/ActionBar';
 import Addbook from './Addbook';
-import AddBookAction from '../actions/AddBookAction';
-import AddBookStore from '../stores/AddBookStore';
-import bookActions from '../actions/bookActions';
+import AddBookAction from '../../../actions/AddBookAction';
+import AddBookStore from '../../../stores/AddBookStore';
+import bookActions from '../../../actions/bookActions';
 import Listbooks from './Listbooks';
 
 class Editbook extends React.Component { 

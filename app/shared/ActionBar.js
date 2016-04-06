@@ -34,6 +34,12 @@ constructor(props)
      let style={'text-align':'center'};
     return (
       <div className="action">
+        <span className="action-buttons">
+          <button className ="btn btn-warning">
+            <Link to={'/admin/book/'+this.props.item._id}>
+            <i className ="fa fa-pencil"></i>
+            </Link>
+          </button>            
         <span className="action-buttons">                          
           <button
             className="btn btn-success"

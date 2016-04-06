@@ -14,6 +14,17 @@ import Post from './components/admin/post/Post';
 import Viewpost from './components/admin/post/Viewpost';
 
 
+
+import Addbook from './components/admin/book/Addbook';
+import ListBooks from './components/admin/book/ListBooks';
+import Editbook from './components/admin/book/Editbook';
+import Book from './components/admin/book/Book';
+
+import AddTran from './components/transition/AddTran';
+import ListTrans from './components/transition/ListTrans';
+import EditTran from './components/transition/EditTran';
+import Transition from './components/transition/Transition';
+
 export default (
   <Route component={App}>
 
@@ -29,6 +40,16 @@ export default (
     <Route path='/admin/user/:id' component={ViewUser} />
     <Route path='/admin/post' component={Post} />
     <Route path='/admin/post/:id' component={Viewpost} />
+
+    <Route path='/admin/book/:id' component={Book} />
+    <Route path='/admin/book/edit/:id' component={Editbook} />
+    <Route path='/admin/Addbook' component={Addbook} />
+    <Route path='/admin/listBooks' component={ListBooks} /> 
+
+    <Route path='/admin/tran/:id' component={Transition} />
+    <Route path='/admin/tran/edit/:id' component={EditTran} />
+    <Route path='/admin/AddTran' component={AddTran} />
+    <Route path='/admin/listTrans' component={ListTrans} />
 
   </Route>
 );
