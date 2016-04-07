@@ -220,13 +220,15 @@ app.get('/api/user', function(req, res, next) {
  * Adds new book to the database.
  */
 
-app.post('/api/book', function(req, res, next) {
+app.post('/api/book', function (req, res, next) {
   var bookname = req.body.name;
   var bookdirector = req.body.director;
   var bookcode = req.body.code;
   var bookBarCode = req.body.borrowBarcode;
   var bookimageUrl = req.body.imageUrl;
-  var bookDoctype = req.body.doctype;
+  var bookcateId = req.body.cateId;
+  var bookcateName = req.body.cateName;
+
   var id = req.body.id;
    Book.findOne({ _id: id }, function(err, book) {
   if ( (err)|| (!book) )
@@ -237,7 +239,9 @@ app.post('/api/book', function(req, res, next) {
                     director:bookdirector ,
                     code : bookcode,
                     borrowBarcode : bookBarCode,
-                    imageUrl : bookimageUrl           
+                    imageUrl : bookimageUrl  ,
+                    cateId : bookcateId,
+                    cateName :bookcateName,     
                   });   
          book.save(function(err) {
          if (err) return next(err);     
@@ -249,7 +253,7 @@ app.post('/api/book', function(req, res, next) {
   }
   else
   {
-        book.update({ $set: { name: bookname,director: bookdirector ,code :bookcode,borrowBarcode : bookBarCode,imageUrl : bookimageUrl} }, function(err) {
+        book.update({ $set: { name: bookname,director: bookdirector ,code :bookcode,borrowBarcode : bookBarCode,imageUrl : bookimageUrl,cateId : bookcateId, cateName :bookcateName} }, function(err) {
             if (err) return next(err);
             res.send({ message: bookname + ' has been updated successfully!' });
           });
@@ -262,7 +266,7 @@ app.post('/api/book', function(req, res, next) {
  * GET /api/book/:id
  * Get a book from the database.
  */      
-  app.get('/api/book/:id', function(req, res, next) {
+  app.get('/api/book/:id', function (req, res, next) {
   var id = req.params.id;
   Book.findOne({ _id: id }, function(err, book) {
     if (err) return next(err);
@@ -279,7 +283,7 @@ app.post('/api/book', function(req, res, next) {
  * POST /api/deletebook
  * Delete a book from the database.
  */
-app.post('/api/deletebook', function(req, res, next) {
+app.post('/api/deletebook', function (req, res, next) {
   var bookId = req.body.id;
   Book.remove({name:''})  ;
   Book.findOne({ _id: bookId }, function(err, book) {
@@ -300,7 +304,7 @@ app.post('/api/deletebook', function(req, res, next) {
  * Return books from the database.
  */
 
-app.get('/api/book', function(req, res, next) {
+app.get('/api/book', function (req, res, next) {
   try{
    Book
    .find()
@@ -314,7 +318,7 @@ app.get('/api/book', function(req, res, next) {
         });  
 
 
-app.post('/api/tran', function(req, res, next) {
+app.post('/api/tran', function (req, res, next) {
   var bookId = req.body.bookId;
   var bookName = req.body.bookName;
   var dateBorrow = req.body.dateBorrow;
@@ -355,7 +359,7 @@ app.post('/api/tran', function(req, res, next) {
  * GET /api/book/:id
  * Get a book from the database.
  */      
-  app.get('/api/tran/:id', function(req, res, next) {
+  app.get('/api/tran/:id', function (req, res, next) {
   var id = req.params.id;
   Transition.findOne({ _id: id }, function(err, tran) {
     if (err) return next(err);
@@ -372,10 +376,10 @@ app.post('/api/tran', function(req, res, next) {
  * POST /api/deletebook
  * Delete a book from the database.
  */
-app.post('/api/deletetran', function(req, res, next) {
+app.post('/api/deletetran', function (req, res, next) {
   var tranId = req.body.id;
   Transition.remove({bookId:''});
-  Transition.findOne({ _id: tranId }, function(err, tran) {
+  Transition.findOne({ _id: tranId }, function (err, tran) {
     if (err) return next(err);
 
     if (!tran) {
@@ -387,7 +391,19 @@ app.post('/api/deletetran', function(req, res, next) {
  
   });
 });
-
+app.post('api/deletetranbookid',function (req,res,next){
+  var reqBookId =req.body.bookId;
+  Transition.remove({bookId :''});
+  Transition.findOne({bookId : reqBookId}, function (err,tran){
+    if(err) return next(err);
+    if(!tran){
+      return res.status(404).send({message : 'Transition Not Found'});
+    }
+    tran.remove();
+    console.log('Delete action successfully');
+    res.send({message : tran.bookName + 'has been deleted'});
+  });
+});
 /**
  * GET /api/book
  * Return books from the database.

@@ -41,12 +41,12 @@ class ListTrans extends React.Component {
       );
     });
     return (    
-      <div className='container'>
+      <div className='container-fluid'>
         <div>
          <AddTran  />
         </div>
-        <div className='row flipInX animated'>
-          <div className='col-sm-8'>
+        <div className='row  animated'>
+          <div className='col-lg-12 col-md-12 col-sm-12'>
             <div className='panel panel-default'>
               <div className='panel-heading'>List Transition</div>
               <div className='panel-body'>

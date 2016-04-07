@@ -10,21 +10,23 @@ class AddBookStore {
     this.code = '';
     this.borrowBarcode ='';
     this.imageUrl ='';
-    this.doctype ='';
+    this.cateName ='';
+    this.cateId='';
+    this.listCate=[];
 
     this.helpBlockName = '';
     this.helpBlockDirector = '';
     this.helpBlockCode = '';
     this.helpBlockBorrowBarcode = '';
     this.helpBlockImageUrl = '';
-    this.helpBlockDoctype = '';
+    this.helpBlockCate = '';
 
     this.nameValidationState = '';
     this.directorValidationState = '';
     this.codeValidationState = '';
     this.borrowBarcodeValidationState = '';
     this.imageUrlValidationState = '';
-    this.doctypeValidationState = '';
+    this.cateValidationState = '';
   }  
   onResetState()
   {
@@ -34,21 +36,22 @@ class AddBookStore {
     this.code = '';
     this.borrowBarcode ='';
     this.imageUrl ='';
-    this.doctype ='';
+    this.cateName ='';
+    this.cateId ='';
 
     this.helpBlockName = '';
     this.helpBlockDirector = '';
     this.helpBlockCode = '';
     this.helpBlockBorrowBarcode = '';
     this.helpBlockImageUrl = '';
-    this.helpBlockDoctype = '';
+    this.helpBlockCate = '';
 
     this.nameValidationState = '';
     this.directorValidationState = '';
     this.codeValidationState = '';
     this.borrowBarcodeValidationState = '';
     this.imageUrlValidationState = '';
-    this.doctypeValidationState = '';
+    this.cateValidationState = '';
   }
    onGetBookSuccess(data)
    {
@@ -58,27 +61,44 @@ class AddBookStore {
       this.code = data.code;
       this.borrowBarcode = data.borrowBarcode;
       this.imageUrl =data.imageUrl;
-      this.doctype =data.doctype;   
+      this.cateId =data.cateId;
+      this.cateName =data.cateName; 
+
+      var i =0;
+      for(i=0;i<this.listCate.length;i++){
+        if(this.listCate[i].name ===this.cateName){
+          this.cateId=this.listCate[i]._id;
+        }
+      }  
 
       this.helpBlockName = '';
       this.helpBlockDirector = '';
       this.helpBlockCode = '';
       this.helpBlockBorrowBarcode = '';
       this.helpBlockImageUrl = '';
-      this.helpBlockDoctype = '';
+      this.helpBlockCate = '';
 
       this.nameValidationState = '';
       this.directorValidationState = '';
       this.codeValidationState = '';
       this.borrowBarcodeValidationState = '';
       this.imageUrlValidationState = '';
-      this.doctypeValidationState = '';
+      this.cateValidationState = '';
    }
    onGetBookFail(jqXhr)
    {
      toastr.error(jqXhr.responseJSON.message);
    }
-
+      
+   onGetCategoryListSuccess(data){
+      console.log(data);
+      this.listCate = data;
+      this.cateId =this.listCate[0]._id;
+      this.cateName =this.listCate[0].name;
+   }
+   onGetCategoryListFail(jqXhr){
+     toastr.error(jqXhr.responseJSON.message);
+   }
    onAddBookSuccess(SuccessMessage)
    {
    	this.nameValidationState='has-success';
@@ -86,14 +106,14 @@ class AddBookStore {
     this.codeValidationState = 'has-success';
     this.borrowBarcodeValidationState = 'has-success';
     this.imageUrlValidationState = 'has-success';
-    this.doctypeValidationState = 'has-success';
+    this.cateValidationState = 'has-success';
 
     this.helpBlockName = SuccessMessage;
     this.helpBlockDirector=SuccessMessage;
     this.helpBlockCode = SuccessMessage;
     this.helpBlockBorrowBarcode = SuccessMessage;
     this.helpBlockImageUrl = SuccessMessage;
-    this.helpBlockDoctype = SuccessMessage;
+    this.helpBlockCate = SuccessMessage;
 
     this.id='';
     this.name = '';
@@ -101,7 +121,8 @@ class AddBookStore {
     this.code = '';
     this.borrowBarcode = '';
     this.imageUrl ='';
-    this.doctype ='';
+    this.cateName =this.listCate[0].name;
+    this.cateId = this.listCate[0]._id;
 
     listBooksActions.get();
    }
@@ -113,7 +134,7 @@ class AddBookStore {
       this.codeValidationState = 'has-error';
       this.borrowBarcodeValidationState = 'has-error';
       this.imageUrlValidationState = 'has-error';
-      this.doctypeValidationState = 'has-error';
+      this.cateValidationState = 'has-error';
 
       this.id='';
       this.name = '';
@@ -121,14 +142,15 @@ class AddBookStore {
       this.code = '';
       this.borrowBarcode = '';
       this.imageUrl ='';
-      this.doctype ='';
+      this.cateId=this.listCate[0]._id;
+      this.cateName =this.listCate[0].name;
 
      	this.helpBlockName=errorMessage;	
      	this.helpBlockDirector=errorMessage;
       this.helpBlockCode = errorMessage;
       this.helpBlockBorrowBarcode = errorMessage;
       this.helpBlockImageUrl = errorMessage;
-      this.helpBlockDoctype = errorMessage;
+      this.helpBlockCate = errorMessage;
     }
  
 
@@ -141,7 +163,7 @@ class AddBookStore {
       this.helpBlockCode = '';
       this.helpBlockBorrowBarcode = '';
       this.helpBlockImageUrl = '';
-      this.helpBlockDoctype = '';
+      this.helpBlockCate = '';
     }
 
     onUpdateDirector(event)
@@ -153,7 +175,7 @@ class AddBookStore {
       this.helpBlockCode = '';
       this.helpBlockBorrowBarcode = '';
       this.helpBlockImageUrl = '';
-      this.helpBlockDoctype = '';
+      this.helpBlockCate = '';
     }
      onUpdateCode(event)
     {
@@ -164,7 +186,7 @@ class AddBookStore {
       this.helpBlockCode = '';
       this.helpBlockBorrowBarcode = '';
       this.helpBlockImageUrl = '';
-      this.helpBlockDoctype = '';
+      this.helpBlockCate = '';
     }
      onUpdateBarcode(event)
     {
@@ -175,7 +197,7 @@ class AddBookStore {
       this.helpBlockCode = '';
       this.helpBlockBorrowBarcode = '';
       this.helpBlockImageUrl = '';
-      this.helpBlockDoctype = '';
+      this.helpBlockCate = '';
     }
      onUpdateImageUrl(link)
     {
@@ -186,18 +208,19 @@ class AddBookStore {
       this.helpBlockCode = '';
       this.helpBlockBorrowBarcode = '';
       this.helpBlockImageUrl = '';
-      this.helpBlockDoctype = '';
+      this.helpBlockCate = '';
     }
-     onUpdateDoctype(event)
+     onUpdateCate(event)
     {
-      this.doctype = event.target.value;
-      this.doctypeValidationState = '';
-      this.helpBlockName = '';
-      this.helpBlockDirector = '';
-      this.helpBlockCode = '';
-      this.helpBlockBorrowBarcode = '';
-      this.helpBlockImageUrl = '';
-      this.helpBlockDoctype = '';
+
+      this.cateId= event.target.value;
+      console.log(this.listCate);
+      var i=0;
+      for (i =0 ;i< this.listCate.length ; i++){
+        if(this.listCate[i]._id ===this.cateId){
+          this.cateName = this.listCate[i].name;
+        }
+      }
     }
     onInvalidName()
     {
@@ -209,21 +232,23 @@ class AddBookStore {
     	this.directorValidationState='has-error';
     	this.helpBlockDirector='Please enter Director';	
     }
+
     onInvalidCode(){
       this.codeValidationState ='has-error';
       this.helpBlockCode ='Please Enter Number';
     }
+
     onInvalidBarcode(){
-      this.borroBarcodeValidationState ='has-error';
+      this.borrowBarcodeValidationState ='has-error';
       this.helpBlockBorrowBarcode ='Please Enter Number';
     }
     onInvalidImageUrl(){
       this.codeValidationState ='has-error';
       this.helpBlockImageUrl ='Please Enter Number';
     }
-    onInvalidDoctype(){
+    onInvalidCate(){
       this.codeValidationState ='has-error';
-      this.helpBlockDoctype ='Please Enter Number';
+      this.helpBlockCate ='Please Enter Number';
     }
 }
 export default alt.createStore(AddBookStore);

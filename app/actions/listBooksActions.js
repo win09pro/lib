@@ -1,5 +1,5 @@
 import alt from '../alt';
-
+import listTransActions from './transition/listTransActions';
 class listBooksActions {
   constructor() {
     this.generateActions(
@@ -9,8 +9,8 @@ class listBooksActions {
       'deletefail'     
     );
   }
-  delete(book)
- {
+  delete(book){  
+    var temp =book;
     $.ajax({
       type: 'POST',
       url: '/api/deletebook',
@@ -18,6 +18,8 @@ class listBooksActions {
     })
       .done((data) => {
         this.actions.deletesucess(data.message);
+        listTransActions.deleteTranByBookId(temp);
+        listTransActions.get();
       })
       .fail((jqXhr) => {
         this.actions.deletefail(jqXhr.responseJSON.message);

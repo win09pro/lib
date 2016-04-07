@@ -1,6 +1,7 @@
 import alt from '../../alt';
 import AddTranAction from '../../actions/transition/AddTranAction';
 import listTransActions from '../../actions/transition/listTransActions';
+
 function getDateString(date){
   var time,date1,month,year;
   time = new Date(date);
@@ -12,6 +13,7 @@ function getDateString(date){
   return year+'-'+month+'-'+date1;
 
 }
+
 class AddTranStore {
   constructor() {
     this.bindActions(AddTranAction);
@@ -19,6 +21,8 @@ class AddTranStore {
     this.bookId = '';
     this.bookName = '';
     this.books=[];
+    this.listTran=[];
+    this.filteredbooks=[];
     this.dateBorrow = '';
     this.dateReturn = '';
     this.timeBorrow = '';
@@ -87,10 +91,48 @@ class AddTranStore {
    }
   
    onGetBooksuccessReference(data){
-    console.log(data);
-    this.books=data;
+      this.books=data;
    }
    onGetBookfailReference(jqXhr){
+    toastr.error(jqXhr.responseJSON.message);
+   }
+   onGetTranListCurrentSuccess(data){
+      this.listTran =data;
+      console.log(this.listTran);
+      var i=0,j=0;
+
+      var listTranLenght= this.listTran.length;
+      var booksLength =this.books.length;
+      var filter1=this.books;
+      while(this.filteredbooks.length){
+        this.filteredbooks.pop();
+      }
+      if(this.listTran.length!=0){
+        for(i=0;i<listTranLenght ;i++){
+          for(j=0;j<filter1.length;j++){
+            if(this.listTran[i].bookId==filter1[j]._id){
+                filter1.splice(j,1);
+                console.log(filter1.length);
+            }
+          }
+        }
+        this.filteredbooks= filter1;
+      }else{
+        this.filteredbooks=this.books;
+      }
+      if(this.filteredbooks.length ==0){
+        this.bookId ='';
+        this.bookName ='';
+
+      }else{
+
+        this.bookId =this.filteredbooks[0]._id;
+        this.bookName =this.filteredbooks[0].name;
+
+      }
+
+   }
+   onGetTranListCurrentFail(jqXhr){
     toastr.error(jqXhr.responseJSON.message);
    }
    onAddTranSuccess(SuccessMessage)
@@ -128,7 +170,7 @@ class AddTranStore {
       this.dateReturnValidationState = 'has-error';
       this.timeBorrowValidationState = 'has-error';
 
-      this.id='';
+      this.id = '';
       this.bookId = '';
       this.bookName = '';
       this.dateBorrow = '';
@@ -161,12 +203,13 @@ class AddTranStore {
     {
 
       this.bookId= event.target.value;
-      console.log(this.books);
-      var i=0;
-      for (i =0 ;i< this.books.length ; i++){
-        if(this.books[i]._id ===this.bookId){
-          this.bookName =this.books[i].name;
-        }
+      if(this.bookId!==''){
+        var i=0;
+        for (i =0 ;i< this.books.length ; i++){
+            if(this.books[i]._id ===this.bookId){
+              this.bookName =this.books[i].name;
+            }
+          }
       }
       console.log(this.bookId);
       console.log(this.bookName);
@@ -211,7 +254,7 @@ class AddTranStore {
     onInvalidBookId()
     {
     	this.bookIdValidationState='has-error';
-    	this.helpBlockBookId='Please enter BookID';	
+    	this.helpBlockBookId="We don't have anymore book to borrow";	
     }
     onInvalidBookName(){
       this.bookNameValidationState ='has-error';
@@ -230,6 +273,12 @@ class AddTranStore {
     onInvalidTimeBorrow(){
       this.timeBorrowValidationState ='has-error';
       this.helpBlockTimeBorrow ='Please Enter Number TimeBorrow';
+    }
+    onInvalidDateTimeTransition(){
+      this.dateBorrowValidationState ='has-error';
+      this.helpBlockDateBorrow = 'Please enter correct time !';
+      this.dateReturnValidationState ="har-error";
+      this.helpBlockDateReturn = 'Please enter correct time !';
     }
 }
 export default alt.createStore(AddTranStore);
