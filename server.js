@@ -25,9 +25,6 @@ var Book = require('./models/Book');
 var Transition = require('./models/Transition');
 var User = require('./models/User');
 
-
-// var documenttype = require('./models/documenttype');
-
 var config = require('./config');
 
 mongoose.connect(config.database);
