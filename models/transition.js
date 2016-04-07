@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var TransitionSchema = new mongoose.Schema({
  
-  bookId: String,
+  bookId: {type: mongoose.Schema.Types.ObjectId, ref: 'Book'},
   bookName:String,
   dateBorrow : Date,
   dateReturn: Date,

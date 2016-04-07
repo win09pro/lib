@@ -41,8 +41,9 @@ class Book extends React.Component {
                  <p className='text-success'> {this.state.book.borrowBarcode}</p>
                  <label className='control-label'>IMAGE URL</label>
                  <p className='text-success'> {this.state.book.imageUrl}</p>
-                 <label className='control-label'>DOCTYPE</label>
-                 <p className='text-success'> {this.state.book.doctype}</p>
+                 <img src ={this.state.book.imageUrl} className="img img-responsive control-label" height ="200px" width="200px" alt = "avatar"/> 
+                 <label className='control-label'>CATEGORY</label>
+                 <p className='text-success'> {this.state.book.cate}</p>
                </div>
        </div>
       </div>    

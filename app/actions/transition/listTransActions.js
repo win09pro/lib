@@ -1,5 +1,5 @@
 import alt from '../../alt';
-
+import AddTranAction from './AddTranAction';
 class listTransActions {
   constructor() {
     this.generateActions(
@@ -18,6 +18,24 @@ class listTransActions {
     })
       .done((data) => {
         this.actions.deletesuccess(data.message);
+        AddTranAction.getBooks();
+        AddTranAction.getListTranCurrent();
+      })
+      .fail((jqXhr) => {
+        this.actions.deletefail(jqXhr.responseJSON.message);
+      });
+  }
+   deleteTranByBookId(book){
+
+    $.ajax({
+      type: 'POST',
+      url: '/api/deletetranbookid',
+      data: { bookId: book._id}
+    })
+      .done((data) => {
+        this.actions.deletesuccess(data.message);
+        AddTranAction.getBooks();
+        AddTranAction.getListTranCurrent();
       })
       .fail((jqXhr) => {
         this.actions.deletefail(jqXhr.responseJSON.message);

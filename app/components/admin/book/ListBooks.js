@@ -2,7 +2,7 @@ import React from 'react';
 import AddBookAction from '../../../actions/AddBookAction'
 import listBooksStore from '../../../stores/listBooksStore';
 import listBooksActions from '../../../actions/listBooksActions';
-import ActionBar from '../../../shared/ActionBar';
+import BookActionBar from '../../../shared/BookActionBar';
 import Addbook from './Addbook';
 import bookActions from '../../../actions/bookActions';
 import Upload  from '../../uploadimage/Upload';
@@ -36,8 +36,8 @@ class ListBooks extends React.Component {
           <td>{book.code}</td>
           <td>{book.borrowBarcode}</td>
           <td>{book.imageUrl}</td>
-          <td>{book.doctype}</td>
-          <td><ActionBar viewAction={bookActions} editAction={AddBookAction} deleteAction={listBooksActions} item={book} /></td>
+          <td>{book.cate}</td>
+          <td><BookActionBar viewAction={bookActions} editAction={AddBookAction} deleteAction={listBooksActions} item={book} /></td>
         </tr>
       );
     });
@@ -52,7 +52,7 @@ class ListBooks extends React.Component {
           </div>
         </div>
         
-        <div className='row flipInX animated'>
+        <div className='row  animated'>
           <div className='col-lg-12 col-md-12 col-sm-12'>
             <div className='panel panel-default'>
               <div className='panel-heading'>List books</div>
@@ -66,7 +66,7 @@ class ListBooks extends React.Component {
                       <th>Code</th> 
                       <th>Barcode</th>
                       <th>ImageUrl</th>        
-                      <th>Doctype</th> 
+                      <th>Category</th> 
                       <th>Functions</th>                                  
                     </tr>
                   </thead>
