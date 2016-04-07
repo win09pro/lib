@@ -19,10 +19,14 @@ class AddTranAction {
       'invalidDateBorrow',
       'invalidDateReturn',
       'invalidTimeBorrow',
+      'invalidDateTimeTransition',
       'getBooksuccessReference',
       'getBookfailReference',
       'getTranSuccess',
       'getTranFail',
+
+      'getTranListCurrentSuccess',
+      'getTranListCurrentFail',
       'resetState'
      
     );
@@ -37,7 +41,18 @@ class AddTranAction {
         this.actions.getTranFail(jqXhr.responseJSON.message);
       });
   }
-
+  getListTranCurrent() {
+    $.ajax({    
+      url: '/api/tran'      
+    })
+      .done((data) => {
+        this.actions.getTranListCurrentSuccess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getTranListCurrentFail(jqXhr.responseJSON.message);
+      });
+  }
+  
   getBooks() {
     $.ajax({    
       url: '/api/book'      
@@ -49,7 +64,7 @@ class AddTranAction {
         this.actions.getBookfailReference(jqXhr.responseJSON.message);
       });
   }
-
+  
   addTran(id , bookId, bookName ,dateBorrow , dateReturn , timeBorrow ) {
     $.ajax({
       type: 'POST',

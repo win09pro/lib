@@ -12,6 +12,7 @@ class AddTran extends React.Component {
   }
    componentDidMount() {  
     AddTranAction.getBooks();  
+    AddTranAction.getListTranCurrent();
     AddTranStore.listen(this.onChange);
   }
 
@@ -25,7 +26,7 @@ class AddTran extends React.Component {
 
   handleSubmitTran(event)
   {
-  	event.preventDefault();
+  	
     var id = this.state.id;
     var bookId = this.state.bookId;
     var bookName = this.state.bookName;
@@ -46,26 +47,57 @@ class AddTran extends React.Component {
       AddTranAction.invalidDateReturn();
       this.refs.BarcodeTextField.focus();
     }
+    
     if(!timeBorrow){
       AddTranAction.invalidTimeBorrow();
       this.refs.ImageUrlTextField.focus();
     }
     if (bookId && bookName && dateBorrow && dateReturn && timeBorrow) {
-      AddTranAction.addTran(id,bookId, bookName,dateBorrow , dateReturn,timeBorrow);
+        var datebr = new Date(dateBorrow);
+        var datert = new Date(dateReturn);
+        var datenow = Date.now;
+        var datenum1 ,datenum2,datenum3;
+        datenum1 = Date.parse(datebr);
+        datenum2 = Date.parse(datert);
+        datenum3 = Date.parse(datenow);
+        console.log(datenum1);
+        console.log(datenum2);
+        console.log(datenum3);
+        if(datenum1 > datenum2){
+            AddTranAction.invalidDateTimeTransition();
+            this.refs.CodeTextField.focus();
+            this.refs.BarcodeTextField.focus();
+
+        }
+        else if(datenum1>datenum3){
+           AddTranAction.invalidDateTimeTransition();
+           this.refs.CodeTextField.focus();
+           this.refs.BarcodeTextField.focus();
+        }
+        else if(datenum2<datenum3){
+           AddTranAction.invalidDateTimeTransition();
+           this.refs.CodeTextField.focus();
+           this.refs.BarcodeTextField.focus();
+        }
+        else{
+          AddTranAction.addTran(id,bookId, bookName,dateBorrow , dateReturn,timeBorrow);
+          AddTranAction.getListTranCurrent();
+      }
     }
   }
 
   render() {
-    let bookList = this.state.books.map((book, index) => {
+    let bookList = this.state.filteredbooks.map((book, index) => {
 
       return (
         <option value={book._id}>{book.name}</option>
+
       );
     });
     return (
-      <div className='container'>
-        <div className='row flipInX animated'>
-          <div className='col-sm-6'>
+      <div className='container-fluid'>
+        <div className='row animated'>
+          <div className='col-lg-12 col-md-12 col-sm-12'>
             <div className='panel panel-default'>
               <div className='panel-heading'>ADD TRANSITION</div>
               <div className='panel-body'>
@@ -109,6 +141,5 @@ class AddTran extends React.Component {
     );
   }
 }
- // <input type='text' className='form-control' ref='DirectorTextField' value={this.state.bookName}
- // onChange={AddTranAction.updateBookName}/>
+// event.preventDefault();
 export default AddTran;

@@ -7,7 +7,9 @@ var bookSchema = new mongoose.Schema({
   code : Number,
   borrowBarcode: String,
   imageUrl :String,
-  doctype :String
+  cateId: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
+  cateName :String
+
 
 });
 

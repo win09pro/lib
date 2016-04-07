@@ -11,6 +11,7 @@ class Addbook extends React.Component {
   	this.onChange = this.onChange.bind(this);
   }
    componentDidMount() {    
+    AddBookAction.getListCateRef();
     AddBookStore.listen(this.onChange);
   }
 
@@ -31,7 +32,8 @@ class Addbook extends React.Component {
     var code = this.state.code;
     var barcode =this.state.borrowBarcode;
     var imageUrl = this.state.imageUrl;
-    var doctype =this.state.doctype;
+    var cateId =this.state.cateId;
+    var cateName = this.state.cateName;
 
     if (!name) {
       AddBookAction.invalidName();
@@ -54,19 +56,24 @@ class Addbook extends React.Component {
       AddBookAction.invalidImageUrl();
       this.refs.ImageUrlTextField.focus();
     }
-    if(!doctype){
-      AddBookAction.invalidDoctype();
-      this.refs.DoctypeTextField.focus();
+    if(!cateId){
+      AddBookAction.invalidCate();
+      this.refs.CateTextField.focus();
     }
-    if (name && director && code && barcode &&imageUrl &&doctype) {
-      AddBookAction.addBook(id,name, director,code , barcode,imageUrl,doctype);
+    if (name && director && code && barcode &&imageUrl &&cateId && cateName) {
+      AddBookAction.addBook(id,name, director,code , barcode,imageUrl,cateId,cateName);
     }
   }
 
   render() {
+    let listcate = this.state.listCate.map((cate,index)=>{
+      return (
+            <option value={cate._id}>{cate.name}</option>
+        );
+    });
     return (
       <div className='container'>
-        <div className='row flipInX animated'>
+        <div className='row  animated'>
           <div className='col-sm-6'>
             <div className='panel panel-default'>
               <div className='panel-heading'>ADD BOOK</div>
@@ -101,13 +108,17 @@ class Addbook extends React.Component {
                     <label className='control-label'>IMAGE URL</label>
                     <input type='text' className='form-control disable' ref='ImageUrlTextField' value={this.state.imageUrl}/>
                     <span className='help-block'>{this.state.helpBlockImageUrl}</span>                    
-                  </div>  
-                  <div className={'form-group ' + this.state.doctypeValidationState}>
-                    <label className='control-label'>DOCTYPE</label>
-                    <input type='text' className='form-control' ref='DoctypeTextField' value={this.state.doctype}
-                           onChange={AddBookAction.updateDoctype}/>
-                    <span className='help-block'>{this.state.helpBlockDoctype}</span>                    
-                  </div>                         
+                  </div>
+
+                   <div className={'form-group ' + this.state.cateValidationState}>
+                    <label className='control-label'>CATEGORY</label>
+                    <select className="form-control" value={this.state.cateId} ref="nameTextField"onChange={AddBookAction.updateCate}>
+                      {listcate}
+                    </select>
+                    <span className='help-block'>{this.state.helpBlockBookCate}</span>                    
+                  </div> 
+
+                                        
                   <button type='submit' className='btn btn-primary'>Submit</button>
                 </form>
               </div>
@@ -118,5 +129,10 @@ class Addbook extends React.Component {
     );
   }
 }
-
+// <div className={'form-group ' + this.state.cateValidationState}>
+//                     <label className='control-label'>CATEGORY</label>
+//                     <input type='text' className='form-control' ref='CateTextField' value={this.state.cate}
+//                            onChange={AddBookAction.updateCate}/>
+//                     <span className='help-block'>{this.state.helpBlockCate}</span>                    
+//                   </div>   
 export default Addbook;
