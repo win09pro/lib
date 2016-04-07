@@ -97,26 +97,26 @@ class ListBooks extends React.Component {
             </div>
           </div>
         </div>
-      <Modal style ={style} show={this.state.modalIsOpen} onHide ={listPostsActions.closeModal}>
-      <Modal.Header>
-        <Modal.Title style={style}>
-        <i className="fa fa-check-square-o fa-2x"></i>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-      <div style={style}>
-      <h3 style ={{'color':'green'}}>Đồng ý xóa ?</h3>
-      </div>
-      </Modal.Body>
-      <Modal.Footer>
-          <button
-              className="btn btn-warning"
-            onClick={listPostsActions.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
-          <button
-              className="btn btn-success"
-            onClick={this.deleteGroup.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
-      </Modal.Footer>
-    </Modal>
+        <Modal style ={style} show={this.state.modalIsOpen} onHide ={listPostsActions.closeModal}>
+          <Modal.Header>
+            <Modal.Title style={style}>
+            <i className="fa fa-check-square-o fa-2x"></i>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <div style={style}>
+          <h3 style ={{'color':'green'}}>Đồng ý xóa ?</h3>
+          </div>
+          </Modal.Body>
+          <Modal.Footer>
+              <button
+                  className="btn btn-warning"
+                onClick={listPostsActions.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>
+              <button
+                  className="btn btn-success"
+                onClick={this.deleteGroup.bind(this)}><i className="fa fa-check"> Xóa</i> </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }

@@ -6,7 +6,13 @@ class DocumentTypeListAction {
       'getDocListSuccess',
       'getDocListFail', 
       'deleteDocSucess',
-      'deleteDocFail'     
+      'deleteDocFail',
+
+      'updateArrayId',
+      'removeArrayId',
+
+      'openModal',
+      'closeModal'     
     );
   }
   delete(id)
