@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
 
-export default class ActionBar extends React.Component {
+export default class BookActionBar extends React.Component {
 constructor(props)
   {
     super(props);
@@ -19,7 +19,7 @@ constructor(props)
     this.setState(state);
   }
   delete() {
-    this.props.deleteAction.delete(this.props.item._id);
+    this.props.deleteAction.delete(this.props.item);
     this.props.deleteAction.get();
     this.close();
 
@@ -39,14 +39,14 @@ constructor(props)
             <Link to={'/admin/book/'+this.props.item._id}>
             <i className ="fa fa-pencil"></i>
             </Link>
-          </button>                      
+          </button>                                  
           <button
             className="btn btn-success"
             onClick={this.edit.bind(this)}><i className="fa fa-pencil"></i>        
             </button>  
            <button
               className="btn btn-danger"
-            onClick={this.open.bind(this)}><i className="fa fa-times"></i> </button>   
+            onClick={this.delete.bind(this)}><i className="fa fa-times"></i> </button>   
         </span>
       </div>
     );

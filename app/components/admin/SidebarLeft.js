@@ -69,10 +69,10 @@ class SidebarLeft extends React.Component {
             <li><Link to='/admin/document-type'><i className="fa fa-user"></i><span> Document Type </span></Link></li>
             <li><Link to='/admin/category'><i className="fa fa-user"></i><span> Category </span> </Link></li>
             <li className="treeview">
-              <a href="#"><i className="fa fa-link"></i> <span>Multilevel</span> <i className="fa fa-angle-left pull-right"></i></a>
+              <a href="#"><i className="fa fa-link"></i> <span>Books and Transitions</span> <i className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">
-                <li><a href="#">Link in level 2</a></li>
-                <li><a href="#">Link in level 2</a></li>
+                <li><Link to="/admin/listBooks"><i className="fa fa-book"></i><span>Books</span></Link></li>
+                <li><Link to="/admin/listTrans"><i className="fa fa-link"></i><span>Transitions</span></Link></li>
               </ul>
             </li>
               <li><a href="#"><i className="fa fa-link"></i> <span>Another Link</span></a></li>

@@ -1,6 +1,6 @@
 import React from 'react';
- import AddDocStore from '../../../stores/admin/documenttype/AddDocStore';
- import AddDocumentTypeAction from '../../../actions/admin/documenttype/AddDocumentTypeAction';
+import AddDocStore from '../../../stores/admin/documenttype/AddDocStore';
+import AddDocumentTypeAction from '../../../actions/admin/documenttype/AddDocumentTypeAction';
 
 
 class AddDocumentType extends React.Component {
