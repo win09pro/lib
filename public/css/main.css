@@ -1,13 +1,16 @@
-ul, li, a
+.main-body ul, li, a, i, img
 {
   transition:all 0.3s ease-out 0s;
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
 }
-.col-md-9, .col-md-3
+.main-body a:hover,.main-body a
 {
-  position: static !important;
-  padding: 0px;
+  text-decoration: none !important;
+}
+.main-body
+{
+  background-color: #fff !important;
 }
 /*
 ========== HEADER =============
@@ -47,6 +50,52 @@ header
   float:left;
 	width:100%;
 	padding:10px 0px;
+  color: #fff;
+}
+.top-menu .site_info
+{
+  float:left;
+}
+.top-menu .user
+{
+  float:right;
+  margin-right: 10px;
+}
+.top-menu .user ul
+{
+  list-style: none;
+  margin: 0;
+}
+.top-menu .user ul li
+{
+  position: relative;
+  float:right;
+}
+.top-menu .user ul li:before
+{
+  content:"";
+  height:0px;
+  width:20%;
+  left:0px;
+  top:100%;
+  background-color:#fff;
+  bottom:0px;
+  right:0px;
+  margin:2px 0 0 0;
+  position:absolute;
+  transition:all 0.3s ease-out 0s;
+  -moz-transition:all 0.3s ease-out 0s;
+  -webkit-transition:all 0.3s ease-out 0s;
+}
+.top-menu .user ul li:hover:before
+{
+  height: 3.5px;
+  width: 90%;
+  background-color: #ccffcc;
+}
+.top-menu .user a
+{
+  margin-right: 10px;
   color: #fff;
 }
 .main-menu
@@ -154,14 +203,14 @@ header
 {
    opacity:1;
    visibility:visible;
-   margin:0px !important;
+   margin:-1px !important;
 }
 .main-menu ul ul li
 {
   float:left;
   width:100%;
   margin:2.5px 0px;
-  padding: 5px;
+  padding: 0px;
 }
 .main-menu ul ul li:hover:before
 {
@@ -174,16 +223,279 @@ header
 }*/
 
 .main-menu ul ul li a{
-	padding:7px 15px;
+  display: block;
+  width: 100%;
+	padding:10px 15px;
   text-transform:capitalize;
 	font-size:15px;
 	font-weight:400;
-  padding-right:135px;
+  /*//padding-right:50px;*/
   background-color: #fff;
-
 }
 .main-menu ul ul li a:hover{
 	background-color:#00bfff;
   color:#fff;
 }
 /*============END HEADER==============*/
+/*#slider {
+    min-height: 450px;
+    min-width: 100%;
+}*/
+slider img {
+    max-height: 450px;
+    min-width: 100%;
+}
+#slider > .carousel-indicators > .active {
+    background-color: #00bfff;
+}
+#slider .carousel-caption {
+    color: #fff;
+    right: 50%;
+    text-align: center;
+    max-width: 500px;
+    left: auto;
+    /*top: auto;*/
+  /*position: relative;*/
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: initial;
+}
+
+.item {
+    -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  }
+/*
+=============================================
+            CONTENT
+=============================================
+*/
+.library-content
+{
+  float:left;
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 0px;
+}
+.library-content h2
+{
+  position: relative;
+  float:left;
+}
+.library-content a.link-heading
+{
+  margin-top: 20px;
+  position: relative;
+  float:right;
+}
+.news-content
+{
+  float:left;
+  width: 100%;
+  background-color: #fff;
+
+}
+.news-content .library-news
+{
+  height: 400px;
+  width: 100%
+  float:left;
+  background-color:#000;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 40px;
+  border-top: 3px solid #fff;
+  border-left: 3px solid #fff;
+  border-right: 3px solid #fff;
+  border-bottom: 2px solid #00bfff;
+}
+ .news-content .library-news img
+{
+ width: 100%;
+ height: 250px;
+}
+.news-content .library-news .library-btn
+{
+  position: absolute;
+  z-index: 100;
+  top:  -10%;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+  margin-top: -10px;
+  opacity: 0;
+  color: #fff;
+  font-size: 1em;
+  transition:all 0.3s ease-out 0s;
+  -moz-transition:all 0.3s ease-out 0s;
+  -webkit-transition:all 0.3s ease-out 0s;
+}
+.library-btn a
+{
+  color:#fff;
+  line-height: 34px;
+}
+.library-btn a i
+{
+  border:solid 1px #fff;
+  height:36px;
+  width:36px;
+  display:inline-block;
+  border-radius:100%;
+  color:#fff;
+  line-height: 34px;
+}
+.library-btn a:hover i
+{
+  background-color: #00bfff;
+
+}
+.news-content .library-news:hover
+{
+    border: 3px solid #b3f0ff;
+    box-shadow:0px 10px 20px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow:0px 10px 20px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow:0px 10px 20px 0px rgba(0,0,0,0.3);
+}
+.news-content .library-news:hover .library-btn
+{
+  top:30%;
+  opacity: 1;
+}
+.news-content .library-news:hover .library-btn a
+{
+  color: #fff;
+}
+.news-content .library-news:hover img
+{
+   opacity:0.3;
+  -webkit-transform:scaleX(1.1); /* Safari and Chrome */
+  -moz-transform:scaleX(1.1); /* Firefox */
+  -ms-transform:scaleX(1.1); /* IE 9 */
+  -o-transform:scaleX(1.1); /* Opera */
+  transform:scaleX(1.1);
+}
+.news-content .library-news .title-news
+{
+  position:;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  background-color: #fff;
+  float: left;
+  padding: 5px;
+  height: 100%;
+  width: 100%;
+}
+.news-content .library-news:hover .title-news h3
+{
+  color: #00bfff;
+}
+.news-content .library-news .title-news span
+{
+  color: #a3a375;
+  margin-bottom: 5px;
+  float:right;
+  width: 100%;
+}
+/*
+=============================================
+            BOOK-NEW
+=============================================
+*/
+.book-content
+{
+  float:left;
+  width: 100%;
+  background-image: url(img/booknew.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.book-content:before
+{
+  content:"";
+	height:100%;
+	width:100%;
+	background-color:rgba(1,0,1,0.5);
+	position:absolute;
+	left:0px;
+	top:0px;
+
+}
+.book-content .section-heading h2
+{
+  color:#ffff00;
+}
+.book-content .nav-tabs
+{
+  width: 50%;
+  float:right;
+  text-align: center;
+  border: 0px;
+  margin-bottom: 30px;
+}
+.book-content .nav-tabs > li
+{
+  margin-top: 24px;
+
+}
+.book-content .nav-tabs >li > a
+{
+  display:block;
+	font-size:14px;
+	font-weight:bold;
+	margin:0px;
+  border-radius: 5px;
+  border: 1px solid #00bfff;
+	padding:4px;
+	float:left;
+}
+.book-content .nav-tabs >li.active>a
+{
+  background-color: #bf80ff;
+}
+.book-content .nav-tabs >li.active>a:focus
+{
+  background-color: #bf80ff;
+}
+.book-content .nav-tabs >li.active>a:hover
+{
+  background-color: #bf80ff;
+}
+.book-content .nav-tabs >li > a img
+{
+  width: 145px;
+  height: 200px;
+
+}
+.book-content .tab-content
+{
+  width: 50%;
+  float:left;
+  text-align:center;
+	border:none;
+	float:right;
+  padding: 15px 15px
+}
+/*
+=============================================
+            STYLE-HEADER SECTION
+=============================================
+*/
+.section-heading
+{
+  float:left;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  position: relative;
+}
+.section-heading h2
+{
+  font-size:2.2em;
+	text-align:left;;
+	font-family: 'Raleway', sans-serif;
+	text-transform:capitalize;
+}
