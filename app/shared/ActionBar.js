@@ -39,8 +39,7 @@ constructor(props)
             <Link to={'/admin/book/'+this.props.item._id}>
             <i className ="fa fa-pencil"></i>
             </Link>
-          </button>            
-        <span className="action-buttons">                          
+          </button>                                         
           <button
             className="btn btn-success"
             onClick={this.edit.bind(this)}><i className="fa fa-pencil"></i>        
