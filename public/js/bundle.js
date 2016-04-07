@@ -224,7 +224,7 @@ var CategoryListAction = function () {
   function CategoryListAction() {
     _classCallCheck(this, CategoryListAction);
 
-    this.generateActions('getCategoryListSuccess', 'getCategoryListFail', 'deleteCateSucess', 'deleteCateFail');
+    this.generateActions('getCategoryListSuccess', 'getCategoryListFail', 'deleteCateSucess', 'deleteCateFail', 'updateArrayId', 'removeArrayId', 'openModal', 'closeModal');
   }
 
   _createClass(CategoryListAction, [{
@@ -385,7 +385,7 @@ var DocumentTypeListAction = function () {
   function DocumentTypeListAction() {
     _classCallCheck(this, DocumentTypeListAction);
 
-    this.generateActions('getDocListSuccess', 'getDocListFail', 'deleteDocSucess', 'deleteDocFail');
+    this.generateActions('getDocListSuccess', 'getDocListFail', 'deleteDocSucess', 'deleteDocFail', 'updateArrayId', 'removeArrayId', 'openModal', 'closeModal');
   }
 
   _createClass(DocumentTypeListAction, [{
@@ -1756,11 +1756,11 @@ var SidebarLeft = function (_React$Component) {
               _react2.default.createElement(
                 _reactRouter.Link,
                 { to: '/admin/document-type' },
-                _react2.default.createElement('i', { className: 'fa fa-user' }),
+                _react2.default.createElement('i', { className: 'fa fa-book' }),
                 _react2.default.createElement(
                   'span',
                   null,
-                  ' Document Type '
+                  ' Thể loại '
                 )
               )
             ),
@@ -1770,11 +1770,11 @@ var SidebarLeft = function (_React$Component) {
               _react2.default.createElement(
                 _reactRouter.Link,
                 { to: '/admin/category' },
-                _react2.default.createElement('i', { className: 'fa fa-user' }),
+                _react2.default.createElement('i', { className: 'fa fa-bars' }),
                 _react2.default.createElement(
                   'span',
                   null,
-                  ' Category '
+                  ' Danh mục '
                 ),
                 ' '
               )
@@ -1958,13 +1958,24 @@ var AddCategory = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       // DocumentTypeListAction.get();
       var documentTypeList = this.state.state2.documentTypes.map(function (documentType, index) {
-        return _react2.default.createElement(
-          'option',
-          { value: documentType._id, key: index + 1 },
-          documentType.name
-        );
+        if (_this2.state.state1._documenttype == documentType._id) {
+          return _react2.default.createElement(
+            'option',
+            { value: documentType._id, key: index + 1, selected: true },
+            documentType.name
+          );
+          // console.log();
+        } else {
+            return _react2.default.createElement(
+              'option',
+              { value: documentType._id, key: index + 1 },
+              documentType.name
+            );
+          }
       });
 
       return _react2.default.createElement(
@@ -1982,7 +1993,7 @@ var AddCategory = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'panel-heading' },
-                'Add Category'
+                'Thêm Danh Mục'
               ),
               _react2.default.createElement(
                 'div',
@@ -1996,7 +2007,7 @@ var AddCategory = function (_React$Component) {
                     _react2.default.createElement(
                       'label',
                       { className: 'control-label' },
-                      'Name'
+                      'Tên'
                     ),
                     _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'nameTextField', value: this.state.state1.name,
                       onChange: _AddCategoryAction2.default.updateName, autoFocus: true }),
@@ -2012,7 +2023,7 @@ var AddCategory = function (_React$Component) {
                     _react2.default.createElement(
                       'label',
                       { className: 'control-label' },
-                      'Description'
+                      'Mô tả'
                     ),
                     _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'DescriptionTextField', value: this.state.state1.description,
                       onChange: _AddCategoryAction2.default.updateDescription }),
@@ -2028,7 +2039,7 @@ var AddCategory = function (_React$Component) {
                     _react2.default.createElement(
                       'label',
                       { className: 'control-label' },
-                      'Document Type'
+                      'Thể Loại'
                     ),
                     _react2.default.createElement(
                       'select',
@@ -2049,7 +2060,7 @@ var AddCategory = function (_React$Component) {
                   _react2.default.createElement(
                     'button',
                     { type: 'submit', className: 'btn btn-primary' },
-                    'Submit'
+                    'Thêm'
                   )
                 )
               )
@@ -2096,6 +2107,8 @@ var _ActionBar2 = _interopRequireDefault(_ActionBar);
 
 var _reactRouter = require('react-router');
 
+var _reactBootstrap = require('react-bootstrap');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2138,39 +2151,115 @@ var CategoryList = function (_React$Component) {
       this.setState(state);
     }
   }, {
+    key: 'handleChange',
+    value: function handleChange(e) {
+      var id = e.target.attributes['data-ref'].value;
+      if (e.target.checked) {
+        _CategoryListAction2.default.updateArrayId(id);
+      } else {
+        _CategoryListAction2.default.removeArrayId(id);
+      }
+      //   console.log(this.state.arrayIDtoDel);
+    }
+  }, {
+    key: 'deleteGroup',
+    value: function deleteGroup() {
+      this.state.arrayIDtoDel.map(function (idcate, index) {
+        _CategoryListAction2.default.delete(idcate);
+      });
+      _CategoryListAction2.default.closeModal();
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      var style = { 'text-align': 'center' };
       var categoryList = this.state.listcategory.map(function (category, index) {
-        return _react2.default.createElement(
-          'tr',
-          { key: index },
-          _react2.default.createElement(
-            'td',
-            null,
-            ' ',
-            index + 1,
-            ' '
-          ),
-          _react2.default.createElement(
-            'td',
-            null,
+
+        if (category._documenttype == null) {
+          return _react2.default.createElement(
+            'tr',
+            { key: index },
             _react2.default.createElement(
-              _reactRouter.Link,
-              { to: '/category/' + category._id },
-              category.name
+              'td',
+              null,
+              ' ',
+              index + 1,
+              ' '
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              _react2.default.createElement(
+                _reactRouter.Link,
+                { to: '/admin/category/' + category._id },
+                category.name
+              )
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              category.description
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              '\'\''
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              _react2.default.createElement(_ActionBar2.default, { editAction: _AddCategoryAction2.default, deleteAction: _CategoryListAction2.default, item: category })
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              _react2.default.createElement('input', { type: 'checkbox', 'data-ref': category._id, onClick: _this2.handleChange.bind(_this2) })
             )
-          ),
-          _react2.default.createElement(
-            'td',
-            null,
-            category.description
-          ),
-          _react2.default.createElement(
-            'td',
-            null,
-            _react2.default.createElement(_ActionBar2.default, { editAction: _AddCategoryAction2.default, deleteAction: _CategoryListAction2.default, item: category })
-          )
-        );
+          );
+        } else {
+          return _react2.default.createElement(
+            'tr',
+            { key: index },
+            _react2.default.createElement(
+              'td',
+              null,
+              ' ',
+              index + 1,
+              ' '
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              _react2.default.createElement(
+                _reactRouter.Link,
+                { to: '/admin/category/' + category._id },
+                category.name
+              )
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              category.description
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              category._documenttype.name
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              _react2.default.createElement(_ActionBar2.default, { editAction: _AddCategoryAction2.default, deleteAction: _CategoryListAction2.default, item: category })
+            ),
+            _react2.default.createElement(
+              'td',
+              null,
+              _react2.default.createElement('input', { type: 'checkbox', 'data-ref': category._id, onClick: _this2.handleChange.bind(_this2) })
+            )
+          );
+        }
       });
       return _react2.default.createElement(
         'div',
@@ -2181,7 +2270,7 @@ var CategoryList = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'panel-heading' },
-            'List Category'
+            'Danh sách thể loại'
           ),
           _react2.default.createElement(
             'div',
@@ -2203,17 +2292,32 @@ var CategoryList = function (_React$Component) {
                   _react2.default.createElement(
                     'th',
                     null,
-                    'Name'
+                    'Tên'
                   ),
                   _react2.default.createElement(
                     'th',
                     null,
-                    'Description'
+                    'Mô tả'
                   ),
                   _react2.default.createElement(
                     'th',
                     null,
-                    'Action'
+                    'Thể loại'
+                  ),
+                  _react2.default.createElement(
+                    'th',
+                    null,
+                    'Hành động'
+                  ),
+                  _react2.default.createElement(
+                    'th',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { className: 'deletegroup', onClick: _CategoryListAction2.default.openModal },
+                      ' ',
+                      _react2.default.createElement('i', { className: 'fa fa-trash fa-danger fa-fa2x' })
+                    )
                   )
                 )
               ),
@@ -2222,6 +2326,60 @@ var CategoryList = function (_React$Component) {
                 null,
                 categoryList
               )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Modal,
+          { style: style, show: this.state.modalIsOpen, onHide: _CategoryListAction2.default.closeModal },
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Header,
+            null,
+            _react2.default.createElement(
+              _reactBootstrap.Modal.Title,
+              { style: style },
+              _react2.default.createElement('i', { className: 'fa fa-check-square-o fa-2x' })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Body,
+            null,
+            _react2.default.createElement(
+              'div',
+              { style: style },
+              _react2.default.createElement(
+                'h3',
+                { style: { 'color': 'green' } },
+                'Đồng ý xóa ?'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Footer,
+            null,
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-warning',
+                onClick: _CategoryListAction2.default.closeModal },
+              _react2.default.createElement(
+                'i',
+                { className: 'fa fa-times' },
+                ' Hủy bỏ'
+              ),
+              ' '
+            ),
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-success',
+                onClick: this.deleteGroup.bind(this) },
+              _react2.default.createElement(
+                'i',
+                { className: 'fa fa-check' },
+                ' Xóa'
+              ),
+              ' '
             )
           )
         )
@@ -2234,7 +2392,7 @@ var CategoryList = function (_React$Component) {
 
 exports.default = CategoryList;
 
-},{"../../../actions/admin/category/AddCategoryAction":3,"../../../actions/admin/category/CategoryListAction":5,"../../../shared/ActionBar":37,"../../../stores/admin/category/CategoryListStore":42,"react":"react","react-router":"react-router"}],21:[function(require,module,exports){
+},{"../../../actions/admin/category/AddCategoryAction":3,"../../../actions/admin/category/CategoryListAction":5,"../../../shared/ActionBar":37,"../../../stores/admin/category/CategoryListStore":42,"react":"react","react-bootstrap":328,"react-router":"react-router"}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2348,6 +2506,14 @@ var _CategoryStore = require('../../../stores/admin/category/CategoryStore');
 
 var _CategoryStore2 = _interopRequireDefault(_CategoryStore);
 
+var _DocumentTypeStore = require('../../../stores/admin/documenttype/DocumentTypeStore');
+
+var _DocumentTypeStore2 = _interopRequireDefault(_DocumentTypeStore);
+
+var _DocumentTypeAction = require('../../../actions/admin/documenttype/DocumentTypeAction');
+
+var _DocumentTypeAction2 = _interopRequireDefault(_DocumentTypeAction);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2365,6 +2531,7 @@ var ViewCategory = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ViewCategory).call(this, props));
 
     _this.state = _CategoryStore2.default.getState();
+    // this.state = { state1: CategoryStore.getState(), state2: DocumentTypeStore.getState() };
     _this.onChange = _this.onChange.bind(_this);
     return _this;
   }
@@ -2374,11 +2541,15 @@ var ViewCategory = function (_React$Component) {
     value: function componentDidMount() {
       _CategoryStore2.default.listen(this.onChange);
       _CategoryAction2.default.getCate(this.props.params.id);
+      // DocumentTypeStore.listen(this.onChange);
+      // DocumentTypeAction.getDoc(this.state.state1.category._documenttype);
+      // console.log(this.state.state1.category._documenttype);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       _CategoryStore2.default.unlisten(this.onChange);
+      // DocumentTypeStore.unlisten(this.onChange);
     }
   }, {
     key: 'onChange',
@@ -2400,7 +2571,7 @@ var ViewCategory = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'panel-heading' },
-              'View Category'
+              'Chi tiết danh mục'
             ),
             _react2.default.createElement(
               'div',
@@ -2408,34 +2579,37 @@ var ViewCategory = function (_React$Component) {
               _react2.default.createElement(
                 'label',
                 { className: 'control-label' },
-                'Name: '
+                'Tên: '
               ),
               _react2.default.createElement(
-                'p',
+                'span',
                 { className: 'text-success' },
+                ' ',
                 this.state.category.name
               ),
+              _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'label',
                 { className: 'control-label' },
-                'Description: '
+                'Mô tả: '
               ),
               _react2.default.createElement(
-                'p',
+                'span',
                 { className: 'text-success' },
                 ' ',
                 this.state.category.description
               ),
+              _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'label',
                 { className: 'control-label' },
-                'Document Type: '
+                'Thể loại: '
               ),
               _react2.default.createElement(
-                'p',
+                'span',
                 { className: 'text-success' },
                 ' ',
-                this.state.category._documenttype
+                this.state.doctype.name
               )
             )
           )
@@ -2449,7 +2623,7 @@ var ViewCategory = function (_React$Component) {
 
 exports.default = ViewCategory;
 
-},{"../../../actions/admin/category/CategoryAction":4,"../../../stores/admin/category/CategoryStore":43,"react":"react"}],23:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryAction":4,"../../../actions/admin/documenttype/DocumentTypeAction":7,"../../../stores/admin/category/CategoryStore":43,"../../../stores/admin/documenttype/DocumentTypeStore":46,"react":"react"}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2724,6 +2898,8 @@ var _DocumentTypeListAction2 = _interopRequireDefault(_DocumentTypeListAction);
 
 var _reactRouter = require('react-router');
 
+var _reactBootstrap = require('react-bootstrap');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2762,8 +2938,30 @@ var ListDocumentType = function (_React$Component) {
 			this.setState(state);
 		}
 	}, {
+		key: 'handleChange',
+		value: function handleChange(e) {
+			var id = e.target.attributes['data-ref'].value;
+			if (e.target.checked) {
+				_DocumentTypeListAction2.default.updateArrayId(id);
+			} else {
+				_DocumentTypeListAction2.default.removeArrayId(id);
+			}
+			//   console.log(this.state.arrayIDtoDel);
+		}
+	}, {
+		key: 'deleteGroup',
+		value: function deleteGroup() {
+			this.state.arrayIDtoDel.map(function (iddoc, index) {
+				_DocumentTypeListAction2.default.delete(iddoc);
+			});
+			_DocumentTypeListAction2.default.closeModal();
+		}
+	}, {
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
+			var style = { 'text-align': 'center' };
 			var documentTypeList = this.state.documentTypes.map(function (documentType, index) {
 				return _react2.default.createElement(
 					'tr',
@@ -2793,6 +2991,11 @@ var ListDocumentType = function (_React$Component) {
 						'td',
 						null,
 						_react2.default.createElement(_ActionBar2.default, { editAction: _AddDocumentTypeAction2.default, deleteAction: _DocumentTypeListAction2.default, item: documentType })
+					),
+					_react2.default.createElement(
+						'td',
+						null,
+						_react2.default.createElement('input', { type: 'checkbox', 'data-ref': documentType._id, onClick: _this2.handleChange.bind(_this2) })
 					)
 				);
 			});
@@ -2805,7 +3008,7 @@ var ListDocumentType = function (_React$Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'panel-heading' },
-						'List Document Type'
+						'Danh sách thể loại'
 					),
 					_react2.default.createElement(
 						'div',
@@ -2827,17 +3030,27 @@ var ListDocumentType = function (_React$Component) {
 									_react2.default.createElement(
 										'th',
 										null,
-										'Name'
+										'Tên'
 									),
 									_react2.default.createElement(
 										'th',
 										null,
-										'Description'
+										'Mô tả'
 									),
 									_react2.default.createElement(
 										'th',
 										null,
-										'Action'
+										'Hành động'
+									),
+									_react2.default.createElement(
+										'th',
+										null,
+										_react2.default.createElement(
+											'a',
+											{ className: 'deletegroup', onClick: _DocumentTypeListAction2.default.openModal },
+											' ',
+											_react2.default.createElement('i', { className: 'fa fa-trash fa-danger fa-fa2x' })
+										)
 									)
 								)
 							),
@@ -2846,6 +3059,60 @@ var ListDocumentType = function (_React$Component) {
 								null,
 								documentTypeList
 							)
+						)
+					)
+				),
+				_react2.default.createElement(
+					_reactBootstrap.Modal,
+					{ style: style, show: this.state.modalIsOpen, onHide: _DocumentTypeListAction2.default.closeModal },
+					_react2.default.createElement(
+						_reactBootstrap.Modal.Header,
+						null,
+						_react2.default.createElement(
+							_reactBootstrap.Modal.Title,
+							{ style: style },
+							_react2.default.createElement('i', { className: 'fa fa-check-square-o fa-2x' })
+						)
+					),
+					_react2.default.createElement(
+						_reactBootstrap.Modal.Body,
+						null,
+						_react2.default.createElement(
+							'div',
+							{ style: style },
+							_react2.default.createElement(
+								'h3',
+								{ style: { 'color': 'green' } },
+								'Đồng ý xóa ?'
+							)
+						)
+					),
+					_react2.default.createElement(
+						_reactBootstrap.Modal.Footer,
+						null,
+						_react2.default.createElement(
+							'button',
+							{
+								className: 'btn btn-warning',
+								onClick: _DocumentTypeListAction2.default.closeModal },
+							_react2.default.createElement(
+								'i',
+								{ className: 'fa fa-times' },
+								' Hủy bỏ'
+							),
+							' '
+						),
+						_react2.default.createElement(
+							'button',
+							{
+								className: 'btn btn-success',
+								onClick: this.deleteGroup.bind(this) },
+							_react2.default.createElement(
+								'i',
+								{ className: 'fa fa-check' },
+								' Xóa'
+							),
+							' '
 						)
 					)
 				)
@@ -2858,7 +3125,7 @@ var ListDocumentType = function (_React$Component) {
 
 exports.default = ListDocumentType;
 
-},{"../../../actions/admin/documenttype/AddDocumentTypeAction":6,"../../../actions/admin/documenttype/DocumentTypeListAction":8,"../../../shared/ActionBar":37,"../../../stores/admin/documenttype/DocumentTypeListStore":45,"react":"react","react-router":"react-router"}],26:[function(require,module,exports){
+},{"../../../actions/admin/documenttype/AddDocumentTypeAction":6,"../../../actions/admin/documenttype/DocumentTypeListAction":8,"../../../shared/ActionBar":37,"../../../stores/admin/documenttype/DocumentTypeListStore":45,"react":"react","react-bootstrap":328,"react-router":"react-router"}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5130,10 +5397,10 @@ var AddCategoryStore = function () {
   }, {
     key: 'onGetCategorySuccess',
     value: function onGetCategorySuccess(data) {
-      this.id = data._id;
-      this.name = data.name;
-      this.description = data.description;
-      this._documenttype = data._documenttype;
+      this.id = data.cate._id;
+      this.name = data.cate.name;
+      this.description = data.cate.description;
+      this._documenttype = data.cate._documenttype;
       this.helpBlockName = '';
       this.helpBlockDescription = '';
       this.helpBlockDocumentType = '';
@@ -5263,12 +5530,26 @@ var CategoryListStore = function () {
     this.bindActions(_CategoryListAction2.default);
     this.listcategory = [];
     this.deletemessage = '';
+    this.arrayIDtoDel = [];
+    this.modalIsOpen = false;
   }
 
   _createClass(CategoryListStore, [{
+    key: 'onUpdateArrayId',
+    value: function onUpdateArrayId(id) {
+      this.arrayIDtoDel.push(id);
+    }
+  }, {
+    key: 'onRemoveArrayId',
+    value: function onRemoveArrayId(id) {
+      var index = this.arrayIDtoDel.indexOf(id);
+      this.arrayIDtoDel.splice(index, 1);
+    }
+  }, {
     key: 'onGetCategoryListSuccess',
     value: function onGetCategoryListSuccess(data) {
       this.listcategory = data;
+      console.log(data);
     }
   }, {
     key: 'onGetCategoryListFail',
@@ -5279,11 +5560,22 @@ var CategoryListStore = function () {
     key: 'onDeleteCateSucess',
     value: function onDeleteCateSucess(message) {
       this.deletemessage = message;
+      _CategoryListAction2.default.get();
     }
   }, {
     key: 'onDeleteCateFail',
     value: function onDeleteCateFail(jqXhr) {
       toastr.error(jqXhr.responseJSON.message);
+    }
+  }, {
+    key: 'onOpenModal',
+    value: function onOpenModal() {
+      if (this.arrayIDtoDel.length > 0) this.modalIsOpen = true;
+    }
+  }, {
+    key: 'onCloseModal',
+    value: function onCloseModal() {
+      this.modalIsOpen = false;
     }
   }]);
 
@@ -5319,13 +5611,16 @@ var CategoryStore = function () {
 
     this.bindActions(_CategoryAction2.default);
     this.category = {};
+    this.doctype = {};
     this.helpMessage = '';
   }
 
   _createClass(CategoryStore, [{
     key: 'onGetCategorySuccess',
     value: function onGetCategorySuccess(data) {
-      this.category = data;
+      this.category = data.cate;
+      this.doctype = data.doctype;
+
       this.helpMessage = '';
     }
   }, {
@@ -5491,9 +5786,22 @@ var DocumentTypeListStore = function () {
     this.bindActions(_DocumentTypeListAction2.default);
     this.documentTypes = [];
     this.deletemessage = '';
+    this.arrayIDtoDel = [];
+    this.modalIsOpen = false;
   }
 
   _createClass(DocumentTypeListStore, [{
+    key: 'onUpdateArrayId',
+    value: function onUpdateArrayId(id) {
+      this.arrayIDtoDel.push(id);
+    }
+  }, {
+    key: 'onRemoveArrayId',
+    value: function onRemoveArrayId(id) {
+      var index = this.arrayIDtoDel.indexOf(id);
+      this.arrayIDtoDel.splice(index, 1);
+    }
+  }, {
     key: 'onGetDocListSuccess',
     value: function onGetDocListSuccess(data) {
       this.documentTypes = data;
@@ -5507,11 +5815,22 @@ var DocumentTypeListStore = function () {
     key: 'onDeleteDocSucess',
     value: function onDeleteDocSucess(message) {
       this.deletemessage = message;
+      _DocumentTypeListAction2.default.get();
     }
   }, {
     key: 'onDeleteDocFail',
     value: function onDeleteDocFail(jqXhr) {
       toastr.error(jqXhr.responseJSON.message);
+    }
+  }, {
+    key: 'onOpenModal',
+    value: function onOpenModal() {
+      if (this.arrayIDtoDel.length > 0) this.modalIsOpen = true;
+    }
+  }, {
+    key: 'onCloseModal',
+    value: function onCloseModal() {
+      this.modalIsOpen = false;
     }
   }]);
 

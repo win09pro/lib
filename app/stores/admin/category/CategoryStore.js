@@ -6,11 +6,14 @@ class CategoryStore {
   constructor() {
     this.bindActions(CategoryAction);
     this.category ={};
+    this.doctype = {};
     this.helpMessage = '';   
   }
   onGetCategorySuccess(data)
   {
-    this.category =data;
+    this.category =data.cate;
+    this.doctype = data.doctype;
+
     this.helpMessage = '';  
   }
   onGetCategoryFail(jqXhr)

@@ -13,6 +13,7 @@ class CategoryAction {
       url: '/api/category/'+cateid})
       .done((data) => {
         this.actions.getCategorySuccess(data);
+      
       })
       .fail((jqXhr) => {
         this.actions.getCategoryFail(jqXhr.responseJSON.message);

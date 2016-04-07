@@ -32,10 +32,10 @@ class AddCategoryStore {
   }
    onGetCategorySuccess(data)
    {
-      this.id=data._id;
-      this.name = data.name;
-      this.description = data.description;
-      this._documenttype = data._documenttype;      
+      this.id=data.cate._id;
+      this.name = data.cate.name;
+      this.description = data.cate.description;
+      this._documenttype = data.cate._documenttype;      
       this.helpBlockName = '';
       this.helpBlockDescription = '';
       this.helpBlockDocumentType = '';

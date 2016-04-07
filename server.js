@@ -25,7 +25,7 @@ var Book = require('./models/Book');
 var User = require('./models/User');
 
 
-var documenttype = require('./models/documenttype');
+// var documenttype = require('./models/documenttype');
 
 var config = require('./config');
 
@@ -40,6 +40,7 @@ mongoose.connection.on('error', function() {
 //=================SRC-SERVER===================
 var Postserver = require('./src-server/admin/post/Postserver');
 var CategoryServer = require('./src-server/admin/category/CategoryServer');
+var DocumenttypeServer = require('./src-server/admin/documenttype/DocumenttypeServer');
 
 //==============================================
 
@@ -308,91 +309,96 @@ app.get('/api/book', function(req, res, next) {
 
 // GET list document type
 // 
-app.get('/api/document-type', function(req, res, next) {
-  try{
-    documenttype
-    .find()
-    .exec(function(err, documentTypes){
-      if(err) next(err);
-      res.send(documentTypes);
-    })
-  } catch(e){
-    res.status(e).send({ message: 'Error when add new Document Type'});
-  }
-});
-// end get list document type
+// app.get('/api/document-type', function(req, res, next) {
+//   try{
+//     documenttype
+//     .find()
+//     .exec(function(err, documentTypes){
+//       if(err) next(err);
+//       res.send(documentTypes);
+//     })
+//   } catch(e){
+//     res.status(e).send({ message: 'Error when add new Document Type'});
+//   }
+// });
+// // end get list document type
 
-// get document type by id
-app.get('/api/document-type/:id', function(req, res, next){
-  var id = req.params.id;
-  documenttype.findOne({ _id: id }, function(err, doc) {
-    if (err) return next(err);
+// // get document type by id
+// app.get('/api/document-type/:id', function(req, res, next){
+//   var id = req.params.id;
+//   documenttype.findOne({ _id: id }, function(err, doc) {
+//     if (err) return next(err);
 
-    if (!doc) {
-      return res.status(404).send({ message: 'Document Type not found.' });
-    }     
-    res.send(doc);
-  });
-});
-// end get document type by id
+//     if (!doc) {
+//       return res.status(404).send({ message: 'Document Type not found.' });
+//     }     
+//     res.send(doc);
+//   });
+// });
+// // end get document type by id
 
-// add document type
-app.post('/api/document-type', function(req, res, next) {
-  //document name
-  var docname = req.body.name;
-  //document description
-  var docdescription = req.body.description;
-  var id=req.body.id;
-   documenttype.findOne({ _id: id }, function(err, doc) {
-  if ( (err)|| (!doc) )
-  {
-    try{ 
-         var doc = new documenttype({           
-                    name: docname ,
-                    description: docdescription            
-                  });   
-         doc.save(function(err) {
-         if (err) return next(err);     
-         res.send({ message: docname + ' has been added successfully!' });
-         });
-         } catch (e) {
-            res.status(e).send({ message: docname+ 'and' +docdescription + 'error when add new.' });
-        }
-  }
-  else
-  {
-        doc.update({ $set: { name: docname, description: docdescription } }, function(err) {
-            if (err) return next(err);
-            res.send({ message: docname + ' has been updated successfully!' });
-          });
+// // add document type
+// app.post('/api/document-type', function(req, res, next) {
+//   //document name
+//   var docname = req.body.name;
+//   //document description
+//   var docdescription = req.body.description;
+//   var id=req.body.id;
+//    documenttype.findOne({ _id: id }, function(err, doc) {
+//   if ( (err)|| (!doc) )
+//   {
+//     try{ 
+//          var doc = new documenttype({           
+//                     name: docname ,
+//                     description: docdescription            
+//                   });   
+//          doc.save(function(err) {
+//          if (err) return next(err);     
+//          res.send({ message: docname + ' has been added successfully!' });
+//          });
+//          } catch (e) {
+//             res.status(e).send({ message: docname+ 'and' +docdescription + 'error when add new.' });
+//         }
+//   }
+//   else
+//   {
+//         doc.update({ $set: { name: docname, description: docdescription } }, function(err) {
+//             if (err) return next(err);
+//             res.send({ message: docname + ' has been updated successfully!' });
+//           });
              
           
-  }})
-});
-// end add document type
+//   }})
+// });
+// // end add document type
 
-// DELETE document type
-app.post('/api/deleteDoc', function(req, res, next) {
-  var docId = req.body.id;
-  documenttype.remove({name:''})  ;
-  documenttype.findOne({ _id: docId }, function(err, doc) {
-    if (err) return next(err);
+// // DELETE document type
+// app.post('/api/deleteDoc', function(req, res, next) {
+//   var docId = req.body.id;
+//   documenttype.remove({name:''})  ;
+//   documenttype.findOne({ _id: docId }, function(err, doc) {
+//     if (err) return next(err);
 
-    if (!doc) {
-      return res.status(404).send({ message: 'Document Type not found.' });
-    }   
-      doc.remove();
-      res.send({ message: doc.name + ' has been deleted.' });
+//     if (!doc) {
+//       return res.status(404).send({ message: 'Document Type not found.' });
+//     }   
+//       doc.remove();
+//       res.send({ message: doc.name + ' has been deleted.' });
 
  
-  });
-});
+//   });
+// });
 //end delete document type
 
 /*
 Category
 */
 CategoryServer(app);
+
+/*
+Documenttype Server
+*/
+DocumenttypeServer(app);
 
 
 app.use(function(req, res) {
