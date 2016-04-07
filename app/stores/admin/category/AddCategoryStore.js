@@ -15,7 +15,7 @@ class AddCategoryStore {
     this.nameValidationState = '';
     this.descriptionValidationState = '';
     this.documentTypeValidationState = '';
-  
+
   }  
   onResetState()
   {
@@ -32,10 +32,10 @@ class AddCategoryStore {
   }
    onGetCategorySuccess(data)
    {
-      this.id=data._id;
-      this.name = data.name;
-      this.description = data.description;
-      this._documenttype = data._documenttype;      
+      this.id=data.cate._id;
+      this.name = data.cate.name;
+      this.description = data.cate.description;
+      this._documenttype = data.cate._documenttype;      
       this.helpBlockName = '';
       this.helpBlockDescription = '';
       this.helpBlockDocumentType = '';
@@ -117,6 +117,14 @@ class AddCategoryStore {
     {
       this.documentTypeValidationState='has-error';
       this.helpBlockDocumentType='Please select Document Type'; 
+    }
+
+    onGetDocListSuccessC(data)
+    {
+      this.documentTypesC = data;
+    }
+    onGetDocListFailC(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
     }
 }
 export default alt.createStore(AddCategoryStore);

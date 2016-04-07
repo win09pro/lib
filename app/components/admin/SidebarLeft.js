@@ -66,8 +66,8 @@ class SidebarLeft extends React.Component {
                 </Link>
             </li>
             <li onClick =  {AddUserActions.resetAll}><Link to="/admin/user/view"><i className="fa fa-user"  ></i><span>Người dùng</span></Link></li>
-            <li><Link to='/admin/document-type'><i className="fa fa-user"></i><span> Document Type </span></Link></li>
-            <li><Link to='/admin/category'><i className="fa fa-user"></i><span> Category </span> </Link></li>
+            <li><Link to='/admin/document-type'><i className="fa fa-book"></i><span> Thể loại </span></Link></li>
+            <li><Link to='/admin/category'><i className="fa fa-bars"></i><span> Danh mục </span> </Link></li>
             <li className="treeview">
               <a href="#"><i className="fa fa-link"></i> <span>Books and Transitions</span> <i className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">

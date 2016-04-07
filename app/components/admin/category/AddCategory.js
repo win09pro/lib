@@ -61,13 +61,23 @@ class AddCategory extends React.Component {
   render() {
     // DocumentTypeListAction.get();
     let documentTypeList = this.state.state2.documentTypes.map((documentType, index) => {
+      if(this.state.state1._documenttype == documentType._id){
       return (
-
-        <option value={documentType._id} key ={index+1}>
+        
+          <option value={documentType._id} key ={index+1} selected>
             {documentType.name}
-        </option>
-
-      );
+          </option>
+          );
+          // console.log();
+        }
+        else{
+          return (
+          <option value={documentType._id} key ={index+1}>
+              {documentType.name}
+          </option>
+          );
+        }
+      
     });
 
     return (
@@ -75,26 +85,26 @@ class AddCategory extends React.Component {
         <div className='row flipInX animated'>
           <div className=''>
             <div className='panel panel-default'>
-              <div className='panel-heading'>Add Category</div>
+              <div className='panel-heading'>Thêm Danh Mục</div>
               <div className='panel-body'>
                 <form onSubmit={this.handleSubmitCategory.bind(this)}>
 
                   <div className={'form-group ' + this.state.state1.nameValidationState}>
-                    <label className='control-label'>Name</label>
+                    <label className='control-label'>Tên</label>
                     <input type='text' className='form-control' ref='nameTextField' value={this.state.state1.name}
                            onChange={AddCategoryAction.updateName} autoFocus/>
 
                     <span className='help-block'>{this.state.state1.helpBlockName}</span>
                   </div>
                   <div className={'form-group ' + this.state.state1.descriptionValidationState}>
-                    <label className='control-label'>Description</label>
+                    <label className='control-label'>Mô tả</label>
                     <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.state1.description}
                            onChange={AddCategoryAction.updateDescription}/>
                     <span className='help-block'>{this.state.state1.helpBlockDescription}</span>
                   </div>
 
                   <div className={'form-group ' + this.state.state1.documentTypeValidationState}>
-                    <label className='control-label'>Document Type</label>
+                    <label className='control-label'>Thể Loại</label>
                     <select className='form-control' ref='DocumentTypeSelectField' value={this.state.state1._documentType} onChange={AddCategoryAction.updateDocumentType}>
                       <option value='0'>--Select document type--</option>
                       {documentTypeList}
@@ -102,7 +112,7 @@ class AddCategory extends React.Component {
                     <span className='help-block'>{this.state.state1.helpBlockDocumentType}</span>
                   </div>
 
-                  <button type='submit' className='btn btn-primary'>Submit</button>
+                  <button type='submit' className='btn btn-primary'>Thêm</button>
                 </form>
               </div>
             </div>

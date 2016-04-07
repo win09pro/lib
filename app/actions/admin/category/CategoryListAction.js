@@ -6,7 +6,13 @@ class CategoryListAction {
       'getCategoryListSuccess',
       'getCategoryListFail', 
       'deleteCateSucess',
-      'deleteCateFail'     
+      'deleteCateFail',
+      
+      'updateArrayId',
+      'removeArrayId',
+
+      'openModal',
+      'closeModal'      
     );
   }
   delete(id)
