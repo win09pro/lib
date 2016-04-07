@@ -266,12 +266,8 @@ app.post('/api/book', function (req, res, next) {
  * GET /api/book/:id
  * Get a book from the database.
 <<<<<<< HEAD
- */
-  app.get('/api/book/:id', function(req, res, next) {
-=======
- */      
-  app.get('/api/book/:id', function (req, res, next) {
->>>>>>> master
+ */  
+app.get('/api/book/:id', function (req, res, next) {s
   var id = req.params.id;
   Book.findOne({ _id: id }, function(err, book) {
     if (err) return next(err);
@@ -279,7 +275,7 @@ app.post('/api/book', function (req, res, next) {
     if (!book) {
       return res.status(404).send({ message: 'Book not found.' });
     }
-    res.send(book);
+    res.send(book);s
   });
 });
 
