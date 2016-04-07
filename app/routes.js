@@ -13,8 +13,6 @@ import ViewUser from './components/admin/usermanage/viewuser';
 import Post from './components/admin/post/Post';
 import Viewpost from './components/admin/post/Viewpost';
 
-
-
 import Addbook from './components/admin/book/Addbook';
 import ListBooks from './components/admin/book/ListBooks';
 import Editbook from './components/admin/book/Editbook';
@@ -26,10 +24,10 @@ import EditTran from './components/transition/EditTran';
 import Transition from './components/transition/Transition';
 
 export default (
+  <Route>
   <Route component={App}>
 
     <Route path='/admin' component={HomeDocumentType} />
-
     <Route path='/admin/document-type' component={HomeDocumentType} />
     <Route path='/admin/document-type/:id' component={ViewDocumentType} />
 
@@ -51,5 +49,11 @@ export default (
     <Route path='/admin/AddTran' component={AddTran} />
     <Route path='/admin/listTrans' component={ListTrans} />
 
+  </Route>
+  <Route component={App}>
+
+ 
+
+  </Route>
   </Route>
 );

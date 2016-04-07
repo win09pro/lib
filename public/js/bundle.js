@@ -7018,24 +7018,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = _react2.default.createElement(
     _reactRouter.Route,
-    { component: _App2.default },
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _HomeDocumentType2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/document-type', component: _HomeDocumentType2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/document-type/:id', component: _ViewDocumentType2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/category', component: _HomeCategory2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/category/:id', component: _ViewCategory2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/view', component: _user2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/:id', component: _viewuser2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/post', component: _Post2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/post/:id', component: _Viewpost2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/book/:id', component: _Book2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/book/edit/:id', component: _Editbook2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/Addbook', component: _Addbook2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/listBooks', component: _ListBooks2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/tran/:id', component: _Transition2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/tran/edit/:id', component: _EditTran2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/AddTran', component: _AddTran2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/listTrans', component: _ListTrans2.default })
+    null,
+    _react2.default.createElement(
+        _reactRouter.Route,
+        { component: _App2.default },
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _HomeDocumentType2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/document-type', component: _HomeDocumentType2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/document-type/:id', component: _ViewDocumentType2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/category', component: _HomeCategory2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/category/:id', component: _ViewCategory2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/view', component: _user2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/:id', component: _viewuser2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/post', component: _Post2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/post/:id', component: _Viewpost2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/book/:id', component: _Book2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/book/edit/:id', component: _Editbook2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/Addbook', component: _Addbook2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/listBooks', component: _ListBooks2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/tran/:id', component: _Transition2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/tran/edit/:id', component: _EditTran2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/AddTran', component: _AddTran2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/listTrans', component: _ListTrans2.default })
+    ),
+    _react2.default.createElement(_reactRouter.Route, { component: _App2.default })
 );
 
 },{"./components/admin/App":21,"./components/admin/book/Addbook":26,"./components/admin/book/Book":27,"./components/admin/book/Editbook":28,"./components/admin/book/ListBooks":29,"./components/admin/category/HomeCategory":33,"./components/admin/category/ViewCategory":34,"./components/admin/documenttype/HomeDocumentType":36,"./components/admin/documenttype/ViewDocumentType":38,"./components/admin/post/Post":41,"./components/admin/post/Viewpost":42,"./components/admin/usermanage/user":45,"./components/admin/usermanage/viewuser":46,"./components/transition/AddTran":47,"./components/transition/EditTran":48,"./components/transition/ListTrans":49,"./components/transition/Transition":50,"react":"react","react-router":"react-router"}],54:[function(require,module,exports){
@@ -7118,15 +7123,6 @@ var ActionBar = function (_React$Component) {
           { className: 'action-buttons' },
           _react2.default.createElement(
             'button',
-            { className: 'btn btn-warning' },
-            _react2.default.createElement(
-              _reactRouter.Link,
-              { to: '/admin/book/' + this.props.item._id },
-              _react2.default.createElement('i', { className: 'fa fa-pencil' })
-            )
-          ),
-          _react2.default.createElement(
-            'button',
             {
               className: 'btn btn-success',
               onClick: this.edit.bind(this) },
@@ -7139,6 +7135,64 @@ var ActionBar = function (_React$Component) {
               onClick: this.open.bind(this) },
             _react2.default.createElement('i', { className: 'fa fa-times' }),
             ' '
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Modal,
+          { show: this.state.modalIsOpen, onHide: this.close.bind(this) },
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Header,
+            null,
+            _react2.default.createElement(
+              'div',
+              { style: style },
+              _react2.default.createElement(
+                _reactBootstrap.Modal.Title,
+                null,
+                _react2.default.createElement('i', { className: 'fa fa-check-square-o fa-2x' })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Body,
+            null,
+            _react2.default.createElement(
+              'div',
+              { style: style },
+              _react2.default.createElement(
+                'h3',
+                { style: { 'color': 'green' } },
+                'Đồng ý xóa ?'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Modal.Footer,
+            null,
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-warning',
+                onClick: this.close.bind(this) },
+              _react2.default.createElement(
+                'i',
+                { className: 'fa fa-times' },
+                ' Hủy bỏ'
+              ),
+              ' '
+            ),
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-success',
+                onClick: this.delete.bind(this) },
+              _react2.default.createElement(
+                'i',
+                { className: 'fa fa-check' },
+                ' Xóa'
+              ),
+              ' '
+            )
           )
         )
       );

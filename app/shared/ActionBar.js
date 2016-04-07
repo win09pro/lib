@@ -34,12 +34,7 @@ constructor(props)
      let style={'text-align':'center'};
     return (
       <div className="action">
-        <span className="action-buttons">
-          <button className ="btn btn-warning">
-            <Link to={'/admin/book/'+this.props.item._id}>
-            <i className ="fa fa-pencil"></i>
-            </Link>
-          </button>                      
+        <span className="action-buttons">                          
           <button
             className="btn btn-success"
             onClick={this.edit.bind(this)}><i className="fa fa-pencil"></i>        
@@ -48,6 +43,27 @@ constructor(props)
               className="btn btn-danger"
             onClick={this.open.bind(this)}><i className="fa fa-times"></i> </button>   
         </span>
+
+        <Modal show={this.state.modalIsOpen} onHide ={this.close.bind(this)}>
+          <Modal.Header>
+           <div style ={style}>
+            <Modal.Title><i className="fa fa-check-square-o fa-2x"></i></Modal.Title>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+          <div style ={style}>
+          <h3 style ={{'color':'green'}}>Đồng ý xóa ?</h3>
+          </div>
+          </Modal.Body>      
+          <Modal.Footer>
+              <button
+                  className="btn btn-warning"
+                onClick={this.close.bind(this)}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+              <button
+                  className="btn btn-success"
+                onClick={this.delete.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
