@@ -14,9 +14,20 @@ class AddCategoryAction {
       'getCategorySuccess',
       'getCategoryFail',
       'resetState'
-   
      
     );
+  }
+  get() {
+    $.ajax({
+      type: 'GET',    
+      url: '/api/document-type'      
+    })
+      .done((data) => {
+        this.actions.getDocListSuccessC(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getDocListFailC(jqXhr.responseJSON.message);
+      });
   }
    getById(cateid) {
     $.ajax({
