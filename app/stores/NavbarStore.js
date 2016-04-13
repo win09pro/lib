@@ -9,6 +9,8 @@ class NavbarStore {
     this.searchQuery = '';
     this.ajaxAnimationClass = '';
     this.openModal =true;
+    this.listTransition=[];
+    this.tranExpire =[];
   }
 
   onFindCharacterSuccess(payload) {
@@ -21,7 +23,22 @@ class NavbarStore {
       payload.searchForm.classList.remove('shake');
     }, 1000);
   }
-
+  onGetListTranSuccess(data){
+    this.listTransition =data;
+    var datenow = Date.now();
+    var i= 0;
+    for(i= 0;i<this.listTransition.length; i++){
+      var datereturn = new Date(this.listTransition[i].dateReturn);
+      if(datereturn < datenow){
+        this.tranExpire.push(this.listTransition[i]);
+      }
+    }
+    console.log(this.listTransition);
+    console.log(this.tranExpire);
+  }
+  onGetListTranFail(jqXhr){
+    toastr.error(jqXhr.responseJSON.message);
+  }
   onUpdateOnlineUsers(data) {
     this.onlineUsers = data.onlineUsers;
   }

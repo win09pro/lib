@@ -10,7 +10,9 @@ class NavbarActions {
       'getCharacterCountSuccess',
       'getCharacterCountFail',
       'findCharacterSuccess',
-      'findCharacterFail'
+      'findCharacterFail',
+      'getListTranSuccess',
+      'getListTranFail'
     );
   }
 
@@ -28,7 +30,19 @@ class NavbarActions {
       });
   }
 
-  
+   getListTransition() {
+    $.ajax({    
+      url: '/api/tran'      
+    })
+      .done((data) => {
+        this.actions.getListTranSuccess(data);
+        console.log('NavbarActions');
+        console.log(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getListTranFail(jqXhr.responseJSON.message);
+      });
+  }
 }
 
 export default alt.createActions(NavbarActions);

@@ -33,6 +33,8 @@ class ListTrans extends React.Component {
           <td>{index+1}</td>
           <td>{tran.bookId}</td>
           <td>{tran.bookName}</td>
+          <td>{tran.userId}</td>
+          <td>{tran.userName}</td>
           <td>{tran.dateBorrow}</td>
           <td>{tran.dateReturn}</td>
           <td>{tran.timeBorrow}</td>
@@ -55,7 +57,9 @@ class ListTrans extends React.Component {
                     <tr>
                       <th>#</th>
                       <th>BOOK ID</th>
-                      <th>BOOK Name</th>        
+                      <th>BOOK Name</th> 
+                      <th>USER ID</th>
+                      <th>USERNAME</th>       
                       <th>DATE BORROW</th> 
                       <th>DATE RETURN</th>
                       <th>TIME BORROW</th>        

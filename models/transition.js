@@ -4,6 +4,8 @@ var TransitionSchema = new mongoose.Schema({
  
   bookId: {type: mongoose.Schema.Types.ObjectId, ref: 'Book'},
   bookName:String,
+  userId :{type:mongoose.Schema.Types.ObjectId,ref :'User'},
+  userName :String,
   dateBorrow : Date,
   dateReturn: Date,
   timeBorrow :Number

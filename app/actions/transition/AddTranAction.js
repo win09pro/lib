@@ -11,9 +11,9 @@ class AddTranAction {
       'updateDateBorrow',
       'updateDateReturn',
       'updateTimeBorrow',
+      'updateUser',
       
-
-      
+      'invalidUser',      
       'invalidBookId',
       'invalidBookName',
       'invalidDateBorrow',
@@ -27,6 +27,8 @@ class AddTranAction {
 
       'getTranListCurrentSuccess',
       'getTranListCurrentFail',
+      'getUsersuccess',
+      'getUserfail',
       'resetState'
      
     );
@@ -52,7 +54,19 @@ class AddTranAction {
         this.actions.getTranListCurrentFail(jqXhr.responseJSON.message);
       });
   }
-  
+
+  getListUser(){
+    $.ajax({    
+      url: '/api/user'      
+    })
+      .done((data) => {
+        this.actions.getUsersuccess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getUserfail(jqXhr.responseJSON.message);
+      });
+  }
+
   getBooks() {
     $.ajax({    
       url: '/api/book'      
@@ -65,11 +79,11 @@ class AddTranAction {
       });
   }
   
-  addTran(id , bookId, bookName ,dateBorrow , dateReturn , timeBorrow ) {
+  addTran(id , bookId, bookName ,userId , userName ,dateBorrow , dateReturn , timeBorrow ) {
     $.ajax({
       type: 'POST',
       url: '/api/tran',
-      data: {id:id, bookId: bookId, bookName: bookName ,dateBorrow :dateBorrow , dateReturn: dateReturn , timeBorrow :timeBorrow }
+      data: {id:id, bookId: bookId, bookName: bookName ,userid :userId , userName : userName ,dateBorrow :dateBorrow , dateReturn: dateReturn , timeBorrow :timeBorrow }
     })
       .done((data) => {
         this.actions.addTranSuccess(data.message);

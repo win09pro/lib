@@ -34,13 +34,17 @@ class Transition extends React.Component {
                 <label className='control-label'>BOOK ID</label>
                 <p className='text-success'>{this.state.tran.bookId}</p>
                 <label className='control-label'>BOOK NAME</label>
-                 <p className='text-success'> {this.state.tran.bookName}</p>
-                 <label className='control-label'>DATE BORROW</label>
-                 <p className='text-success'> {this.state.tran.dateBorrow}</p>
-                 <label className='control-label'>DATE RETURN</label>
-                 <p className='text-success'> {this.state.tran.dateReturn}</p>
-                 <label className='control-label'>TIME BORROW</label>
-                 <p className='text-success'> {this.state.tran.timeBorrow}</p>
+                <p className='text-success'>{this.state.tran.bookName}</p>
+                <label className='control-label'>USER ID</label>
+                <p className='text-success'> {this.state.tran.userId}</p>
+                <label className='control-label'>USERNAME</label>
+                <p className='text-success'> {this.state.tran.userName}</p>
+               <label className='control-label'>DATE BORROW</label>
+               <p className='text-success'> {this.state.tran.dateBorrow}</p>
+               <label className='control-label'>DATE RETURN</label>
+               <p className='text-success'> {this.state.tran.dateReturn}</p>
+               <label className='control-label'>TIME BORROW</label>
+               <p className='text-success'> {this.state.tran.timeBorrow}</p>
                </div>
        </div>
       </div>    

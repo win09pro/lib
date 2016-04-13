@@ -23,15 +23,22 @@ class AddTranStore {
     this.books=[];
     this.listTran=[];
     this.filteredbooks=[];
+
+    this.listUser=[];
+    this.userId='';
+    this.userName ='';
+
     this.dateBorrow = '';
     this.dateReturn = '';
     this.timeBorrow = '';
+
 
     this.helpBlockBookId = '';
     this.helpBlockBookName = '';
     this.helpBlockDateBorrow = '';
     this.helpBlockDateReturn = '';
     this.helpBlockTimeBorrow = '';
+    this.helpBlockUser='';
    
 
     this.bookIdValidationState = '';
@@ -39,6 +46,8 @@ class AddTranStore {
     this.dateBorrowValidationState = '';
     this.dateReturnValidationState = '';
     this.timeBorrowValidationState = '';
+    this.userValidationState='';
+
 
   }
 
@@ -56,7 +65,9 @@ class AddTranStore {
     this.helpBlockDateBorrow = '';
     this.helpBlockDateReturn = '';
     this.helpBlockTimeBorrow = '';
+    this.helpBlockUser ='';
 
+    this.userValidationState='';
     this.bookIdValidationState = '';
     this.bookNameValidationState = '';
     this.dateBorrowValidationState = '';
@@ -78,7 +89,9 @@ class AddTranStore {
       this.helpBlockDateBorrow = '';
       this.helpBlockDateReturn = '';
       this.helpBlockTimeBorrow = '';
+      this.helpBlockUser='';
 
+      this.userValidationState='';
       this.bookIdValidationState = '';
       this.bookNameValidationState = '';
       this.dateBorrowValidationState = '';
@@ -135,9 +148,26 @@ class AddTranStore {
    onGetTranListCurrentFail(jqXhr){
     toastr.error(jqXhr.responseJSON.message);
    }
+   
+   onGetUsersuccess(data){
+      this.listUser =data;
+      if(this.listUser.length >0){
+        this.userId = this.listUser[0]._id;
+        this.userName = this.listUser[0].username;
+      }
+      else{
+        this.userId = '';
+        this.userName = '';
+      }
+   }
+   onGetUserfail(jqXhr){
+    toastr.error(jqXhr.responseJSON.message);
+   }
+
    onAddTranSuccess(SuccessMessage)
    {
 
+    this.userValidationState='has-success';
     this.bookIdValidationState = 'has-success';
     this.bookNameValidationState = 'has-success';
     this.dateBorrowValidationState = 'has-success';
@@ -149,7 +179,7 @@ class AddTranStore {
     this.helpBlockDateBorrow = SuccessMessage;
     this.helpBlockDateReturn = SuccessMessage;
     this.helpBlockTimeBorrow = SuccessMessage;
-
+    this.helpBlockUser = SuccessMessage;
 
     this.id='';
     this.bookId = '';
@@ -157,6 +187,8 @@ class AddTranStore {
     this.dateBorrow = '';
     this.dateReturn = '';
     this.timeBorrow = '';
+    this.userId ='';
+    this.userName ='';
 
     listTransActions.get();
    }
@@ -164,6 +196,7 @@ class AddTranStore {
     onAddTranFail(errorMessage)
     {
       
+      this.userValidationState = 'has-error';
       this.bookIdValidationState = 'has-error';
       this.bookNameValidationState = 'has-error';
       this.dateBorrowValidationState = 'has-error';
@@ -176,12 +209,15 @@ class AddTranStore {
       this.dateBorrow = '';
       this.dateReturn = '';
       this.timeBorrow = '';
+      this.userId ='';
+      this.userName = '';
 
       this.helpBlockBookId = errorMessage;
       this.helpBlockBookName = errorMessage;
       this.helpBlockDateBorrow = errorMessage;
       this.helpBlockDateReturn = errorMessage;
       this.helpBlockTimeBorrow = errorMessage;
+      this.helpBlockUser=errorMessage;
 
     }
  
@@ -197,6 +233,7 @@ class AddTranStore {
       this.helpBlockDateBorrow = '';//khong su dung nua !!!
       this.helpBlockDateReturn = '';
       this.helpBlockTimeBorrow = '';
+
     }
 
     onUpdateBookName(event)
@@ -220,6 +257,26 @@ class AddTranStore {
       this.helpBlockDateBorrow = '';
       this.helpBlockDateReturn = '';
       this.helpBlockTimeBorrow = '';
+      this.helpBlockUser='';
+    }
+    onUpdateUser(event){
+      this.userId =event.target.value;
+      var i=0;
+      for(i=0;i<this.listUser.length;i++){
+        if(this.listUser[i]._id===this.userId){
+          this.userName =this.listUser[i].username;
+        }
+      }
+
+      console.log(this.userName); 
+      
+      this.userValidationState ='';
+      this.helpBlockBookId = '';
+      this.helpBlockBookName = '';
+      this.helpBlockDateBorrow = '';
+      this.helpBlockDateReturn = '';
+      this.helpBlockTimeBorrow = '';
+      this.helpBlockUser='';
     }
      onUpdateDateBorrow(event)
     {
@@ -230,6 +287,7 @@ class AddTranStore {
       this.helpBlockDateBorrow = '';
       this.helpBlockDateReturn = '';
       this.helpBlockTimeBorrow = '';
+      this.helpBlockUser='';
     }
      onUpdateDateReturn(event)
     {
@@ -240,6 +298,7 @@ class AddTranStore {
       this.helpBlockDateBorrow = '';
       this.helpBlockDateReturn = '';
       this.helpBlockTimeBorrow = '';
+      this.helpBlockUser='';
     }
      onUpdateTimeBorrow(event)
     {
@@ -250,6 +309,11 @@ class AddTranStore {
       this.helpBlockDateBorrow = '';
       this.helpBlockDateReturn = '';
       this.helpBlockTimeBorrow = '';
+      this.helpBlockUser='';
+    }
+    onInvalidUser(){
+      this.userValidationState='has-error';
+      this.helpBlockUser='Sorry but no user in trade';
     }
     onInvalidBookId()
     {

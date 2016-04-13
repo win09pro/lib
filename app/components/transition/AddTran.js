@@ -13,6 +13,7 @@ class AddTran extends React.Component {
    componentDidMount() {  
     AddTranAction.getBooks();  
     AddTranAction.getListTranCurrent();
+    AddTranAction.getListUser();
     AddTranStore.listen(this.onChange);
   }
 
@@ -30,10 +31,15 @@ class AddTran extends React.Component {
     var id = this.state.id;
     var bookId = this.state.bookId;
     var bookName = this.state.bookName;
+    var userId  = this.state.userId;
+    var userName = this.state.userName;
     var dateBorrow = this.state.dateBorrow;
     var dateReturn =this.state.dateReturn;
     var timeBorrow = this.state.timeBorrow;
-
+    if(!userId){
+      AddTranAction.invalidUser();
+      this.refs.userTextField.focus();
+    }
     if (!bookId) {
       AddTranAction.invalidBookId();
       this.refs.nameTextField.focus();
@@ -80,7 +86,7 @@ class AddTran extends React.Component {
            this.refs.BarcodeTextField.focus();
         }
         else{
-          AddTranAction.addTran(id,bookId, bookName,dateBorrow , dateReturn,timeBorrow);
+          AddTranAction.addTran(id,bookId, bookName , userId , userName, dateBorrow , dateReturn ,timeBorrow);
           AddTranAction.getListTranCurrent();
       }
     }
@@ -94,6 +100,11 @@ class AddTran extends React.Component {
 
       );
     });
+    let userList =this.state.listUser.map((user,index)=>{
+      return (
+          <option value={user._id}>{user.username}</option>
+        );
+    });
     return (
       <div className='container-fluid'>
         <div className='row animated'>
@@ -103,13 +114,20 @@ class AddTran extends React.Component {
               <div className='panel-body'>
                 <form onSubmit={this.handleSubmitTran.bind(this)}>
 
-                  
+                  <div className={'form-group ' + this.state.userValidationState}>
+                    <label className='control-label'>User Borrows</label>
+                    <select className="form-control" value={this.state.userId} ref="userTextField"onChange={AddTranAction.updateBookName}>
+                      {userList}
+                    </select>
+                    <span className='help-block'>{this.state.helpBlockUser}</span>                    
+                  </div>
+
                   <div className={'form-group ' + this.state.bookNameValidationState}>
                     <label className='control-label'>BOOK NAME</label>
                     <select className="form-control" value={this.state.bookId} ref="nameTextField"onChange={AddTranAction.updateBookName}>
                       {bookList}
                     </select>
-                    <span className='help-block'>{this.state.helpBlockBookName}</span>                    
+                    <span className='help-block'>{this.state.helpBlock}</span>                    
                   </div> 
 
                   <div className={'form-group ' + this.state.dateBorrowValidationState}>

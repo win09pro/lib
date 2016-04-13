@@ -321,6 +321,8 @@ app.get('/api/book', function (req, res, next) {
 app.post('/api/tran', function (req, res, next) {
   var bookId = req.body.bookId;
   var bookName = req.body.bookName;
+  var bookuserId =req.body.userId;
+  var bookuserName =req.body.userName;
   var dateBorrow = req.body.dateBorrow;
   var dateReturn = req.body.dateReturn;
   var timeBorrow = req.body.timeBorrow;
@@ -332,6 +334,8 @@ app.post('/api/tran', function (req, res, next) {
          var tran1 = new Transition({           
                     bookId: bookId ,
                     bookName:bookName ,
+                    userId :bookuserId,
+                    userName : bookuserName,
                     dateBorrow : dateBorrow,
                     dateReturn : dateReturn,
                     timeBorrow : timeBorrow           
@@ -346,7 +350,8 @@ app.post('/api/tran', function (req, res, next) {
   }
   else
   {
-        tran.update({ $set: { bookId: bookId,bookName: bookName ,dateBorrow :dateBorrow,dateReturn : dateReturn,timeBorrow : timeBorrow} }, function(err) {
+        tran.update({ $set: { bookId: bookId,bookName: bookName ,userId :bookuserId,userName : bookuserName,
+          dateBorrow :dateBorrow,dateReturn : dateReturn,timeBorrow : timeBorrow} }, function(err) {
             if (err) return next(err);
             res.send({ message: bookName + ' has been updated successfully!' });
           });
