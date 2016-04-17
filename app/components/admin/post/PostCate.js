@@ -1,7 +1,7 @@
 import React from 'react';
 import AddPostcategory from './AddPostcategory';
 import ListCategorys from './ListCategorys';
-class Post extends React.Component {
+class PostCate extends React.Component {
   render() {
     return (
     	<div className= 'container'>
@@ -18,4 +18,4 @@ class Post extends React.Component {
   }
 }
 
-export default Post;
+export default PostCate;

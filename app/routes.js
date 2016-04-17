@@ -11,6 +11,7 @@ import ViewCategory from './components/admin/category/ViewCategory';
 import Users from './components/admin/usermanage/user';
 import ViewUser from './components/admin/usermanage/viewuser';
 import Post from './components/admin/post/Post';
+import PostCate from './components/admin/post/PostCate';
 import Viewpost from './components/admin/post/Viewpost';
 
 import Addbook from './components/admin/book/Addbook';
@@ -37,6 +38,7 @@ export default (
     <Route path='/admin/user/view' component={Users} />
     <Route path='/admin/user/:id' component={ViewUser} />
     <Route path='/admin/post' component={Post} />
+    <Route path='/admin/PostCate' component={PostCate} />
     <Route path='/admin/post/:id' component={Viewpost} />
 
     <Route path='/admin/book/:id' component={Book} />
