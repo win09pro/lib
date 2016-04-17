@@ -274,7 +274,7 @@ slider img {
 .library-content
 {
   float:left;
-  margin-bottom: 30px;
+  margin:0px;
   width: 100%;
   padding: 0px;
 }
@@ -472,12 +472,49 @@ slider img {
 }
 .book-content .tab-content
 {
-  width: 50%;
+  width: 47%;
   float:left;
-  text-align:center;
+  text-align:left;
   border:none;
   float:right;
-  padding: 15px 15px
+  color: #fff;
+  padding: 15px 15px;
+  border: 1px solid #00bfff;
+  border-radius: 5px;
+  margin-left: 3% auto;;
+
+}
+.book-content .tab-content img
+{
+
+  margin-top: 15px;
+  width: 100%;
+  height: 400px;
+}
+
+/*
+=============================================
+           FOOTER
+=============================================
+*/
+.main-library-footer
+{
+  float:left;
+  padding: 30px;
+  width: 100%;
+  background-color: #669999;
+  color: #fff;
+}
+.main-library-footer h5 i
+{
+  color:#00ffff;
+}
+.main-library-footer .copyright_footer
+{
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
 }
 /*
 =============================================

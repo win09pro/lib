@@ -8,6 +8,8 @@ class AddPostStore {
       this.bindActions(AddPostActions);
       this.id='';
       this.content ='<div></div>';
+      this.link ='http://localhost:3000/';
+      this.postCategoryid ='';
       this.title ='';
       this.introduce='';
       this.dateStart =new Date();
@@ -18,7 +20,11 @@ class AddPostStore {
       this.helpBlockContent='';
       this.helpBlockDateStart='';
       this.helpBlockPictureURL='';
+      this.helpBlockpostCate='';
+      this.helpBlockLink='';
 
+      this.linkpostValidationState='';
+      this.categoryValidationState='';
       this.titleValidationState ='';
       this.contentValidationState='';
       this.introduceValidationState='';
@@ -57,6 +63,20 @@ class AddPostStore {
       this.pictureURLvalidationState='';
       this.helpBlockPictureURL='';
     }
+    onUpdatePostCate(event)
+    {
+      this.postCategoryid=event.target.value;
+      this.categoryValidationState='';
+      this.helpBlockpostCate='';
+      console.log(this.postCategoryid);
+    }
+    onUpdateLink(event)
+    {
+      this.link = event.target.value;
+      if(this.link =='') this.link ='http://localhost:3000/';
+      this.linkpostValidationState ='';
+      this.helpBlockLink='';
+    }
     onInvalidTitle()
     {
       this.titleValidationState ='has-error';
@@ -82,7 +102,16 @@ class AddPostStore {
       this.pictureURLvalidationState ='has-error';
       this.helpBlockPictureURL ='Chưa cập nhập hình ảnh giới thiệu';
     }
-
+    onInvalidpostCate()
+    {
+      this.categoryValidationState='has-error';
+      this.helpBlockpostCate ='Chưa chọn danh mục tin tức';
+    }
+    onInvalidlink()
+    {
+      this.helpBlockLink='Chưa nhập đường dẫn tin tức';
+      this.linkpostValidationState='has-error';
+    }
     onAddPostSuccess(SuccessMessage)
       {
         this.titleValidationState ='has-success';
@@ -90,7 +119,8 @@ class AddPostStore {
         this.introduceValidationState='has-success';
         this.dateStartvalidationState='has-success';
         this.pictureURLvalidationState='has-success';
-
+        this.categoryValidationState='has-success';
+        this.helpBlockLink='has-success';
         this.id='';
         this.content = '';
         this.title ='';
@@ -99,6 +129,8 @@ class AddPostStore {
         this.pictureURL='';
         CKEDITOR.instances.ckedit.setData('Nhập nội dung bài viết tại đây!');
 
+        this.helpBlockpostCate='';
+        this.helpBlockLink='';
         this.helpBlockTitle='';
         this.helpBlockIntroduce='';
         this.helpBlockContent =SuccessMessage;
@@ -134,13 +166,19 @@ class AddPostStore {
         this.introduce= data.introduce;
         this.dateStart=new Date(data.dateStart);
         this.pictureURL = data.pictureURL;
+        this.postCategoryid =data.postCategory;
+        this.link = data.link;
 
         this.helpBlockTitle='';
         this.helpBlockIntroduce='';
         this.helpBlockContent='';
         this.helpBlockDateStart='';
         this.helpBlockPictureURL='';
+        this.helpBlockpostCate='';
+        this.helpBlockLink='';
 
+        this.linkpostValidationState='';
+        this.categoryValidationState='';
         this.titleValidationState ='';
         this.contentValidationState='';
         this.introduceValidationState='';
@@ -155,15 +193,20 @@ class AddPostStore {
         this.introduce= data.introduce;
         this.dateStart=new Date(data.dateStart);
         CKEDITOR.instances.ckedit.setData(this.content);
-        this.pictureURL=data.pictureURL;
-        console.log(this.pictureURL);
+        this.pictureURL=data.pictureURL; 
+        this.postCategoryid =data.postCategory;
+        this.link = data.link;
 
         this.helpBlockTitle='';
         this.helpBlockIntroduce='';
         this.helpBlockContent='';
         this.helpBlockDateStart='';
         this.helpBlockPictureURL='';
+        this.helpBlockpostCate='';
+        this.helpBlockLink='';
 
+        this.linkpostValidationState='';
+        this.categoryValidationState='';
         this.titleValidationState ='';
         this.contentValidationState='';
         this.introduceValidationState='';
@@ -183,16 +226,24 @@ class AddPostStore {
       this.dateStart =new Date();
       this.pictureURL='';
       CKEDITOR.instances.ckedit.setData('Nhập nội dung bài viết tại đây!');
+      this.postCategoryid ='';
+      this.link ='';
 
       this.helpBlockTitle='';
       this.helpBlockIntroduce='';
       this.helpBlockContent='';
       this.helpBlockDateStart='';
+      this.helpBlockPictureURL='';
+      this.helpBlockpostCate='';
+      this.helpBlockLink='';
 
+      this.linkpostValidationState='';
+      this.categoryValidationState='';
       this.titleValidationState ='';
       this.contentValidationState='';
       this.introduceValidationState='';
       this.dateStartvalidationState='';
+      this.pictureURLvalidationState='';  
       }
       onClearAll()
       {
@@ -202,16 +253,24 @@ class AddPostStore {
       this.dateStart =new Date();
       this.pictureURL='';
       CKEDITOR.instances.ckedit.setData('Nhập nội dung bài viết tại đây!');
+      this.postCategoryid ='';
+      this.link ='';
 
       this.helpBlockTitle='';
       this.helpBlockIntroduce='';
       this.helpBlockContent='';
       this.helpBlockDateStart='';
+      this.helpBlockPictureURL='';
+      this.helpBlockpostCate='';
+      this.helpBlockLink='';
 
+      this.linkpostValidationState='';
+      this.categoryValidationState='';
       this.titleValidationState ='';
       this.contentValidationState='';
       this.introduceValidationState='';
       this.dateStartvalidationState='';
+      this.pictureURLvalidationState='';  
       }
 
 

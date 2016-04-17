@@ -10,12 +10,16 @@ class AddPostActions{
      'updateIntroduce',
      'updateDateStart',
      'updatepictureURL',
+     'updatePostCate',
+     'updateLink',
 
      'invalidTitle',
      'invalidIntroduce',
      'invalidDateStart',
      'invalidContent',
      'invalidPictureURL',
+     'invalidpostCate',
+     'invalidlink',
 
      'addPostSuccess',
      'addPostFail',
@@ -42,7 +46,9 @@ class AddPostActions{
             introduce:payload.introduce,
             dateStart:payload.dateStart,
             pictureURL:payload.pictureURL,
-            content:payload.content
+            content:payload.content,
+            link:payload.link,
+            postCategory:payload.postCategory
     }
     })
     .done((data) => {

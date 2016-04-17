@@ -527,7 +527,7 @@ var AddPostActions = function () {
   function AddPostActions() {
     _classCallCheck(this, AddPostActions);
 
-    this.generateActions('updateContent', 'updateTitle', 'updateIntroduce', 'updateDateStart', 'updatepictureURL', 'invalidTitle', 'invalidIntroduce', 'invalidDateStart', 'invalidContent', 'invalidPictureURL', 'addPostSuccess', 'addPostFail', 'getPostSuccess', 'getPostFail', 'getPostViewSuccess', 'resetAll', 'clearAll');
+    this.generateActions('updateContent', 'updateTitle', 'updateIntroduce', 'updateDateStart', 'updatepictureURL', 'updatePostCate', 'updateLink', 'invalidTitle', 'invalidIntroduce', 'invalidDateStart', 'invalidContent', 'invalidPictureURL', 'invalidpostCate', 'invalidlink', 'addPostSuccess', 'addPostFail', 'getPostSuccess', 'getPostFail', 'getPostViewSuccess', 'resetAll', 'clearAll');
   }
 
   _createClass(AddPostActions, [{
@@ -543,7 +543,9 @@ var AddPostActions = function () {
           introduce: payload.introduce,
           dateStart: payload.dateStart,
           pictureURL: payload.pictureURL,
-          content: payload.content
+          content: payload.content,
+          link: payload.link,
+          postCategory: payload.postCategory
         }
       }).done(function (data) {
         _this.actions.addPostSuccess(data.message);
@@ -4834,6 +4836,14 @@ var _AddPostActions = require('../../../actions/admin/post/AddPostActions');
 
 var _AddPostActions2 = _interopRequireDefault(_AddPostActions);
 
+var _listPostCatesStore = require('../../../stores/admin/post/listPostCatesStore');
+
+var _listPostCatesStore2 = _interopRequireDefault(_listPostCatesStore);
+
+var _listPostsCateActions = require('../../../actions/admin/post/listPostsCateActions');
+
+var _listPostsCateActions2 = _interopRequireDefault(_listPostsCateActions);
+
 var _ImgUpload = require('../../../shared/ImgUpload');
 
 var _ImgUpload2 = _interopRequireDefault(_ImgUpload);
@@ -4866,7 +4876,7 @@ var AddUser = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddUser).call(this, props));
 
-    _this.state = _AddPostStore2.default.getState();
+    _this.state = { state1: _AddPostStore2.default.getState(), state2: _listPostCatesStore2.default.getState() };
     _this.onChange = _this.onChange.bind(_this);
     return _this;
   }
@@ -4875,6 +4885,8 @@ var AddUser = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _AddPostStore2.default.listen(this.onChange);
+      _listPostCatesStore2.default.listen(this.onChange);
+      _listPostsCateActions2.default.get();
       CKEDITOR.replace('ckedit', {
         allowedContent: true,
         pasteFromWordRemoveFontStyles: false,
@@ -4889,20 +4901,20 @@ var AddUser = function (_React$Component) {
   }, {
     key: 'onChange',
     value: function onChange(state) {
-      this.setState(state);
+      this.setState({ state1: _AddPostStore2.default.getState(), state2: _listPostCatesStore2.default.getState() });
     }
 
     // reset()
     // {
     //   AddPostActions.resetAll();
-    //   //console.log(this.state.userNameValidationState);
+    //   //console.log(this.state.state1.userNameValidationState);
     // }
     // upload(event)
     // {
-    //     var imgfile = this.state.fileAvatar;
-    //        var imgURL = this.state.imagePreviewUrl;
+    //     var imgfile = this.state.state1.fileAvatar;
+    //        var imgURL = this.state.state1.imagePreviewUrl;
     //         AddPostActions.uploadImage(imgfile);
-    //          console.log(this.state.imageUrl);
+    //          console.log(this.state.state1.imageUrl);
     // }
 
   }, {
@@ -4911,14 +4923,24 @@ var AddUser = function (_React$Component) {
       for (var instance in CKEDITOR.instances) {
         CKEDITOR.instances[instance].updateElement();
       }console.log(CKEDITOR.instances.ckedit._.data);
-      var id = this.state.id;
-      var title = this.state.title.trim();
-      var introduce = this.state.introduce.trim();
-      var dateStart = this.state.dateStart;
-      var pictureURL = this.state.pictureURL;
+      var id = this.state.state1.id;
+      var title = this.state.state1.title.trim();
+      var introduce = this.state.state1.introduce.trim();
+      var dateStart = this.state.state1.dateStart;
+      var pictureURL = this.state.state1.pictureURL;
       var content = _reactDom2.default.findDOMNode(this.refs.body).value;
+      var link = this.state.state1.link;
+      var postCategoryid = this.state.state1.postCategoryid;
       if (!content) {
         _AddPostActions2.default.invalidContent();
+      }
+      if (!postCategoryid) {
+        _AddPostActions2.default.invalidpostCate();
+        this.refs.categorySelectField.focus();
+      }
+      if (!link) {
+        _AddPostActions2.default.invalidlink();
+        this.refs.linkField.focus();
       }
       if (!pictureURL) {
         _AddPostActions2.default.invalidPictureURL();
@@ -4943,7 +4965,9 @@ var AddUser = function (_React$Component) {
           introduce: introduce,
           dateStart: (0, _moment2.default)(dateStart).format('x'),
           pictureURL: pictureURL,
-          content: content
+          content: content,
+          link: link,
+          postCategory: postCategoryid
         });
       }
       event.preventDefault();
@@ -4951,6 +4975,24 @@ var AddUser = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var postCateList = this.state.state2.postCates.map(function (postCate, index) {
+        // if(this.state.state1._documenttype == documentType._id){
+        // return (
+
+        //     <option value={documentType._id} key ={index+1} selected>
+        //       {documentType.name}
+        //     </option>
+        //     );
+        //  
+        //   }
+        //   else{
+        return _react2.default.createElement(
+          'option',
+          { value: postCate._id, key: index + 1 },
+          postCate.nameCate
+        );
+        // }
+      });
       return _react2.default.createElement(
         'div',
         { className: 'container-fluid' },
@@ -4980,7 +5022,7 @@ var AddUser = function (_React$Component) {
                   { onSubmit: this.handleSubmitPost.bind(this), className: 'form-horizontal', enctype: 'multipart/form-data' },
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.titleValidationState },
+                    { className: 'form-group ' + this.state.state1.titleValidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'col-sm-2 control-label' },
@@ -4990,18 +5032,66 @@ var AddUser = function (_React$Component) {
                       'div',
                       { className: 'col-sm-10 right-inner-addon' },
                       _react2.default.createElement('i', { className: 'fa fa-newspaper-o' }),
-                      _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'titleField', value: this.state.title,
+                      _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'titleField', value: this.state.state1.title,
                         onChange: _AddPostActions2.default.updateTitle, autoFocus: true }),
                       _react2.default.createElement(
                         'span',
                         { className: 'help-block' },
-                        this.state.helpBlockTitle
+                        this.state.state1.helpBlockTitle
                       )
                     )
                   ),
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.introduceValidationState },
+                    { className: 'form-group ' + this.state.state1.categoryValidationState },
+                    _react2.default.createElement(
+                      'label',
+                      { className: 'col-sm-2 control-label' },
+                      'Danh mục'
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'col-sm-10 left-inner-addon' },
+                      _react2.default.createElement(
+                        'select',
+                        { className: 'form-control', ref: 'categorySelectField', value: this.state.state1.postCategoryid, onChange: _AddPostActions2.default.updatePostCate },
+                        _react2.default.createElement(
+                          'option',
+                          { value: '' },
+                          '--Chọn danh mục tin tức--'
+                        ),
+                        postCateList
+                      ),
+                      _react2.default.createElement(
+                        'span',
+                        { className: 'help-block' },
+                        this.state.state1.helpBlockpostCate
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group ' + this.state.state1.linkpostValidationState },
+                    _react2.default.createElement(
+                      'label',
+                      { className: 'col-sm-2 control-label' },
+                      'Đương dẫn trang chủ'
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'col-sm-10 right-inner-addon' },
+                      _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'linkField', value: this.state.state1.link,
+                        onChange: _AddPostActions2.default.updateLink, autoFocus: true }),
+                      _react2.default.createElement(
+                        'span',
+                        { className: 'help-block' },
+                        this.state.state1.helpBlockLink
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group ' + this.state.state1.introduceValidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'col-sm-2 control-label' },
@@ -5011,18 +5101,18 @@ var AddUser = function (_React$Component) {
                       'div',
                       { className: 'col-sm-10 right-inner-addon' },
                       _react2.default.createElement('i', { className: 'fa fa-paint-brush' }),
-                      _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'introduceField', value: this.state.introduce,
+                      _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'introduceField', value: this.state.state1.introduce,
                         onChange: _AddPostActions2.default.updateIntroduce }),
                       _react2.default.createElement(
                         'span',
                         { className: 'help-block' },
-                        this.state.helpBlockIntroduce
+                        this.state.state1.helpBlockIntroduce
                       )
                     )
                   ),
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.dateStartvalidationState },
+                    { className: 'form-group ' + this.state.state1.dateStartvalidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'col-sm-2 control-label' },
@@ -5031,17 +5121,17 @@ var AddUser = function (_React$Component) {
                     _react2.default.createElement(
                       'div',
                       { className: 'col-sm-10' },
-                      _react2.default.createElement(_reactDatetime2.default, { value: this.state.dateStart, onChange: _AddPostActions2.default.updateDateStart }),
+                      _react2.default.createElement(_reactDatetime2.default, { value: this.state.state1.dateStart, onChange: _AddPostActions2.default.updateDateStart }),
                       _react2.default.createElement(
                         'span',
                         { className: 'help-block' },
-                        this.state.helpBlockDateStart
+                        this.state.state1.helpBlockDateStart
                       )
                     )
                   ),
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.pictureURLvalidationState },
+                    { className: 'form-group ' + this.state.state1.pictureURLvalidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'col-sm-2 control-label' },
@@ -5051,18 +5141,18 @@ var AddUser = function (_React$Component) {
                       'div',
                       { className: 'col-sm-10 right-inner-addon' },
                       _react2.default.createElement('i', { className: 'fa fa-paint-brush' }),
-                      _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'pictureField', value: this.state.pictureURL,
+                      _react2.default.createElement('input', { type: 'text', className: 'form-control', ref: 'pictureField', value: this.state.state1.pictureURL,
                         onChange: _AddPostActions2.default.updatepictureURL }),
                       _react2.default.createElement(
                         'span',
                         { className: 'help-block' },
-                        this.state.helpBlockPictureURL
+                        this.state.state1.helpBlockPictureURL
                       )
                     )
                   ),
                   _react2.default.createElement(
                     'div',
-                    { className: 'form-group ' + this.state.contentValidationState },
+                    { className: 'form-group ' + this.state.state1.contentValidationState },
                     _react2.default.createElement(
                       'label',
                       { className: 'col-sm-2 control-label' },
@@ -5071,11 +5161,11 @@ var AddUser = function (_React$Component) {
                     _react2.default.createElement(
                       'div',
                       { className: 'col-sm-10' },
-                      _react2.default.createElement('textarea', { id: 'ckedit', value: this.state.content, ref: 'body' }),
+                      _react2.default.createElement('textarea', { id: 'ckedit', value: this.state.state1.content, ref: 'body' }),
                       _react2.default.createElement(
                         'span',
                         { className: 'help-block' },
-                        this.state.helpBlockContent
+                        this.state.state1.helpBlockContent
                       )
                     )
                   ),
@@ -5099,7 +5189,7 @@ var AddUser = function (_React$Component) {
 
 exports.default = AddUser;
 
-},{"../../../actions/admin/post/AddPostActions":10,"../../../shared/ImgUpload":61,"../../../stores/admin/post/AddPostStore":73,"html-to-react":130,"moment":166,"react":"react","react-datetime":418,"react-dom":"react-dom"}],42:[function(require,module,exports){
+},{"../../../actions/admin/post/AddPostActions":10,"../../../actions/admin/post/listPostsCateActions":13,"../../../shared/ImgUpload":61,"../../../stores/admin/post/AddPostStore":73,"../../../stores/admin/post/listPostCatesStore":74,"html-to-react":130,"moment":166,"react":"react","react-datetime":418,"react-dom":"react-dom"}],42:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9619,6 +9709,8 @@ var AddPostStore = function () {
     this.bindActions(_AddPostActions2.default);
     this.id = '';
     this.content = '<div></div>';
+    this.link = 'http://localhost:3000/';
+    this.postCategoryid = '';
     this.title = '';
     this.introduce = '';
     this.dateStart = new Date();
@@ -9629,7 +9721,11 @@ var AddPostStore = function () {
     this.helpBlockContent = '';
     this.helpBlockDateStart = '';
     this.helpBlockPictureURL = '';
+    this.helpBlockpostCate = '';
+    this.helpBlockLink = '';
 
+    this.linkpostValidationState = '';
+    this.categoryValidationState = '';
     this.titleValidationState = '';
     this.contentValidationState = '';
     this.introduceValidationState = '';
@@ -9675,6 +9771,22 @@ var AddPostStore = function () {
       this.helpBlockPictureURL = '';
     }
   }, {
+    key: 'onUpdatePostCate',
+    value: function onUpdatePostCate(event) {
+      this.postCategoryid = event.target.value;
+      this.categoryValidationState = '';
+      this.helpBlockpostCate = '';
+      console.log(this.postCategoryid);
+    }
+  }, {
+    key: 'onUpdateLink',
+    value: function onUpdateLink(event) {
+      this.link = event.target.value;
+      if (this.link == '') this.link = 'http://localhost:3000/';
+      this.linkpostValidationState = '';
+      this.helpBlockLink = '';
+    }
+  }, {
     key: 'onInvalidTitle',
     value: function onInvalidTitle() {
       this.titleValidationState = 'has-error';
@@ -9705,6 +9817,18 @@ var AddPostStore = function () {
       this.helpBlockPictureURL = 'Chưa cập nhập hình ảnh giới thiệu';
     }
   }, {
+    key: 'onInvalidpostCate',
+    value: function onInvalidpostCate() {
+      this.categoryValidationState = 'has-error';
+      this.helpBlockpostCate = 'Chưa chọn danh mục tin tức';
+    }
+  }, {
+    key: 'onInvalidlink',
+    value: function onInvalidlink() {
+      this.helpBlockLink = 'Chưa nhập đường dẫn tin tức';
+      this.linkpostValidationState = 'has-error';
+    }
+  }, {
     key: 'onAddPostSuccess',
     value: function onAddPostSuccess(SuccessMessage) {
       this.titleValidationState = 'has-success';
@@ -9712,7 +9836,8 @@ var AddPostStore = function () {
       this.introduceValidationState = 'has-success';
       this.dateStartvalidationState = 'has-success';
       this.pictureURLvalidationState = 'has-success';
-
+      this.categoryValidationState = 'has-success';
+      this.helpBlockLink = 'has-success';
       this.id = '';
       this.content = '';
       this.title = '';
@@ -9721,6 +9846,8 @@ var AddPostStore = function () {
       this.pictureURL = '';
       CKEDITOR.instances.ckedit.setData('Nhập nội dung bài viết tại đây!');
 
+      this.helpBlockpostCate = '';
+      this.helpBlockLink = '';
       this.helpBlockTitle = '';
       this.helpBlockIntroduce = '';
       this.helpBlockContent = SuccessMessage;
@@ -9758,13 +9885,19 @@ var AddPostStore = function () {
       this.introduce = data.introduce;
       this.dateStart = new Date(data.dateStart);
       this.pictureURL = data.pictureURL;
+      this.postCategoryid = data.postCategory;
+      this.link = data.link;
 
       this.helpBlockTitle = '';
       this.helpBlockIntroduce = '';
       this.helpBlockContent = '';
       this.helpBlockDateStart = '';
       this.helpBlockPictureURL = '';
+      this.helpBlockpostCate = '';
+      this.helpBlockLink = '';
 
+      this.linkpostValidationState = '';
+      this.categoryValidationState = '';
       this.titleValidationState = '';
       this.contentValidationState = '';
       this.introduceValidationState = '';
@@ -9781,14 +9914,19 @@ var AddPostStore = function () {
       this.dateStart = new Date(data.dateStart);
       CKEDITOR.instances.ckedit.setData(this.content);
       this.pictureURL = data.pictureURL;
-      console.log(this.pictureURL);
+      this.postCategoryid = data.postCategory;
+      this.link = data.link;
 
       this.helpBlockTitle = '';
       this.helpBlockIntroduce = '';
       this.helpBlockContent = '';
       this.helpBlockDateStart = '';
       this.helpBlockPictureURL = '';
+      this.helpBlockpostCate = '';
+      this.helpBlockLink = '';
 
+      this.linkpostValidationState = '';
+      this.categoryValidationState = '';
       this.titleValidationState = '';
       this.contentValidationState = '';
       this.introduceValidationState = '';
@@ -9810,16 +9948,24 @@ var AddPostStore = function () {
       this.dateStart = new Date();
       this.pictureURL = '';
       CKEDITOR.instances.ckedit.setData('Nhập nội dung bài viết tại đây!');
+      this.postCategoryid = '';
+      this.link = '';
 
       this.helpBlockTitle = '';
       this.helpBlockIntroduce = '';
       this.helpBlockContent = '';
       this.helpBlockDateStart = '';
+      this.helpBlockPictureURL = '';
+      this.helpBlockpostCate = '';
+      this.helpBlockLink = '';
 
+      this.linkpostValidationState = '';
+      this.categoryValidationState = '';
       this.titleValidationState = '';
       this.contentValidationState = '';
       this.introduceValidationState = '';
       this.dateStartvalidationState = '';
+      this.pictureURLvalidationState = '';
     }
   }, {
     key: 'onClearAll',
@@ -9830,16 +9976,24 @@ var AddPostStore = function () {
       this.dateStart = new Date();
       this.pictureURL = '';
       CKEDITOR.instances.ckedit.setData('Nhập nội dung bài viết tại đây!');
+      this.postCategoryid = '';
+      this.link = '';
 
       this.helpBlockTitle = '';
       this.helpBlockIntroduce = '';
       this.helpBlockContent = '';
       this.helpBlockDateStart = '';
+      this.helpBlockPictureURL = '';
+      this.helpBlockpostCate = '';
+      this.helpBlockLink = '';
 
+      this.linkpostValidationState = '';
+      this.categoryValidationState = '';
       this.titleValidationState = '';
       this.contentValidationState = '';
       this.introduceValidationState = '';
       this.dateStartvalidationState = '';
+      this.pictureURLvalidationState = '';
     }
   }]);
 

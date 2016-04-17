@@ -10,6 +10,8 @@ function Postserver(app) {
   var pictureURL = req.body.pictureURL;
   var content = req.body.content;
   var dateStart = req.body.dateStart;
+  var link =req.body.link;
+  var postCategory= req.body.postCategory;
 
    Post.findOne({ _id: id }, function(err, post) {
   if ( (err)|| (!post) )
@@ -20,7 +22,9 @@ function Postserver(app) {
                     introduce:introduce,
                     content:content,
                     pictureURL:pictureURL,
-                    dateStart:dateStart
+                    dateStart:dateStart,
+                    link:link,
+                    postCategory:postCategory
                   });
          post.save(function(err) {
          if (err) return next(err);
@@ -37,7 +41,9 @@ function Postserver(app) {
                     introduce:introduce,
                     content:content,
                     pictureURL:pictureURL,
-                    dateStart:dateStart
+                    dateStart:dateStart,
+                    link:link,
+                    postCategory:postCategory
         } }, function(err) {
             if (err) return next(err);
             res.send({ message: title + ' has been updated successfully!' });
