@@ -151,8 +151,8 @@ class AddUser extends React.Component {
 
                   <div className={'form-group ' + this.state.typeValidationState}>
                     <label className='control-label'>Kiểu người dùng</label>
-                     <select className='form-control' defaultValue ={this.state.Type} onChange ={AddUserActions.updateType} >
-                      <option value =''>----</option>
+                     <select className='form-control' value ={this.state.Type} onChange ={AddUserActions.updateType} >
+                      <option value =''>-Chọn kiểu người dùng-</option>
                       <option value ='1'>Admin1</option>
                       <option value ='2'>Admin2</option>
                       <option value ='3'>User</option>
