@@ -5823,6 +5823,11 @@ var ListBooks = function (_React$Component) {
           _react2.default.createElement(
             'td',
             null,
+            post.postCategory.nameCate
+          ),
+          _react2.default.createElement(
+            'td',
+            null,
             _react2.default.createElement(_ActionBar2.default, { viewAction: _AddPostActions2.default, editAction: _AddPostActions2.default, deleteAction: _listPostsActions2.default, item: post })
           ),
           _react2.default.createElement(
@@ -5886,6 +5891,11 @@ var ListBooks = function (_React$Component) {
                         'th',
                         null,
                         'Nội dung'
+                      ),
+                      _react2.default.createElement(
+                        'th',
+                        null,
+                        'Danh mục'
                       ),
                       _react2.default.createElement(
                         'th',
@@ -9837,7 +9847,7 @@ var AddPostStore = function () {
       this.dateStartvalidationState = 'has-success';
       this.pictureURLvalidationState = 'has-success';
       this.categoryValidationState = 'has-success';
-      this.helpBlockLink = 'has-success';
+      this.linkpostValidationState = 'has-success';
       this.id = '';
       this.content = '';
       this.title = '';
@@ -10131,6 +10141,7 @@ var listPostsStore = function () {
     key: 'onGetPostsuccess',
     value: function onGetPostsuccess(data) {
       this.posts = data;
+      console.log(data);
     }
   }, {
     key: 'onGetPostfail',

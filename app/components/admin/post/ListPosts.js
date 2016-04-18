@@ -62,6 +62,7 @@ class ListBooks extends React.Component {
           <td>{post.introduce.substr(0,40)+' ...'}</td>
           <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM')}</td>
           <td>{post.content.substr(0,40)+' ...' }</td>
+          <td>{post.postCategory.nameCate}</td>
           <td><ActionBar viewAction={AddPostActions} editAction={AddPostActions} deleteAction={listPostsActions} item={post} /></td>
           <td>
             <input type ='checkbox' data-ref ={post._id} onClick = {this.handleChange.bind(this)} />
@@ -85,6 +86,7 @@ class ListBooks extends React.Component {
                       <th>Giới thiệu</th>
                       <th>Ngày bắt đầu</th>
                       <th>Nội dung</th>
+                      <th>Danh mục</th>
                       <th>Hành động</th>
                       <th><a className ="deletegroup" onClick ={listPostsActions.openModal} > <i className="fa fa-trash fa-danger fa-fa2x"></i></a></th>
                     </tr>

@@ -21,6 +21,7 @@ class listPostsStore {
   onGetPostsuccess(data)
   {
   	this.posts = data;    
+    console.log(data);
   }
   onGetPostfail(jqXhr) {
     toastr.error(jqXhr.responseJSON.message);

@@ -120,7 +120,7 @@ class AddPostStore {
         this.dateStartvalidationState='has-success';
         this.pictureURLvalidationState='has-success';
         this.categoryValidationState='has-success';
-        this.helpBlockLink='has-success';
+        this.linkpostValidationState='has-success';
         this.id='';
         this.content = '';
         this.title ='';

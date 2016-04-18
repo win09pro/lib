@@ -79,6 +79,7 @@ app.get('/api/post', function(req, res, next) {
   try{
    Post
    .find()
+   .populate('postCategory')
    .exec(function(err,posts){
     if(err) next(err);
     res.send(posts);
