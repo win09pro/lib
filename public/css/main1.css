@@ -1,4 +1,4 @@
-.main-body ul, li, a, i, img
+.main-body ul, li, a, i, img, button
 {
   transition:all 0.3s ease-out 0s;
   -moz-transition:all 0.3s ease-out 0s;
@@ -277,6 +277,7 @@ slider img {
   margin:0px;
   width: 100%;
   padding: 0px;
+  background-color: #fff;
 }
 .library-content h2
 {
