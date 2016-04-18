@@ -73,7 +73,8 @@ class AddPostStore {
     onUpdateLink(event)
     {
       this.link = event.target.value;
-      if(this.link =='') this.link ='http://localhost:3000/';
+      console.log(this.link.substr(0,22));
+      if(this.link.substr(0,22) !='http://localhost:3000/') this.link ='http://localhost:3000/';
       this.linkpostValidationState ='';
       this.helpBlockLink='';
     }

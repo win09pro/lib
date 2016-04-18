@@ -60,7 +60,7 @@ class ListBooks extends React.Component {
           <td>{index}</td>
           <td><Link to={'/admin/post/'+post._id}>{post.title.substr(0,20) +' ...'}</Link></td>
           <td>{post.introduce.substr(0,40)+' ...'}</td>
-          <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM')}</td>
+          <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM')}s</td>
           <td>{post.content.substr(0,40)+' ...' }</td>
           <td>{post.postCategory.nameCate}</td>
           <td><ActionBar viewAction={AddPostActions} editAction={AddPostActions} deleteAction={listPostsActions} item={post} /></td>

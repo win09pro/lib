@@ -15,7 +15,7 @@
 /*
 ========== HEADER =============
 */
-header
+.library-header
 {
   float:left;
   width:100%;
@@ -24,54 +24,54 @@ header
   left:0px;
   top:0px;
 }
-.header-container
+.library-header .header-container
 {
   float:left;
   width:100%;
   position: relative;
   background-color: #00bfff;
 }
-.logo
+.library-header .logo
 {
   padding: 0px;
   position: relative;
   width: 100%;
   margin: 20px 20px;
 }
-.menu
+.library-header .menu
 {
   float:left;
   width:100%;
   position: relative;
   background-color: #00bfff;
 }
-.top-menu
+.library-header .top-menu
 {
   float:left;
   width:100%;
   padding:10px 0px;
   color: #fff;
 }
-.top-menu .site_info
+.library-header .top-menu .site_info
 {
   float:left;
 }
-.top-menu .user
+.library-header .top-menu .user
 {
   float:right;
   margin-right: 10px;
 }
-.top-menu .user ul
+.library-header .top-menu .user ul
 {
   list-style: none;
   margin: 0;
 }
-.top-menu .user ul li
+.library-header .top-menu .user ul li
 {
   position: relative;
   float:right;
 }
-.top-menu .user ul li:before
+.library-header .top-menu .user ul li:before
 {
   content:"";
   height:0px;
@@ -87,24 +87,24 @@ header
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
 }
-.top-menu .user ul li:hover:before
+.library-header .top-menu .user ul li:hover:before
 {
   height: 3.5px;
   width: 90%;
   background-color: #ccffcc;
 }
-.top-menu .user a
+.library-header .top-menu .user a
 {
   margin-right: 10px;
   color: #fff;
 }
-.main-menu
+.library-header .main-menu
 {
   float:left;
   width:100%;
   background-color:#fff;
 }
-.main-menu ul
+.library-header .main-menu ul
 {
   float:left;
   width:100%;
@@ -114,20 +114,20 @@ header
   padding:0px;
 
 }
-.main-menu ul li
+.library-header .main-menu ul li
 {
   float:left;
   position:relative;
   margin:0px ;
 }
-.main-menu>ul>li
+.library-header .main-menu>ul>li
 {
   float:left;
   position:relative;
   margin: 0 0-10px 0 ;
 
 }
-.main-menu>ul>li>a{
+.library-header  .main-menu>ul>li>a{
   color:#666;
   padding:25px 18px;
   text-transform:uppercase;
@@ -137,7 +137,7 @@ header
   color:#262626;
   background-color: #fff;
 }
-.main-menu ul li:before
+.library-header  .main-menu ul li:before
 {
   content:"";
   height:0px;
@@ -153,11 +153,11 @@ header
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
 }
-.main-menu ul li:hover:before{
+.library-header .main-menu ul li:hover:before{
   height:5px;
   width:100%;
 }
-.main-menu>ul>li:after
+.library-header .main-menu>ul>li:after
 {
   content:"";
   width: 0;
@@ -172,11 +172,11 @@ header
   bottom:0px;
   opacity:0;
 }
-.main-menu ul li:hover:after
+.library-header .main-menu ul li:hover:after
 {
     opacity:1;
 }
-.main-menu ul ul
+.library-header .main-menu ul ul
 {
   border-top:solid 5px;
   box-shadow:0px 5px 5px 0px rgba(0,0,0,0.3);
@@ -194,25 +194,25 @@ header
   padding:5px;
 
 }
-.main-menu ul li.last ul
+.library-header .main-menu ul li.last ul
 {
     right: 0px;
     left: auto;
 }
-.main-menu ul li:hover > ul
+.library-header .main-menu ul li:hover > ul
 {
    opacity:1;
    visibility:visible;
    margin:-1px !important;
 }
-.main-menu ul ul li
+.library-header .main-menu ul ul li
 {
   float:left;
   width:100%;
   margin:2.5px 0px;
   padding: 0px;
 }
-.main-menu ul ul li:hover:before
+.library-header .main-menu ul ul li:hover:before
 {
     display: none;
 }
@@ -222,7 +222,7 @@ header
   color:#fff;
 }*/
 
-.main-menu ul ul li a{
+.library-header .main-menu ul ul li a{
   display: block;
   width: 100%;
   padding:10px 15px;
@@ -232,7 +232,7 @@ header
   /*//padding-right:50px;*/
   background-color: #fff;
 }
-.main-menu ul ul li a:hover{
+.library-header .main-menu ul ul li a:hover{
   background-color:#00bfff;
   color:#fff;
 }
@@ -284,7 +284,7 @@ slider img {
   position: relative;
   float:left;
 }
-.library-content a.link-heading
+.library-content .link-heading
 {
   margin-top: 20px;
   position: relative;
@@ -397,8 +397,6 @@ slider img {
 {
   color: #a3a375;
   margin-bottom: 5px;
-  float:right;
-  width: 100%;
 }
 /*
 =============================================
@@ -483,6 +481,9 @@ slider img {
   border: 1px solid #00bfff;
   border-radius: 5px;
   margin-left: 3% auto;;
+  margin-bottom:50px;
+  padding-bottom: 30px;
+
 
 }
 .book-content .tab-content img
@@ -490,7 +491,7 @@ slider img {
 
   margin-top: 15px;
   width: 100%;
-  height: 400px;
+  height: 420px;
 }
 
 /*

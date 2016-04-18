@@ -24,6 +24,8 @@ import ListTrans from './components/transition/ListTrans';
 import EditTran from './components/transition/EditTran';
 import Transition from './components/transition/Transition';
 
+import Appmain from './components/main/App';
+import Main from './components/main/Main';
 export default (
   <Route>
   <Route component={App}>
@@ -52,10 +54,8 @@ export default (
     <Route path='/admin/listTrans' component={ListTrans} />
 
   </Route>
-  <Route component={App}>
-
- 
-
+  <Route component={Appmain}> 
+    <Route path='/' component={Main}/> 
   </Route>
   </Route>
 );

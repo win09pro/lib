@@ -1,14 +1,5 @@
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-
 li {
   font-size: 15px;
 }
@@ -278,7 +269,7 @@ html {
           border: 1px solid #d5d5d5;
           height: 400px;
           padding-bottom: 50px;
-         
+
       }
 .ql-toolbar{
           box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
@@ -477,7 +468,7 @@ td.rdtYear:hover {
     position: relative;
 }
 .left-inner-addon input {
-    padding-left: 30px;    
+    padding-left: 30px;
 }
 .left-inner-addon i {
     position: absolute;
@@ -489,24 +480,24 @@ td.rdtYear:hover {
     position: relative;
 }
 .right-inner-addon input {
-    padding-right: 30px;    
+    padding-right: 30px;
 }
 .right-inner-addon i {
     position: absolute;
     right: 0px;
     padding: 10px 30px;
-    pointer-events: none;   
+    pointer-events: none;
 }
 .deletegroup
 {
   color: #cc6600;
 }
-.deletegroup { 
+.deletegroup {
   -webkit-transition: all 5s linear;
           transition: all 5s linear;
   -webkit-transform: scale3d(1, 1, 1);
           transform: scale3d(1, 1, 1);}
-.deletegroup:hover { 
+.deletegroup:hover {
    -webkit-transform: scale3d(1.5, 1.5, 1);
           transform: scale3d(1.5, 1.5, 1);
   color:red;
