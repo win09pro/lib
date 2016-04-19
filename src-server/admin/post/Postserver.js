@@ -212,5 +212,30 @@ app.get('/api/postCategory', function(req, res, next) {
     res.send(number);
   });
 });
+  // *****************************************
+  // 
+  //            CLIENT-SITE
+  // 
+  // *****************************************
+  app.get('/api/mainpost', function(req, res, next) {     
+  PostCategory.findOne({ nameCate: 'Tin tức' }, function(err, postCategory) {
+    if (err) return next(err);
+    if (!postCategory) {
+      return res.status(404).send({ message: 'Không tìm thấy chủ đề bài viết phù hợp' });
+    }
+    else
+    {      
+      Post
+     .find({postCategory:postCategory._id})
+     .limit(4)
+     .populate('postCategory')
+     .exec(function(error,posts){
+      if(error) next(error);
+      res.send(posts);
+     });       
+    }    
+  });
+});
+ 
 }
 module.exports = Postserver;
