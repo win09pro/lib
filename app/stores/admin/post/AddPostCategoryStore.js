@@ -65,7 +65,7 @@ class AddPostCategoryStore {
         this.helpBlockNameCate=errorMessage;
         this.helpBlocktype=errorMessage;
       }      
-      onGetPostSuccess(data)
+      onGetPostCateSuccess(data)
       {      
         this.id=data._id;
         this.nameCate =data.nameCate;
@@ -77,7 +77,7 @@ class AddPostCategoryStore {
         this.nameCateValidation ='';
         this.typeValidationState='';     
       }
-      onGetPostFail(jqXhr)
+      onGetPostCateFail(jqXhr)
       {
       toastr.error(jqXhr.responseJSON.message);
       }

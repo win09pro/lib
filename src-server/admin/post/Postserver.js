@@ -79,6 +79,7 @@ app.get('/api/post', function(req, res, next) {
   try{
    Post
    .find()
+   .sort({_id:-1})
    .populate('postCategory')
    .exec(function(err,posts){
     if(err) next(err);
@@ -195,6 +196,7 @@ app.get('/api/postCategory', function(req, res, next) {
   try{
    PostCategory
    .find()
+   .sort({_id:-1})
    .exec(function(err,postCates){
     if(err) next(err);
     res.send(postCates);
@@ -227,6 +229,7 @@ app.get('/api/postCategory', function(req, res, next) {
     {      
       Post
      .find({postCategory:postCategory._id})
+     .sort({_id:-1})
      .limit(4)
      .populate('postCategory')
      .exec(function(error,posts){
@@ -236,6 +239,41 @@ app.get('/api/postCategory', function(req, res, next) {
     }    
   });
 });
- 
+  /**
+ * /api/detailpost/:link
+ *
+ */
+  app.get('/api/detailpost/:link', function(req, res, next) {
+  var link_ ='http://localhost:3000/'+req.params.link;
+
+  Post
+  .findOne({ link: link_ })
+  .populate('postCategory')
+  .exec(function(err, post) {
+    if (err) return next(err);
+
+    if (!post) {
+      return res.status(404).send({ message: 'Không tìm thấy bài đăng phù hợp' });
+    }
+    res.send(post);
+  });
+});
+ /**
+ * /api/relativepost
+ * GET relative post same type from dbs
+ */
+ app.post('/api/relativepost', function(req, res, next) {
+  var id = req.body.id;
+  var numpost=Number(req.body.numpost);
+  Post
+     .find({postCategory:id})
+     .sort({_id:-1})
+     .limit(numpost)
+     .populate('postCategory')
+     .exec(function(error,posts){
+      if(error) next(error);
+      res.send(posts);
+     });  
+});
 }
 module.exports = Postserver;

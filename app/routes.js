@@ -26,6 +26,7 @@ import Transition from './components/transition/Transition';
 
 import Appmain from './components/main/App';
 import Main from './components/main/Main';
+import Viewdetailpost from './components/main/Post/Viewdetailpost';
 export default (
   <Route>
   <Route component={App}>
@@ -56,6 +57,7 @@ export default (
   </Route>
   <Route component={Appmain}> 
     <Route path='/' component={Main}/> 
+    <Route path=':link' component={Viewdetailpost}/> 
   </Route>
   </Route>
 );

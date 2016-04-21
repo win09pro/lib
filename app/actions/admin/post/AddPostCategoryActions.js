@@ -36,7 +36,7 @@ class AddPostCategoryActions{
       this.actions.addPostCateFail(jqXhr.responseJSON.message);
     });
   }
-  getById(postCateId) {
+  getById(postCateId) {   
     $.ajax({
       url: '/api/postCategory/'+postCateId})
       .done((data) => {
