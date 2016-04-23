@@ -1,16 +1,16 @@
 import React from 'react';
-import AddPost from './AddPost';
-import ListPosts from './ListPosts';
-class Post extends React.Component {
+import AddPostcategory from './AddPostcategory';
+import ListCategorys from './ListCategorys';
+class PostCate extends React.Component {
   render() {
     return (
     	<div className= 'container'>
       <div claasName='row'>
           <div className='col-sm-12'>
-	    	    <AddPost />
+	    	    <AddPostcategory />
           </div>
           <div className='col-sm-12'>
-	    	    <ListPosts/>
+	    	    <ListCategorys/>
           </div>
     	</div>
       </div>
@@ -18,4 +18,4 @@ class Post extends React.Component {
   }
 }
 
-export default Post;
+export default PostCate;

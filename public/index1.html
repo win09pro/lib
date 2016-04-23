@@ -8,10 +8,10 @@
 	<title>BachKhoa Admin</title>
 	<link rel="stylesheet" href="css/AdminLTE.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900"/>
-	<link rel="stylesheet" href="css/main.css"/>
-	<link rel="stylesheet" href="css/main1.css"/>
+
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="css/style.css"/>
+
   <link rel="stylesheet" href="css/quill.snow.css">
   <link rel="stylesheet" href="css/checkbox.css">
 	<!-- Font Awesome -->
@@ -20,12 +20,16 @@
     <!-- Theme style -->
   <link rel="stylesheet" href="css/skin-blue.min.css">
 	<link rel="stylesheet" href="js/bxslider/jquery.bxslider.css">
-
+	<link rel="stylesheet" href="css/main.css"/>
+		<link rel="stylesheet" href="css/AdminLTE.min.css">
+	<link rel="stylesheet" href="css/main1.css"/>
+	<link rel="stylesheet" href="css/mainpost.css">
  <script language="javascript" type="text/javascript" src ='/js/ckeditor/ckeditor.js'></script>
 </head>
 
-<body class="main-body">
-	<header class='header'>
+<body>
+	<div class="main-body">
+	<header class='library-header'>
 		<div class="container">
 			<div class="header-container">
 				<div class="row">
@@ -172,7 +176,9 @@
 						<div class="title-news">
 							<h3>Thông báo truy cập CSDL .</h3>
 							<h4>Thư viện trường Đại học Bách Khoa TP...</h4>
-							<span><i class="fa fa-calendar"></i> 29/04/1904</span>
+							<div class="title-news-time">
+									<span><i class="fa fa-calendar"></i> 2129/04/1904</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -214,7 +220,7 @@
 					<ul class="nav nav-tabs" role='tablist'>
 				    <li class="col-md-4 col-sm-3 active" role='presentation'>
 							<a data-toggle="tab" href="#home" aria-expanded="true">
-								<img class='img-responsive' src="http://www.lib.hcmut.edu.vn/upload/doitac/V0NFO2016_03_25_10_46_34_001.jpg" alt="" />
+								<img class='img-responsive' src="http://bilder.buecher.de/produkte/37/37354/37354352z.jpg" alt="" />
 							</a>
 						</li>
 						<li class="col-md-4 col-sm-3" role='presentation'>
@@ -247,8 +253,19 @@
 
 				  <div class="tab-content">
 				    <div id="home" class="tab-pane fade in active">
-				      <h3>HOME</h3>
-				      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				    	<div class="col-md-6 col-sm-12">
+<<<<<<< HEAD:public/index1.html
+									<img class='img-responsive' src="http://bilder.buecher.de/produkte/37/37354/37354352z.jpg" alt="" />
+=======
+									<img class='img-responsive' src="http://www.lib.hcmut.edu.vn/upload/doitac/V0NFO2016_03_25_10_46_34_001.jpg" alt="" />
+>>>>>>> master:public/index.html
+				    	</div>
+							<div class="col-md-6 col-sm-12 test">
+								<h3>Document software Architecture</h2>
+								<h5><i class="fa fa-pencil"></i><i> Pau Clement</i></h4>
+								<h5><i class="fa fa-barcode"></i> 27195102</h5>
+								<button type="button" class= 'btn btn-primary' name="button">ĐẶT SÁCH</button>
+				    	</div>
 				    </div>
 				    <div id="menu1" class="tab-pane fade">
 				      <h3>Menu 1</h3>
@@ -269,7 +286,27 @@
 	</div>
 
 </div>
+<div class="main-library-footer">
+	<div class="row">
+		<div class="col-md-6 col-sm-12">
+			<h3>THƯ VIỆN ĐẠI HỌC BÁCH KHOA TP HỒ CHÍ MINH</h3>
+			<h5><i class="fa fa-map-marker"></i> 268, Lý Thường Kiệt, Quận 10, TP Hồ Chí Minh</h5>
+			<h5><i class ='fa fa-phone'></i> (84.8) 647256</h5>
+			<h5><i class ='fa fa-envelope-o'></i> thuviendhbk@hcmut.edu.vn</h5>
+			<h5>Copyright © Thư Viện Đại Học Bách Khoa Tp.HCM</h5>
+		</div>
+		<div class="col-md-6 col-sm-12">
+			<h3>THỐNG KÊ</h3>
+			<h5><i class ='fa fa-user'></i> Đang trực tuyến: <strong style="color:yellow">3</strong></h5>
+			<h5><i class ='fa fa-users'></i> Tổng lượt truy cập: <strong style="color:yellow">12313</strong></h5>
+		</div>
+	</div>
+</div>
+<<<<<<< HEAD:public/index1.html
+	</div>
+=======
 
+>>>>>>> master:public/index.html
   <!-- <div id="app">{{ html|safe }}</div> -->
   <script src="js/vendor.js"></script>
   <script src="/socket.io/socket.io.js"></script>

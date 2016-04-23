@@ -11,6 +11,7 @@ import ViewCategory from './components/admin/category/ViewCategory';
 import Users from './components/admin/usermanage/user';
 import ViewUser from './components/admin/usermanage/viewuser';
 import Post from './components/admin/post/Post';
+import PostCate from './components/admin/post/PostCate';
 import Viewpost from './components/admin/post/Viewpost';
 
 import Addbook from './components/admin/book/Addbook';
@@ -23,6 +24,10 @@ import ListTrans from './components/transition/ListTrans';
 import EditTran from './components/transition/EditTran';
 import Transition from './components/transition/Transition';
 
+import Appmain from './components/main/App';
+import Main from './components/main/Main';
+import Viewdetailpost from './components/main/Post/Viewdetailpost';
+import Listallpost from './components/main/Post/Listallpost';
 export default (
   <Route>
   <Route component={App}>
@@ -37,7 +42,10 @@ export default (
     <Route path='/admin/user/view' component={Users} />
     <Route path='/admin/user/:id' component={ViewUser} />
     <Route path='/admin/post' component={Post} />
+    <Route path='/admin/PostCate' component={PostCate} />
     <Route path='/admin/post/:id' component={Viewpost} />
+    <Route path='/admin/PostCate' component ={PostCate}/>
+
 
     <Route path='/admin/book/:id' component={Book} />
     <Route path='/admin/book/edit/:id' component={Editbook} />
@@ -50,10 +58,10 @@ export default (
     <Route path='/admin/listTrans' component={ListTrans} />
 
   </Route>
-  <Route component={App}>
-
- 
-
+  <Route component={Appmain}> 
+    <Route path='/' component={Main}/> 
+    <Route path='/post/listall' component ={Listallpost}/>
+    <Route path=':link' component={Viewdetailpost}/> 
   </Route>
   </Route>
 );

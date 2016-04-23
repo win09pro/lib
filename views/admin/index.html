@@ -7,8 +7,7 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<title>BachKhoa Admin</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900"/>
-	<link rel="stylesheet" href="/css/main.css"/>
-	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+   <link rel="stylesheet" href="/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="/css/style.css"/>
   <link rel="stylesheet" href="/css/quill.snow.css">
   <link rel="stylesheet" href="/css/checkbox.css">
@@ -18,11 +17,15 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
    
     <!-- Theme style -->
-  <link rel="stylesheet" href="/css/AdminLTE.min.css">
+  
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
+  <link rel="stylesheet" href="http://localhost:3000/css/main.css"/>
+  <link rel="stylesheet" href="http://localhost:3000/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="http://localhost:3000/css/main1.css"/>
+  <link rel="stylesheet" href="http://localhost:3000/css/mainpost.css">
   <link rel="stylesheet" href="/css/skin-blue.min.css">
   <link rel="stylesheet" type="text/css" href="/css/alloy-editor-ocean-min.css">
   
@@ -30,18 +33,8 @@
 </head>
 
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-  
-	<div id="app">{{ html|safe }}</div>
-      <!-- Control Sidebar -->     
-    
-
-    
-
-
-  <!-- <div id="app">{{ html|safe }}</div> -->
- 
-  
+<body class="hold-transition skin-blue sidebar-mini">  
+	<div id="app">{{ html|safe }}</div> 
   <script src="/js/vendor.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/vendor.bundle.js"></script>
