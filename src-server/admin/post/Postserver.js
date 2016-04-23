@@ -294,14 +294,8 @@ app.get('/api/postCategory', function(req, res, next) {
       if(error) next(error);
       res.send(posts);
      });  
-});
- 
- 
-=======
+});  
 
-
-  }})
-   });
   /**
  * GET /api/postCategory/:id
  * Get a postCategory from the database.

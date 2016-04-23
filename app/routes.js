@@ -13,7 +13,6 @@ import ViewUser from './components/admin/usermanage/viewuser';
 import Post from './components/admin/post/Post';
 import PostCate from './components/admin/post/PostCate';
 import Viewpost from './components/admin/post/Viewpost';
-import PostCate from './components/admin/post/PostCate';
 
 import Addbook from './components/admin/book/Addbook';
 import ListBooks from './components/admin/book/ListBooks';
