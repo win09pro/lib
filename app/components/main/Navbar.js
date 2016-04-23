@@ -1,12 +1,19 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
+import MainnavbarActions from '../../actions/main/MainnavbarActions';
+import Mainnavbarstore from '../../stores/main/Mainnavbarstore';
 class Navbar extends React.Component {
   constructor(props) {
-    super(props);    
+    super(props);  
+    this.state =Mainnavbarstore.getState();  
     this.onChange = this.onChange.bind(this);
   }
   componentDidMount() {  
+    Mainnavbarstore.listen(this.onChange);
+    MainnavbarActions.getIntroduceCategory();
+    MainnavbarActions.getServiceCategory();
+    MainnavbarActions.getHelpCategory();
   }
 
   onChange(state) {
@@ -14,6 +21,23 @@ class Navbar extends React.Component {
   }
   
   render() {   
+    let introducetab = this.state.IntroduceCate.map((IntroduceCate,index) =>
+      {
+        return(
+           <li> <a href="#">{IntroduceCate.nameCate}</a> </li>
+        )});
+    let servicetab = this.state.ServiceCate.map((ServiceCate,index) =>
+    {
+      return (
+         <li><a href="#">{ServiceCate.nameCate}</a></li>
+        )
+    });
+    let helptab = this.state.HelpCate.map((helpcategory,index)=>
+    {
+      return(
+        <li> <a href="#">{helpcategory.nameCate}</a> </li>
+        )
+    })
     return (
      <header className="library-header">
         <div className="container">
@@ -21,7 +45,7 @@ class Navbar extends React.Component {
             <div className="row">
               <div className="col-md-3 col-sm-2">
                 <div className="logo">
-                  <a href="index.html"><img src="img/logo.png" alt="logo" /></a>
+                  <a href="index.html"><img src="http://localhost:3000/img/logo.png" alt="logo" /></a>
                 </div>
               </div>
               <div className="col-md-9">
@@ -43,12 +67,7 @@ class Navbar extends React.Component {
                     <li><a href="#">TRANG CHỦ</a></li>
                     <li> <a href="#">GIỚI THIỆU</a>
                       <ul>
-                        <li> <a href="#">tổng quan</a> </li>
-                        <li> <a href="#">giờ mở cửa</a> </li>
-                        <li> <a href="#">nguồn lực thông tin</a> </li>
-                        <li> <a href="#">chính sách thư viện</a> </li>
-                        <li> <a href="#">Sơ đồ thư viện</a> </li>
-                        <li> <a href="#">Đường đến thư viện</a> </li>
+                       {introducetab}
                       </ul>
                     </li>
                     <li> <a href="#">Tra cứu</a>
@@ -63,16 +82,12 @@ class Navbar extends React.Component {
                     </li>
                     <li className="last"><a href="#">DỊCH VỤ</a>
                       <ul>
-                        <li><a href="#">Lưu hành</a></li>
-                        <li><a href="#">Cung cấp thông tin</a></li>
-                        <li><a href="#">Cung cấp thông tin</a></li>
-                        <li><a href="#">In ấn sao chụp</a></li>
+                      {servicetab}
                       </ul>
                     </li>
-                    <li className="last"><a href="#">THÔNG BÁO</a>
+                    <li className="last"><a href="#">TRỢ GIÚP</a>
                       <ul>
-                        <li> <a href="#">Thông báo</a> </li>
-                        <li> <a href="#">Thông báo</a> </li>
+                        {helptab}                        
                       </ul>
                     </li>
                   </ul>

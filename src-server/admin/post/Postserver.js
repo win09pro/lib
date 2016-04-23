@@ -214,11 +214,29 @@ app.get('/api/postCategory', function(req, res, next) {
     res.send(number);
   });
 });
+
+
   // *****************************************
   // 
   //            CLIENT-SITE
   // 
   // *****************************************
+  
+  /**
+ * /api/getCategory
+ * GET get category post from dbs
+ */
+  app.post('/api/getCategory', function(req, res, next) {
+  var type=Number(req.body.type);
+  PostCategory
+     .find({Type:type})
+     .exec(function(error,categories){
+      if(error) next(error);
+      res.send(categories);
+     });  
+  });
+
+
   app.get('/api/mainpost', function(req, res, next) {     
   PostCategory.findOne({ nameCate: 'Tin tức' }, function(err, postCategory) {
     if (err) return next(err);
@@ -263,10 +281,11 @@ app.get('/api/postCategory', function(req, res, next) {
  * GET relative post same type from dbs
  */
  app.post('/api/relativepost', function(req, res, next) {
+  var idcurentpost = req.body.idcurentpost;
   var id = req.body.id;
   var numpost=Number(req.body.numpost);
   Post
-     .find({postCategory:id})
+     .find({postCategory:id,_id:{$ne:idcurentpost}})
      .sort({_id:-1})
      .limit(numpost)
      .populate('postCategory')
@@ -275,5 +294,7 @@ app.get('/api/postCategory', function(req, res, next) {
       res.send(posts);
      });  
 });
+ 
+ 
 }
 module.exports = Postserver;

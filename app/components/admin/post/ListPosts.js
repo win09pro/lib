@@ -17,8 +17,7 @@ class ListBooks extends React.Component {
   }
  componentDidMount() {
     listPostsStore.listen(this.onChange);
-    listPostsActions.get();
-    console.log('aa');
+    listPostsActions.get(); 
   }
 
   componentWillUnmount() {
@@ -58,7 +57,7 @@ class ListBooks extends React.Component {
       return (
         <tr key ={index}>
           <td>{index}</td>
-          <td><Link to={'/admin/post/'+post._id}>{post.title.substr(0,20) +' ...'}</Link></td>
+          <td><Link to={'/admin/post/'+post._id} title ={post.title}>{post.title.substr(0,20) +' ...'} </Link></td>
           <td>{post.introduce.substr(0,40)+' ...'}</td>
           <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM')}s</td>
           <td>{post.content.substr(0,40)+' ...' }</td>
