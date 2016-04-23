@@ -4,8 +4,8 @@ import ListPosts from './ListPosts';
 class Post extends React.Component {
   render() {
     return (
-    	<div className= 'container'>
-      <div claasName='row'>
+    	<div className= 'container-fluid'>
+      <div className='row'>
           <div className='col-sm-12'>
 	    	    <AddPost />
           </div>
