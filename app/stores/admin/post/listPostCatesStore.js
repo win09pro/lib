@@ -1,10 +1,10 @@
 import alt from '../../../alt';
-import listPostsActions from '../../../actions/admin/post/listPostsActions';
+import listPostsCateActions from '../../../actions/admin/post/listPostsCateActions';
 
-class listPostsStore {
+class listPostCatesStore {
   constructor() {
-    this.bindActions(listPostsActions);
-    this.posts = [];
+    this.bindActions(listPostsCateActions);
+    this.postCates = [];
     this.deletemessage='';   
     this.arrayIDtoDel=[];
     this.modalIsOpen=false;
@@ -18,18 +18,18 @@ class listPostsStore {
     var index = this.arrayIDtoDel.indexOf(id);   
     this.arrayIDtoDel.splice(index,1);    
   }
-  onGetPostsuccess(data)
+  onGetPostCatesuccess(data)
   {
-  	this.posts = data;    
-    console.log(data);
+  	this.postCates = data;    
+    console.log('ok');
   }
-  onGetPostfail(jqXhr) {
+  onGetPostCatefail(jqXhr) {
     toastr.error(jqXhr.responseJSON.message);
   }
   onDeletesuccess(message)
   {
     this.deletemessage=message;
-    listPostsActions.get();   
+    listPostsCateActions.get();   
   }
    onDeletefail(jqXhr)
   {
@@ -46,4 +46,4 @@ class listPostsStore {
   }
 
 }
-export default alt.createStore(listPostsStore);
+export default alt.createStore(listPostCatesStore);

@@ -17,8 +17,7 @@ class ListBooks extends React.Component {
   }
  componentDidMount() {
     listPostsStore.listen(this.onChange);
-    listPostsActions.get();
-    console.log('aa');
+    listPostsActions.get(); 
   }
 
   componentWillUnmount() {
@@ -58,10 +57,11 @@ class ListBooks extends React.Component {
       return (
         <tr key ={index}>
           <td>{index}</td>
-          <td><Link to={'/admin/post/'+post._id}>{post.title.substr(0,20) +' ...'}</Link></td>
+          <td><Link to={'/admin/post/'+post._id} title ={post.title}>{post.title.substr(0,20) +' ...'} </Link></td>
           <td>{post.introduce.substr(0,40)+' ...'}</td>
-          <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM')}</td>
+          <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM')}s</td>
           <td>{post.content.substr(0,40)+' ...' }</td>
+          <td>{post.postCategory.nameCate}</td>
           <td><ActionBar viewAction={AddPostActions} editAction={AddPostActions} deleteAction={listPostsActions} item={post} /></td>
           <td>
             <input type ='checkbox' data-ref ={post._id} onClick = {this.handleChange.bind(this)} />
@@ -85,6 +85,7 @@ class ListBooks extends React.Component {
                       <th>Giới thiệu</th>
                       <th>Ngày bắt đầu</th>
                       <th>Nội dung</th>
+                      <th>Danh mục</th>
                       <th>Hành động</th>
                       <th><a className ="deletegroup" onClick ={listPostsActions.openModal} > <i className="fa fa-trash fa-danger fa-fa2x"></i></a></th>
                     </tr>

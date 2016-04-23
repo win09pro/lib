@@ -1,8 +1,16 @@
-.main-body ul, li, a, i, img
+.main-body ul, li, a, i, img, button
 {
   transition:all 0.3s ease-out 0s;
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
+}
+strong
+{
+  color:#000;
+}
+h1,h2,h3,h4,h5,h6
+{
+  font-family: "Time New Roman";
 }
 .main-body a:hover,.main-body a
 {
@@ -15,7 +23,7 @@
 /*
 ========== HEADER =============
 */
-header
+.library-header
 {
   float:left;
   width:100%;
@@ -24,54 +32,54 @@ header
   left:0px;
   top:0px;
 }
-.header-container
+.library-header .header-container
 {
   float:left;
   width:100%;
   position: relative;
   background-color: #00bfff;
 }
-.logo
+.library-header .logo
 {
   padding: 0px;
   position: relative;
   width: 100%;
   margin: 20px 20px;
 }
-.menu
+.library-header .menu
 {
   float:left;
   width:100%;
   position: relative;
   background-color: #00bfff;
 }
-.top-menu
+.library-header .top-menu
 {
   float:left;
   width:100%;
   padding:10px 0px;
   color: #fff;
 }
-.top-menu .site_info
+.library-header .top-menu .site_info
 {
   float:left;
 }
-.top-menu .user
+.library-header .top-menu .user
 {
   float:right;
   margin-right: 10px;
 }
-.top-menu .user ul
+.library-header .top-menu .user ul
 {
   list-style: none;
   margin: 0;
 }
-.top-menu .user ul li
+.library-header .top-menu .user ul li
 {
   position: relative;
   float:right;
 }
-.top-menu .user ul li:before
+.library-header .top-menu .user ul li:before
 {
   content:"";
   height:0px;
@@ -87,24 +95,24 @@ header
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
 }
-.top-menu .user ul li:hover:before
+.library-header .top-menu .user ul li:hover:before
 {
   height: 3.5px;
   width: 90%;
   background-color: #ccffcc;
 }
-.top-menu .user a
+.library-header .top-menu .user a
 {
   margin-right: 10px;
   color: #fff;
 }
-.main-menu
+.library-header .main-menu
 {
   float:left;
   width:100%;
   background-color:#fff;
 }
-.main-menu ul
+.library-header .main-menu ul
 {
   float:left;
   width:100%;
@@ -114,20 +122,20 @@ header
   padding:0px;
 
 }
-.main-menu ul li
+.library-header .main-menu ul li
 {
   float:left;
   position:relative;
   margin:0px ;
 }
-.main-menu>ul>li
+.library-header .main-menu>ul>li
 {
   float:left;
   position:relative;
   margin: 0 0-10px 0 ;
 
 }
-.main-menu>ul>li>a{
+.library-header  .main-menu>ul>li>a{
   color:#666;
   padding:25px 18px;
   text-transform:uppercase;
@@ -137,7 +145,7 @@ header
   color:#262626;
   background-color: #fff;
 }
-.main-menu ul li:before
+.library-header  .main-menu ul li:before
 {
   content:"";
   height:0px;
@@ -153,11 +161,11 @@ header
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
 }
-.main-menu ul li:hover:before{
+.library-header .main-menu ul li:hover:before{
   height:5px;
   width:100%;
 }
-.main-menu>ul>li:after
+.library-header .main-menu>ul>li:after
 {
   content:"";
   width: 0;
@@ -172,11 +180,11 @@ header
   bottom:0px;
   opacity:0;
 }
-.main-menu ul li:hover:after
+.library-header .main-menu ul li:hover:after
 {
     opacity:1;
 }
-.main-menu ul ul
+.library-header .main-menu ul ul
 {
   border-top:solid 5px;
   box-shadow:0px 5px 5px 0px rgba(0,0,0,0.3);
@@ -194,25 +202,25 @@ header
   padding:5px;
 
 }
-.main-menu ul li.last ul
+.library-header .main-menu ul li.last ul
 {
     right: 0px;
     left: auto;
 }
-.main-menu ul li:hover > ul
+.library-header .main-menu ul li:hover > ul
 {
    opacity:1;
    visibility:visible;
    margin:-1px !important;
 }
-.main-menu ul ul li
+.library-header .main-menu ul ul li
 {
   float:left;
   width:100%;
   margin:2.5px 0px;
   padding: 0px;
 }
-.main-menu ul ul li:hover:before
+.library-header .main-menu ul ul li:hover:before
 {
     display: none;
 }
@@ -222,7 +230,7 @@ header
   color:#fff;
 }*/
 
-.main-menu ul ul li a{
+.library-header .main-menu ul ul li a{
   display: block;
   width: 100%;
   padding:10px 15px;
@@ -232,7 +240,7 @@ header
   /*//padding-right:50px;*/
   background-color: #fff;
 }
-.main-menu ul ul li a:hover{
+.library-header .main-menu ul ul li a:hover{
   background-color:#00bfff;
   color:#fff;
 }
@@ -274,16 +282,17 @@ slider img {
 .library-content
 {
   float:left;
-  margin-bottom: 30px;
+  margin:0px;
   width: 100%;
   padding: 0px;
+  background-color: #fff;
 }
 .library-content h2
 {
   position: relative;
   float:left;
 }
-.library-content a.link-heading
+.library-content .link-heading
 {
   margin-top: 20px;
   position: relative;
@@ -293,12 +302,19 @@ slider img {
 {
   float:left;
   width: 100%;
-  background-color: #fff;
+  background-color: #ddd;
 
+}
+.news-content .section-heading h2
+{
+  color: #b4330c;
+  padding: 7px 25px;
+  background-color: #fff;
+  border-radius: 30px;
 }
 .news-content .library-news
 {
-  height: 400px;
+  height: 450px;
   width: 100%
   float:left;
   background-color:#000;
@@ -360,7 +376,7 @@ slider img {
 }
 .news-content .library-news:hover .library-btn
 {
-  top:30%;
+  top:25%;
   opacity: 1;
 }
 .news-content .library-news:hover .library-btn a
@@ -378,26 +394,31 @@ slider img {
 }
 .news-content .library-news .title-news
 {
-  position:;
+  position:relative;
   left: 0;
   bottom: 0px;
   width: 100%;
   background-color: #fff;
   float: left;
-  padding: 5px;
+  padding:5px;
   height: 100%;
-  width: 100%;
+  margin: 0px;
+  border: none;
+}
+.news-content .library-news .title-news  h3
+{
+  color:#004175;
+  margin-top: 10px;
 }
 .news-content .library-news:hover .title-news h3
 {
   color: #00bfff;
 }
-.news-content .library-news .title-news span
+.news-content .library-news .title-news .title-news-time
 {
+  position: absolute;
   color: #a3a375;
-  margin-bottom: 5px;
-  float:right;
-  width: 100%;
+  margin-bottom: -2px;
 }
 /*
 =============================================
@@ -426,7 +447,10 @@ slider img {
 }
 .book-content .section-heading h2
 {
-  color:#ffff00;
+  color:#00bfff;
+  padding: 7px 25px;
+  background-color: #ffc;
+  border-radius: 30px;
 }
 .book-content .nav-tabs
 {
@@ -472,12 +496,53 @@ slider img {
 }
 .book-content .tab-content
 {
-  width: 50%;
+  width: 47%;
   float:left;
-  text-align:center;
+  text-align:left;
   border:none;
   float:right;
-  padding: 15px 15px
+  color: #fff;
+  padding: 15px 15px;
+  border: 1px solid #00bfff;
+  border-radius: 5px;
+  margin-left: 3% auto;;
+  margin-bottom:50px;
+  padding-bottom: 30px;
+
+
+}
+.book-content .tab-content img
+{
+
+  margin-top: 15px;
+  width: 100%;
+  height: 420px;
+
+}
+
+/*
+=============================================
+           FOOTER
+=============================================
+*/
+.main-library-footer
+{
+  float:left;
+  padding: 30px;
+  width: 100%;
+  background-color: #669999;
+  color: #fff;
+}
+.main-library-footer h5 i
+{
+  color:#00ffff;
+}
+.main-library-footer .copyright_footer
+{
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
 }
 /*
 =============================================
@@ -494,8 +559,8 @@ slider img {
 }
 .section-heading h2
 {
-  font-size:2.2em;
+  font-size:1.75em;
   text-align:left;;
-  font-family: 'Raleway', sans-serif;
+  /*font-family: 'Raleway', sans-serif;*/
   text-transform:capitalize;
 }

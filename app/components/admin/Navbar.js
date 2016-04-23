@@ -67,7 +67,7 @@ class Navbar extends React.Component {
       </Modal.Footer>  
     </Modal>
 
-        <a href="http://localhost:3000/admin1" className="logo">  
+        <a href="http://localhost:3000/admin" className="logo">  
             <span ref='triangles' className={'triangles animated ' + this.state.ajaxAnimationClass}>
             <div className='tri invert'></div>
             <div className='tri invert'></div>

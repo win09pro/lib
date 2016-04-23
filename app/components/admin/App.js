@@ -6,6 +6,7 @@ import SidebarLeft from './SidebarLeft';
 class App extends React.Component {
   render() {
     return (
+    
       <div className="wrapper">
 	      	<Navbar />
 	      	<SidebarLeft />
