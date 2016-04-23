@@ -10,7 +10,7 @@ import Datetime from 'react-datetime';
 import HtmlToReact from 'html-to-react';
 
 
-class AddUser extends React.Component {
+class AddPost extends React.Component {
   constructor(props)
   {
   	super(props);
@@ -211,4 +211,4 @@ class AddUser extends React.Component {
 }
 
 
-export default AddUser;
+export default AddPost;

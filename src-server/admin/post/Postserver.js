@@ -152,6 +152,7 @@ app.post('/api/postCategory', function(req, res, next) {
           });
 
 
+
   }})
    });
   /**
@@ -296,5 +297,70 @@ app.get('/api/postCategory', function(req, res, next) {
 });
  
  
+=======
+
+
+  }})
+   });
+  /**
+ * GET /api/postCategory/:id
+ * Get a postCategory from the database.
+ */
+  app.get('/api/postCategory/:id', function(req, res, next) {
+  var id = req.params.id;
+  PostCategory.findOne({ _id: id }, function(err, postCategory) {
+    if (err) return next(err);
+
+    if (!postCategory) {
+      return res.status(404).send({ message: 'Không tìm thấy chủ đề bài viết phù hợp' });
+    }
+    res.send(postCategory);
+  });
+});
+  /**
+ * POST /api/deletepostCategory
+ * Delete a postCategory from the database.
+ */
+app.post('/api/deletepostCategory', function(req, res, next) {
+  var postCateId = req.body.id;
+  PostCategory.findOne({ _id: postCateId }, function(err, postCate) {
+    if (err) return next(err);
+
+    if (!postCate) {
+      return res.status(404).send({ message: 'postCate not found.' });
+    }
+      postCate.remove();
+      res.send({ message:'Bài đăng có chủ đề '+ postCate.nameCate + ' đã được xóa' });
+
+
+  });
+});
+  /**
+ * GET /api/postCategory
+ * Return postCategory from the database.
+ */
+
+app.get('/api/postCategory', function(req, res, next) {
+  try{
+   PostCategory
+   .find()
+   .exec(function(err,postCates){
+    if(err) next(err);
+    res.send(postCates);
+   })
+      } catch (e) {
+      res.status(e);
+          }
+        });
+  /**
+ * GET /api/postCategory/count
+ */
+  app.get('/api/postCategory/count', function(req, res, next) {
+  PostCategory.count(function(err, number) {
+    if (err) return next(err);
+    res.send(number);
+  });
+});
+
 }
 module.exports = Postserver;
