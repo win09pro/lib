@@ -8,6 +8,10 @@ strong
 {
   color:#000;
 }
+body
+{
+  margin:0px !important;
+}
 h1,h2,h3,h4,h5,h6
 {
   font-family: "Time New Roman";
@@ -563,4 +567,41 @@ slider img {
   text-align:left;;
   /*font-family: 'Raleway', sans-serif;*/
   text-transform:capitalize;
+}
+/*
+=============================================
+            LOGIN FORM SECTION
+=============================================
+*/
+@media (min-width: 800px) {
+  .modal-dialog {
+    width: 600px;
+    margin: 80px auto;
+  }
+  .modal-content {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  .modal-sm {
+    width: 300px;
+  }
+}
+.input-icon i
+{
+  color: #99CD4E;
+  padding:10px 17px;
+}
+.modal-content
+{
+  opacity:1;
+  border-radius: 15px;
+}
+.btn-green
+{
+  color: #ffffff;
+  background-color: #1BD529;
+}
+.btn-green:hover
+{
+  color: #00bfff;
+  background-color: #1BD510;
 }
