@@ -28,6 +28,8 @@ import Appmain from './components/main/App';
 import Main from './components/main/Main';
 import Viewdetailpost from './components/main/Post/Viewdetailpost';
 import Listallpost from './components/main/Post/Listallpost';
+
+import ViewDetailBook from './components/main/book/ViewDetailBook';
 export default (
   <Route>
   <Route component={App}>
@@ -60,6 +62,7 @@ export default (
   </Route>
   <Route component={Appmain}> 
     <Route path='/' component={Main}/> 
+    <Route path='/book'  component={ViewDetailBook}/>
     <Route path='/post/listall' component ={Listallpost}/>
     <Route path=':link' component={Viewdetailpost}/> 
   </Route>

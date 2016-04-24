@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<title>BachKhoa Admin</title>
+	<link rel="stylesheet" href="css/AdminLTE.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900"/>
+	<link rel="stylesheet" href="css/main.css"/>
+	<link rel="stylesheet" href="css/main1.css"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+  	<link rel="stylesheet" href="css/quill.snow.css">
+  	<link rel="stylesheet" href="css/checkbox.css">
+
+  	<!-- include file css thang-book-detail -->
+  	<link rel="stylesheet" type="text/css" href="css/thang-detail-book.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+  <link rel="stylesheet" href="css/skin-blue.min.css">
+	<link rel="stylesheet" href="js/bxslider/jquery.bxslider.css">
+
+ <script language="javascript" type="text/javascript" src ='/js/ckeditor/ckeditor.js'></script>
+</head>
+
+<body class="main-body">
+	<header class='library-header'>
+		<div class="container">
+			<div class="header-container">
+				<div class="row">
+					<div class="col-md-3 col-sm-2">
+						<div class="logo">
+						<a href="index.html"><img src="img/logo.png" alt="logo" /></a>
+						</div>
+
+					</div>
+					<div class="col-md-9">
+						<div class="menu">
+							<div class="top-menu">
+									<div class="site_info">
+											Chào mừng đến với thư viện đại học Bách Khoa
+									</div>
+									<div class="user">
+										<ul>
+											<li><a href="#" type="button" name="button"> <i class="fa fa-user"></i> Đăng nhập</a></li>
+											<li><a href="#" type="button" name="button"> <i class="fa fa-pencil-square-o"></i> Đăng ký</a></li>
+										</ul>
+									</div>
+
+								</div>
+							</div>
+							<div class="main-menu">
+									<ul>
+										<li><a href="#">TRANG CHỦ</a></li>
+										<li> <a href="#">GIỚI THIỆU</a>
+											<ul>
+												<li> <a href="#">tổng quan</a> </li>
+												<li> <a href="#">giờ mở cửa</a> </li>
+												<li> <a href="#">nguồn lực thông tin</a> </li>
+												<li> <a href="#">chính sách thư viện</a> </li>
+												<li> <a href="#">Sơ đồ thư viện</a> </li>
+												<li> <a href="#">Đường đến thư viện</a> </li>
+											</ul>
+										</li>
+										<li> <a href="#">Tra cứu</a>
+											<ul>
+												<li><a href="#">Mục lục trực tuyến</a></li>
+												<li><a href="#">Tra cứu trong DHQG</a></li>
+												<li><a href="#">Tài liệu toàn văn</a></li>
+												<li><a href="#">Cơ sở dữ liệu online</a></li>
+												<li><a href="#">Bộ sưu tập số</a></li>
+												<li><a href="#">Bộ sưu tập chuyên đề</a></li>
+											</ul>
+										</li>
+										<li class="last"><a href="#">DỊCH VỤ</a>
+											<ul>
+												<li><a href="#">Lưu hành</a></li>
+												<li><a href="#">Cung cấp thông tin</a></li>
+												<li><a href="#">Cung cấp thông tin</a></li>
+												<li><a href="#">In ấn sao chụp</a></li>
+											</ul>
+										</li>
+										<li class ="last"><a href="#">THÔNG BÁO</a>
+											<ul>
+												<li> <a href="#">Thông báo</a> </li>
+												<li> <a href="#">Thông báo</a> </li>
+											</ul>
+										</li>
+									</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</header>
+	<div>
+		<div id="slider" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#slider" data-slide-to="0" class="active"></li>
+				<li data-target="#slider" data-slide-to="1"></li>
+				<li data-target="#slider" data-slide-to="2"></li>
+				<li data-target="#slider" data-slide-to="3"></li>
+			</ol>
+
+		  	<!-- Wrapper for slides -->
+		  	<div class="carousel-inner" role="listbox">
+			    <div class="item active">
+			      	<img src="img/1.jpg" alt="Chania">
+						<div class="carousel-caption">
+							<h1>Check Out this Moose</h1>
+			        		<p class="lead">This text is super engaging and makes you want to click the button.</p>
+			        		<a href="#" class="btn btn-lg btn-primary">Learn More</a>
+			    		</div>
+		    	</div>
+
+			    <div class="item">
+			        <img src="img/2.jpg" alt="Chania">
+			    </div>
+
+			    <div class="item">
+			      	<img src="img/3.jpg" alt="Chania">
+			    </div>
+
+			    <div class="item">
+			      	<img src="img/4.jpg" alt="Chania">
+			    </div>
+			</div>
+
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#slider" role="button" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#slider" role="button" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+
+	<!-- content chính -->
+	<div class="library-content">
+		<div class="container-fluid padding-0">
+			<div class="wrap-detail-content">
+				<div class="container">	
+					<div class="row">
+						<div class="col-md-3 sidebar">
+							<!-- widget search start -->
+							<div class="widget widget-search">
+								<h2 class="mar-0">Tìm kiếm</h2>
+								<div class="input-container">
+									<form method="POST" action="">
+										<input type="text" placeholder="Nhập từ khóa">
+										<i class="fa fa-search"></i>
+									</form>
+								</div>
+							</div>
+							<!-- widget search end -->
+
+							<!-- widget new arrival start -->
+							<div class="widget widget-new-arrival">
+								<h2>Sách mới</h2>
+								<ul>
+									<li>
+										<div class="new-arrival">
+											<div class="lib-thumb">
+												<a href="#">
+													<img class="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote">
+												</a>
+											</div>
+											<div class="lib-text">
+												<h3>Don Quixote</h3>
+												<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="new-arrival">
+											<div class="lib-thumb">
+												<a href="#">
+													<img class="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote">
+												</a>
+											</div>
+											<div class="lib-text">
+												<h3>Don Quixote</h3>
+												<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="new-arrival">
+											<div class="lib-thumb">
+												<a href="#">
+													<img class="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote">
+												</a>
+											</div>
+											<div class="lib-text">
+												<h3>Don Quixote</h3>
+												<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<!-- widget new arrival end -->
+
+							<!-- widget categories start -->
+							<div class="widget widget-category">
+								<h2>Danh mục</h2>
+								<ul>
+									<li>
+										<a href="#">Khoa học</a>
+									</li>
+									<li>
+										<a href="#">Chính trị</a>
+									</li>
+									<li>
+										<a href="#">Văn học</a>
+									</li>
+									<li>
+										<a href="#">Xã hội</a>
+									</li>
+									<li>
+										<a href="#">Tâm lý</a>
+									</li>
+								</ul>
+
+							</div>
+							<!-- widget categories end -->
+
+						</div>
+						<div class="col-md-9">
+							<div class="row">
+								<!-- list book start-->
+								<div class="lib-related-book">
+									<div class="row row-related-book">
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book2.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book3.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book4.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book5.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book6.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book7.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book8.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 col-sm-6">
+											<div class="books-listing">
+												<div class="lib-thumb">
+													<a href="#">
+														<img src="http://kodeforest.net/html/books/library/images/book9.png">
+													</a>
+												</div>
+												<div class="lib-text">
+													<h3>
+														<a href="#">Basic Time Manage Course</a>
+													</h3>
+												</div>
+												<div class="book-footer">
+													<a href="#" class="borrow">Đặt Mượn</a>
+													<div class="rating">
+                                        				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                    				</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>	
+								<!-- list book end -->
+							</div>
+
+							<!-- page navigation -->
+							<nav>
+								<ul class="pagination">
+								<li><a href="#"><<</a></li>
+								<li><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#">>></a></li>
+								</ul>
+							</nav>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- footer copyright -->
+	<div class="footer-copyright">
+		<div class="container">
+			<div class="copyright">
+				<p>Copyright &copy; Thư viện trường Đại học Bách Khoa Thành phố Hồ Chí Minh</p>
+				<div class="social-icon">
+                	<ul>
+                    	<li><a href="#" data-toggle="tooltip" title="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" data-toggle="tooltip" title="" data-original-title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#" data-toggle="tooltip" title="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" data-toggle="tooltip" title="" data-original-title="Tumblr"><i class="fa fa-tumblr"></i></a></li>
+                    </ul>
+	        	</div>
+	        </div>
+		</div>
+		
+	</div>
+
+  	<script src="js/vendor.js"></script>
+  	<script src="/socket.io/socket.io.js"></script>
+  	<script src="js/vendor.bundle.js"></script>
+  	<script src="js/bundle.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+
+	<!-- jQuery 2.1.4 -->
+    <script src="js/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="js/app.min.js"></script>
+		<script src="js/bxslider/jquery.bxslider.min.js"></script>
+		<script type="text/javascript">
+		$(window).load(function(){
+			$('.bxslider').bxSlider(
+			{
+				mode: 'horizontal',
+				auto:true
+
+			});
+		});
+		</script>
+  	<script type="text/javascript">
+  		$(document).ready(function() {
+		  	$('[data-toggle=offcanvas]').click(function() {
+		    $('.row-offcanvas').toggleClass('active');
+		  	});
+		});
+  	</script>
+</body>
+</html>
