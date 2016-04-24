@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 
 var TransitionSchema = new mongoose.Schema({
  
-  bookId: {type: mongoose.Schema.Types.ObjectId, ref: 'Book'},
-  bookName:String,
+  _bookId: {type: mongoose.Schema.Types.ObjectId, ref: 'Book'},
+  _userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   dateBorrow : Date,
   dateReturn: Date,
-  timeBorrow :Number
+  status: Number
 
 });
 

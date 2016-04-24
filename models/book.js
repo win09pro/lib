@@ -1,14 +1,16 @@
 var mongoose = require('mongoose');
 
 var bookSchema = new mongoose.Schema({
- 
+  _cateId: {type: mongoose.Schema.Types.ObjectId, ref: 'Category'},
   name: String,
-  director:String,
-  code : Number,
-  borrowBarcode: String,
-  imageUrl :String,
-  cateId: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
-  cateName :String
+  author: String,
+  publisher: String,
+  code: Number,
+  status: Number,
+  description: String,
+  imageUrl: String,
+  score: Number,
+  numRate: Number
 
 
 });
