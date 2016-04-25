@@ -27,8 +27,7 @@
  <script language="javascript" type="text/javascript" src ='/js/ckeditor/ckeditor.js'></script>
 </head>
 
-<body>
-	<div class="main-body">
+<body class="main-body">
 	<header class='library-header'>
 		<div class="container">
 			<div class="header-container">
@@ -147,144 +146,45 @@
 </div>
 </div>
 <div class="library-content">
-	<div class ="news-content">
-		<div class="container-fluid">
-			<div class="section-heading">
-				<h2><i class="fa fa-newspaper-o"></i> TIN TỨC</h2>
-				<a href="#" class ='link-heading'>Xem tất cả <i class ='fa fa-angle-right'></i></a>
-			</div>
-			<div class="row">
-				<div class="col-md-3 col-sm-6">
-					<div class="library-news">
-							<img class="img-responsive" src="http://kodeforest.net/html/books/library/images/lib-blog.png" alt="new" />
-						<div class="library-btn">
-							<a  href="#" data-toggle="tooltip"> <i class ="fa fa-search"></i> Chi tiết </a>
-						</div>
-						<div class="title-news">
-							<h3>Thông báo truy cập CSDL .</h3>
-							<h4>Thư viện trường Đại học Bách Khoa TP...</h4>
-							<span><i class="fa fa-calendar"></i> 29/04/1904</span>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<div class="library-news">
-							<img class="img-responsive" src="http://www.aao.hcmut.edu.vn/image/data/khoa/truongbachkhoa.jpg" alt="new" />
-						<div class="library-btn">
-							<a href="#" data-toggle="tooltip"> <i class ="fa fa-search"></i> Chi tiết </a>
-						</div>
-						<div class="title-news">
-							<h3>Thông báo truy cập CSDL .</h3>
-							<h4>Thư viện trường Đại học Bách Khoa TP...</h4>
-							<div class="title-news-time">
-									<span><i class="fa fa-calendar"></i> 2129/04/1904</span>
+	<div class="container">
+		<form class="form-horizontal" role="form">
+					<div class="form-body">
+						<div class="form-group">
+							<label for="inputName" class="col-md-3 control-label">Tên truy cập</label>
+							<div class="col-md-9">
+								<div class="input-icon right-inner-addon">
+									<i class="fa fa-user"></i>
+									<input type="text" class="form-control" name="uname" placeholder="" required>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<div class="library-news">
-							<img class="img-responsive" src="http://www.hcmut.edu.vn/upload_hcmut/images/CacPhongBanChucNang/TTHTSV_VL/thuvien.JPG" alt="new" />
-						<div class="library-btn">
-							<a href="#" data-toggle="tooltip"> <i class ="fa fa-search"></i> Chi tiết </a>
+						<div class="form-group">
+							<label for="inputPassword" class="col-md-3 control-label">Mật khẩu</label>
+							<div class="col-md-9">
+								<div class="input-icon right-inner-addon control-label">
+									<i class="fa fa-lock"></i>
+									<input type="password" class="form-control" name="pass" placeholder="" required>
+								</div>
+							</div>
 						</div>
-						<div class="title-news">
-							<h3>Thông báo truy cập CSDL .</h3>
-							<h4>Thư viện trường Đại học Bách Khoa TP...</h4>
-							<span><i class="fa fa-calendar"></i> 29/04/1904</span>
+						<div class="form-group">
+							<label class="col-md-3 control-label"></label>
+							<div class="col-md-9">
+								<input type="checkbox" name="remember" value="1"> Nhớ đến tôi?
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<div class="library-news">
-							<img class="img-responsive" src="http://static.adzerk.net/Advertisers/aca2df5be9174528b959f3f646c768e7.png" alt="new" />
-						<div class="library-btn">
-							<a href="#" data-toggle="tooltip"> <i class ="fa fa-search"></i> Chi tiết </a>
+						<div class="form-group">
+							<label class="col-md-3 control-label"></label>
+							<div class="col-md-9">
+								<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" scope="public_profile,email" onlogin="checkLoginState();"></div>
+							</div>
 						</div>
-						<div class="title-news">
-							<h3>Thông báo truy cập CSDL .</h3>
-							<h4>Thư viện trường Đại học Bách Khoa TP...</h4>
-							<span><i class="fa fa-calendar"></i> 29/04/1904</span>
+						<div class="pull-right">
+							<button type="submit" class="btn btn-green" name="btn-login"><i class="fa fa-sign-in"></i> Đăng nhập</button>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+				</form>
 	</div>
-	<div class="book-content">
-			<div class="container-fluid">
-				<div class="section-heading">
-					<h2><i class="fa fa-book"></i> TÀI LIỆU MỚI</h2>
-				</div>
-				<div class="row">
-					<ul class="nav nav-tabs" role='tablist'>
-				    <li class="col-md-4 col-sm-3 active" role='presentation'>
-							<a data-toggle="tab" href="#home" aria-expanded="true">
-								<img class='img-responsive' src="http://bilder.buecher.de/produkte/37/37354/37354352z.jpg" alt="" />
-							</a>
-						</li>
-						<li class="col-md-4 col-sm-3" role='presentation'>
-							<a data-toggle="tab" href="#menu1" aria-expanded="true">
-								<img src="http://bilder.buecher.de/produkte/37/37354/37354352z.jpg" alt="" />
-							</a>
-						</li>
-						<li class="col-md-4 col-sm-3" role='presentation'>
-							<a data-toggle="tab" href="#menu2" aria-expanded="true">
-								<img src="https://lh3.googleusercontent.com/-45bNiehlDe0/VhJImsB7V9I/AAAAAAAAx9Q/Ew6NpAEcsH8/s512-Ic42/wpViewImagePatron.jpg" alt="" />
-							</a>
-						</li>
-						<li class="col-md-4 col-sm-3" role='presentation'>
-							<a data-toggle="tab" href="#menu3" aria-expanded="true">
-								<img src="http://billhuy.com/wp-content/uploads/2016/03/Economy-Toeic-LC-1000-Vol-2.jpg" alt="" />
-							</a>
-						</li>
-						<li class="col-md-4 col-sm-3" role='presentation'>
-							<a data-toggle="tab" href="#menu3" aria-expanded="true">
-								<img src="http://static.waka.vn/view/ebook/0/0/2/2439.jpg?v=10&h=336&w=5000" alt="" />
-							</a>
-						</li>
-						<li class="col-md-4 col-sm-3" role='presentation'>
-							<a data-toggle="tab" href="#menu3" aria-expanded="true">
-								<img src="http://kodeforest.net/html/books/library/images/papular-books2.png" alt="" />
-							</a>
-						</li>
-
-				  </ul>
-
-				  <div class="tab-content">
-				    <div id="home" class="tab-pane fade in active">
-				    	<div class="col-md-6 col-sm-12">
-<<<<<<< HEAD:public/index1.html
-									<img class='img-responsive' src="http://bilder.buecher.de/produkte/37/37354/37354352z.jpg" alt="" />
-=======
-									<img class='img-responsive' src="http://www.lib.hcmut.edu.vn/upload/doitac/V0NFO2016_03_25_10_46_34_001.jpg" alt="" />
->>>>>>> master:public/index.html
-				    	</div>
-							<div class="col-md-6 col-sm-12 test">
-								<h3>Document software Architecture</h2>
-								<h5><i class="fa fa-pencil"></i><i> Pau Clement</i></h4>
-								<h5><i class="fa fa-barcode"></i> 27195102</h5>
-								<button type="button" class= 'btn btn-primary' name="button">ĐẶT SÁCH</button>
-				    	</div>
-				    </div>
-				    <div id="menu1" class="tab-pane fade">
-				      <h3>Menu 1</h3>
-				      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-				    </div>
-				    <div id="menu2" class="tab-pane fade">
-				      <h3>Menu 2</h3>
-				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-				    </div>
-				    <div id="menu3" class="tab-pane fade">
-				      <h3>Menu 3</h3>
-				      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-				    </div>
-				  </div>
-
-				</div>
-			</div>
-	</div>
-
 </div>
 <div class="main-library-footer">
 	<div class="row">
@@ -302,11 +202,7 @@
 		</div>
 	</div>
 </div>
-<<<<<<< HEAD:public/index1.html
-	</div>
-=======
 
->>>>>>> master:public/index.html
   <!-- <div id="app">{{ html|safe }}</div> -->
   <script src="js/vendor.js"></script>
   <script src="/socket.io/socket.io.js"></script>
