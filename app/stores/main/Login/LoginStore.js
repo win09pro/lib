@@ -7,16 +7,10 @@ class LoginStore {
     this.LoginModalisOpen=false;
     
   }  
-  onOpenLoginModal()
+  onSetOpenModal(boolean)
   {
-      this.LoginModalisOpen = true;
+      this.LoginModalisOpen = boolean;
    
   }
-  onCloseLoginModal()
-  {
-      this.LoginModalisOpen = false;
-   
-  }
- 
 }
 export default alt.createStore(LoginStore);

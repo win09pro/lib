@@ -24,8 +24,7 @@ class Mainpost extends React.Component {
   render() { 
     var newestPosts = this.state.posts;   
     let viewnewestpost = newestPosts.map((newestPost,index) =>
-    {
-      console.log(newestPost._id);
+    {    
       return(
         <div className="col-md-3 col-sm-6">
               <div className="library-news">  

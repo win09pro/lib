@@ -20,12 +20,12 @@ constructor(props)
     this.setState(state);
   } 
   render() {
-
+    let style ={'background-color':'#00bfff',  'border-radius': '15px 15px 0px 0px', 'color': '#fff','padding':'10px'};
     return (     
         <Modal show={this.state.LoginModalisOpen} onHide ={LoginActions.closeLoginModal}>
-          <Modal.Header  >
+          <Modal.Header style ={style}  >
            <div style ={{'textAlign':'center'}}>
-            <Modal.Title><i className="fa fa-check-square-o"></i>Đăng nhập</Modal.Title>
+            <Modal.Title bsClass='ModalLogin'><i className="fa fa-check-square-o"></i> Đăng nhập</Modal.Title>
             </div>
           </Modal.Header>
           <Modal.Body>
@@ -36,16 +36,16 @@ constructor(props)
                     <div className="col-md-9">
                       <div className="input-icon right-inner-addon">
                         <i className="fa fa-user" />
-                        <input type="text" className="form-control" name="uname" placeholder="Tên đăng nhập" required />
+                        <input type="text" className="form-control" id="inputName" placeholder="Tên đăng nhập" required />
                       </div>
                     </div>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="inputPassword" className="col-md-3 control-label">Mật khẩu</label>
+                    <label htmlFor="inputpass" className="col-md-3 control-label">Tên truy cập</label>
                     <div className="col-md-9">
-                      <div className="input-icon right-inner-addon control-label">
+                      <div className="input-icon right-inner-addon">
                         <i className="fa fa-lock" />
-                        <input type="password" className="form-control" name="pass" placeholder="Mật khẩu" required />
+                        <input type="password" className="form-control" id="inputpass" placeholder="Mật khẩu" required />
                       </div>
                     </div>
                   </div>
