@@ -3,6 +3,8 @@ import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
 import MainnavbarActions from '../../actions/main/MainnavbarActions';
 import Mainnavbarstore from '../../stores/main/Mainnavbarstore';
+import LoginActions from '../../actions/main/Login/LoginActions';
+import Login from './Login/Login';
 class Navbar extends React.Component {
   constructor(props) {
     super(props);  
@@ -19,8 +21,7 @@ class Navbar extends React.Component {
   onChange(state) {
     this.setState(state);
   }
-  
-  render() {   
+  render() {      
     let introducetab = this.state.IntroduceCate.map((IntroduceCate,index) =>
       {
         return(
@@ -56,7 +57,7 @@ class Navbar extends React.Component {
                     </div>
                     <div className="user">
                       <ul>
-                        <li><a href="#" type="button" name="button"> <i className="fa fa-user" /> Đăng nhập</a></li>
+                        <li><a href="#" type="button" name="button" onClick ={LoginActions.openLoginModal} > <i className="fa fa-user" /> Đăng nhập</a></li>
                         <li><a href="#" type="button" name="button"> <i className="fa fa-pencil-square-o" /> Đăng ký</a></li>
                       </ul>
                     </div>
@@ -96,6 +97,9 @@ class Navbar extends React.Component {
             </div>
           </div>
         </div>
+        <div>
+      </div>
+      <Login />
       </header>
     );
   }
