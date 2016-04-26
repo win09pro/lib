@@ -7,7 +7,8 @@ class LoginActions {
        'updateuser',
        'updatepassword',
        'loginSuccess',
-       'loginUserFail'
+       'loginUserFail',
+       'logout'
     );   
   } 
 

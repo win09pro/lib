@@ -30,7 +30,7 @@ class AddUser extends React.Component {
   upload(event)
   {
       var imgfile = this.state.fileAvatar;
-         var imgURL = this.state.imagePreviewUrl;
+      var imgURL = this.state.imagePreviewUrl;
           AddUserActions.handleUpload();
           AddUserActions.uploadImage(imgfile);
            console.log(this.state.imageUrl);
@@ -40,6 +40,7 @@ class AddUser extends React.Component {
 
            console.log(this.state.imageUrl);
   }
+
   handleSubmitUser(event)
   {
 

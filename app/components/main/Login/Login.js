@@ -50,7 +50,7 @@ constructor(props)
             </div>
           </Modal.Header>
           <Modal.Body>
-              <form className="form-horizontal" role="form">
+              <form className="form-horizontal" role="form" onSubmit={this.handleLoginUser.bind(this)}>
                 <div className="form-body">
                   <div className="form-group">
                     <label htmlFor="inputName" className="col-md-3 control-label">Tên truy cập</label>
@@ -82,7 +82,7 @@ constructor(props)
               </form>
           </Modal.Body>      
           <Modal.Footer>
-              <label className='pull-left helpblock-login'>{this.state.helpBlock}</label>
+              <label className='pull-left helpblock-login-register'>{this.state.helpBlock}</label>
               <button
                   className="btn btn-warning"
                 onClick={LoginActions.closeLoginModal}><i className="fa fa-times"> Hủy bỏ</i> </button>                  

@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from 'react-router';
+import localStorage from 'localStorage';
 import { Route, RouteHandler, DefaultRoute, State, Link, Redirect } from 'react-router';
 import {Modal} from 'react-bootstrap';
 import MainnavbarActions from '../../actions/main/MainnavbarActions';
@@ -8,6 +9,7 @@ import Login from './Login/Login';
 import LoginActions from '../../actions/main/Login/LoginActions';
 import RegisterActions from '../../actions/main/Register/RegisterActions';
 import Register from './Register/Register';
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);  
@@ -25,8 +27,7 @@ class Navbar extends React.Component {
    this.setState(state); 
   } 
    render() {      
-    localStorage.setItem('user', '123');
-    let userName = localStorage.getItem('user');
+    console.log(State);
     let introducetab = this.state.IntroduceCate.map((IntroduceCate,index) =>
       {
         return(
@@ -44,7 +45,33 @@ class Navbar extends React.Component {
         <li> <a href="#">{helpcategory.nameCate}</a> </li>
         )
     })
-    
+    let userName = localStorage.getItem('username');
+    let Navbarusers =<div></div>;
+    if (!userName)
+      {
+      Navbarusers  =(
+            <div className="user">
+                      <ul>
+                        <li><a href="#" type="button" name="button" onClick ={LoginActions.openLoginModal} > <i className="fa fa-user" /> Đăng nhập</a></li>
+                        <li><a href="#" type="button" name="button" onClick ={RegisterActions.openRegisterModal}> <i className="fa fa-pencil-square-o" /> Đăng ký</a></li>
+                      </ul>
+            </div>
+            )
+      }
+      else
+      {
+      Navbarusers= (
+            <div className="user-login">
+                      <ul>
+                        <li><a href="#" type="button" name="button" onClick ={LoginActions.logout}> <i className="fa fa-sign-out" /> Thoát</a></li>
+                        <li><a href="#" type="button" name="button"> {userName} </a></li>   
+                        <li><img className='img-responsive' src={localStorage.getItem('avatar')}></img></li>                    
+                      </ul>
+            </div>
+            )
+    }
+   
+
     return (
      <header className="library-header">
         <div className="container">
@@ -52,7 +79,7 @@ class Navbar extends React.Component {
             <div className="row">
               <div className="col-md-3 col-sm-2">
                 <div className="logo">
-                  <a href="index.html"><img src="http://localhost:3000/img/logo.png" alt="logo" /></a>
+                  <a href="/"><img src="http://localhost:3000/img/logo.png" alt="logo" /></a>
                 </div>
               </div>
               <div className="col-md-9">
@@ -61,17 +88,12 @@ class Navbar extends React.Component {
                     <div className="site_info">
                       Chào mừng đến với thư viện đại học Bách Khoa
                     </div>  
-                    <div className="user">
-                      <ul>
-                        <li><a href="#" type="button" name="button" onClick ={LoginActions.openLoginModal} > <i className="fa fa-user" /> Đăng nhập</a></li>
-                        <li><a href="#" type="button" name="button" onClick ={RegisterActions.openRegisterModal}> <i className="fa fa-pencil-square-o" /> Đăng ký</a></li>
-                      </ul>
-                    </div>
+                   {Navbarusers}
                   </div>
                 </div>
                 <div className="main-menu">
                   <ul>
-                    <li><a href="#">TRANG CHỦ</a></li>
+                    <li><a href="/">TRANG CHỦ</a></li>
                     <li> <a href="#">GIỚI THIỆU</a>
                       <ul>
                        {introducetab}
@@ -103,10 +125,8 @@ class Navbar extends React.Component {
             </div>
           </div>
         </div>
-        <div>
-      </div>
-      <Login />
-      <Register />
+        <Login />   
+        <Register />
       </header>
     );
   }

@@ -74,7 +74,9 @@ var upload = multer({ storage: storage });
 app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
   // req.file is the `avatar` file
   // req.body will hold the text fields, if there were any
+  // c
   res.send({link:"/uploads/"+req.file.filename});
+
 
 });
 //
