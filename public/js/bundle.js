@@ -1067,10 +1067,27 @@ var LoginActions = function () {
   function LoginActions() {
     _classCallCheck(this, LoginActions);
 
-    this.generateActions('setOpenModal');
+    this.generateActions('setOpenModal', 'updateuser', 'updatepassword', 'loginSuccess', 'loginUserFail');
   }
 
   _createClass(LoginActions, [{
+    key: 'login',
+    value: function login(payload) {
+      var _this = this;
+
+      $.ajax({
+        type: 'POST',
+        url: '/api/login/user',
+        data: { username: payload.username,
+          password: payload.password
+        }
+      }).done(function (data) {
+        _this.actions.loginSuccess(data);
+      }).fail(function (jqXhr) {
+        _this.actions.loginUserFail('Tên truy cập hoặc mật khẩu không đúng');
+      });
+    }
+  }, {
     key: 'openLoginModal',
     value: function openLoginModal() {
       this.actions.setOpenModal(true);
@@ -1799,6 +1816,7 @@ var Navbar = function (_React$Component) {
     key: 'render',
     value: function render() {
       var style = { 'text-align': 'center' };
+      console.log(userName);
       return _react2.default.createElement(
         'header',
         { className: 'main-header' },
@@ -8013,6 +8031,25 @@ var Login = function (_React$Component) {
       this.setState(state);
     }
   }, {
+    key: 'handleLoginUser',
+    value: function handleLoginUser(event) {
+      var username = this.state.user;
+      var password = this.state.password;
+      if (!password) {
+        this.refs.passwordTextField.focus();
+      }
+      if (!username) {
+        this.refs.userTextField.focus();
+      }
+      if (password && username) {
+        _LoginActions2.default.login({
+          username: username,
+          password: password
+        });
+      }
+      event.preventDefault();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var style = { 'background-color': '#00bfff', 'border-radius': '15px 15px 0px 0px', 'color': '#fff', 'padding': '10px' };
@@ -8057,7 +8094,8 @@ var Login = function (_React$Component) {
                     'div',
                     { className: 'input-icon right-inner-addon' },
                     _react2.default.createElement('i', { className: 'fa fa-user' }),
-                    _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'inputName', placeholder: 'Tên đăng nhập', required: true })
+                    _react2.default.createElement('input', { type: 'text', ref: 'userTextField', className: 'form-control', value: this.state.user, onChange: _LoginActions2.default.updateuser,
+                      id: 'inputName', placeholder: 'Tên đăng nhập', required: true })
                   )
                 )
               ),
@@ -8067,7 +8105,7 @@ var Login = function (_React$Component) {
                 _react2.default.createElement(
                   'label',
                   { htmlFor: 'inputpass', className: 'col-md-3 control-label' },
-                  'Tên truy cập'
+                  'Mật khẩu'
                 ),
                 _react2.default.createElement(
                   'div',
@@ -8076,7 +8114,8 @@ var Login = function (_React$Component) {
                     'div',
                     { className: 'input-icon right-inner-addon' },
                     _react2.default.createElement('i', { className: 'fa fa-lock' }),
-                    _react2.default.createElement('input', { type: 'password', className: 'form-control', id: 'inputpass', placeholder: 'Mật khẩu', required: true })
+                    _react2.default.createElement('input', { type: 'password', ref: 'passwordTextField', className: 'form-control', value: this.state.password, onChange: _LoginActions2.default.updatepassword,
+                      id: 'inputpass', placeholder: 'Mật khẩu', required: true })
                   )
                 )
               )
@@ -8086,6 +8125,11 @@ var Login = function (_React$Component) {
         _react2.default.createElement(
           _reactBootstrap.Modal.Footer,
           null,
+          _react2.default.createElement(
+            'label',
+            { className: 'pull-left helpblock-login' },
+            this.state.helpBlock
+          ),
           _react2.default.createElement(
             'button',
             {
@@ -8100,7 +8144,7 @@ var Login = function (_React$Component) {
           ),
           _react2.default.createElement(
             'button',
-            { className: 'btn btn-green', name: 'btn-login' },
+            { className: 'btn btn-green', name: 'btn-login', onClick: this.handleLoginUser.bind(this) },
             _react2.default.createElement('i', { className: 'fa fa-sign-in' }),
             ' Đăng nhập'
           )
@@ -8261,7 +8305,8 @@ var Navbar = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.context.router);
+      localStorage.setItem('user', '123');
+      var userName = localStorage.getItem('user');
       var introducetab = this.state.IntroduceCate.map(function (IntroduceCate, index) {
         return _react2.default.createElement(
           'li',
@@ -10208,7 +10253,7 @@ _reactDom2.default.render(_react2.default.createElement(
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _react = require('react');
@@ -10312,39 +10357,39 @@ var _Login2 = _interopRequireDefault(_Login);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _react2.default.createElement(
-  _reactRouter.Route,
-  null,
-  _react2.default.createElement(
     _reactRouter.Route,
-    { component: _App2.default },
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _HomeDocumentType2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/document-type', component: _HomeDocumentType2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/document-type/:id', component: _ViewDocumentType2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/category', component: _HomeCategory2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/category/:id', component: _ViewCategory2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/view', component: _user2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/:id', component: _viewuser2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/post', component: _Post2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/PostCate', component: _PostCate2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/post/:id', component: _Viewpost2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/PostCate', component: _PostCate2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/book/:id', component: _Book2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/book/edit/:id', component: _Editbook2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/Addbook', component: _Addbook2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/listBooks', component: _ListBooks2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/tran/:id', component: _Transition2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/tran/edit/:id', component: _EditTran2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/AddTran', component: _AddTran2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin/listTrans', component: _ListTrans2.default })
-  ),
-  _react2.default.createElement(
-    _reactRouter.Route,
-    { component: _App4.default },
-    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Main2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/post/listall', component: _Listallpost2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: ':link', component: _Viewdetailpost2.default })
-  )
+    null,
+    _react2.default.createElement(
+        _reactRouter.Route,
+        { component: _App2.default },
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _HomeDocumentType2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/document-type', component: _HomeDocumentType2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/document-type/:id', component: _ViewDocumentType2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/category', component: _HomeCategory2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/category/:id', component: _ViewCategory2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/view', component: _user2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/user/:id', component: _viewuser2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/post', component: _Post2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/PostCate', component: _PostCate2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/post/:id', component: _Viewpost2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/PostCate', component: _PostCate2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/book/:id', component: _Book2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/book/edit/:id', component: _Editbook2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/Addbook', component: _Addbook2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/listBooks', component: _ListBooks2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/tran/:id', component: _Transition2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/tran/edit/:id', component: _EditTran2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/AddTran', component: _AddTran2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/admin/listTrans', component: _ListTrans2.default })
+    ),
+    _react2.default.createElement(
+        _reactRouter.Route,
+        { component: _App4.default },
+        _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Main2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/post/listall', component: _Listallpost2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: ':link', component: _Viewdetailpost2.default })
+    )
 );
 
 },{"./components/admin/App":27,"./components/admin/book/Addbook":32,"./components/admin/book/Book":33,"./components/admin/book/Editbook":34,"./components/admin/book/ListBooks":35,"./components/admin/category/HomeCategory":39,"./components/admin/category/ViewCategory":40,"./components/admin/documenttype/HomeDocumentType":42,"./components/admin/documenttype/ViewDocumentType":44,"./components/admin/post/Post":49,"./components/admin/post/PostCate":50,"./components/admin/post/Viewpost":51,"./components/admin/usermanage/user":54,"./components/admin/usermanage/viewuser":55,"./components/main/App":56,"./components/main/Login/Login":60,"./components/main/Main":61,"./components/main/Post/Listallpost":63,"./components/main/Post/Viewdetailpost":65,"./components/transition/AddTran":67,"./components/transition/EditTran":68,"./components/transition/ListTrans":69,"./components/transition/Transition":70,"react":"react","react-router":"react-router"}],74:[function(require,module,exports){
@@ -12936,9 +12981,32 @@ var LoginStore = function () {
 
     this.bindActions(_LoginActions2.default);
     this.LoginModalisOpen = false;
+    this.user = '';
+    this.password = '';
+    this.helpBlock = 'Ban đầu';
   }
 
   _createClass(LoginStore, [{
+    key: 'onLoginSuccess',
+    value: function onLoginSuccess(data) {
+      this.helpBlock = 'Đăng nhập thành công';
+    }
+  }, {
+    key: 'onLoginUserFail',
+    value: function onLoginUserFail(message) {
+      this.helpBlock = message;
+    }
+  }, {
+    key: 'onUpdateuser',
+    value: function onUpdateuser(event) {
+      this.user = event.target.value;
+    }
+  }, {
+    key: 'onUpdatepassword',
+    value: function onUpdatepassword(event) {
+      this.password = event.target.value;
+    }
+  }, {
     key: 'onSetOpenModal',
     value: function onSetOpenModal(boolean) {
       this.LoginModalisOpen = boolean;

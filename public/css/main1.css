@@ -602,10 +602,16 @@ slider img {
 }
 .btn-green:hover
 {
-  color: #00bfff;
-  background-color: #1BD510;
+  color: #ffffff;
+  background-color: #149f1f;
 }
 .modal-content
 {
   border-radius: 15px;
+}
+.helpblock-login
+{
+  font-family: 'Time New Roman';
+  font-style: italic;
+  color: red;
 }

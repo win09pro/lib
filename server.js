@@ -39,7 +39,7 @@ mongoose.connection.on('error', function() {
 var Postserver = require('./src-server/admin/post/Postserver');
 var CategoryServer = require('./src-server/admin/category/CategoryServer');
 var DocumenttypeServer = require('./src-server/admin/documenttype/DocumenttypeServer');
-
+var Userserver = require('./src-server/admin/user/Userserver');
 //==============================================
 
 var app = express();
@@ -90,129 +90,10 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
 // });
 
 Postserver(app);
+Userserver(app);
 
 
 
-
-
-/**USER**/
-/**
- * POST /api/user
- * Adds new user to the database.
- */
-
-app.post('/api/user', function(req, res, next) {
-  var userID = req.body.id;
-  var userName = req.body.userName;
-  var password = req.body.password;
-  var firstName = req.body.firstName;
-  var lastName = req.body.lastName;
-  var barcode = req.body.barcode;
-  var type = req.body.type;
-  var avatar = req.body.avatar;
-
-   User.findOne({ _id: userID }, function(err, user) {
-  if ( (err)|| (!user) )
-  {
-    User.findOne({username:userName}, function(err1, alreadyUser)
-    {
-        if((err1)||(!alreadyUser))
-        {
-          try{
-         var user = new User({
-                    username:userName,
-                    password:password,
-                    name:{first:firstName,last:lastName} ,
-                    barcode:barcode,
-                    type:type,
-                    avatar:avatar
-                  });
-         user.save(function(err) {
-         if (err) return next(err);
-         res.send({ message: userName + ' has been added successfully!' });
-         });
-         } catch (e) {
-            res.status(e).send({ message: userName + ' error when add new user' });
-        }
-        }
-        else
-        {
-           res.send({ message: userName + 'đã có trong hệ thống, thử tên khác' });
-        }
-    })
-  }
-  else
-  {
-        user.update({ $set: {
-                    username: userName ,
-                    password:password,
-                    name:{first:firstName,last:lastName} ,
-                    barcode:barcode,
-                    type:type,
-                    avatar:avatar
-        } }, function(err) {
-            if (err) return next(err);
-            res.send({ message: userName + ' has been updated successfully!' });
-          });
-
-
-  }})
-   });
-
-/**
- * GET /api/user/:id
- * Get a user from the database.
- */
-  app.get('/api/user/:id', function(req, res, next) {
-  var id = req.params.id;
-  User.findOne({ _id: id }, function(err, user) {
-    if (err) return next(err);
-
-    if (!user) {
-      return res.status(404).send({ message: 'User not found.' });
-    }
-    res.send(user);
-  });
-});
-
-/**
- * POST /api/deleteuser
- * Delete a User from the database.
- */
-app.post('/api/deleteuser', function(req, res, next) {
-  var userId = req.body.id;
-  User.remove({name:''})  ;
-  User.findOne({ _id: userId }, function(err, user) {
-    if (err) return next(err);
-
-    if (!user) {
-      return res.status(404).send({ message: 'user not found.' });
-    }
-      user.remove();
-      res.send({ message: user.userName + ' has been deleted.' });
-
-
-  });
-});
-
-
-/**
- * GET /api/user
- * Return users from the database.
- */
-
-app.get('/api/user', function(req, res, next) {
-  try{
-   User
-   .find()
-   .exec(function(err,users){
-    if(err) next(err);
-    res.send(users);
-   })
-      } catch (e) {
-      res.status(e);
-          }
-        });
 
 /**
  * POST /api/book

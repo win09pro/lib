@@ -19,6 +19,27 @@ constructor(props)
   onChange(state) {
     this.setState(state);
   } 
+  handleLoginUser(event)
+  {
+    var username = this.state.user;
+    var password = this.state.password;
+    if (!password)
+    {
+      this.refs.passwordTextField.focus();
+    }
+    if (!username)
+    {
+      this.refs.userTextField.focus();      
+    }
+    if (password && username)
+    {
+      LoginActions.login({
+        username:username,
+        password:password
+      });
+    }
+    event.preventDefault();
+  }
   render() {
     let style ={'background-color':'#00bfff',  'border-radius': '15px 15px 0px 0px', 'color': '#fff','padding':'10px'};
     return (     
@@ -36,16 +57,18 @@ constructor(props)
                     <div className="col-md-9">
                       <div className="input-icon right-inner-addon">
                         <i className="fa fa-user" />
-                        <input type="text" className="form-control" id="inputName" placeholder="Tên đăng nhập" required />
+                        <input type="text" ref='userTextField' className="form-control" value ={this.state.user} onChange ={LoginActions.updateuser}
+                         id="inputName" placeholder="Tên đăng nhập" required />
                       </div>
                     </div>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="inputpass" className="col-md-3 control-label">Tên truy cập</label>
+                    <label htmlFor="inputpass" className="col-md-3 control-label">Mật khẩu</label>
                     <div className="col-md-9">
                       <div className="input-icon right-inner-addon">
                         <i className="fa fa-lock" />
-                        <input type="password" className="form-control" id="inputpass" placeholder="Mật khẩu" required />
+                        <input type="password" ref='passwordTextField' className="form-control" value ={this.state.password} onChange ={LoginActions.updatepassword}
+                        id="inputpass" placeholder="Mật khẩu" required />
                       </div>
                     </div>
                   </div>
@@ -59,10 +82,11 @@ constructor(props)
               </form>
           </Modal.Body>      
           <Modal.Footer>
+              <label className='pull-left helpblock-login'>{this.state.helpBlock}</label>
               <button
                   className="btn btn-warning"
                 onClick={LoginActions.closeLoginModal}><i className="fa fa-times"> Hủy bỏ</i> </button>                  
-                <button className="btn btn-green" name="btn-login"><i className="fa fa-sign-in" /> Đăng nhập</button>              
+                <button className="btn btn-green" name="btn-login" onClick={this.handleLoginUser.bind(this)}><i className="fa fa-sign-in" /> Đăng nhập</button>              
           </Modal.Footer>
         </Modal>
     );
