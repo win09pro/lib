@@ -7,6 +7,8 @@ class Mainnavbarstore {
     this.IntroduceCate=[];
     this.ServiceCate=[];
     this.HelpCate =[];
+    this.modalIsOpen=true;
+    this.modalRegisterIsOpen=false;
     
   }  
   onGetIntroCateSuccess(data)
