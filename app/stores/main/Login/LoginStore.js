@@ -26,7 +26,9 @@ class LoginStore {
   this.helpBlock='Đăng nhập thành công';
 	setTimeout(function() {
 		LoginActions.setOpenModal(false);
-	}, 1000);	
+    window.location.reload();
+	}, 500);	
+
   }
   onLoginUserFail(message)
    {
@@ -35,10 +37,12 @@ class LoginStore {
   onUpdateuser(event)
   {
   	this.user = event.target.value;
+     this.helpBlock='';
   }
   onUpdatepassword(event)
   {
   	this.password = event.target.value;  
+    this.helpBlock='';
   }
   onSetOpenModal(boolean)
   {

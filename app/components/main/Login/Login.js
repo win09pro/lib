@@ -40,6 +40,7 @@ constructor(props)
     }
     event.preventDefault();
   }
+
   render() {
     let style ={'background-color':'#00bfff',  'border-radius': '15px 15px 0px 0px', 'color': '#fff','padding':'10px'};
     return (     
@@ -91,4 +92,5 @@ constructor(props)
         </Modal>
     );
   }
+
 }

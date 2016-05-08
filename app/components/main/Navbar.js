@@ -26,8 +26,8 @@ class Navbar extends React.Component {
   onChange(state) {
    this.setState(state); 
   } 
-   render() {      
-    console.log(State);
+   render() {     
+
     let introducetab = this.state.IntroduceCate.map((IntroduceCate,index) =>
       {
         return(

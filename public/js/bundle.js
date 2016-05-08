@@ -8367,7 +8367,7 @@ var Navbar = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(_reactRouter.State);
+
       var introducetab = this.state.IntroduceCate.map(function (IntroduceCate, index) {
         return _react2.default.createElement(
           'li',
@@ -13182,7 +13182,8 @@ var LoginStore = function () {
       this.helpBlock = 'Đăng nhập thành công';
       setTimeout(function () {
         _LoginActions2.default.setOpenModal(false);
-      }, 1000);
+        window.location.reload();
+      }, 500);
     }
   }, {
     key: 'onLoginUserFail',
@@ -13193,11 +13194,13 @@ var LoginStore = function () {
     key: 'onUpdateuser',
     value: function onUpdateuser(event) {
       this.user = event.target.value;
+      this.helpBlock = '';
     }
   }, {
     key: 'onUpdatepassword',
     value: function onUpdatepassword(event) {
       this.password = event.target.value;
+      this.helpBlock = '';
     }
   }, {
     key: 'onSetOpenModal',
