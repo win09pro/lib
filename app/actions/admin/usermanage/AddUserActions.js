@@ -27,13 +27,32 @@ class AddUserActions {
       'getUserFail',
       'uploadSuccess',
       'uploadFail',
-      'handleUpload'
+      'handleUpload',
+      'alreadyHaduser',
+      'usernameok'
+
       );
   }
-
+  checkUserName(uName)
+  {
+     $.ajax({
+      type:'POST',
+      url:'/api/checkusername',
+      data:{
+        userName:uName
+          }
+    })
+    .done((data) => {
+      this.actions.alreadyHaduser(data.message);
+    })
+    .fail((jqXhr) =>{      
+      console.log(jqXhr.responseText.message);
+      this.actions.usernameok();
+    });
+  }
   uploadImage(imgfile)
   {
-     var fd = new FormData();
+    var fd = new FormData();
     fd.append( 'file', imgfile);
     $.ajax({
         url: '/api/imageupload',
