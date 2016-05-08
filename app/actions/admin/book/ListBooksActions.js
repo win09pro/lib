@@ -1,12 +1,13 @@
-import alt from '../alt';
-import listTransActions from './transition/listTransActions';
-class listBooksActions {
+import alt from '../../../alt';
+// import listTransActions from './transition/listTransActions';
+
+class ListBooksActions {
   constructor() {
     this.generateActions(
-      'getBooksuccess',
-      'getBookfail', 
-      'deletesucess',
-      'deletefail'     
+      'getBookSuccess',
+      'getBookFail', 
+      'deleteSucess',
+      'deleteFail'     
     );
   }
   delete(book){  
@@ -17,12 +18,12 @@ class listBooksActions {
       data: { id: book._id}
     })
       .done((data) => {
-        this.actions.deletesucess(data.message);
+        this.actions.deleteSucess(data.message);
         listTransActions.deleteTranByBookId(temp);
         listTransActions.get();
       })
       .fail((jqXhr) => {
-        this.actions.deletefail(jqXhr.responseJSON.message);
+        this.actions.deleteFail(jqXhr.responseJSON.message);
       });
   }
   get() {
@@ -30,12 +31,12 @@ class listBooksActions {
       url: '/api/book'      
     })
       .done((data) => {
-        this.actions.getBooksuccess(data);
+        this.actions.getBookSuccess(data);
       })
       .fail((jqXhr) => {
-        this.actions.getBookfail(jqXhr.responseJSON.message);
+        this.actions.getBookFail(jqXhr.responseJSON.message);
       });
   }
 }
 
-export default alt.createActions(listBooksActions);
+export default alt.createActions(ListBooksActions);

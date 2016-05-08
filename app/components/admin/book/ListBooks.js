@@ -1,25 +1,28 @@
 import React from 'react';
-import AddBookAction from '../../../actions/AddBookAction'
-import listBooksStore from '../../../stores/listBooksStore';
-import listBooksActions from '../../../actions/listBooksActions';
+import AddBookAction from '../../../actions/admin/book/AddBookAction'
+import ListBooksStore from '../../../stores/admin/book/ListBooksStore';
+import ListBooksActions from '../../../actions/admin/book/ListBooksActions';
 import BookActionBar from '../../../shared/BookActionBar';
-import Addbook from './Addbook';
-import bookActions from '../../../actions/bookActions';
-import Upload  from '../../uploadimage/Upload';
+
+import {Link} from 'react-router';
+import ActionBar from '../../../shared/ActionBar';
+
+import bookActions from '../../../actions/admin/book/bookActions';
+// import Upload  from '../../../uploadimage/Upload';
 class ListBooks extends React.Component {
   constructor(props)
   {
     super(props);
-    this.state = listBooksStore.getState();
+    this.state = ListBooksStore.getState();
     this.onChange = this.onChange.bind(this);
   }
  componentDidMount() {
-    listBooksStore.listen(this.onChange);
-    listBooksActions.get();
+    ListBooksStore.listen(this.onChange);
+    ListBooksActions.get();
   }
 
   componentWillUnmount() {
-    listBooksStore.unlisten(this.onChange);
+    ListBooksStore.unlisten(this.onChange);
   }
 
   onChange(state) {
@@ -31,29 +34,21 @@ class ListBooks extends React.Component {
       return (
         <tr key ={index}>
           <td>{index+1}</td>
-          <td>{book.name}</td>
-          <td>{book.director}</td>
+          <td><Link to={'admin/book/' + book._id} >{book.name} </Link></td>
+          <td>{book.author}</td>
+          <td>{book.publisher}</td>
           <td>{book.code}</td>
-          <td>{book.borrowBarcode}</td>
+          <td>{book.status}</td>
+          <td>{book.description}</td>
           <td>{book.imageUrl}</td>
-          <td>{book.cate}</td>
-          <td><BookActionBar viewAction={bookActions} editAction={AddBookAction} deleteAction={listBooksActions} item={book} /></td>
+          <td>{book._cateId.name}</td>
+          <td><ActionBar editAction={AddBookAction} deleteAction={ListBooksActions} item={book} /></td>
         </tr>
       );
     });
     return (    
-      <div className='container-fluid'>
-        <div className ="row">
-          <div className="col-lg-6 col-md-6 col-sm-6">
-           <Addbook  />
-          </div>
-          <div className ="col-lg-4 col-md-4 col-sm-4">
-            <Upload />
-          </div>
-        </div>
-        
-        <div className='row  animated'>
-          <div className='col-lg-12 col-md-12 col-sm-12'>
+      
+          <div className=''>
             <div className='panel panel-default'>
               <div className='panel-heading'>List books</div>
               <div className='panel-body'>
@@ -78,8 +73,7 @@ class ListBooks extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import bookStore from '../../../stores/bookStore';
-import bookActions from '../../../actions/bookActions';
+import bookStore from '../../../stores/admin/book/bookStore';
+import bookActions from '../../../actions/admin/book/bookActions';
 import ActionBar from '../../../shared/ActionBar';
 
 
