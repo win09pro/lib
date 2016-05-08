@@ -29,6 +29,17 @@ class AddUserStore {
       this.helpBlocktype='';
       this.helpBlockUpload ='';
       }
+      onAlreadyHaduser(message)
+      {
+         this.helpBlockuserName=message;
+         this.userNameValidationState='has-error';
+         this.helpBlockuserName=this.userName + ' đã tồn tại';
+      }
+      usernameok()
+      {
+         this.helpBlockuserName='Tên đăng nhập có thể sử dụng';
+         this.userNameValidationState='has-success';
+      }
       onHandleUpload()
       {
        this.helpBlockUpload ="Đang tải lên....";
@@ -130,6 +141,7 @@ class AddUserStore {
             this.userName = event.target.value;
             this.userNameValidationState = '';
             this.helpBlockuserName = '';
+            AddUserActions.checkUserName(this.userName);
       }
 
       onUpdatepassword(event)
@@ -266,6 +278,7 @@ class AddUserStore {
       onUploadSuccess(link)
       {
           this.helpBlockUpload ="Tải lên thành công";
+          this.imageUrl=link;
           console.log(this.imageUrl);
       }
       onUploadFail(jqXhr)

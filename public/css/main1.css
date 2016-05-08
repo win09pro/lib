@@ -110,6 +110,34 @@ h1,h2,h3,h4,h5,h6
   margin-right: 10px;
   color: #fff;
 }
+.library-header .top-menu .user-login
+{
+  float:right;
+  margin-right: 10px;
+}
+.library-header .top-menu .user-login ul
+{
+  list-style: none;
+  margin: 0;
+}
+.library-header .top-menu .user-login ul li
+{
+  position: relative;
+  float:right;
+}
+.library-header .top-menu .user-login a
+{
+  margin-right: 10px;
+  color: #fff;
+}
+.library-header .top-menu .user-login ul li img
+{
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
 .library-header .main-menu
 {
   float:left;
@@ -597,15 +625,24 @@ slider img {
 }
 .btn-green
 {
-  color: #ffffff;
+  color: #fff;
   background-color: #1BD529;
 }
 .btn-green:hover
 {
-  color: #00bfff;
-  background-color: #1BD510;
+  color: #fff;
+  background-color: #149f1f;
 }
 .modal-content
 {
   border-radius: 15px;
+}
+.modal-open {
+    overflow: scroll !important;;
+}
+.helpblock-login-register
+{
+  font-family: 'Time New Roman';
+  font-style: italic;
+  color: red;
 }
