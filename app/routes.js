@@ -14,10 +14,8 @@ import Post from './components/admin/post/Post';
 import PostCate from './components/admin/post/PostCate';
 import Viewpost from './components/admin/post/Viewpost';
 
-import Addbook from './components/admin/book/Addbook';
-import ListBooks from './components/admin/book/ListBooks';
-import Editbook from './components/admin/book/Editbook';
-import Book from './components/admin/book/Book';
+import HomeBook from './components/admin/book/HomeBook';
+import ViewBook from './components/admin/book/ViewBook';
 
 import AddTran from './components/transition/AddTran';
 import ListTrans from './components/transition/ListTrans';
@@ -48,10 +46,8 @@ export default (
     <Route path='/admin/PostCate' component ={PostCate}/>
 
 
-    <Route path='/admin/book/:id' component={Book} />
-    <Route path='/admin/book/edit/:id' component={Editbook} />
-    <Route path='/admin/Addbook' component={Addbook} />
-    <Route path='/admin/listBooks' component={ListBooks} /> 
+    <Route path='/admin/book' component={HomeBook} />
+    <Route path='/admin/book/:id' component={ViewBook} />
 
     <Route path='/admin/tran/:id' component={Transition} />
     <Route path='/admin/tran/edit/:id' component={EditTran} />

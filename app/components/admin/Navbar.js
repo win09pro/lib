@@ -50,7 +50,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    let style={'text-align':'center'};
+    let style={'text-align':'center'};    
     return (
        <header className="main-header">      
       <Modal style ={style} show={this.state.openModal}>

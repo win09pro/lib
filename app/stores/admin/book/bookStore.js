@@ -1,5 +1,5 @@
-import alt from '../alt';
-import bookActions from '../actions/bookActions';
+import alt from '../../../alt';
+import bookActions from '../../../actions/admin/book/bookActions';
 
 class bookStore {
   constructor() {
