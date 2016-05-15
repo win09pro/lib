@@ -14,6 +14,7 @@ var watchify = require('watchify');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 
+
 var production = process.env.NODE_ENV === 'production';
 
 var dependencies = [
@@ -47,7 +48,7 @@ gulp.task('vendor', function() {
  */
 gulp.task('browserify-vendor', function() {
   return browserify()
-    .require(dependencies)
+    .require(dependencies)   
     .bundle()
     .pipe(source('vendor.bundle.js'))
     .pipe(buffer())
