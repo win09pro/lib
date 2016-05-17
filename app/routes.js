@@ -1,6 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router';
 import App from './components/admin/App';
+import Adminlogin from './components/admin/login/Adminlogin';
 
 import HomeDocumentType from './components/admin/documenttype/HomeDocumentType';
 import ViewDocumentType from './components/admin/documenttype/ViewDocumentType';
@@ -26,11 +27,11 @@ import Appmain from './components/main/App';
 import Main from './components/main/Main';
 import Viewdetailpost from './components/main/Post/Viewdetailpost';
 import Listallpost from './components/main/Post/Listallpost';
-import Login from './components/main/Login/Login';
+//import Login from './components/main/Login/Login';
 export default (
   <Route>
-  <Route component={App}>
-
+  <Route path='/admin/login' component ={Adminlogin}/>
+  <Route component={App}>    
     <Route path='/admin' component={HomeDocumentType} />
     <Route path='/admin/document-type' component={HomeDocumentType} />
     <Route path='/admin/document-type/:id' component={ViewDocumentType} />
@@ -57,8 +58,7 @@ export default (
   </Route>
   <Route component={Appmain}> 
     <Route path='/' component={Main}/> 
-    <Route path='/post/listall' component ={Listallpost}/>
-    <Route path='/login' component ={Login}/>
+    <Route path='/post/listall' component ={Listallpost}/>   
     <Route path=':link' component={Viewdetailpost}/> 
   </Route>
   </Route>

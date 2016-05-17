@@ -46,7 +46,7 @@ class Listallpost extends React.Component {
                 {post.introduce}
               </div>
               <div className='pull-right'>
-              <a href ={post.link} className='btn btn-primary'>Chi tiết <span><i className="fa fa-search-plus" aria-hidden="true" /></span></a>
+              <Link to={post.link} className='btn btn-primary'>Chi tiết <span><i className="fa fa-search-plus" aria-hidden="true" /></span></Link>
               </div>
             </div>
             <div className="clear-both"></div>

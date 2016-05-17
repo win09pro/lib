@@ -1,0 +1,40 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+html, body {
+    		height: 100%;
+    		margin: 0;
+    	}
+.background{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-image: url('../img/background/background.jpg');
+  background-size: cover;
+}
+.adminlogin{
+  z-index: 10;
+  position: relative;
+  top:150px;
+}
+
+@media all and (max-width: 768px) {
+  .adminlogin{
+    top:50px;
+  }
+}
+@media all and (max-width: 480px) {
+  .adminlogin{
+    top:50px;
+  }
+}
+.adminlogin-header{
+  font-family: 'Lobster', cursive;
+  font-size: 1.5em;
+  color:#fff;
+}
+.adminlogin-helpblock{
+  font-size: 1em;
+  font-style: italic;
+  color:red;
+}

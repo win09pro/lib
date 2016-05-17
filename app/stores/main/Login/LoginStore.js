@@ -14,6 +14,7 @@ class LoginStore {
   onLogout()
   {
   	localStorage.removeItem('username');
+    localStorage.removeItem('avatar');
   	this.user ='';
     this.password ='';
     this.helpBlock='';
@@ -51,4 +52,5 @@ class LoginStore {
       this.password ='';   
   }
 }
+
 export default alt.createStore(LoginStore);

@@ -15,7 +15,7 @@ class MainBook extends React.Component {
   
   render() {   
     return (
-              <div className="book-content">
+        <div className="book-content">
         <div className="container-fluid">
           <div className="section-heading">
             <h2><i className="fa fa-book" /> TÀI LIỆU MỚI</h2>
