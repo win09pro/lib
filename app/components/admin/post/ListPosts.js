@@ -52,8 +52,13 @@ class ListBooks extends React.Component {
 
   render() {
     let style={'text-align':'center'};
+    let postviewed=this.state.currentpage*this.state.numpostview;
+    if (postviewed>this.state.numpost)  postviewed=this.state.numpost
     let postlist = this.state.posts.map((post, index) => {
       let checked=false;
+      let startindex = (this.state.currentpage-1)*this.state.numpostview;
+      let endindex = startindex + this.state.numpostview;
+      if(index>=startindex && index<endindex)
       return (
         <tr key ={index}>
           <td>{index}</td>
@@ -75,7 +80,18 @@ class ListBooks extends React.Component {
         <div className='row'>
           <div className='col-sm-12'>
             <div className='panel panel-default'>
-              <div className='panel-heading'>List books</div>
+              <div className='panel-heading'>
+                List books
+                <div className="pull-right clear-fix">                                    
+                    <label>Hiển thị: </label>               
+                    <select value={this.state.numpostview} onChange ={listPostsActions.updatenumpostView}>
+                        <option value='5'>5</option>
+                        <option value='10'>10</option>
+                        <option value='15'>15</option>
+                        <option value='20'>20</option>
+                    </select>                               
+                  </div> 
+              </div>
               <div className='panel-body'>
                 <table className="table">
                   <thead>
@@ -94,6 +110,18 @@ class ListBooks extends React.Component {
                     {postlist}
                   </tbody>
                 </table>
+              </div>
+              <div className="panel-footer clearfix">   
+                  <div className="pull-left">             
+                    <label>{"Hiển thị "+ postviewed +"/"+this.state.numpost +" bài viết" }</label>
+                  </div>
+                  <div className="pull-right">             
+                    <button className="btn btn-default"
+                    onClick={listPostsActions.previouspage}><i className="fa fa-arrow-left"></i></button>
+                    <button className="btn btn-info">{this.state.currentpage}</button>                                   
+                    <button className="btn btn-default"
+                    onClick={listPostsActions.nextpage}><i className="fa fa-arrow-right"></i></button>       
+                  </div>
               </div>
             </div>
           </div>

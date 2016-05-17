@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
-//import AddPostActions from '../../actions/AddPostActions';
+import localStorage from 'localStorage';
 import AddUserActions from '../../actions/admin/usermanage/AddUserActions';
 import AddPostActions from '../../actions/admin/post/AddPostActions';
-// import SidebarLeftStore from '../../stores/SidebarLeftStore';
+//import SidebarLeftStore from '../../stores/SidebarLeftStore';
 // import SidebarLeftActions from '../../actions/SidebarLeftActions';
 
 class SidebarLeft extends React.Component {
@@ -36,15 +36,21 @@ class SidebarLeft extends React.Component {
   //   }
   // }
   render(){
+    let adminname = localStorage.getItem('adminusername');
+    if (adminname)
+    {
+      adminname = adminname.toString().toUpperCase();
+    }
+    let avatar = localStorage.getItem('adminavatar');    
     return(
             <aside className="main-sidebar">
         <section className="sidebar">
           <div className="user-panel">
             <div className="pull-left image">
-              <img src="/uploads/avatar.jpg" className="img-circle" alt="User Image" />
+              <img src={avatar} className="img-circle" alt="User Image" />
             </div>
             <div className="pull-left info">
-              <p>Admin</p>
+              <p>{adminname}</p>
               <a href="#"><i className="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>

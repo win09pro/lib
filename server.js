@@ -3,7 +3,9 @@ require('babel-register');
 var swig  = require('swig');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
-var Router = require('react-router');
+var Router = require('react-router').Router;
+var match = require('react-router').match;
+var RouterContext = require('react-router').RouterContext;
 var routes = require('./app/routes');
 var express = require('express');
 var path = require('path');
@@ -317,17 +319,17 @@ DocumenttypeServer(app);
 
 
 app.use(function(req, res) {
-  Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
+  match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
     if (err) {
       res.status(500).send(err.message)
     } else if (redirectLocation) {
       res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
+      var html = ReactDOM.renderToString(React.createElement(RouterContext, renderProps));
       var page = swig.renderFile('views/admin/index.html', { html: html });
       res.status(200).send(page);
     } else {
-      res.status(404).send('Page Not Found')
+      res.status(404).send('Page Not Found');
     }
   });
 });

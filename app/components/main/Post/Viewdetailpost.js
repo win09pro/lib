@@ -48,8 +48,11 @@ class Viewdetailpost extends React.Component {
     {
       return(
          <div className="col-md-3 col-sm-6">
-              <div className="list-postnews-relative">
-                <a href={relativepost.link}><button type="button" className="btn btn-primary" name="button"> Xem thêm</button></a>
+
+              <div className="list-postnews-relative">              
+              <div className='list-postnews-relative-button'>                         
+                <a href={relativepost.link} className="btn btn-primary" name="button"> Xem thêm</a>
+              </div>
                 <img src={relativepost.pictureURL} alt />
                 <div className="postnews-relative-content">
                   <p>{relativepost.title}</p>
@@ -64,7 +67,7 @@ class Viewdetailpost extends React.Component {
         <div className="postnews">
           <div className="postnews-header">
             <ol className="breadcrumb page-breadcrumb pull-left">
-              <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li>
+              <li><i className="fa fa-home" /><Link to="/"> Trang chủ</Link></li>
               <li><Link to='http://localhost:3000/post/listall'>{Type(this.state.detailpostCategory.Type)}</Link></li>
               <li className="active">{this.state.detailpostCategory.nameCate}</li>
             </ol>
@@ -87,7 +90,7 @@ class Viewdetailpost extends React.Component {
         </div>        
         <div className="postnews-relative">
         <div className="postnews-relative-title">
-          <h1>Tin tức liên quan</h1>
+          <h1>Tin tức liên quan</h1>          
           <div className="row">     
             {relativepost} 
           </div>         

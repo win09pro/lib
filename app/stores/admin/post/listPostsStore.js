@@ -7,7 +7,27 @@ class listPostsStore {
     this.posts = [];
     this.deletemessage='';   
     this.arrayIDtoDel=[];
+    this.numpostview=5;
+    this.numpage=0;
+    this.currentpage=1;
+    this.numpost=0;
     this.modalIsOpen=false;
+  }
+  onPreviouspage(){
+      if (this.currentpage>1)
+     this.currentpage--;   
+  }
+
+  onNextpage()
+  {
+    if (this.currentpage<this.numpage)
+     this.currentpage++;   
+  }
+  onUpdatenumpostView(e)
+  {
+    this.numpostview=e.target.value;   
+    this.numpage=Math.ceil(this.numpost/Number(this.numpostview)); 
+   
   }
   onUpdateArrayId(id)
   {
@@ -20,8 +40,9 @@ class listPostsStore {
   }
   onGetPostsuccess(data)
   {
-  	this.posts = data;    
-    console.log(data);
+  	this.posts = data;   
+    this.numpost=data.length;
+    this.numpage=Math.ceil(this.numpost/Number(this.numpostview));   
   }
   onGetPostfail(jqXhr) {
     toastr.error(jqXhr.responseJSON.message);

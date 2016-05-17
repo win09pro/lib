@@ -2,7 +2,9 @@ import React from 'react';
 import {Link} from 'react-router';
 import NavbarStore from '../../stores/NavbarStore';
 import NavbarActions from '../../actions/NavbarActions';
+import AdminloginActions from '../../actions/admin/login/AdminloginActions';
 import {Modal} from 'react-bootstrap';
+import localStorage from 'localStorage';
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -51,6 +53,12 @@ class Navbar extends React.Component {
 
   render() {
     let style={'text-align':'center'};    
+    let adminname =localStorage.getItem('adminusername');
+    if (adminname)
+    {
+      adminname = adminname.toString().toUpperCase();
+    }
+    let avatar = localStorage.getItem('adminavatar');  
     return (
        <header className="main-header">      
       <Modal style ={style} show={this.state.openModal}>
@@ -107,7 +115,7 @@ class Navbar extends React.Component {
                       <li>
                         <a href="#">
                           <div className="pull-left">                          
-                            <img src="/uploads/avatar.jpg" className="img-circle" alt="User Image" />
+                            <img src={avatar} className="img-circle" alt="User Image" />
                           </div>                        
                           <h4>
                             Support Team
@@ -171,12 +179,12 @@ class Navbar extends React.Component {
               </li>              
               <li className="dropdown user user-menu">                
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">               
-                  <img src="/uploads/avatar.jpg" className="user-image" alt="User Image" />                
-                  <span className="hidden-xs">Admin</span>
+                  <img src={avatar} className="user-image" alt="User Image" />                
+                  <span className="hidden-xs">{adminname}</span>
                 </a>
                 <ul className="dropdown-menu">                 
                   <li className="user-header">
-                    <img src="/uploads/avatar.jpg" className="img-circle" alt="User Image" />
+                    <img src={avatar} className="img-circle" alt="User Image" />
                     <p>
                       Admin-Library webpage
                       <small>Member since Nov. 2012</small>
@@ -198,7 +206,7 @@ class Navbar extends React.Component {
                       <a href="#" className="btn btn-default btn-flat">Profile</a>
                     </div>
                     <div className="pull-right">
-                      <a href="#" className="btn btn-default btn-flat">Sign out</a>
+                      <a href="#" className="btn btn-danger btn-flat" onClick ={AdminloginActions.adminLogout}>Sign out</a>
                     </div>
                   </li>
                 </ul>

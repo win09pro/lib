@@ -3,10 +3,27 @@ import Footer from './Footer';
 import Navbar from './Navbar';
 import Navbar1 from './Navbar1';
 import SidebarLeft from './SidebarLeft';
+import localStorage from 'localStorage';
 class App extends React.Component {
-  render() {
-    return (
-    
+  constructor(props)
+  {
+    super(props);   
+    this.onChange = this.onChange.bind(this);
+  }
+   componentDidMount() {    
+   	  if (!localStorage.getItem('adminusername'))
+  	{
+    	this.context.router.push('/admin/login');
+    } 	 
+  }
+  componentWillUnmount() {   
+  }
+  onChange(state) {
+    this.setState(state);
+  } 
+  render() { 
+  
+    return (    
       <div className="wrapper">
 	      	<Navbar />
 	      	<SidebarLeft />
@@ -19,5 +36,8 @@ class App extends React.Component {
     );
   }
 }
+App.contextTypes = {
+	router: React.PropTypes.object.isRequired
+};
 
 export default App;
