@@ -824,7 +824,7 @@ var listPostsActions = function () {
   function listPostsActions() {
     _classCallCheck(this, listPostsActions);
 
-    this.generateActions('getPostsuccess', 'getPostfail', 'deletesuccess', 'deletefail', 'getCountPostsuccess', 'getCountPostfail', 'updateArrayId', 'removeArrayId', 'openModal', 'closeModal');
+    this.generateActions('getPostsuccess', 'getPostfail', 'deletesuccess', 'deletefail', 'getCountPostsuccess', 'getCountPostfail', 'updateArrayId', 'removeArrayId', 'openModal', 'closeModal', 'updatenumpostView', 'nextpage', 'previouspage');
   }
 
   _createClass(listPostsActions, [{
@@ -6178,9 +6178,13 @@ var ListBooks = function (_React$Component) {
       var _this2 = this;
 
       var style = { 'text-align': 'center' };
+      var postviewed = this.state.currentpage * this.state.numpostview;
+      if (postviewed > this.state.numpost) postviewed = this.state.numpost;
       var postlist = this.state.posts.map(function (post, index) {
         var checked = false;
-        return _react2.default.createElement(
+        var startindex = (_this2.state.currentpage - 1) * _this2.state.numpostview;
+        var endindex = startindex + _this2.state.numpostview;
+        if (index >= startindex && index < endindex) return _react2.default.createElement(
           'tr',
           { key: index },
           _react2.default.createElement(
@@ -6247,7 +6251,40 @@ var ListBooks = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'panel-heading' },
-                'List books'
+                'List books',
+                _react2.default.createElement(
+                  'div',
+                  { className: 'pull-right clear-fix' },
+                  _react2.default.createElement(
+                    'label',
+                    null,
+                    'Hiển thị: '
+                  ),
+                  _react2.default.createElement(
+                    'select',
+                    { value: this.state.numpostview, onChange: _listPostsActions2.default.updatenumpostView },
+                    _react2.default.createElement(
+                      'option',
+                      { value: '5' },
+                      '5'
+                    ),
+                    _react2.default.createElement(
+                      'option',
+                      { value: '10' },
+                      '10'
+                    ),
+                    _react2.default.createElement(
+                      'option',
+                      { value: '15' },
+                      '15'
+                    ),
+                    _react2.default.createElement(
+                      'option',
+                      { value: '20' },
+                      '20'
+                    )
+                  )
+                )
               ),
               _react2.default.createElement(
                 'div',
@@ -6312,6 +6349,40 @@ var ListBooks = function (_React$Component) {
                     'tbody',
                     null,
                     postlist
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'panel-footer clearfix' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'pull-left' },
+                  _react2.default.createElement(
+                    'label',
+                    null,
+                    "Hiển thị " + postviewed + "/" + this.state.numpost + " bài viết"
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'pull-right' },
+                  _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-default',
+                      onClick: _listPostsActions2.default.previouspage },
+                    _react2.default.createElement('i', { className: 'fa fa-arrow-left' })
+                  ),
+                  _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-info' },
+                    this.state.currentpage
+                  ),
+                  _react2.default.createElement(
+                    'button',
+                    { className: 'btn btn-default',
+                      onClick: _listPostsActions2.default.nextpage },
+                    _react2.default.createElement('i', { className: 'fa fa-arrow-right' })
                   )
                 )
               )
@@ -12699,10 +12770,30 @@ var listPostsStore = function () {
     this.posts = [];
     this.deletemessage = '';
     this.arrayIDtoDel = [];
+    this.numpostview = 5;
+    this.numpage = 0;
+    this.currentpage = 1;
+    this.numpost = 0;
     this.modalIsOpen = false;
   }
 
   _createClass(listPostsStore, [{
+    key: 'onPreviouspage',
+    value: function onPreviouspage() {
+      if (this.currentpage > 1) this.currentpage--;
+    }
+  }, {
+    key: 'onNextpage',
+    value: function onNextpage() {
+      if (this.currentpage < this.numpage) this.currentpage++;
+    }
+  }, {
+    key: 'onUpdatenumpostView',
+    value: function onUpdatenumpostView(e) {
+      this.numpostview = e.target.value;
+      this.numpage = Math.ceil(this.numpost / Number(this.numpostview));
+    }
+  }, {
     key: 'onUpdateArrayId',
     value: function onUpdateArrayId(id) {
       this.arrayIDtoDel.push(id);
@@ -12717,7 +12808,8 @@ var listPostsStore = function () {
     key: 'onGetPostsuccess',
     value: function onGetPostsuccess(data) {
       this.posts = data;
-      console.log(data);
+      this.numpost = data.length;
+      this.numpage = Math.ceil(this.numpost / Number(this.numpostview));
     }
   }, {
     key: 'onGetPostfail',
