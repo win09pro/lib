@@ -175,3 +175,13 @@
 {
   clear:both;
 }
+.post-pagination{
+  margin: 10px auto;
+  color:#3399ff;
+}
+.post-pagination label{
+  margin:auto 5px;
+}
+.post-pagination button:hover{
+  background-color: #00ff99;
+}

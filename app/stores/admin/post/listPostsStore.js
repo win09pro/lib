@@ -26,6 +26,7 @@ class listPostsStore {
   onUpdatenumpostView(e)
   {
     this.numpostview=e.target.value;   
+    this.currentpage=1;
     this.numpage=Math.ceil(this.numpost/Number(this.numpostview)); 
    
   }

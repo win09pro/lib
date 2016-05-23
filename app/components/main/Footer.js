@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {animateScroll}  from  'react-scroll'; 
 //import FooterStore from '../../stores/FooterStore'
 //import FooterActions from '../../actions/FooterActions';
 
@@ -22,6 +23,8 @@ class Footer extends React.Component {
             <h5><i className="fa fa-users" /> Tổng lượt truy cập: <strong style={{color: 'yellow'}}>12313</strong></h5>
           </div>
         </div>
+        <button  id ="maintoTopbutton"
+          onClick={animateScroll.scrollToTop}><i className="fa fa-arrow-up" aria-hidden="true"></i></button>
       </div>
     );
   }

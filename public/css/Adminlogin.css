@@ -38,3 +38,18 @@ html, body {
   font-style: italic;
   color:red;
 }
+.admintoTopbutton{
+  border: none;
+  height: 40px;
+  width: 40px;
+  background-color: #00bfff;
+  border-radius: 100%;
+  color: #fff;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  opacity: 0.5;
+}
+.admintoTopbutton:hover{
+opacity: 1;
+}

@@ -4,6 +4,7 @@ import {Modal} from 'react-bootstrap';
 import PostActions from '../../../actions/main/post/PostActions';
 import Poststore from '../../../stores/main/post/Poststore';
 import moment from 'moment';
+import {Element,scroller}  from  'react-scroll'; 
 class Listallpost extends React.Component {
   constructor(props) {
     super(props);    
@@ -12,7 +13,7 @@ class Listallpost extends React.Component {
   }
   componentDidMount() {  
     Poststore.listen(this.onChange);
-    PostActions.get();
+    PostActions.getAllposts();
   }
   componentWillUnmount() {
     Poststore.unlisten(this.onChange);
@@ -20,11 +21,32 @@ class Listallpost extends React.Component {
   onChange(state) {
     this.setState(state);
   }
-  
+  handlePreviouspage()
+   {  
+    PostActions.previouspage();
+    scroller.scrollTo('titlepost', {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+    });
+   }
+   handleNextpage(){
+    PostActions.nextpage();
+    scroller.scrollTo('titlepost', {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+    });
+   }
   render() { 
-    var listPosts = this.state.posts;   
-    let vieweachpost = listPosts.map((post,index) =>
+    var allposts = this.state.allposts;   
+    let postviewed=this.state.currentpage*this.state.numpostview;
+    if (postviewed>this.state.numpost)  postviewed=this.state.numpost;
+    let vieweachpost = allposts.map((post,index) =>
     {
+      let startindex = (this.state.currentpage-1)*this.state.numpostview;
+      let endindex = startindex + this.state.numpostview;
+      if(index>=startindex && index<endindex){
       return(
         <div className="listpost-view">
           <div className="row">
@@ -53,7 +75,7 @@ class Listallpost extends React.Component {
           </div>
         </div>       
         );
-    });
+    }});
     return (
       <div className="container">
         <div className="postnews">
@@ -65,10 +87,20 @@ class Listallpost extends React.Component {
           </div>
         </div>
         <div className="postnews-content">
-        <div className="postnews-title">
+        <Element  name="titlepost" className="postnews-title">
           <h1>Tin tức mới nhất</h1>
-        </div>
+        </Element>
         {vieweachpost}
+      </div>
+      <div className="post-pagination clearfix">      
+          <Element  name="nav" className="pull-right">      
+            <label>{"Hiển thị "+ postviewed +"/"+this.state.numpost +" bài viết" }</label>       
+            <button className="btn btn-default"
+            onClick={this.handlePreviouspage.bind(this)}><i className="fa fa-arrow-left"></i></button>
+            <button className="btn btn-info">{this.state.currentpage}</button>                                   
+            <button className="btn btn-default"
+            onClick={this.handleNextpage.bind(this)}><i className="fa fa-arrow-right"></i></button>                   
+          </Element >
       </div>
       </div>  
     );

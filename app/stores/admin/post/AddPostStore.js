@@ -72,9 +72,8 @@ class AddPostStore {
     }
     onUpdateLink(event)
     {
-      this.link = event.target.value;
-      console.log(this.link.substr(0,22));
-      if(this.link.substr(0,22) !='http://localhost:3000/') this.link ='http://localhost:3000/';
+      this.link = event.target.value;      
+      if(this.link.substr(0,22) !='http://localhost:3000/') this.link ='http://localhost:3000/';      
       this.linkpostValidationState ='';
       this.helpBlockLink='';
     }
@@ -168,7 +167,7 @@ class AddPostStore {
         this.dateStart=new Date(data.dateStart);
         this.pictureURL = data.pictureURL;
         this.postCategoryid =data.postCategory;
-        this.link = data.link;
+        this.link ='http://localhost:3000'+ data.link;
 
         this.helpBlockTitle='';
         this.helpBlockIntroduce='';
@@ -196,7 +195,7 @@ class AddPostStore {
         CKEDITOR.instances.ckedit.setData(this.content);
         this.pictureURL=data.pictureURL; 
         this.postCategoryid =data.postCategory;
-        this.link = data.link;
+        this.link ='http://localhost:3000'+ data.link;
 
         this.helpBlockTitle='';
         this.helpBlockIntroduce='';

@@ -68,7 +68,7 @@ class Viewdetailpost extends React.Component {
           <div className="postnews-header">
             <ol className="breadcrumb page-breadcrumb pull-left">
               <li><i className="fa fa-home" /><Link to="/"> Trang chủ</Link></li>
-              <li><Link to='http://localhost:3000/post/listall'>{Type(this.state.detailpostCategory.Type)}</Link></li>
+              <li><Link to='/post/listall'>{Type(this.state.detailpostCategory.Type)}</Link></li>
               <li className="active">{this.state.detailpostCategory.nameCate}</li>
             </ol>
           </div>

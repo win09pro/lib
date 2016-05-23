@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="css/main1.css"/>
 	<link rel="stylesheet" href="css/mainpost.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/Adminlogin.css"/>
 	<link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/quill.snow.css">
   <link rel="stylesheet" href="css/checkbox.css">
@@ -233,6 +234,7 @@
 		</div>
 	</div>
 </div>
+ <button class="admintoTopbutton" id='admintoTopbutton'><i className="fa fa-arrow-up" aria-hidden="true"></i></button>
 <div class="main-library-footer">
 	<div class="row">
 		<div class="col-md-6 col-sm-12">
@@ -265,6 +267,15 @@
     <script src="js/app.min.js"></script>
 		<script src="js/bxslider/jquery.bxslider.min.js"></script>
 		<script type="text/javascript">
+				 $(window).scroll(function () {
+        if ($(this).scrollTop() > 70) {
+           console.log('abc');
+		   $('#admintoTopbutton').fadeIn();
+        } else {
+          console.log('def');
+		  $('#admintoTopbutton').fadeOut();
+		}
+    });		
 		$(window).load(function(){
 			$('.bxslider').bxSlider(
 			{

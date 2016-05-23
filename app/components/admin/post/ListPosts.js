@@ -7,6 +7,8 @@ import ActionBar from '../../../shared/ActionBar';
 import AddPost from './AddPost';
 import moment from 'moment';
 import {Modal} from 'react-bootstrap';
+import {Element,scroller}  from  'react-scroll'; 
+
 class ListBooks extends React.Component {
   constructor(props)
   {
@@ -49,11 +51,28 @@ class ListBooks extends React.Component {
       });
       listPostsActions.closeModal();
    }
+   handlePreviouspage()
+   {
+    listPostsActions.previouspage();
+    scroller.scrollTo('nav', {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+    });
+   }
+   handleNextpage(){
+    listPostsActions.nextpage();
+    scroller.scrollTo('nav', {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+    });
+   }
 
   render() {
     let style={'text-align':'center'};
     let postviewed=this.state.currentpage*this.state.numpostview;
-    if (postviewed>this.state.numpost)  postviewed=this.state.numpost
+    if (postviewed>this.state.numpost)  postviewed=this.state.numpost;
     let postlist = this.state.posts.map((post, index) => {
       let checked=false;
       let startindex = (this.state.currentpage-1)*this.state.numpostview;
@@ -61,8 +80,9 @@ class ListBooks extends React.Component {
       if(index>=startindex && index<endindex)
       return (
         <tr key ={index}>
-          <td>{index}</td>
-          <td><Link to={'/admin/post/'+post._id} title ={post.title}>{post.title.substr(0,20) +' ...'} </Link></td>
+          <td>{index+1}</td>
+          {/*<td><Link to={'/admin/post/'+post._id} title ={post.title}>{post.title.substr(0,20) +' ...'} </Link></td>*/}
+          <td><Link to={'/'+post.link.substr(22)} title ={post.title}>{post.title.substr(0,20) +' ...'} </Link></td>
           <td>{post.introduce.substr(0,40)+' ...'}</td>
           <td>{moment(post.dateStart).format('DD-MM-YYYY HH:MM')}s</td>
           <td>{post.content.substr(0,40)+' ...' }</td>
@@ -115,13 +135,14 @@ class ListBooks extends React.Component {
                   <div className="pull-left">             
                     <label>{"Hiển thị "+ postviewed +"/"+this.state.numpost +" bài viết" }</label>
                   </div>
-                  <div className="pull-right">             
+
+                  <Element  name="nav" className="pull-right">             
                     <button className="btn btn-default"
-                    onClick={listPostsActions.previouspage}><i className="fa fa-arrow-left"></i></button>
+                    onClick={this.handlePreviouspage.bind(this)}><i className="fa fa-arrow-left"></i></button>
                     <button className="btn btn-info">{this.state.currentpage}</button>                                   
                     <button className="btn btn-default"
-                    onClick={listPostsActions.nextpage}><i className="fa fa-arrow-right"></i></button>       
-                  </div>
+                    onClick={this.handleNextpage.bind(this)}><i className="fa fa-arrow-right"></i></button>                   
+                  </Element >
               </div>
             </div>
           </div>

@@ -9,8 +9,15 @@ class PostActions {
       'getViewdetailPostSuccess',
       'getViewdetailPostFail' ,    
 
-       'getRelativePostsuccess',
-      'getRelativePostfail' 
+      'getRelativePostsuccess',
+      'getRelativePostfail',
+
+      'getAllPostsuccess',
+      'getAllPostfail',
+
+      'updatenumpostView',
+      'nextpage',
+      'previouspage'   
 
      
     );
@@ -35,7 +42,19 @@ class PostActions {
       .fail((jqXhr) => {
         this.actions.getPostfail(jqXhr.responseJSON.message);
       });
+  }  
+    getAllposts(){
+    $.ajax({    
+      url: '/api/allposts'      
+    })
+      .done((data) => {           
+        this.actions.getAllPostsuccess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getAllPostfail(jqXhr.responseJSON.message);
+      });
   }
+
   getrelativepost(idcurentpost,idrelative,num){
 
     $.ajax({  

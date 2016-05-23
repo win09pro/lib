@@ -8,6 +8,39 @@ class Poststore {
     this.detailpost ={};
     this.detailpostCategory={}; 
     this.relativeposts=[];
+    this.allposts=[];
+
+    this.numpostview=5;
+    this.numpage=0;
+    this.currentpage=1;
+    this.numpost=0;
+
+  }
+  onPreviouspage(){
+      if (this.currentpage>1)
+     this.currentpage--;   
+  }
+
+  onNextpage()
+  {
+    if (this.currentpage<this.numpage)
+     this.currentpage++;   
+  }
+  onUpdatenumpostView(e)
+  {
+    this.numpostview=e.target.value;   
+    this.currentpage=1;
+    this.numpage=Math.ceil(this.numpost/Number(this.numpostview)); 
+   
+  }
+  onGetAllPostsuccess(data)
+  {
+    this.allposts = data;    
+    this.numpost=data.length;
+    this.numpage=Math.ceil(this.numpost/Number(this.numpostview));   
+  }
+   onGetAllPostfail(jqXhr) {
+    toastr.error(jqXhr.responseJSON.message);
   }
   onGetViewdetailPostSuccess(data)
   {

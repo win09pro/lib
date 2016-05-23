@@ -147,7 +147,7 @@ class AddUserStore {
       onUpdatepassword(event)
       {
             this.passWord = event.target.value;
-            this.directorValidationState = '';
+            this.passWordValidationState = '';
             this.helpBlockpassword = '';
       }
       onUpdaterepassword(event)

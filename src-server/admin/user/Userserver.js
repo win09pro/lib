@@ -76,6 +76,93 @@ app.post('/api/user', function(req, res, next) {
     });
    });
 
+/**USER**/
+/**
+ * POST /api/updatepassuser
+ * update password user.
+ */
+
+app.post('/api/updatepassuser', function(req, res, next) {
+  var userID = req.body.id;
+  var password = req.body.password; 
+
+  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if (err) return next(err);
+        // hash the password along with our new salt
+        bcrypt.hash(password, salt, function(err, hash) {
+            if (err) return next(err);
+            // override the cleartext password with the hashed one
+            password = hash;
+      User.findOne({ _id: userID }, function(err, user) {
+      user.update({ $set: {                    
+                    password:password                   
+        } }, function(err) {
+            if (err) return next(err);
+            res.send({ message: 'user has been updated successfully!' });
+          });
+        });           
+      });
+    });
+   });
+
+/**USER**/
+/**
+ * POST /api/updateinfouser
+ * Update current user to the database.
+ */
+
+app.post('/api/updateinfouser', function(req, res, next) {
+  var userID = req.body.id;
+  var userName = req.body.userName; 
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var barcode = req.body.barcode;
+  var type = req.body.type;
+  var avatar = req.body.avatar;
+
+  User.findOne({ _id: userID }, function(err, user) {
+   if (err) return next(err);
+   if(user.username!=userName){
+      User.findOne({username:userName}, function(err1, alreadyUser)
+        {
+            if((err1)||(!alreadyUser))
+            {
+              try{
+                user.update({ $set: {
+                            username: userName,                           
+                            name:{first:firstName,last:lastName} ,
+                            barcode:barcode,
+                            type:type,
+                            avatar:avatar
+                }}, function(err) {
+                    if (err) return next(err);
+                    res.send({ message: userName + ' được cập nhật thành công!' });
+                  });
+             } catch (e) {
+                res.status(e).send({ message: userName + ' lỗi xảy ra' });
+            }
+            }
+            else
+            {
+               res.send({ message: userName + ' đã có trong hệ thống, thử tên khác' });
+            }
+        })
+   }
+   else{
+         user.update({ $set: {
+                    username: userName,                   
+                    name:{first:firstName,last:lastName} ,
+                    barcode:barcode,
+                    type:type,
+                    avatar:avatar
+        }}, function(err) {
+            if (err) return next(err);
+            res.send({ message: userName + ' được cập nhật thành công!' });
+          });
+   }
+   });
+  });
+
 /**
  * GET /api/checkusername
  * Get a user from the database.
@@ -106,6 +193,21 @@ app.post('/api/user', function(req, res, next) {
   });
 });
 
+/**
+ * GET /api/user/:id
+ * Get a user from the database.
+ */
+  app.get('/api/user/:id', function(req, res, next) {
+  var id = req.params.id;
+  User.findOne({ _id: id }, function(err, user) {
+    if (err) return next(err);
+
+    if (!user) {
+      return res.status(404).send({ message: 'User not found.' });
+    }
+    res.send(user);
+  });
+});
 /**
  * POST /api/deleteuser
  * Delete a User from the database.

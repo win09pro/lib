@@ -27,6 +27,9 @@ import Appmain from './components/main/App';
 import Main from './components/main/Main';
 import Viewdetailpost from './components/main/Post/Viewdetailpost';
 import Listallpost from './components/main/Post/Listallpost';
+import Userprofille from './components/main/User/Userprofille';
+import Editprofile from './components/main/User/Editprofile';
+import EditPassword from './components/main/User/EditPassword';
 //import Login from './components/main/Login/Login';
 export default (
   <Route>
@@ -59,6 +62,9 @@ export default (
   <Route component={Appmain}> 
     <Route path='/' component={Main}/> 
     <Route path='/post/listall' component ={Listallpost}/>   
+    <Route path='/user/profile' component ={Userprofille}/>  
+    <Route path='/user/profile/edit' component ={Editprofile}/>   
+    <Route path='/user/profile/editpassword' component ={EditPassword}/>           
     <Route path=':link' component={Viewdetailpost}/> 
   </Route>
   </Route>

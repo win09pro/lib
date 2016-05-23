@@ -1,10 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
-.main-body ul, li, a, i, img, button
+.main-body ul.list-main-menu ul, li, a, i, img, button
 {
   transition:all 0.3s ease-out 0s;
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
 }
+
 strong
 {
   color:#000;
@@ -50,6 +51,10 @@ h1,h2,h3,h4,h5,h6
   position: relative;
   width: 100%;
   margin: 20px 20px;
+}
+.library-header .logo p
+{
+  display:none;
 }
 .library-header .menu
 {
@@ -170,7 +175,7 @@ h1,h2,h3,h4,h5,h6
 }
 .library-header  .main-menu>ul>li>a{
   color:#666;
-  padding:25px 18px;
+  padding:20px 18px;
   text-transform:uppercase;
   display:block;
   font-family: 'Roboto', sans-serif;
@@ -178,7 +183,7 @@ h1,h2,h3,h4,h5,h6
   color:#262626;
   background-color: #fff;
 }
-.library-header  .main-menu ul li:before
+.library-header  .main-menu ul.list-main-menu li:before
 {
   content:"";
   height:0px;
@@ -194,7 +199,7 @@ h1,h2,h3,h4,h5,h6
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
 }
-.library-header .main-menu ul li:hover:before{
+.library-header .main-menu ul.list-main-menu li:hover:before{
   height:5px;
   width:100%;
 }
@@ -277,7 +282,359 @@ h1,h2,h3,h4,h5,h6
   background-color:#00bfff;
   color:#fff;
 }
+/*.library-header .main-menu .user
+{
+  display: none;
+}
+*/
+.library-header .main-menu .user-login
+{
+  display: none;
+}
+.library-header .main-menu .user
+{
+  display: none;
+}
+
 /*============END HEADER==============*/
+/*============SMALL HEADER==============*/
+.library-small-header
+{
+  float:left;
+  width:100%;
+  position:fixed;
+  top:0;
+  z-index:200;
+  left:0px;
+}
+.library-small-header .header-container
+{
+  float:left;
+  width:100%;
+  position: relative;
+  background-color: #00bfff;
+}
+.library-small-header .logo
+{
+  padding: 0px;
+  position: relative;
+  width: 100%;
+  margin: 2px auto;
+  text-align: center;
+}
+.library-small-header .logo img
+{
+  display: none;
+}
+.library-small-header .logo p
+{
+  font-size: 2em;
+  color:#fff;
+  margin: 0px;
+}
+.library-small-header .menu
+{
+  float:left;
+  width:100%;
+  position: relative;
+  background-color: #00bfff;
+}
+.library-small-header .top-menu
+{
+  float:left;
+  width:100%;
+  padding:10px 0px;
+  color: #fff;
+  display: none;
+}
+.library-small-header .top-menu .site_info
+{
+  float:left;
+}
+.library-small-header .top-menu .user
+{
+  float:right;
+  margin-right: 10px;
+}
+.library-small-header .top-menu .user ul
+{
+  list-style: none;
+  margin: 0;
+}
+.library-small-header .top-menu .user ul li
+{
+  position: relative;
+  float:right;
+}
+.library-small-header .top-menu .user ul li:before
+{
+  content:"";
+  height:0px;
+  width:20%;
+  left:0px;
+  top:100%;
+  background-color:#fff;
+  bottom:0px;
+  right:0px;
+  margin:2px 0 0 0;
+  position:absolute;
+  transition:all 0.3s ease-out 0s;
+  -moz-transition:all 0.3s ease-out 0s;
+  -webkit-transition:all 0.3s ease-out 0s;
+}
+.library-small-header .top-menu .user ul li:hover:before
+{
+  height: 3.5px;
+  width: 90%;
+  background-color: #ccffcc;
+}
+.library-small-header .top-menu .user a
+{
+  margin-right: 10px;
+  color: #fff;
+}
+.library-small-header .top-menu .user-login
+{
+  float:right;
+  margin-right: 10px;
+}
+.library-small-header .top-menu .user-login ul
+{
+  list-style: none;
+  margin: 0;
+}
+.library-small-header .top-menu .user-login ul li
+{
+  position: relative;
+  float:right;
+}
+.library-small-header .top-menu .user-login a
+{
+  margin-right: 10px;
+  color: #fff;
+}
+.library-small-header .top-menu .user-login ul li img
+{
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.library-small-header .main-menu
+{
+  float:left;
+  width:100%;
+  background-color:#fff;
+}
+.library-small-header .main-menu ul
+{
+  float:left;
+  width:70%;
+  list-style:none;
+  margin:0px
+  background: #fff;
+  padding:0px;
+
+}
+.library-small-header .main-menu ul li
+{
+  float:left;
+  position:relative;
+  margin:0px ;
+}
+.library-small-header .main-menu>ul>li
+{
+  float:left;
+  position:relative;
+  margin: 0 0-10px 0 ;
+
+}
+.library-small-header  .main-menu>ul>li>a{
+  color:#666;
+  padding:12px 15px;
+  text-transform:uppercase;
+  display:block;
+  font-family: 'Roboto', sans-serif;
+  font-weight:300;
+  color:#262626;
+  background-color: #fff;
+}
+.library-small-header  .main-menu ul.list-main-menu li:before
+{
+  content:"";
+  height:0px;
+  width:20%;
+  left:0px;
+  top:100%;
+  background-color:#00bfff;;
+  bottom:0px;
+  right:0px;
+  margin:auto;
+  position:absolute;
+  transition:all 0.3s ease-out 0s;
+  -moz-transition:all 0.3s ease-out 0s;
+  -webkit-transition:all 0.3s ease-out 0s;
+}
+.library-small-header .main-menu ul.list-main-menu li:hover:before{
+  height:5px;
+  width:100%;
+}
+.library-small-header .main-menu>ul>li:after
+{
+  content:"";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 7px 5px;
+  border-color: transparent transparent #00bfff transparent;
+  position:absolute;
+  left:0px;
+  right:0px;
+  margin:auto;
+  bottom:0px;
+  opacity:0;
+}
+.library-small-header .main-menu ul li:hover:after
+{
+    opacity:1;
+}
+.library-small-header .main-menu ul ul
+{
+  border-top:solid 5px;
+  box-shadow:0px 5px 5px 0px rgba(0,0,0,0.3);
+  background-color:#fff;
+  position:absolute;
+  left:0px;
+  top:102%;
+  z-index:100;
+  visibility:hidden;
+  opacity:0;
+  margin:20px 0px 0px 0px !important;
+  min-width:250px;
+  border-bottom: solid 5px #00bfff;
+  border-top: solid 5px #00bfff;
+  padding:5px;
+
+}
+.library-small-header .main-menu ul li.last ul
+{
+    right: 0px;
+    left: auto;
+}
+.library-small-header .main-menu ul li:hover > ul
+{
+   opacity:1;
+   visibility:visible;
+   margin:-1px !important;
+}
+.library-small-header .main-menu ul ul li
+{
+  float:left;
+  width:100%;
+  margin:2.5px 0px;
+  padding: 0px;
+}
+.library-small-header .main-menu ul ul li:hover:before
+{
+    display: none;
+}
+/*.main-menu ul ul li:hover
+{
+  background-color: #00bfff;
+  color:#fff;
+}*/
+
+.library-small-header .main-menu ul ul li a{
+  display: block;
+  width: 100%;
+  padding:10px 15px;
+  text-transform:capitalize;
+  font-size:15px;
+  font-weight:400;
+  /*//padding-right:50px;*/
+  background-color: #fff;
+}
+.library-small-header .main-menu ul ul li a:hover{
+  background-color:#00bfff;
+  color:#fff;
+}
+.library-small-header .main-menu .user
+{
+  float:right;
+  width: 30%;
+  margin: 10px auto;
+}
+.library-small-header .main-menu .user ul
+{
+  list-style: none;
+  margin: 0;
+  float:right;
+}
+.library-small-header .main-menu .user ul li
+{
+  position: relative;
+  float:right;
+}
+.library-small-header .main-menu .user ul li:before
+{
+  content:"";
+  height:0px;
+  width:20%;
+  left:0px;
+  top:100%;
+  background-color:#fff;
+  bottom:0px;
+  right:0px;
+  margin:2px 0 0 0;
+  position:absolute;
+  transition:all 0.3s ease-out 0s;
+  -moz-transition:all 0.3s ease-out 0s;
+  -webkit-transition:all 0.3s ease-out 0s;
+}
+.library-small-header .main-menu .user ul li:hover:before
+{
+  height: 3.5px;
+  width: 90%;
+  background-color: #ccffcc;
+}
+.library-small-header .main-menu .user a
+{
+  margin-right: 10px;
+  color:#00bfff;
+}
+.library-small-header .main-menu .user-login
+{
+  float:right;
+  width: 30%;
+  margin: 10px auto;
+}
+.library-small-header .main-menu .user-login ul
+{
+  list-style: none;
+  margin: 0;
+  float:right;
+}
+.library-small-header .main-menu .user-login ul li
+{
+  position: relative;
+  float:right;
+}
+.library-small-header .main-menu .user-login a
+{
+  margin-right: 10px;
+  color: #00bfff;;
+}
+.library-small-header .main-menu .user-login ul li img
+{
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+/*============END SMALL HEADER==============*/
+
 /*#slider {
     min-height: 450px;
     min-width: 100%;
@@ -646,4 +1003,24 @@ slider img {
   font-family: 'Time New Roman';
   font-style: italic;
   color: red;
+}
+/*
+SCROLL to TOP
+
+*/
+#maintoTopbutton{
+  border: none;
+  height: 40px;
+  width: 40px;
+  background-color: #ff80df;
+  border-radius: 100%;
+  color: #fff;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  opacity: 0.5;
+}
+#maintoTopbutton:hover{
+background-color: #7733ff;
+opacity: 1;
 }
