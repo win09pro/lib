@@ -72,15 +72,16 @@ class AddBookStore {
   }
    onGetBookSuccess(data)
    {
-      this.id=data._id;
-      this.name = data.name;
-      this.author = data.author;  
-      this.publisher = data.publisher; 
-      this.code = data.code;
-      this.status = data.status;
-      this.description = data.description;
-      this.imageUrl =data.imageUrl;
-      this._cateId =data._cateId;
+      this.id=data.book._id;
+      this.name = data.book.name;
+      this.author = data.book.author;  
+      this.publisher = data.book.publisher; 
+      this.code = data.book.code;
+      this.status = data.book.status;
+      this.description = data.book.description;
+      this.imagePreviewUrl = data.book.imageUrl;
+      this.imageUrl=data.book.imageUrl;
+      this._cateId =data.book._cateId;
 
 
       this.helpBlockName = '';
@@ -195,7 +196,7 @@ class AddBookStore {
       this.helpBlockDescription = '';
       this.helpBlockCate = '';
     }
-    onUpdatePublisher()
+    onUpdatePublisher(event)
     {
       this.publisher = event.target.value;
       this.publisherValidationState = '';
@@ -225,7 +226,7 @@ class AddBookStore {
       this.helpBlockDescription = '';
       this.helpBlockCate = '';
     }
-    onUpdateDescription()
+    onUpdateDescription(event)
     {
       this.description = event.target.value;
       this.descriptionValidationState = '';
@@ -291,9 +292,10 @@ class AddBookStore {
     {
      this.helpBlockUpload ="Đang tải lên....";
     }
-    onUploadImageSuccess(){
+    onUploadImageSuccess(link){
         this.helpBlockUpload ="Tải lên thành công";
-        console.log(this.imageUrl);
+        this.imageUrl=link;
+        console.log("link:" + link);
     }
     onUploadImageFail(jqXhr){
         this.helpBlockUpload ="Quá trình tải thất bại";

@@ -42,8 +42,6 @@ class AddBookAction {
       url: '/api/book/'+bookid})
       .done((data) => {
         this.actions.getBookSuccess(data);
-        UploadAction.updateImagepreview(data.imageUrl);
-        UploadAction.updateImagefile(data.imageUrl);
       })
       .fail((jqXhr) => {
         this.actions.getBookFail(jqXhr.responseJSON.message);
@@ -62,19 +60,22 @@ class AddBookAction {
         type: 'POST'
     })
     .done((data) => {
-      this.actions.uploadSuccess(data.link);
+      this.actions.uploadImageSuccess(data.link);
 
     })
     .fail((jqXhr) =>{
-      this.actions.uploadFail(jqXhr.responseJSON.message);
+      this.actions.uploadImageFail(jqXhr.responseJSON.message);
     });
   }
 
-  addBook(id , name, author, publisher ,code , status , description , imageUrl , _cateId) {
+  addBook(payload) {
+    console.log(name);
     $.ajax({
       type: 'POST',
       url: '/api/book',
-      data: {id:id, name: name, author: author, publisher:publisher ,code :code , status: status, description:description , imageUrl :imageUrl , _cateId : _cateId }
+      data: {id:payload.id, name: payload.name, author: payload.author,
+       publisher:payload.publisher ,code :payload.code , status: payload.status, description:payload.description,
+        _cateId : payload._cateId, imageUrl :payload.imageUrl }
     })
       .done((data) => {
         this.actions.addBookSuccess(data.message);

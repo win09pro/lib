@@ -13,7 +13,9 @@ class LoginStore {
   }  
   onLogout()
   {
-  	localStorage.removeItem('username');
+  	localStorage.removeItem('userid');
+    localStorage.removeItem('username');
+    localStorage.removeItem('avatar');
   	this.user ='';
     this.password ='';
     this.helpBlock='';
@@ -21,6 +23,7 @@ class LoginStore {
   onLoginSuccess(data)
   {  	
   	console.log(data);
+  localStorage.setItem('userid', data._id);
 	localStorage.setItem('username', data.name.last);
   localStorage.setItem('avatar', data.avatar);
   this.helpBlock='Đăng nhập thành công';

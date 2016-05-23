@@ -72,6 +72,7 @@
     "react-datetime": "^2.1.0",
     "react-dropzone": "^3.4.0",
     "react-quill": "^0.4.1",
+    "react-toastr": "^2.6.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"

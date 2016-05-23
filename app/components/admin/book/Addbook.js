@@ -85,8 +85,9 @@ class AddBook extends React.Component {
     }
     
     if (name && author && publisher && code && status && description && _cateId) {
-      AddBookAction.addBook(id:id, name:name, author:author, publisher:publisher, 
-        code:code, status:status, description:description, _cateId:_cateId, imageUrl: this.state.state1.imageUrl);
+      AddBookAction.addBook({id:id, name:name, author:author, publisher:publisher, 
+        code:code, status:status, description:description, _cateId:_cateId, imageUrl:this.state.state1.imageUrl});
+      console.log(imageUrl);
     }
   }
 
@@ -95,7 +96,7 @@ class AddBook extends React.Component {
       if(this.state.state1._cateId == cate._id){
           return(
               <option value={cate._id} key={index+1} selected >
-                  cate.name
+                  {cate.name}
               </option>
           );
       }
@@ -143,9 +144,9 @@ class AddBook extends React.Component {
                     <label className='control-label'>Trạng thái</label>
                       <select className='form-control' value={this.state.state1.status} onChange={AddBookAction.updateStatus}>
                           <option value='0'>-- Chọn trạng thái --</option>
-                          <option value='1'>Đang được mượn</option>
+                          <option value='1'>Trống</option>
                           <option value='2'>Đang chờ</option>
-                          <option value='3'>Trống</option>
+                          <option value='3'>Đang mượn</option>
                       </select>
                     <span className='help-block'>{this.state.state1.helpBlockStatus}</span>                    
                   </div> 
@@ -194,10 +195,5 @@ class AddBook extends React.Component {
     );
   }
 }
-// <div className={'form-group ' + this.state.cateValidationState}>
-//                     <label className='control-label'>CATEGORY</label>
-//                     <input type='text' className='form-control' ref='CateTextField' value={this.state.cate}
-//                            onChange={AddBookAction.updateCate}/>
-//                     <span className='help-block'>{this.state.helpBlockCate}</span>                    
-//                   </div>   
+
 export default AddBook;

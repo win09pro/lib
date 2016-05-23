@@ -2,7 +2,7 @@ import React from 'react';
 import AddBook from './AddBook';
 import ListBooks from './ListBooks';
 
-class Home extends React.Component {
+class HomeBook extends React.Component {
   render() {
     return (
 
@@ -21,4 +21,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default HomeBook;
