@@ -86,8 +86,7 @@ class AddBook extends React.Component {
     
     if (name && author && publisher && code && status && description && _cateId) {
       AddBookAction.addBook({id:id, name:name, author:author, publisher:publisher, 
-        code:code, status:status, description:description, _cateId:_cateId, imageUrl:this.state.state1.imageUrl});
-      console.log(imageUrl);
+        code:code, status:status, description:description, _cateId:_cateId, imageUrl: this.state.state1.imageUrl});
     }
   }
 

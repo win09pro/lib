@@ -13,12 +13,16 @@ class LoginStore {
   }  
   onLogout()
   {
-  	localStorage.removeItem('userid');
-    localStorage.removeItem('username');
-    localStorage.removeItem('avatar');
+    localStorage.removeItem('userid');
+  	localStorage.removeItem('username');
+    localStorage.removeItem('avatar');     
   	this.user ='';
     this.password ='';
     this.helpBlock='';
+    setTimeout(function() {
+    LoginActions.setOpenModal(false);
+    window.location.reload();
+  }, 500); 
   }
   onLoginSuccess(data)
   {  	
@@ -54,4 +58,5 @@ class LoginStore {
       this.password ='';   
   }
 }
+
 export default alt.createStore(LoginStore);

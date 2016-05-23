@@ -52,7 +52,7 @@ class ListBooks extends React.Component {
    }
    
   render() {   
-    function Type_User(type)
+  function Type_User(type)
   {
     if (type == 1)
       return "Admin1";

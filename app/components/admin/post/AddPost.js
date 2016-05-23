@@ -93,8 +93,9 @@ class AddPost extends React.Component {
       AddPostActions.invalidTitle();
       this.refs.titleField.focus();
     }
-    if (title && dateStart && introduce && content)
+    if (title && dateStart && introduce && content &&link &&pictureURL)
      {
+
           AddPostActions.addPost({
              id:id,
              title:title,
@@ -102,7 +103,7 @@ class AddPost extends React.Component {
              dateStart:moment(dateStart).format('x'),
              pictureURL:pictureURL,
              content:content,
-             link:link,
+             link:link.substr(21),
              postCategory:postCategoryid
            });
     }

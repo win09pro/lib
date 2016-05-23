@@ -8,12 +8,10 @@
 	<title>BachKhoa Admin</title>
 	<link rel="stylesheet" href="css/AdminLTE.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900"/>
-	<link rel="stylesheet" href="css/main.css"/>
-	<link rel="stylesheet" href="css/main1.css"/>
-	<link rel="stylesheet" href="css/mainpost.css">
+
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="css/Adminlogin.css"/>
 	<link rel="stylesheet" href="css/style.css"/>
+
   <link rel="stylesheet" href="css/quill.snow.css">
   <link rel="stylesheet" href="css/checkbox.css">
 	<!-- Font Awesome -->
@@ -22,12 +20,16 @@
     <!-- Theme style -->
   <link rel="stylesheet" href="css/skin-blue.min.css">
 	<link rel="stylesheet" href="js/bxslider/jquery.bxslider.css">
-
+	<link rel="stylesheet" href="css/main.css"/>
+		<link rel="stylesheet" href="css/AdminLTE.min.css">
+	<link rel="stylesheet" href="css/main1.css"/>
+	<link rel="stylesheet" href="css/mainpost.css">
+	<link rel="stylesheet" href="css/userprofile.css">
  <script language="javascript" type="text/javascript" src ='/js/ckeditor/ckeditor.js'></script>
 </head>
 
 <body class="main-body">
-	<header class='header'>
+	<header class='library-header'>
 		<div class="container">
 			<div class="header-container">
 				<div class="row">
@@ -144,97 +146,124 @@
   </a>
 </div>
 </div>
-<div class="library-content">
+<div class="user-profile-content">
 	<div class="container">
-		<div class ="postnews">
-			<div class = "postnews-header">
+			<div class = "user-profile-header">
 			<ol class="breadcrumb page-breadcrumb pull-left">
 			<li><i class="fa fa-home"></i><a href="index.html"> Trang chủ</a></i></li>
-			<li><a href="">Tin tức</a></li>
-			<li class="active">Tin tức</li>
+			<li class="active">Trang cá nhân</li>
 			</ol>
-		</div>
-		</div>
-		<div class="postnews-content">
-			<div class="postnews-title">
-				<h1>Tin tức mới nhất</h1>
-				<div class="postnews-time">
-					<span><i class="fa fa-clock-o fa-1.5x" aria-hidden="true"></i></span>
-					08:35:14
-					<span>18/04/2016</span>
+			</div>
+		<div class="user-profile">
+			<div class="user-profile-title">
+				<h2>Thông tin cá nhân</h2>
+			</div>
+			<div class="row">
+				<div class="col-sx-12 col-md-5 col-sm-12">
+					<div class="form-avatar">
+						<div class="fileupload-image">
+							<img src="http://id.hdonline.vn/template/frontend/images/avarta-lg.jpg" alt="avatar" />
+						</div>
+					</div>
+				</div>
+				<div class="col-sx-12 col-md-7 col-sm-12">
+					<div class="user-profile-info">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td class="none-top">Họ tên</td>
+									<td class="none-top">Trương Hoàng Nhật</td>
+								</tr>
+								<tr>
+									<td>Tên đăng nhập</td>
+									<td>thnhat51202574</td>
+								</tr>
+								<tr>
+									<td>Họ tên</td>
+									<td>Trương Hoàng Nhật</td>
+								</tr>
+								<tr>
+									<td>Mã số</td>
+									<td>51202574</td>
+								</tr>
+								<tr>
+									<td>Loại tài khoản</td>
+									<td>Thường</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="clear-both">
+									</div>
+					<div class="rows">
+					<div class="col-xs-12 col-md-6">
+						<button type="button" class="user-editprofile" name="button"><b>Sửa thông tin</b></button>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<button type="button" class="user-changepassword" name="button"><b>Đổi mật khẩu</b></button>
+					</div>
+					</div>
 				</div>
 			</div>
-			<div class ='postnews-introduce'>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+			<div class="clear-both">
 			</div>
-			<div class="postnews-content-content">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<div class="user-transaction-history">
+				<div class="h2-title">
+					<h2>Lịch sử mượn sách thư viện</h2>
+				</div>
+				<div class="user-profile-info">
+					<table class="table">
+						<thead>
+							<th class="none-top">Mã giao dịch</th>
+							<th class="none-top">Mã sách</th>
+							<th class="none-top">Tên sách</th>
+							<th class="none-top">Ngày mượn</th>
+							<th class="none-top">Ngày trả</th>
+							<th class="none-top">Tình trạng</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td>4123</td>
+								<td>4112323</td>
+								<td>Giáo dục quốc phòng</td>
+								<td>29/02/2016</td>
+								<td>29/03/2016</td>
+								<td>Chưa trả</td>
+							</tr>
+							<tr>
+								<td>4123</td>
+								<td>4112323</td>
+								<td>Giáo dục quốc phòng</td>
+								<td>29/02/2016</td>
+								<td>29/03/2016</td>
+								<td>Chưa trả</td>
+							</tr>
+							<tr>
+								<td>4123</td>
+								<td>4112323</td>
+								<td>Giáo dục quốc phòng</td>
+								<td>29/02/2016</td>
+								<td>29/03/2016</td>
+								<td>Chưa trả</td>
+							</tr>
+							<tr>
+								<td>4123</td>
+								<td>4112323</td>
+								<td>Giáo dục quốc phòng</td>
+								<td>29/02/2016</td>
+								<td>29/03/2016</td>
+								<td>Chưa trả</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
 			</div>
 
 		</div>
-		<div class="postnews-relative">
-			<div class="postnews-relative-title">
-				<h1>Tin tức liên quan</h1>
-				<div class="row">
-					<div class="col-md-3 col-sm-6">
-							<div class="list-postnews-relative">
-								<a href="#"><button type="button" class='btn btn-primary' name="button"> Xem thêm</button></a>
-								<img src="http://www.w3schools.com/css/rock600x400.jpg" alt="" />
-								<div class="postnews-relative-content">
-									<p>Northern Lights in Norway Northern Lights in Norway Northern Lights in Norway</p>
-								</div>
-							</div>
-					</div>
-					<div class="col-md-3 col-sm-6">
-							<div class="list-postnews-relative">
-								<a href="#"><button type="button" class='btn btn-primary' name="button"> Xem thêm</button></a>
-								<img src="http://www.w3schools.com/css/rock600x400.jpg" alt="" />
-								<div class="postnews-relative-content">
-									<p>Northern Lights in Norway Northern Lights in Norway Northern Lights in Norway</p>
-								</div>
-							</div>
-					</div>
-					<div class="col-md-3 col-sm-6">
-							<div class="list-postnews-relative">
-								<a href="#"><button type="button" class='btn btn-primary' name="button"> Xem thêm</button></a>
-								<img src="http://www.w3schools.com/css/rock600x400.jpg" alt="" />
-								<div class="postnews-relative-content">
-									<p>Northern Lights in Norway Northern Lights in Norway Northern Lights in Norway</p>
-								</div>
-							</div>
-					</div>
-					<div class="col-md-3 col-sm-6">
-							<div class="list-postnews-relative">
-								<a href="#"><button type="button" class='btn btn-primary' name="button"> Xem thêm</button></a>
-								<img src="http://www.w3schools.com/css/rock600x400.jpg" alt="" />
-								<div class="postnews-relative-content">
-									<p>Northern Lights in Norway Northern Lights in Norway Northern Lights in Norway</p>
-								</div>
-							</div>
-					</div>
-					<div class="col-md-3 col-sm-6">
-							<div class="list-postnews-relative">
-								<a href="#"><button type="button" class='btn btn-primary' name="button"> Xem thêm</button></a>
-								<img src="http://www.w3schools.com/css/rock600x400.jpg" alt="" />
-								<div class="postnews-relative-content">
-									<p>Northern Lights in Norway Northern Lights in Norway Northern Lights in Norway</p>
-								</div>
-							</div>
-					</div>
-					<div class="col-md-3 col-sm-6">
-							<div class="list-postnews-relative">
-								<a href="#"><button type="button" class='btn btn-primary' name="button"> Xem thêm</button></a>
-								<img src="http://www.w3schools.com/css/rock600x400.jpg" alt="" />
-								<div class="postnews-relative-content">
-									<p>Northern Lights in Norway Northern Lights in Norway Northern Lights in Norway</p>
-								</div>
-							</div>
-					</div>
-				</div>
 		</div>
-	</div>
 </div>
- <button class="admintoTopbutton" id='admintoTopbutton'><i className="fa fa-arrow-up" aria-hidden="true"></i></button>
 <div class="main-library-footer">
 	<div class="row">
 		<div class="col-md-6 col-sm-12">
@@ -267,15 +296,6 @@
     <script src="js/app.min.js"></script>
 		<script src="js/bxslider/jquery.bxslider.min.js"></script>
 		<script type="text/javascript">
-				 $(window).scroll(function () {
-        if ($(this).scrollTop() > 70) {
-           console.log('abc');
-		   $('#admintoTopbutton').fadeIn();
-        } else {
-          console.log('def');
-		  $('#admintoTopbutton').fadeOut();
-		}
-    });		
 		$(window).load(function(){
 			$('.bxslider').bxSlider(
 			{

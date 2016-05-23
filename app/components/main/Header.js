@@ -34,13 +34,13 @@ class Header extends React.Component {
               </div>
             </div>
             <div className="item">
-              <img src="http://localhost:3000/img/2.jpg" alt="Chania" />
+              <img src="/img/2.jpg" alt="Chania" />
             </div>
             <div className="item">
-              <img src="http://localhost:3000/img/3.jpg" alt="Chania" />
+              <img src="/img/3.jpg" alt="Chania" />
             </div>
             <div className="item">
-              <img src="http://localhost:3000/img/4.jpg" alt="Chania" />
+              <img src="/img/4.jpg" alt="Chania" />
             </div>
           </div>
           {/* Left and right controls */}

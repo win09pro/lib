@@ -29,13 +29,14 @@
 
 <body>
 	<div class="main-body">
-	<header class='library-header'>
+	<header id="library-header" class='library-header'>
 		<div class="container">
 			<div class="header-container">
 				<div class="row">
 					<div class="col-md-3 col-sm-2">
 						<div class="logo">
 						<a href="index.html"><img src="img/logo.png" alt="logo" /></a>
+						<p>BK LIBRARY</p>
 						</div>
 
 					</div>
@@ -56,7 +57,7 @@
 								</div>
 							</div>
 							<div class="main-menu">
-									<ul>
+									<ul class="list-main-menu">
 										<li><a href="#">TRANG CHỦ</a></li>
 										<li> <a href="#">GIỚI THIỆU</a>
 											<ul>
@@ -93,6 +94,14 @@
 											</ul>
 										</li>
 									</ul>
+									<div class="user">
+										<ul>
+											
+											<li><a href="#" type="button" name="button"> <i class="fa fa-pencil-square-o"></i> Đăng ký</a></li>
+											<li><a href="#" type="button" name="button"> <i class="fa fa-user"></i> Đăng nhập</a></li>
+											
+									</div>
+
 							</div>
 
 						</div>
@@ -320,6 +329,7 @@
     <!-- AdminLTE App -->
     <script src="js/app.min.js"></script>
 		<script src="js/bxslider/jquery.bxslider.min.js"></script>
+		<script src="js/main.js"></script>
 		<script type="text/javascript">
 		$(window).load(function(){
 			$('.bxslider').bxSlider(

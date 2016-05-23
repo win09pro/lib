@@ -1,20 +1,31 @@
 import alt from '../../../alt';
-import AddUserActions from '../../../actions/admin/usermanage/AddUserActions';
-import listUsersActions from '../../../actions/admin/usermanage/listUsersActions';
-class AddUserStore {
+import UserprofilleActions from '../../../actions/main/User/UserprofilleActions';
+import LoginActions from '../../../actions/main/Login/LoginActions';
+import localStorage from 'localStorage';
+//import listUsersActions from '../../../actions/admin/usermanage/listUsersActions';
+class UserprofilleStore {
   constructor() {
-      this.bindActions(AddUserActions);
+      this.bindActions(UserprofilleActions);
       this.id='';
       this.userName = '';
+      this.setlogout=false;
+      this.userNamecheck=true;
+      this.oldpasscheck=false;
+      this.oldpassword='';
       this.passWord = '';
       this.repassWord = '';
       this.firstName= '';
       this.lastName= '';
       this.Type ='';
       this.fileAvatar ={};
-      this.imagePreviewUrl='/uploads/avatar.jpg';
-      this.imageUrl='/uploads/avatar.jpg';
+      this.imagePreviewUrl='';
+      this.imageUrl='';
+
+      this.user ={};
+      this.userfullname ={};
+
       this.userNameValidationState='';
+      this.oldpasswordValidation='';
       this.passWordValidationState='';
       this.repassWordValidationState='';
       this.fistNameValidationState='';
@@ -22,6 +33,7 @@ class AddUserStore {
       this.typeValidationState='';
 
       this.helpBlockuserName='';
+      this.helpBlockoldpassword=''
       this.helpBlockpassword='';
       this.helpBlockrepassword='';
       this.helpBlockfirstName='';
@@ -29,14 +41,50 @@ class AddUserStore {
       this.helpBlocktype='';
       this.helpBlockUpload ='';
       }
+
+      onUpdatepasswordUserSuccess()
+      {
+        this.setlogout=true;        
+        this.oldpassword= '';        
+        this.passWord = '';
+        this.repassWord = '';         
+       
+        this.passWordValidationState='has-success';
+        this.repassWordValidationState='has-success';
+      
+        this.oldpasswordValidation='has-success';
+
+        this.helpBlockoldpassword='';     
+        this.helpBlockpassword='';
+        this.helpBlockrepassword='';       
+      }
+      onOldpasswordCorrect(){
+        this.oldpasswordValidation='has-success';
+        this.helpBlockoldpassword='';
+        this.oldpasscheck=true;
+
+      }
+      onOldpasswordUncorrect(){
+        this.oldpasswordValidation='has-error';
+        this.helpBlockoldpassword='Mật khẩu cũ không chính xác';
+        this.oldpasscheck=false;
+
+      }
+      onUpdateoldpassword(event){
+        this.oldpassword=event.target.value;
+        this.helpBlockoldpassword='';
+        this.oldpasswordValidation='';
+      }
       onAlreadyHaduser(message)
       {
+         this.userNamecheck = false;
          this.helpBlockuserName=message;
          this.userNameValidationState='has-error';
-         this.helpBlockuserName=this.userName + ' đã tồn tại';
+         this.helpBlockuserName=this.userName + ' đã tồn tại';        
       }
       usernameok()
       {
+         this.userNamecheck = true;
          this.helpBlockuserName='Tên đăng nhập có thể sử dụng';
          this.userNameValidationState='has-success';
       }
@@ -46,6 +94,8 @@ class AddUserStore {
       }
       onGetUserSuccess(data)
       {
+      this.user = data;
+      this.userfullname = data.name;
       this.id=data._id;
       this.userName = data.username;
       this.passWord ='';
@@ -79,31 +129,32 @@ class AddUserStore {
 
       onAddUserSuccess(SuccessMessage)
       {
-            this.id='';
-            this.userName = '';
-            this.passWord = '';
-            this.repassWord = '';
-            this.firstName= '';
-            this.lastName= '';
-            this.Type='';
-            this.fileAvatar={};
-            this.imagePreviewUrl='/uploads/avatar.jpg';
-            this.imageUrl='/uploads/avatar.jpg';
-            this.userNameValidationState='has-success';
-            this.passWordValidationState='has-success';
-            this.repassWordValidationState='has-success';
-            this.fistNameValidationState='has-success';
-            this.lastNameValidationState='has-success';
-            this.typeValidationState='has-success';
+        localStorage.setItem('username', this.lastName);
+        localStorage.setItem('avatar', this.imageUrl);
+        this.oldpassword= '';
+        this.id='';
+        this.userName = '';
+        this.passWord = '';
+        this.repassWord = '';
+        this.firstName= '';
+        this.lastName= '';
+        this.Type='';
+        this.fileAvatar={};           
+        this.userNameValidationState='has-success';
+        this.passWordValidationState='has-success';
+        this.repassWordValidationState='has-success';
+        this.fistNameValidationState='has-success';
+        this.lastNameValidationState='has-success';
+        this.typeValidationState='has-success';
+        this.oldpasswordValidation='has-success';
 
-
-            this.helpBlockuserName='';
-            this.helpBlockpassword='';
-            this.helpBlockrepassword='';
-            this.helpBlockfirstName='';
-            this.helpBlocklastName='';
-            this.helpBlocktype=SuccessMessage;
-            listUsersActions.get();
+        this.helpBlockoldpassword='';
+        this.helpBlockuserName='';
+        this.helpBlockpassword='';
+        this.helpBlockrepassword='';
+        this.helpBlockfirstName='';
+        this.helpBlocklastName='';
+        this.helpBlocktype=SuccessMessage;           
 
       }
 
@@ -116,6 +167,8 @@ class AddUserStore {
             this.fistNameValidationState='has-error';
             this.lastNameValidationState='has-error';
             this.typeValidationState='has-error';
+            this.oldpasswordValidation='has-error';
+
 
             this.id='';
             this.userName = '';
@@ -123,10 +176,8 @@ class AddUserStore {
             this.repassWord = '';
             this.firstName= '';
             this.lastName= '';
-            this.Type=3;
-            this.fileAvatar={};
-            this.imagePreviewUrl='/uploads/avatar.jpg';
-            this.imageUrl='/uploads/avatar.jpg';
+            this.oldpassword='';           
+            this.fileAvatar={};        
 
             this.helpBlockuserName=errorMessage;
             this.helpBlockpassword=errorMessage;
@@ -134,14 +185,15 @@ class AddUserStore {
             this.helpBlockfirstName=errorMessage;
             this.helpBlocklastName=errorMessage;
             this.helpBlocktype=errorMessage;
+            this.helpBlockoldpassword=errorMessage;
       }
 
       onUpdateuserName(event)
       {
-            this.userName = event.target.value;
-            this.userNameValidationState = '';
-            this.helpBlockuserName = '';
-            AddUserActions.checkUserName(this.userName);
+        this.userName = event.target.value;
+        this.userNameValidationState = '';
+        this.helpBlockuserName = '';    
+        this.userNamecheck = true;  
       }
 
       onUpdatepassword(event)
@@ -187,52 +239,57 @@ class AddUserStore {
       onInvaliduserName()
       {
             this.userNameValidationState ='has-error';
-            this.helpBlockuserName ='Please enter UserName';
+            this.helpBlockuserName ='Vui lòng nhập tên đăng nhập';
       }
       onInvalidpassword()
       {
             this.passWordValidationState= 'has-error';
-            this.helpBlockpassword= 'Please enter Password';
+            this.helpBlockpassword= 'Vui lòng nhập mật khẩu';
       }
       onInvalidrepassword()
       {
             this.repassWordValidationState= 'has-error';
-            this.helpBlockrepassword= 'Please enter Password';
+            this.helpBlockrepassword= 'Vui lòng nhập đúng mật khẩu';
       }
       onInvalidfirstName()
       {
             this.fistNameValidationState = 'has-error';
-            this.helpBlockfirstName = 'Please enter your firstName';
+            this.helpBlockfirstName = 'Vui lòng nhập họ lót';
       }
       onInvalidlastName()
       {
             this.lastNameValidationState = 'has-error';
-            this.helpBlocklastName ="Please enter your lastName";
+            this.helpBlocklastName ="Vui lòng nhập tên";
       }
       onInvalidType()
       {
             this.typeValidationState='has-error';
-            this.helpBlocktype='Please choose type';
+            this.helpBlocktype='Vui lòng chọn kiểu người dùng';
+      }
+      onInvalidOldpassword(){
+            this.oldpasswordValidation='has-error';
+            this.helpBlockoldpassword='Vui lòng nhập mật khẩu cũ';
       }
       onPasswordNotSame()
       {
             this.passWord = '';
             this.repassWord = '';
             this.repassWordValidationState= 'has-error';
-            this.helpBlockrepassword= 'Password not same! Enter again';
+            this.helpBlockrepassword= 'Mật khẩu không đúng. Vui lòng nhập lại';
 
       }
       onClearAll()
       {        
         this.userName = '';
+        this.oldpassword='';
         this.passWord = '';
         this.repassWord = '';
         this.firstName= '';
         this.lastName= '';
         this.Type ='';
         this.fileAvatar ={};
-        this.imagePreviewUrl='/uploads/avatar.jpg';
-        this.imageUrl='/uploads/avatar.jpg';
+        this.imagePreviewUrl= this.user.avatar;
+        this.imageUrl=this.user.avatar;
         this.userNameValidationState='';
         this.passWordValidationState='';
         this.repassWordValidationState='';
@@ -287,4 +344,4 @@ class AddUserStore {
        toastr.error(jqXhr.responseJSON.message);
       }
 }
-export default alt.createStore(AddUserStore);
+export default alt.createStore(UserprofilleStore);

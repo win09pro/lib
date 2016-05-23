@@ -73,6 +73,7 @@ constructor(props)
                       </div>
                     </div>
                   </div>
+                  <button type ="submit" style={{'display':'none'}}></button>
                  {/* <div className="form-group">
                     <label className="col-md-3 control-label" />
                     <div className="col-md-9">

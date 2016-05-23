@@ -18,31 +18,32 @@ class Navbar extends React.Component {
   }
   componentDidMount() {  
     Mainnavbarstore.listen(this.onChange);
-    MainnavbarActions.getIntroduceCategory();
+    //MainnavbarActions.getIntroduceCategory();
     MainnavbarActions.getServiceCategory();
-    MainnavbarActions.getHelpCategory();
+    //MainnavbarActions.getHelpCategory();
+    
   }
 
   onChange(state) {
    this.setState(state); 
   } 
    render() {     
-
+    console.log(this.state.update);
     let introducetab = this.state.IntroduceCate.map((IntroduceCate,index) =>
       {
         return(
-           <li> <a href="#">{IntroduceCate.nameCate}</a> </li>
+           <li> <a href={IntroduceCate.link}>{IntroduceCate.title}</a> </li>
         )});
-    let servicetab = this.state.ServiceCate.map((ServiceCate,index) =>
+    let servicetab = this.state.listPostService.map((PostService,index) =>
     {
-      return (
-         <li><a href="#">{ServiceCate.nameCate}</a></li>
+      return (        
+         <li><a href={PostService.link}>{PostService.title}</a></li>        
         )
     });
     let helptab = this.state.HelpCate.map((helpcategory,index)=>
     {
       return(
-        <li> <a href="#">{helpcategory.nameCate}</a> </li>
+        <li> <a href={helpcategory.link}>{helpcategory.title}</a> </li>
         )
     })
     let userName = localStorage.getItem('username');
@@ -64,7 +65,7 @@ class Navbar extends React.Component {
             <div className="user-login">
                       <ul>
                         <li><a href="#" type="button" name="button" onClick ={LoginActions.logout}> <i className="fa fa-sign-out" /> Thoát</a></li>
-                        <li><a href="#" type="button" name="button"> {userName} </a></li>   
+                        <li><a href="/user/profile" type="button" name="button"> {userName} </a></li>   
                         <li><img className='img-responsive' src={localStorage.getItem('avatar')}></img></li>                    
                       </ul>
             </div>
@@ -73,13 +74,14 @@ class Navbar extends React.Component {
    
 
     return (
-     <header className="library-header">
+     <header id="library-header" className="library-header">
         <div className="container">
           <div className="header-container">
             <div className="row">
               <div className="col-md-3 col-sm-2">
                 <div className="logo">
                   <a href="/"><img src="http://localhost:3000/img/logo.png" alt="logo" /></a>
+                  <p>BK LIBRARY</p>
                 </div>
               </div>
               <div className="col-md-9">
@@ -92,7 +94,7 @@ class Navbar extends React.Component {
                   </div>
                 </div>
                 <div className="main-menu">
-                  <ul>
+                  <ul className="list-main-menu">
                     <li><a href="/">TRANG CHỦ</a></li>
                     <li> <a href="#">GIỚI THIỆU</a>
                       <ul>
@@ -107,12 +109,13 @@ class Navbar extends React.Component {
                         <li><a href="#">Cơ sở dữ liệu online</a></li>
                         <li><a href="#">Bộ sưu tập số</a></li>
                         <li><a href="#">Bộ sưu tập chuyên đề</a></li>
-                      </ul>
+                      </ul>                     
                     </li>
-                    <li className="last"><a href="#">DỊCH VỤ</a>
-                      <ul>
+                    <li className="last"><a href="#">DỊCH VỤ</a>         
+                      <ul>            
                       {servicetab}
                       </ul>
+                     
                     </li>
                     <li className="last"><a href="#">TRỢ GIÚP</a>
                       <ul>
@@ -120,6 +123,7 @@ class Navbar extends React.Component {
                       </ul>
                     </li>
                   </ul>
+                    {Navbarusers}
                 </div>
               </div>
             </div>

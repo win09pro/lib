@@ -15,7 +15,11 @@ class listPostsActions {
       'removeArrayId',
 
       'openModal',
-      'closeModal'   
+      'closeModal',
+
+      'updatenumpostView',
+      'nextpage',
+      'previouspage'   
     );
   }
   delete(id)

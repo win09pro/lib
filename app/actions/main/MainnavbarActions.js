@@ -7,7 +7,8 @@ class MainnavbarActions {
       'getServiceCateSuccess',
       'GetServiceCateFail',
       'getHelpCateSuccess',
-      'getHelpCateFail'
+      'getHelpCateFail',
+      'updatenavbar'
     );
   }
   getIntroduceCategory()

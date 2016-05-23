@@ -1,6 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router';
 import App from './components/admin/App';
+import Adminlogin from './components/admin/login/Adminlogin';
 
 import HomeDocumentType from './components/admin/documenttype/HomeDocumentType';
 import ViewDocumentType from './components/admin/documenttype/ViewDocumentType';
@@ -26,15 +27,20 @@ import Appmain from './components/main/App';
 import Main from './components/main/Main';
 import Viewdetailpost from './components/main/Post/Viewdetailpost';
 import Listallpost from './components/main/Post/Listallpost';
+<<<<<<< HEAD
 import Login from './components/main/Login/Login';
 
 import ViewDetailBook from './components/main/book/ViewDetailBook';
 import ListAllBook from './components/main/book/ListAllBook';
 
+import Userprofille from './components/main/User/Userprofille';
+import Editprofile from './components/main/User/Editprofile';
+import EditPassword from './components/main/User/EditPassword';
+//import Login from './components/main/Login/Login';
 export default (
   <Route>
-  <Route component={App}>
-
+  <Route path='/admin/login' component ={Adminlogin}/>
+  <Route component={App}>    
     <Route path='/admin' component={HomeDocumentType} />
     <Route path='/admin/document-type' component={HomeDocumentType} />
     <Route path='/admin/document-type/:id' component={ViewDocumentType} />
@@ -63,9 +69,11 @@ export default (
     <Route path='/' component={Main}/> 
     <Route path='/allbook' component = {ListAllBook} />
     <Route path='/book/:id' component = {ViewDetailBook}/> 
-    <Route path='/post/listall' component ={Listallpost}/>
-    <Route path='/login' component ={Login}/>
-    <Route path=':link' component={Viewdetailpost}/>
+    <Route path='/post/listall' component ={Listallpost}/>   
+    <Route path='/user/profile' component ={Userprofille}/>  
+    <Route path='/user/profile/edit' component ={Editprofile}/>   
+    <Route path='/user/profile/editpassword' component ={EditPassword}/>           
+    <Route path=':link' component={Viewdetailpost}/> 
   </Route>
   </Route>
 );

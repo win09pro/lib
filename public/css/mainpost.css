@@ -94,7 +94,7 @@
   margin-bottom: 25px;
   height: 250px;
 }
-.postnews-relative .list-postnews-relative button
+.postnews-relative .list-postnews-relative .list-postnews-relative-button
 {
   position: absolute;
   z-index: 10;
@@ -115,7 +115,7 @@
   width: 100%;
   height: 175px;
 }
-.postnews-relative .list-postnews-relative:hover button
+.postnews-relative .list-postnews-relative:hover .list-postnews-relative-button
 {
   opacity: 1;
   margin-left: 80px;
@@ -174,4 +174,14 @@
 .clear-both
 {
   clear:both;
+}
+.post-pagination{
+  margin: 10px auto;
+  color:#3399ff;
+}
+.post-pagination label{
+  margin:auto 5px;
+}
+.post-pagination button:hover{
+  background-color: #00ff99;
 }

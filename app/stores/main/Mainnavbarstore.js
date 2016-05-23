@@ -5,12 +5,17 @@ class Mainnavbarstore {
   constructor() {
     this.bindActions(MainnavbarActions);
     this.IntroduceCate=[];
-    this.ServiceCate=[];
+    this.listPostService=[];
     this.HelpCate =[];
     this.modalIsOpen=true;
     this.modalRegisterIsOpen=false;
+    this.update="";
     
   }  
+  onUpdatenavbar()
+  {
+    this.update="updated";   
+  }
   onGetIntroCateSuccess(data)
   {
       this.IntroduceCate=data;
@@ -21,7 +26,7 @@ class Mainnavbarstore {
   }
   onGetServiceCateSuccess(data)
   {
-    this.ServiceCate=data;
+    this.listPostService=data;
   }
   onGetHelpCateSuccess(data)
   {
