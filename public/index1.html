@@ -30,17 +30,16 @@
 <body>
 	<div class="main-body">
 	<header id="library-header" class='library-header'>
-		<div class="container">
+		<div id="library-header-container" class="container">
 			<div class="header-container">
 				<div class="row">
-					<div class="col-md-3 col-sm-2">
+					<div id="logo-header" class="col-md-3 col-sm-2 col-xs-2">
 						<div class="logo">
 						<a href="index.html"><img src="img/logo.png" alt="logo" /></a>
 						<p>BK LIBRARY</p>
 						</div>
-
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-9 col-sm-10 col-sx-2">
 						<div class="menu">
 							<div class="top-menu">
 									<div class="site_info">
@@ -94,12 +93,26 @@
 											</ul>
 										</li>
 									</ul>
-									<div class="user">
+									<div class="user-login">
 										<ul>
-											
+											<li class="icon-nav last">
+    										<a href="javascript:void(0);"onclick="myFunction()"><i class="fa fa-bars" aria-hidden="true"></i></a>
+												<ul>
+													<li>
+														<a href="#">Gi112ới thiệu</a>
+														<a href="#">Tra cứu</a>
+														<a href="#">Dịch vụ</a>
+														<a href="#">Thông báo</a>
+														<div class="division">
+														</div>
+														<a href="#"><img className='img-responsive' src='https://lh3.googleusercontent.com/-7OYl8XgynSE/VfBJXtlzQoI/AAAAAAAABzc/vHSiYACVXKEsl6-_zC1iEjeX9ghwwVI3ACKgB/w140-h140-p/10404350_726130120851806_7601624870689946612_n.jpg'></img> Đăng ký</a>
+														<a href="#" type="button" name="button"> <i class="fa fa-user"></i> Đăng nhập</a>
+													</li>
+												</ul>
+											</li>
 											<li><a href="#" type="button" name="button"> <i class="fa fa-pencil-square-o"></i> Đăng ký</a></li>
 											<li><a href="#" type="button" name="button"> <i class="fa fa-user"></i> Đăng nhập</a></li>
-											
+										</ul>
 									</div>
 
 							</div>
@@ -310,11 +323,7 @@
 		</div>
 	</div>
 </div>
-<<<<<<< HEAD:public/index1.html
-	</div>
-=======
 
->>>>>>> master:public/index.html
   <!-- <div id="app">{{ html|safe }}</div> -->
   <script src="js/vendor.js"></script>
   <script src="/socket.io/socket.io.js"></script>

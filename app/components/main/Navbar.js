@@ -53,6 +53,20 @@ class Navbar extends React.Component {
       Navbarusers  =(
             <div className="user">
                       <ul>
+                        <li className="icon-nav last">
+                          <a href="javascript:void(0);" onclick="myFunction()"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                          <ul>
+                            <li>
+                              <a href="#">Giới thiệu</a>
+                              <a href="#">Tra cứu</a>
+                              <a href="#">Dịch vụ</a>
+                              <a href="#">Thông báo</a>
+                              <div className="division"></div>
+                              <a href="#" type="button" name="button" onClick ={LoginActions.openLoginModal} > <i className="fa fa-user" /> Đăng nhập</a>
+                              <a href="#" type="button" name="button" onClick ={RegisterActions.openRegisterModal}> <i className="fa fa-pencil-square-o" /> Đăng ký</a>
+                            </li>
+                          </ul>
+                        </li>
                         <li><a href="#" type="button" name="button" onClick ={LoginActions.openLoginModal} > <i className="fa fa-user" /> Đăng nhập</a></li>
                         <li><a href="#" type="button" name="button" onClick ={RegisterActions.openRegisterModal}> <i className="fa fa-pencil-square-o" /> Đăng ký</a></li>
                       </ul>
@@ -63,7 +77,24 @@ class Navbar extends React.Component {
       {
       Navbarusers= (
             <div className="user-login">
-                      <ul>
+                      <ul>                        
+                        <li className="icon-nav last">
+                          <a href="javascript:void(0);" onclick="myFunction()"><i className="fa fa-bars" aria-hidden="true"></i></a>
+                          <ul>
+                            <li>
+                              <a href="#">Giới thiệu</a>
+                              <a href="#">Tra cứu</a>
+                              <a href="#">Dịch vụ</a>
+                              <a href="#">Thông báo</a>
+                              <div className="division"></div>
+                              <a href="/user/profile">
+                                  <img src={localStorage.getItem('avatar')}></img>
+                                  {userName}
+                              </a>  
+                              <a href="#" type="button" name="button" onClick ={LoginActions.logout}> <i className="fa fa-sign-out" /> Thoát</a>                              
+                            </li>
+                          </ul>
+                        </li>
                         <li><a href="#" type="button" name="button" onClick ={LoginActions.logout}> <i className="fa fa-sign-out" /> Thoát</a></li>
                         <li><a href="/user/profile" type="button" name="button"> {userName} </a></li>   
                         <li><img className='img-responsive' src={localStorage.getItem('avatar')}></img></li>                    
@@ -75,10 +106,10 @@ class Navbar extends React.Component {
 
     return (
      <header id="library-header" className="library-header">
-        <div className="container">
+        <div id="library-header-container" className="container">
           <div className="header-container">
             <div className="row">
-              <div className="col-md-3 col-sm-2">
+              <div id="logo-header" className="col-md-3 col-sm-12">
                 <div className="logo">
                   <a href="/"><img src="http://localhost:3000/img/logo.png" alt="logo" /></a>
                   <p>BK LIBRARY</p>

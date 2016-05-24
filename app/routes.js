@@ -27,8 +27,6 @@ import Appmain from './components/main/App';
 import Main from './components/main/Main';
 import Viewdetailpost from './components/main/Post/Viewdetailpost';
 import Listallpost from './components/main/Post/Listallpost';
-<<<<<<< HEAD
-import Login from './components/main/Login/Login';
 
 import ViewDetailBook from './components/main/book/ViewDetailBook';
 import ListAllBook from './components/main/book/ListAllBook';

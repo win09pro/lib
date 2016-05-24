@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
-.main-body ul.list-main-menu ul, li, a, i, img, button
+.main-body ul.list-main-menu ul, li, a, i, img, button,#library-header-container
 {
   transition:all 0.3s ease-out 0s;
   -moz-transition:all 0.3s ease-out 0s;
@@ -316,7 +316,7 @@ h1,h2,h3,h4,h5,h6
 }
 .library-small-header .logo
 {
-  padding: 0px;
+  padding: 0 0 0 30px;
   position: relative;
   width: 100%;
   margin: 2px auto;
@@ -563,7 +563,6 @@ h1,h2,h3,h4,h5,h6
 {
   float:right;
   width: 30%;
-  margin: 10px auto;
 }
 .library-small-header .main-menu .user ul
 {
@@ -575,8 +574,9 @@ h1,h2,h3,h4,h5,h6
 {
   position: relative;
   float:right;
+  margin: 10px auto;
 }
-.library-small-header .main-menu .user ul li:before
+.library-small-header .main-menu .user ul li:not(:first-child):before
 {
   content:"";
   height:0px;
@@ -592,7 +592,7 @@ h1,h2,h3,h4,h5,h6
   -moz-transition:all 0.3s ease-out 0s;
   -webkit-transition:all 0.3s ease-out 0s;
 }
-.library-small-header .main-menu .user ul li:hover:before
+.library-small-header .main-menu .user ul li:not(:first-child):hover:before
 {
   height: 3.5px;
   width: 90%;
@@ -632,7 +632,56 @@ h1,h2,h3,h4,h5,h6
   border-radius: 100%;
   margin-right: 10px;
 }
-
+.icon-nav{
+  position: absolute;
+  margin: 0 10px !important;
+  padding: 10px 0;
+}
+.icon-nav ul li{
+  text-align: center;
+}
+.division{
+   width:50%;
+   margin: auto;
+   height: 1px;
+   border-top:1px solid #66d9ff;
+}
+@media screen and (max-width:600px) {
+  .library-small-header #logo-header{
+    display: none;
+  }
+}
+@media screen and (max-width:850px) {
+  .library-small-header .user-login{
+    margin: 0px!important;
+  }
+  .library-small-header .main-menu .user ul li:not(:first-child){
+    display: none;
+  }
+  .library-small-header .main-menu .user-login ul li:not(:first-child){
+    display: none;
+  }
+  .library-small-header .main-menu ul li:not(:first-child){
+    display: none;
+  }
+  .library-small-header{
+    position: relative;
+  }
+}
+@media screen and (min-width:851px) {
+  .library-header .user ul li:first-child{
+    display: none;
+  }
+  .library-small-header .main-menu .user ul li:first-child{
+    display: none;
+  }
+  .library-header .user-login ul li:first-child{
+    display: none;
+  }
+  .library-small-header .main-menu .user-login ul li:first-child{
+    display: none;
+  }
+}
 /*============END SMALL HEADER==============*/
 
 /*#slider {
