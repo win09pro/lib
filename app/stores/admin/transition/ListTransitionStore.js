@@ -16,6 +16,8 @@ class ListTransitionStore{
   	{
 		this.LoginModalisOpen = boolean;
 		this.dateBorrow = new Date();
+		this.dateReturn = new Date();
 		this.numDate = 7;
+		dateReturn.setDate(dateReturn.getDate()+numDate);
   	}
 }

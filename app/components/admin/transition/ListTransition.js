@@ -8,7 +8,39 @@ import {Modal} from 'react-bootstrap';
 class ListTransition extends React.Component {
     constructor(props) {
         super(props);
-        
+        this.state = ListTransitionStore.getState();
+    	this.onChange = this.onChange.bind(this);
+    }
+    componentDidMount() {
+    	ListTransitionStore.listen(this.onChange);
+    	ListTransitionAction.get();
+	}
+
+	componentWillUnmount() {
+		ListTransitionStore.unlisten(this.onChange);
+	}
+
+	onChange(state) {
+		this.setState(state);   
+	}
+
+    handleEditTransition(event){
+    	var idTrans = this.state.id;
+    	var numDate = this.state.numDate;
+    	var dateBorrow = this.state.dateBorrow;
+    	var dateReturn = this.state.dateReturn;
+    	if(!numDate){
+    		this.refs.numDateBorrowTextField.focus();
+    	}
+    	if(!dateBorrow){
+    		this.refs.dateBorrowTextField.focus();
+    	}
+    	if(!dateReturn){
+    		this.refs.dateReturnTextField.focus();
+    	}
+    	if(numDate && dateBorrow && dateReturn){
+    		ListTransitionAction.updateTrans({id: idTrans, dateBorrow: dateBorrow, dateReturn: dateReturn});
+    	}
     }
 
     render() {
@@ -22,7 +54,7 @@ class ListTransition extends React.Component {
 				</div>
 				</Modal.Header>
 				<Modal.Body>
-					<form className="form-horizontal" role="form" onSubmit={this.handleLoginUser.bind(this)}>
+					<form className="form-horizontal" role="form" onSubmit={this.handleEditTransition.bind(this)}>
 						<div className="form-body">
 							<div className="form-group">
 								<label htmlFor="username" className="col-md-3 control-label">Người dùng</label>
@@ -41,6 +73,16 @@ class ListTransition extends React.Component {
 										<i className="fa fa-lock" />
 										<input type="text" ref='booknameTextField' className="form-control" value ={this.state.password} 
 										id="bookname" readonly />
+									</div>
+								</div>
+							</div>
+							<div className="form-group">
+								<label htmlFor="dateBorrow" className="col-md-3 control-label">Số ngày mượn</label>
+								<div className="col-md-9">
+									<div className="input-icon right-inner-addon">
+										<i className="fa fa-lock" />
+										<input type="number" ref='numDateBorrowTextField' className="form-control" value ={this.state.password} 
+										id="numDateBorrow" />
 									</div>
 								</div>
 							</div>

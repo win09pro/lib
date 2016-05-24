@@ -6,14 +6,27 @@ class ListTransitionAction {
        'setOpenModal',
        'updateDateBorrow',
        'updateDateReturn',
-       'updateNumDate'
+       'updateNumDate',
+       'getAllTransitionSuccess',
+       'getAllTransitionFail'
        
     );
+    get() {
+    $.ajax({    
+      url: '/api/alltransition'      
+    })
+      .done((data) => {
+        this.actions.getAllTransitionSuccess(data);
+      })
+      .fail((jqXhr) => {
+        this.actions.getAllTransitionFail(jqXhr.responseJSON.message);
+      });
+    }
     updateTrans(payload){
-    	$.$.ajax({
+    	$.ajax({
     		url: '/api/updatetransition',
     		type: 'POST',
-    		data: {dateBorrow: payload.dateBorrow, dateReturn: payload.dateReturn},
+    		data: {id: payload.id, dateBorrow: payload.dateBorrow, dateReturn: payload.dateReturn},
     	})
     	.done(function() {
     		console.log("success");

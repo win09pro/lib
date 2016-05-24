@@ -25,6 +25,22 @@ app.post('/api/addtransition', function(req, res, next) {
 	}
 });
 
+app.get('/api/alltransition', function(req, res, next){
+	try{
+	    transition
+	    .find()
+	    .populate('_bookId')
+	    .populate('_userId')
+	    .exec(function(err, listtrans){
+	      if(err) next(err);
+
+	      res.send(listtrans);
+	    })
+  	} catch(e){
+    	res.status(e).send({ message: 'Error when get list Transition'});
+  	}
+});
+
 }
 
 module.exports = TransitionServer;
