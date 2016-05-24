@@ -2,10 +2,10 @@ import React from 'react';
 import AddBookAction from '../../../actions/admin/book/AddBookAction'
 import ListBooksStore from '../../../stores/admin/book/ListBooksStore';
 import ListBooksActions from '../../../actions/admin/book/ListBooksActions';
-import BookActionBar from '../../../shared/BookActionBar';
 
 import {Link} from 'react-router';
 import ActionBar from '../../../shared/ActionBar';
+import {Modal} from 'react-bootstrap';
 
 import bookActions from '../../../actions/admin/book/bookActions';
 // import Upload  from '../../../uploadimage/Upload';
@@ -28,9 +28,32 @@ class ListBooks extends React.Component {
   onChange(state) {
     this.setState(state);   
   }
+
+  handleChange(e)
+  {
+    var id = e.target.attributes['data-ref'].value;
+    if (e.target.checked )
+    { 
+        ListBooksActions.updateArrayId(id);       
+    } 
+    else
+    {
+     ListBooksActions.removeArrayId (id);
+    }  
+  }
+
+  deleteGroup()
+   {
+      this.state.arrayIDtoDel.map((bookid,index) =>
+      {
+        ListBooksActions.delete(bookid);
+      });
+      ListBooksActions.closeModal();
+   }
   
   render() {
     let bookList = this.state.books.map((book, index) => {
+      console.log(book);
       return (
         <tr key ={index}>
           <td>{index+1}</td>
@@ -40,9 +63,12 @@ class ListBooks extends React.Component {
           <td>{book.code}</td>
           <td>{book.status}</td>
           <td>{book.description}</td>
-          <td>{book.imageUrl}</td>
           <td>{book._cateId.name}</td>
+          <td><img src ={book.imageUrl} width = "35px" height ="35px" /></td>
           <td><ActionBar editAction={AddBookAction} deleteAction={ListBooksActions} item={book} /></td>
+          <td>            
+            <input type ='checkbox' data-ref ={book._id} onClick = {this.handleChange.bind(this)} />             
+          </td>
         </tr>
       );
     });
@@ -56,13 +82,16 @@ class ListBooks extends React.Component {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Director</th>        
-                      <th>Code</th> 
-                      <th>Barcode</th>
-                      <th>ImageUrl</th>        
-                      <th>Category</th> 
-                      <th>Functions</th>                                  
+                      <th>Tên</th>
+                      <th>Tác giả</th>  
+                      <th>Nhà xuất bản</th>      
+                      <th>Mã</th> 
+                      <th>Tình trạng</th>
+                      <th>Mô tả</th>
+                      <th>Danh mục</th>
+                      <th>Ảnh</th>
+                      <th>Hành động</th> 
+                      <th><a className ="deletegroup" onClick ={ListBooksActions.openModal} > <i className="fa fa-trash fa-danger fa-fa2x"></i></a></th>                                  
                     </tr>
                   </thead>
                   <tbody>                       
@@ -72,6 +101,27 @@ class ListBooks extends React.Component {
                 </table>       
               </div>
             </div>
+
+            <Modal show={this.state.modalIsOpen} onHide ={ListBooksActions.closeModal}>
+              <Modal.Header>
+                <Modal.Title>
+                <i className="fa fa-check-square-o fa-2x"></i>
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+              <div>
+              <h3 style ={{'color':'green'}}>Đồng ý xóa ?</h3>
+              </div>
+              </Modal.Body>      
+              <Modal.Footer>
+                  <button
+                      className="btn btn-warning"
+                    onClick={ListBooksActions.closeModal}><i className="fa fa-times"> Hủy bỏ</i> </button>          
+                  <button
+                      className="btn btn-success"
+                    onClick={this.deleteGroup.bind(this)}><i className="fa fa-check"> Xóa</i> </button>          
+              </Modal.Footer>
+            </Modal>
           </div>
         
     );

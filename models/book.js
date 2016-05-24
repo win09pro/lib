@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 
 var bookSchema = new mongoose.Schema({
-  _cateId: {type: mongoose.Schema.Types.ObjectId, ref: 'Category'},
   name: String,
   author: String,
   publisher: String,
   code: Number,
   status: Number,
   description: String,
+  _cateId: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
   imageUrl: String,
   score: Number,
   numRate: Number
@@ -15,4 +15,4 @@ var bookSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Book', bookSchema);
+module.exports = mongoose.model('book', bookSchema);

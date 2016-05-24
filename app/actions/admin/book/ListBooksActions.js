@@ -7,20 +7,26 @@ class ListBooksActions {
       'getBookSuccess',
       'getBookFail', 
       'deleteSucess',
-      'deleteFail'     
+      'deleteFail',
+
+      'updateArrayId',
+      'removeArrayId',
+
+      'openModal',
+      'closeModal'
+
     );
   }
-  delete(book){  
-    var temp =book;
+  delete(id){  
     $.ajax({
       type: 'POST',
       url: '/api/deletebook',
-      data: { id: book._id}
+      data: { id: id}
     })
       .done((data) => {
         this.actions.deleteSucess(data.message);
-        listTransActions.deleteTranByBookId(temp);
-        listTransActions.get();
+        // listTransActions.deleteTranByBookId(temp);
+        // listTransActions.get();
       })
       .fail((jqXhr) => {
         this.actions.deleteFail(jqXhr.responseJSON.message);
