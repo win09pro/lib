@@ -182,7 +182,8 @@ h2.mar-0{
 .lib-book-detail .book-text p{
 	margin: 0px;
 }
-.lib-book-detail a.borrow{
+.lib-book-detail button.borrow{
+	background-color: #fff;
 	float: left;
 	color: #666;
 	border: solid 1px #ccc;
@@ -378,7 +379,8 @@ nav{
 .books-listing .book-footer a{
 	float: left;
 }
-.books-listing a.borrow{
+.books-listing button.borrow{
+	background-color: #fff;
 	float: left;
 	color: #666;
 	border: solid 1px #ccc;

@@ -1,5 +1,6 @@
 import React from 'react';
 import ListTransition from './ListTransition';
+import AddTransition from './AddTransition';
 
 class HomeTransition extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class HomeTransition extends React.Component {
         return (
 	        <div className='container-fluid'>
 				<div className='col-md-12'>
-					<ListBooks />
+                    <AddTransition />
+					<ListTransition />
 				</div>
 				<div className='clearfix'></div>
 			</div>

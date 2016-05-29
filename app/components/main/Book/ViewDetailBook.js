@@ -4,7 +4,12 @@ import {Modal} from 'react-bootstrap';
 
 import BookAction from '../../../actions/main/book/BookAction';
 import BookStore from '../../../stores/main/book/BookStore';
-
+import {
+  ToastContainer,
+  ToastMessage,
+} from 'react-toastr';
+import LocalStorage from 'localStorage';
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class ViewDetailBook extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +26,24 @@ class ViewDetailBook extends React.Component {
     onChange(state) {
     	this.setState(state);
   	}
+  	addToTransition(barcode,name){
+		var username = localStorage.getItem('username');
+		var barcode = barcode;
+		var bookname = name;
+		if(!username){
+			LoginActions.openLoginModal();
+		}
+		else{
+			var dateStart = new Date();
+			var dateEnd = new Date();
+			dateEnd.setDate(dateEnd.getDate() + 2);
+			// console.log(date);
+			BookAction.addTransition({barcode:barcode, bookname: bookname, username:username, dateStart: dateStart, dateEnd: dateEnd});
+			this.refs.AAA.success('Bạn đã mượn sách '+name+ ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+		      closeButton: true,
+		    });	 
+		}
+	}
     render() {
     	var book = this.state.detailBook;
     	return(
@@ -49,7 +72,7 @@ class ViewDetailBook extends React.Component {
 											<div className="new-arrival">
 												<div className="lib-thumb">
 													<a href="#">
-														<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote"/>
+														<img className="img-resposive" src="/img/img1.jpg" alt="Don Quixote"/>
 													</a>
 												</div>
 												<div className="lib-text">
@@ -62,7 +85,7 @@ class ViewDetailBook extends React.Component {
 											<div className="new-arrival">
 												<div className="lib-thumb">
 													<a href="#">
-														<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote"/>
+														<img className="img-resposive" src="/img/img2.jpg" alt="Don Quixote"/>
 													</a>
 												</div>
 												<div className="lib-text">
@@ -75,7 +98,7 @@ class ViewDetailBook extends React.Component {
 											<div className="new-arrival">
 												<div className="lib-thumb">
 													<a href="#">
-														<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote"/>
+														<img className="img-resposive" src="/img/img1.jpg" alt="Don Quixote"/>
 													</a>
 												</div>
 												<div className="lib-text">
@@ -115,6 +138,7 @@ class ViewDetailBook extends React.Component {
 							</div>
 							<div className="col-md-9">
 								{/* Book detail start */}
+								<ToastContainer ref='AAA' toastMessageFactory={ToastMessageFactory} className="toast-top-right"/>
 								<div className="lib-book-detail">
 									<ol className="breadcrumb page-breadcrumb pull-left">
 						              <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li> 
@@ -140,7 +164,7 @@ class ViewDetailBook extends React.Component {
 													<p>Tác giả: {book.author}</p>
 													<p>Nhà xuất bản: {book.publisher}</p>
 												</div>
-												<a href="#" className="borrow">Đặt Mượn</a>
+												<button type="submit" className="borrow" onClick={this.addToTransition.bind(this,book.code,book.name)}>Đặt Mượn</button>
 												<div className="rating">
 	                                        		<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
 	                                    		</div>
@@ -174,7 +198,7 @@ class ViewDetailBook extends React.Component {
 													<li>
 														<div className="lib-thumb">
 															<a href="#">
-																<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/author14.png" alt=""/>
+																<img className="img-resposive" src="/img/img4.jpg" alt=""/>
 															</a>
 														</div>
 														<div className="lib-text">
@@ -186,7 +210,7 @@ class ViewDetailBook extends React.Component {
 													<li>
 														<div className="lib-thumb">
 															<a href="#">
-																<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/author14.png" alt=""/>
+																<img className="img-resposive" src="/img/img4.jpg" alt=""/>
 															</a>
 														</div>
 														<div className="lib-text">
@@ -211,7 +235,7 @@ class ViewDetailBook extends React.Component {
 										<div className="col-md-4 col-sm-6">
 											<div className="related-book">
 												<figure>
-													<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/book7.png" alt=""/>
+													<img className="img-resposive" src="/img/img1.jpg" alt=""/>
 												</figure>
 												<div className="lib-text">
 													<h3>
@@ -223,7 +247,7 @@ class ViewDetailBook extends React.Component {
 										<div className="col-md-4 col-sm-6">
 											<div className="related-book">
 												<figure>
-													<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/book8.png" alt=""/>
+													<img className="img-resposive" src="/img/img2.jpg" alt=""/>
 												</figure>
 												<div className="lib-text">
 													<h3>
@@ -235,7 +259,7 @@ class ViewDetailBook extends React.Component {
 										<div className="col-md-4 col-sm-6">
 											<div className="related-book">
 												<figure>
-													<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/book10.png" alt=""/>
+													<img className="img-resposive" src="/img/img3.jpg" alt=""/>
 												</figure>
 												<div className="lib-text">
 													<h3>

@@ -2,8 +2,9 @@ var mongoose = require('mongoose');
 
 var transitionSchema = new mongoose.Schema({
  
-  _bookId: {type: mongoose.Schema.Types.ObjectId, ref: 'book'},
-  _userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  barcode: {type: Number, ref: 'book'},
+  username: {type: String, ref: 'User'},
+  bookname: {type: String, ref: 'book'},
   dateBorrow : Date,
   dateReturn: Date,
   status: {
