@@ -38,7 +38,7 @@ mongoose.connection.on('error', function() {
 });
 
 //=================SRC-SERVER===================
-// var Postserver = require('./src-server/admin/post/Postserver');
+var Postserver = require('./src-server/admin/post/Postserver');
 var CategoryServer = require('./src-server/admin/category/CategoryServer');
 var DocumenttypeServer = require('./src-server/admin/documenttype/DocumenttypeServer');
 var Userserver = require('./src-server/admin/user/Userserver');
@@ -95,7 +95,7 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
 //   res.status(200);
 // });
 
-// Postserver(app);
+Postserver(app);
 Userserver(app);
 
 

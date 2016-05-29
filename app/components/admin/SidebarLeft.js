@@ -78,7 +78,7 @@ class SidebarLeft extends React.Component {
               <a href="#"><i className="fa fa-link"></i> <span>Books and Transitions</span> <i className="fa fa-angle-left pull-right"></i></a>
               <ul className="treeview-menu">
                 <li><Link to="/admin/book"><i className="fa fa-book"></i><span>Books</span></Link></li>
-                <li><Link to="/admin/listTrans"><i className="fa fa-link"></i><span>Transitions</span></Link></li>
+                <li><Link to="/admin/tran"><i className="fa fa-link"></i><span>Transitions</span></Link></li>
               </ul>
             </li>
               <li><a href="#"><i className="fa fa-link"></i> <span>Another Link</span></a></li>

@@ -18,6 +18,7 @@ import Viewpost from './components/admin/post/Viewpost';
 import HomeBook from './components/admin/book/HomeBook';
 import ViewBook from './components/admin/book/ViewBook';
 
+import HomeTransition from './components/admin/transition/HomeTransition';
 import AddTran from './components/transition/AddTran';
 import ListTrans from './components/transition/ListTrans';
 import EditTran from './components/transition/EditTran';
@@ -57,10 +58,10 @@ export default (
     <Route path='/admin/book' component={HomeBook} />
     <Route path='/admin/book/:id' component={ViewBook} />
 
-    <Route path='/admin/tran/:id' component={Transition} />
+    <Route path='/admin/tran/:id' component={HomeTransition} />
     <Route path='/admin/tran/edit/:id' component={EditTran} />
     <Route path='/admin/AddTran' component={AddTran} />
-    <Route path='/admin/listTrans' component={ListTrans} />
+    <Route path='/admin/tran' component={HomeTransition} />
 
   </Route>
   <Route component={Appmain}> 
