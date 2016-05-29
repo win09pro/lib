@@ -58,7 +58,7 @@ class BookAction {
 		$.ajax({
 			url: '/api/addtransition',
 			type: 'POST',
-			data: {_bookId: payload.idBook , _userId: payload.idUser, dateBorrow: payload.dateStart, dateReturn: payload.dateEnd}
+			data: {barcode: payload.barcode , bookname: payload.bookname, username: payload.username, dateBorrow: payload.dateStart, dateReturn: payload.dateEnd}
 		});
 		// .done((data) => {
 		// 	this.actions.getDetailBookSuccess(data);

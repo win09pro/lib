@@ -41,10 +41,11 @@ class ListAllBook extends React.Component {
 	clearAlert() {
 	    this.refs.AAA.clear();
 	}
-	addToTransition(id,name){
-		var idUser = localStorage.getItem('userid');
-		var idBook = id;
-		if(!idUser){
+	addToTransition(barcode,name){
+		var username = localStorage.getItem('username');
+		var barcode = barcode;
+		var bookname = name;
+		if(!username){
 			LoginActions.openLoginModal();
 		}
 		else{
@@ -52,7 +53,7 @@ class ListAllBook extends React.Component {
 			var dateEnd = new Date();
 			dateEnd.setDate(dateEnd.getDate() + 2);
 			// console.log(date);
-			BookAction.addTransition({idBook:idBook, idUser:idUser, dateStart: dateStart, dateEnd: dateEnd});
+			BookAction.addTransition({barcode:barcode, bookname: bookname, username:username, dateStart: dateStart, dateEnd: dateEnd});
 			this.refs.AAA.success('Bạn đã mượn sách '+name+ ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
 		      closeButton: true,
 		    });	 
@@ -75,7 +76,7 @@ class ListAllBook extends React.Component {
 							</h3>
 						</div>
 						<div className="book-footer">
-							<a href="#" className="borrow col-xs-12" onClick={this.addToTransition.bind(this,book._id,book.name)}>Đặt Mượn</a>
+							<button type="submit" className="borrow col-xs-12" onClick={this.addToTransition.bind(this,book.code,book.name)}>Đặt Mượn</button>
 							<div className="rating col-xs-12">
 	            				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
 	        				</div>
@@ -113,7 +114,7 @@ class ListAllBook extends React.Component {
 												<div className="new-arrival">
 													<div className="lib-thumb">
 														<a href="#">
-															<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote"/>
+															<img className="img-resposive" src="/img/img1.jpg" alt="Don Quixote"/>
 														</a>
 													</div>
 													<div className="lib-text">
@@ -126,7 +127,7 @@ class ListAllBook extends React.Component {
 												<div className="new-arrival">
 													<div className="lib-thumb">
 														<a href="#">
-															<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote"/>
+															<img className="img-resposive" src="/img/img2.jpg" alt="Don Quixote"/>
 														</a>
 													</div>
 													<div className="lib-text">
@@ -139,7 +140,7 @@ class ListAllBook extends React.Component {
 												<div className="new-arrival">
 													<div className="lib-thumb">
 														<a href="#">
-															<img className="img-resposive" src="http://kodeforest.net/html/books/library/images/new-arrival1.png" alt="Don Quixote"/>
+															<img className="img-resposive" src="/img/img1.jpg" alt="Don Quixote"/>
 														</a>
 													</div>
 													<div className="lib-text">

@@ -3,7 +3,14 @@ import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
 import BookAction from '../../../actions/main/book/BookAction';
 import BookStore from '../../../stores/main/book/BookStore';
-
+import Login from '../Login/Login';
+import LoginActions from '../../../actions/main/Login/LoginActions';
+import {
+  ToastContainer,
+  ToastMessage,
+} from 'react-toastr';
+import LocalStorage from 'localStorage';
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class MainBook extends React.Component {
   constructor(props) {
     super(props);    
@@ -19,6 +26,24 @@ class MainBook extends React.Component {
   }
   onChange(state) {
     this.setState(state);
+  }
+  addToTransition(barcode,name){
+    var username = localStorage.getItem('username');
+    var barcode = barcode;
+    var bookname = name;
+    if(!username){
+      LoginActions.openLoginModal();
+    }
+    else{
+      var dateStart = new Date();
+      var dateEnd = new Date();
+      dateEnd.setDate(dateEnd.getDate() + 2);
+      // console.log(date);
+      BookAction.addTransition({barcode:barcode, bookname: bookname, username:username, dateStart: dateStart, dateEnd: dateEnd});
+      this.refs.AAA.success('Bạn đã mượn sách '+name+ ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+          closeButton: true,
+        });  
+    }
   }
   
   render() {   
@@ -57,7 +82,7 @@ class MainBook extends React.Component {
                   <h3><a href={"/book/"+booktab._id}>{booktab.name}</a></h3>
                   <h5><i className="fa fa-pencil" /><i> {booktab.author}</i></h5>
                   <h5><i className="fa fa-barcode" /> {booktab.code}</h5>
-                  <button type="button" className="btn btn-primary" name="button">ĐẶT SÁCH</button>
+                  <button type="button" className="btn btn-primary" name="button" onClick={this.addToTransition.bind(this,booktab.code,booktab.name)}>ĐẶT SÁCH</button>
                 </div>
               </div>
             );
@@ -72,7 +97,7 @@ class MainBook extends React.Component {
                 <h3><a href={"/book/"+booktab._id}>{booktab.name}</a></h3>
                 <h5><i className="fa fa-pencil" /><i> {booktab.author}</i></h5>
                 <h5><i className="fa fa-barcode" /> {booktab.code}</h5>
-                <button type="button" className="btn btn-primary" name="button">ĐẶT SÁCH</button>
+                <button type="button" className="btn btn-primary" name="button" onClick={this.addToTransition.bind(this,booktab.code,booktab.name)}>ĐẶT SÁCH</button>
               </div>
             </div>
           );
@@ -121,6 +146,7 @@ class MainBook extends React.Component {
               // </li>*/}
             </ul>
             <div className="tab-content">
+              <ToastContainer ref='AAA' toastMessageFactory={ToastMessageFactory} className="toast-top-right"/>
               {listbooktab}
               {/*<div id="home" className="tab-pane fade in active">
                 <div className="col-md-6 col-sm-12">
