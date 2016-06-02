@@ -4,6 +4,8 @@ import {Modal} from 'react-bootstrap';
 
 import BookAction from '../../../actions/main/book/BookAction';
 import BookStore from '../../../stores/main/book/BookStore';
+import CategoryListStore from '../../../stores/admin/category/CategoryListStore';
+import CategoryListAction from '../../../actions/admin/category/CategoryListAction';
 import {
   ToastContainer,
   ToastMessage,
@@ -13,18 +15,21 @@ const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class ViewDetailBook extends React.Component {
     constructor(props) {
         super(props);
-        this.state = BookStore.getState();
+        this.state = {state1:BookStore.getState(), state2:CategoryListStore.getState()};
         this.onChange = this.onChange.bind(this);
     }
     componentDidMount(){
     	BookStore.listen(this.onChange);
+    	CategoryListStore.listen(this.onChange);
     	BookAction.getDetailBook(this.props.params.id);
+    	CategoryListAction.get();
     }
     componentWillUnmount(){
     	BookStore.unlisten(this.onChange);
+    	CategoryListStore.unlisten(this.onChange);
     }
     onChange(state) {
-    	this.setState(state);
+    	this.setState({state1:BookStore.getState(), state2:CategoryListStore.getState()});
   	}
   	addToTransition(barcode,name){
 		var username = localStorage.getItem('username');
@@ -45,7 +50,16 @@ class ViewDetailBook extends React.Component {
 		}
 	}
     render() {
-    	var book = this.state.detailBook;
+    	let listcate = this.state.state2.listcategory.map((cate, index) => {
+    		return(
+    			<li>
+					<a href={"/danh-muc/"+cate.name}>{cate.name}</a>
+				</li>
+    		);
+    	});
+
+    	var book = this.state.state1.detailBook;
+
     	return(
 	        <div className="container-fluid padding-0">
 				<div className="wrap-detail-content">
@@ -115,21 +129,7 @@ class ViewDetailBook extends React.Component {
 								<div className="widget widget-category">
 									<h2>Danh mục</h2>
 									<ul>
-										<li>
-											<a href="#">Khoa học</a>
-										</li>
-										<li>
-											<a href="#">Chính trị</a>
-										</li>
-										<li>
-											<a href="#">Văn học</a>
-										</li>
-										<li>
-											<a href="#">Xã hội</a>
-										</li>
-										<li>
-											<a href="#">Tâm lý</a>
-										</li>
+										{listcate}
 									</ul>
 
 								</div>
@@ -142,7 +142,10 @@ class ViewDetailBook extends React.Component {
 								<div className="lib-book-detail">
 									<ol className="breadcrumb page-breadcrumb pull-left">
 						              <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li> 
-						              <li><i className="" /><a href="/allbook"> Sách</a></li>            
+
+						              <li><a href={"/the-loai/"+this.state.state1.documenttype.name}>{this.state.state1.documenttype.name}</a></li>  
+						              <li><a href={"/danh-muc/"+this.state.state1.cate.name}>{this.state.state1.cate.name}</a></li>          
+						             {/* <li><i className="" /><a href={"/danh-muc/"+book._cateId.name}>{book._cateId.name}</a></li> */}
 						              <li className="active">{book.name}</li>
 						            </ol>
 						            <div className="clearfix"></div>
@@ -157,10 +160,10 @@ class ViewDetailBook extends React.Component {
 											<div className="lib-text">
 												<h2>{book.name}</h2>
 												<div className="book-text">
-													<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto.</p>
+													
 												</div>
 												<div className="book-text">
-													<p>Danh mục: {this.state.cate.name}.</p>
+													<p>Danh mục: {this.state.state1.cate.name}.</p>
 													<p>Tác giả: {book.author}</p>
 													<p>Nhà xuất bản: {book.publisher}</p>
 												</div>

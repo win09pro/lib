@@ -6,8 +6,11 @@ class BookStore{
 	    this.bindActions(BookAction);
 	    this.bookhome = [];
 	    this.listallbook = [];
+      this.listbookcate = [];
 	    this.detailBook ={};
       this.cate = {};
+      this.cateOne = {};
+      this.documenttype = {};
   	}
     onGetBookHomeSuccess(data){
       this.bookhome = data;
@@ -18,10 +21,19 @@ class BookStore{
   	onGetDetailBookSuccess(data){
   		this.detailBook = data.book;
       this.cate = data.cate;
+      this.documenttype = data.documenttype;
   	}
   	onGetDetailBookFail(jqXhr){
   		this.detailBook = {name: 'Khong tim thay du lieu'};
   	}
+    onGetListBookCateSuccess(data){
+      this.listbookcate = data.bookcates;
+      this.cateOne = data.cate;
+      this.documenttype = data.documenttype;
+    }
+    onGetListBookCateFail(jqXhr){
+      toastr.error(jqXhr.responseJSON.message);
+    }
   	onGetListAllBookSuccess(data){
   		this.listallbook = data;
   	}

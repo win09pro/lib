@@ -15,7 +15,7 @@ import CategoryListStore from '../../../stores/admin/category/CategoryListStore'
 import CategoryListAction from '../../../actions/admin/category/CategoryListAction';
 
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
-class ListAllBook extends React.Component {
+class ListBookCate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {state1:BookStore.getState(), state2:CategoryListStore.getState()};
@@ -24,7 +24,7 @@ class ListAllBook extends React.Component {
     componentDidMount(){
     	BookStore.listen(this.onChange);
     	CategoryListStore.listen(this.onChange);
-    	BookAction.getListAllBook();
+    	BookAction.getListBookCate(this.props.params.name);
     	CategoryListAction.get();
     	// console.log(BookAction.getListAllBook());
     }
@@ -72,7 +72,8 @@ class ListAllBook extends React.Component {
 				</li>
     		);
     	});
-        let listbook = this.state.state1.listallbook.map((book, index) =>{
+    	let cateOne = this.state.state1.cateOne;
+        let listbook = this.state.state1.listbookcate.map((book, index) =>{
         	return(
         		<div className="col-md-4 col-sm-6">
 	        		<div className="books-listing">
@@ -179,8 +180,9 @@ class ListAllBook extends React.Component {
 									<div className="row">
 									<ToastContainer ref='AAA' toastMessageFactory={ToastMessageFactory} className="toast-top-right"/>
 										<ol className="breadcrumb page-breadcrumb pull-left">
-							              <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li>          
-							              <li className="active">Tất cả sách</li>
+							              <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li>   
+							              <li><a href={'/the-loai/'+this.state.state1.documenttype.name}>{this.state.state1.documenttype.name}</a></li>       
+							              <li className="active">{this.props.params.name}</li>
 							            </ol>
 										<div className="lib-related-book">
 											<div className="row row-related-book">
@@ -203,4 +205,4 @@ class ListAllBook extends React.Component {
     }
 }
 
-export default ListAllBook;
+export default ListBookCate;
