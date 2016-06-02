@@ -9,6 +9,9 @@ class BookAction {
 			'getListAllBookSuccess',
 			'getListAllBookFail',
 
+			'getListBookCateSuccess',
+			'getListBookCateFail',
+
 			'getDetailBookSuccess',
 			'getDetailBookFail',
 
@@ -40,6 +43,19 @@ class BookAction {
 		})
 		.fail((jqXhr) => {
 			this.actions.getListAllBookFail(jqXhr.responseJSON.message);
+		});
+	}
+	getListBookCate(catename){
+		console.log(catename);
+		$.ajax({
+			url: '/api/bookcate/' + catename,
+			type: 'GET',
+		})
+		.done((data) => {
+			this.actions.getListBookCateSuccess(data);
+		})
+		.fail((jqXhr) => {
+			this.actions.getListBookCateFail(jqXhr.responseJSON.message);
 		});
 	}
 	getDetailBook(bookid){

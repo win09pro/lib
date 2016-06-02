@@ -31,6 +31,7 @@ import Listallpost from './components/main/Post/Listallpost';
 
 import ViewDetailBook from './components/main/book/ViewDetailBook';
 import ListAllBook from './components/main/book/ListAllBook';
+import ListBookCate from './components/main/book/ListBookCate';
 
 import Userprofille from './components/main/User/Userprofille';
 import Editprofile from './components/main/User/Editprofile';
@@ -66,8 +67,9 @@ export default (
   </Route>
   <Route component={Appmain}> 
     <Route path='/' component={Main}/> 
+    <Route path='/danh-muc/:name' component={ListBookCate}/>
     <Route path='/allbook' component = {ListAllBook} />
-    <Route path='/book/:id' component = {ViewDetailBook}/> 
+    <Route path='/chi-tiet-sach/:id' component = {ViewDetailBook}/> 
     <Route path='/post/listall' component ={Listallpost}/>   
     <Route path='/user/profile' component ={Userprofille}/>  
     <Route path='/user/profile/edit' component ={Editprofile}/>   

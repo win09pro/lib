@@ -1,5 +1,6 @@
 var book = require('../../../models/book');
 var category = require('../../../models/category');
+var documenttype = require('../../../models/documenttype');
 
 function BookServer(app){
 
@@ -34,23 +35,57 @@ app.get('/api/listbook', function(req, res, next) {
 });
 //end get list book
 
+//get list book theo category
+app.get('/api/bookcate/:name', function(req, res, next) {
+  var name = req.params.name;
+
+  category.findOne({ name:name})
+  .exec( function(err, cate){
+    if (err) return next(err);
+    documenttype
+    .findOne({_id: cate._documenttype})
+    .exec(function(err2, documenttype){
+      if(err2) next(err2);
+      book
+      .find({ _cateId:cate._id})
+      .populate('_cateId')
+      .exec(function(err1, bookcates){
+        if(err1) next(err1);
+
+        res.send({cate:cate, bookcates:bookcates, documenttype:documenttype});
+      });
+    });
+    
+  });
+    
+  
+});
+//end get list category
+
 //get book by id
 app.get('/api/book/:id', function(req, res, next){
   var id = req.params.id;
-  book.findOne({ _id: id }, function(err, book) {
+  book.findOne({ _id: id })
+  .populate('_cateId')
+  .exec(function(err, book) {
     if (err) return next(err);
 
     if (!book) {
-      return res.status(404).send({ message: 'Book not found.' });
+      return res.status(404).send({ message: 'Không tìm thấy sách.' });
     }   
     category.findOne( {_id: book._cateId}, function(err1, cate){
 
       if (err1) return next(err1);
 
-    if (!cate) {
-      return res.status(405).send({ message: 'category not found.' });
-    } 
-     res.send({book:book, cate:cate});
+      if (!cate) {
+        return res.status(405).send({ message: 'Không tìm thấy danh mục.' });
+      } 
+      documenttype
+      .findOne({_id: cate._documenttype})
+      .exec(function(err2, documenttype){
+        if(err2) next(err2);
+        res.send({book:book, cate:cate, documenttype:documenttype});
+      });
     });
   });  
 });
