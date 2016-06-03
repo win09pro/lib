@@ -12161,6 +12161,7 @@ var ListAllBook = function (_React$Component) {
 			_BookStore2.default.listen(this.onChange);
 			_CategoryListStore2.default.listen(this.onChange);
 			_BookAction2.default.getListAllBook();
+			_BookAction2.default.getBookNew();
 			_CategoryListAction2.default.get();
 			// console.log(BookAction.getListAllBook());
 		}
@@ -12220,6 +12221,39 @@ var ListAllBook = function (_React$Component) {
 						'a',
 						{ href: "/danh-muc/" + cate.name },
 						cate.name
+					)
+				);
+			});
+			var booknews = this.state.state1.booknews.map(function (booknew, index) {
+				return _react2.default.createElement(
+					'li',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'new-arrival' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'lib-thumb' },
+							_react2.default.createElement(
+								'a',
+								{ href: "/chi-tiet-sach/" + booknew._id },
+								_react2.default.createElement('img', { className: 'img-resposive', src: booknew.imageUrl, alt: booknew.name })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'lib-text' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								booknew.name
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								booknew.description
+							)
+						)
 					)
 				);
 			});
@@ -12338,99 +12372,7 @@ var ListAllBook = function (_React$Component) {
 									_react2.default.createElement(
 										'ul',
 										null,
-										_react2.default.createElement(
-											'li',
-											null,
-											_react2.default.createElement(
-												'div',
-												{ className: 'new-arrival' },
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-thumb' },
-													_react2.default.createElement(
-														'a',
-														{ href: '#' },
-														_react2.default.createElement('img', { className: 'img-resposive', src: '/img/img1.jpg', alt: 'Don Quixote' })
-													)
-												),
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-text' },
-													_react2.default.createElement(
-														'h3',
-														null,
-														'Don Quixote'
-													),
-													_react2.default.createElement(
-														'p',
-														null,
-														'Sed diam nonumy eirmod tempor invidunt ut labore et dolore'
-													)
-												)
-											)
-										),
-										_react2.default.createElement(
-											'li',
-											null,
-											_react2.default.createElement(
-												'div',
-												{ className: 'new-arrival' },
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-thumb' },
-													_react2.default.createElement(
-														'a',
-														{ href: '#' },
-														_react2.default.createElement('img', { className: 'img-resposive', src: '/img/img2.jpg', alt: 'Don Quixote' })
-													)
-												),
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-text' },
-													_react2.default.createElement(
-														'h3',
-														null,
-														'Don Quixote'
-													),
-													_react2.default.createElement(
-														'p',
-														null,
-														'Sed diam nonumy eirmod tempor invidunt ut labore et dolore'
-													)
-												)
-											)
-										),
-										_react2.default.createElement(
-											'li',
-											null,
-											_react2.default.createElement(
-												'div',
-												{ className: 'new-arrival' },
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-thumb' },
-													_react2.default.createElement(
-														'a',
-														{ href: '#' },
-														_react2.default.createElement('img', { className: 'img-resposive', src: '/img/img1.jpg', alt: 'Don Quixote' })
-													)
-												),
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-text' },
-													_react2.default.createElement(
-														'h3',
-														null,
-														'Don Quixote'
-													),
-													_react2.default.createElement(
-														'p',
-														null,
-														'Sed diam nonumy eirmod tempor invidunt ut labore et dolore'
-													)
-												)
-											)
-										)
+										booknews
 									)
 								),
 								_react2.default.createElement(
@@ -12574,6 +12516,7 @@ var ListBookCate = function (_React$Component) {
 			_BookStore2.default.listen(this.onChange);
 			_CategoryListStore2.default.listen(this.onChange);
 			_BookAction2.default.getListBookCate(this.props.params.name);
+			_BookAction2.default.getBookNew();
 			_CategoryListAction2.default.get();
 			// console.log(BookAction.getListAllBook());
 		}
@@ -12633,6 +12576,39 @@ var ListBookCate = function (_React$Component) {
 						'a',
 						{ href: "/danh-muc/" + cate.name },
 						cate.name
+					)
+				);
+			});
+			var booknews = this.state.state1.booknews.map(function (booknew, index) {
+				return _react2.default.createElement(
+					'li',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'new-arrival' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'lib-thumb' },
+							_react2.default.createElement(
+								'a',
+								{ href: "/chi-tiet-sach/" + booknew._id },
+								_react2.default.createElement('img', { className: 'img-resposive', src: booknew.imageUrl, alt: booknew.name })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'lib-text' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								booknew.name
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								booknew.description
+							)
+						)
 					)
 				);
 			});
@@ -12752,99 +12728,7 @@ var ListBookCate = function (_React$Component) {
 									_react2.default.createElement(
 										'ul',
 										null,
-										_react2.default.createElement(
-											'li',
-											null,
-											_react2.default.createElement(
-												'div',
-												{ className: 'new-arrival' },
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-thumb' },
-													_react2.default.createElement(
-														'a',
-														{ href: '#' },
-														_react2.default.createElement('img', { className: 'img-resposive', src: '/img/img1.jpg', alt: 'Don Quixote' })
-													)
-												),
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-text' },
-													_react2.default.createElement(
-														'h3',
-														null,
-														'Don Quixote'
-													),
-													_react2.default.createElement(
-														'p',
-														null,
-														'Sed diam nonumy eirmod tempor invidunt ut labore et dolore'
-													)
-												)
-											)
-										),
-										_react2.default.createElement(
-											'li',
-											null,
-											_react2.default.createElement(
-												'div',
-												{ className: 'new-arrival' },
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-thumb' },
-													_react2.default.createElement(
-														'a',
-														{ href: '#' },
-														_react2.default.createElement('img', { className: 'img-resposive', src: '/img/img2.jpg', alt: 'Don Quixote' })
-													)
-												),
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-text' },
-													_react2.default.createElement(
-														'h3',
-														null,
-														'Don Quixote'
-													),
-													_react2.default.createElement(
-														'p',
-														null,
-														'Sed diam nonumy eirmod tempor invidunt ut labore et dolore'
-													)
-												)
-											)
-										),
-										_react2.default.createElement(
-											'li',
-											null,
-											_react2.default.createElement(
-												'div',
-												{ className: 'new-arrival' },
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-thumb' },
-													_react2.default.createElement(
-														'a',
-														{ href: '#' },
-														_react2.default.createElement('img', { className: 'img-resposive', src: '/img/img1.jpg', alt: 'Don Quixote' })
-													)
-												),
-												_react2.default.createElement(
-													'div',
-													{ className: 'lib-text' },
-													_react2.default.createElement(
-														'h3',
-														null,
-														'Don Quixote'
-													),
-													_react2.default.createElement(
-														'p',
-														null,
-														'Sed diam nonumy eirmod tempor invidunt ut labore et dolore'
-													)
-												)
-											)
-										)
+										booknews
 									)
 								),
 								_react2.default.createElement(
