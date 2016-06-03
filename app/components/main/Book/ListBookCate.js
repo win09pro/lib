@@ -25,6 +25,7 @@ class ListBookCate extends React.Component {
     	BookStore.listen(this.onChange);
     	CategoryListStore.listen(this.onChange);
     	BookAction.getListBookCate(this.props.params.name);
+    	BookAction.getBookNew();
     	CategoryListAction.get();
     	// console.log(BookAction.getListAllBook());
     }
@@ -71,6 +72,23 @@ class ListBookCate extends React.Component {
 					<a href={"/danh-muc/"+cate.name}>{cate.name}</a>
 				</li>
     		);
+    	});
+    	let booknews = this.state.state1.booknews.map((booknew, index) =>{
+    		return(
+    			<li>
+					<div className="new-arrival">
+						<div className="lib-thumb">
+							<a href={"/chi-tiet-sach/"+booknew._id}>
+								<img className="img-resposive" src={booknew.imageUrl} alt={booknew.name}/>
+							</a>
+						</div>
+						<div className="lib-text">
+							<h3>{booknew.name}</h3>
+							<p>{booknew.description}</p>
+						</div>
+					</div>
+				</li>
+    			);
     	});
     	let cateOne = this.state.state1.cateOne;
         let listbook = this.state.state1.listbookcate.map((book, index) =>{
@@ -123,45 +141,7 @@ class ListBookCate extends React.Component {
 									<div className="widget widget-new-arrival">
 										<h2>Sách mới</h2>
 										<ul>
-											<li>
-												<div className="new-arrival">
-													<div className="lib-thumb">
-														<a href="#">
-															<img className="img-resposive" src="/img/img1.jpg" alt="Don Quixote"/>
-														</a>
-													</div>
-													<div className="lib-text">
-														<h3>Don Quixote</h3>
-														<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div className="new-arrival">
-													<div className="lib-thumb">
-														<a href="#">
-															<img className="img-resposive" src="/img/img2.jpg" alt="Don Quixote"/>
-														</a>
-													</div>
-													<div className="lib-text">
-														<h3>Don Quixote</h3>
-														<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div className="new-arrival">
-													<div className="lib-thumb">
-														<a href="#">
-															<img className="img-resposive" src="/img/img1.jpg" alt="Don Quixote"/>
-														</a>
-													</div>
-													<div className="lib-text">
-														<h3>Don Quixote</h3>
-														<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
-													</div>
-												</div>
-											</li>
+											{booknews}
 										</ul>
 									</div>
 									
