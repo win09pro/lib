@@ -27,23 +27,22 @@ class Navbar extends React.Component {
   onChange(state) {
    this.setState(state); 
   } 
-   render() {     
-    console.log(this.state.update);
+   render() {         
     let introducetab = this.state.IntroduceCate.map((IntroduceCate,index) =>
       {
         return(
-           <li> <a href={IntroduceCate.link}>{IntroduceCate.title}</a> </li>
+           <li key={index}> <a href={IntroduceCate.link}>{IntroduceCate.title}</a> </li>
         )});
     let servicetab = this.state.listPostService.map((PostService,index) =>
     {
       return (        
-         <li><a href={PostService.link}>{PostService.title}</a></li>        
+         <li key={index}><a href={PostService.link}>{PostService.title}</a></li>        
         )
     });
     let helptab = this.state.HelpCate.map((helpcategory,index)=>
     {
       return(
-        <li> <a href={helpcategory.link}>{helpcategory.title}</a> </li>
+        <li key={index}> <a href={helpcategory.link}>{helpcategory.title}</a> </li>
         )
     })
     let userName = localStorage.getItem('username');

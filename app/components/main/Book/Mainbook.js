@@ -51,7 +51,7 @@ class MainBook extends React.Component {
       if(index == 0){
       return(
         
-          <li className="col-md-4 col-sm-6 active" role="presentation">
+          <li className="col-md-4 col-sm-6 active" role="presentation" key={index}>
             <a data-toggle="tab" href={"#book"+(index+1)} aria-expanded="true">
               <img className="img-responsive" src={book.imageUrl} alt={book.name} />
             </a>
@@ -60,7 +60,7 @@ class MainBook extends React.Component {
       }
         else{
           return(
-              <li className="col-md-4 col-sm-6" role="presentation">
+              <li className="col-md-4 col-sm-6" role="presentation" key={index}>
                 <a data-toggle="tab" href={"#book"+(index+1)} aria-expanded="true">
                   <img className="img-responsive" src={book.imageUrl} alt={book.name} />
                 </a>
@@ -74,7 +74,7 @@ class MainBook extends React.Component {
       if(index == 0){
         return(
           
-              <div id={"book"+(index+1)} className="tab-pane fade in active">
+              <div id={"book"+(index+1)} className="tab-pane fade in active" key={index}>
                 <div className="col-md-6 col-sm-12">
                   <img className="img-responsive" src={booktab.imageUrl} alt />
                 </div>
@@ -89,7 +89,7 @@ class MainBook extends React.Component {
         }
         else{
           return(
-            <div id={"book"+(index+1)} className="tab-pane fade">
+            <div id={"book"+(index+1)} className="tab-pane fade" key={index}>
               <div className="col-md-6 col-sm-12">
                 <img className="img-responsive" src={booktab.imageUrl} alt />
               </div>

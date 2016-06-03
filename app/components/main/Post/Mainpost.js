@@ -17,32 +17,25 @@ class Mainpost extends React.Component {
   componentWillUnmount() {
     Poststore.unlisten(this.onChange);
   }
+  componentDidUpdate()
+  {
+    $('.postslider').bxSlider({
+          slideWidth: 325,
+            minSlides: 2,
+            maxSlides: 4,
+            slideMargin: 10,
+            pager: false,
+            caption:true,
+          auto: true,
+          moveSlides: 1,
+          speed: 1000
+          });
+  }
   onChange(state) {
     this.setState(state);
   }
   
   render() { 
-    var newestPosts = this.state.posts;   
-    let viewnewestpost = newestPosts.map((newestPost,index) =>
-    {    
-      return(
-        <div className="col-md-3 col-sm-6">
-              <div className="library-news">  
-                <img className="img-responsive" src={newestPost.pictureURL} alt="new" />
-                <div className="library-btn">
-                  <Link to={newestPost.link}><i className="fa fa-search" /> Chi tiết</Link>                 
-                </div>
-                <div className="title-news">
-                  <h3>{newestPost.title}</h3>
-                  <h4>{newestPost.introduce.substr(0,80)+' ...'}</h4>
-                  <div className='title-news-time'>
-                  <span><i className="fa fa-calendar"/> {moment(newestPost.dateStart).format('DD-MM-YYYY H:MM')}</span>
-                  </div>
-                </div>
-              </div>
-        </div>
-        );
-    });
     return (
       <div className="news-content">
         <div className="container-fluid">
@@ -51,10 +44,30 @@ class Mainpost extends React.Component {
             <div className="link-heading">
             <a href="/post/listall">Xem tất cả <i className="fa fa-angle-right" /></a>
             </div>
-          </div>
-          <div className="row">
-          {viewnewestpost}
-          </div>
+          </div> 
+             <ul className="postslider">            
+                {this.state.posts.map((newestPost,index) =>
+                  {    
+                    return(
+                      <li key={index}>
+                            <div className="library-news">  
+                              <img className="img-responsive" src={newestPost.pictureURL} alt="new" />
+                              <div className="library-btn">
+                                <Link to={newestPost.link}><i className="fa fa-search" /> Chi tiết</Link>                 
+                              </div>
+                              <div className="title-news">
+                                <h3>{newestPost.title}</h3>
+                                <h4>{newestPost.introduce.substr(0,80)+' ...'}</h4>
+                                <div className='title-news-time'>
+                                <span><i className="fa fa-calendar"/> {moment(newestPost.dateStart).format('DD-MM-YYYY H:MM')}</span>
+                                </div>
+                              </div>
+                            </div>
+                      </li>
+                      );
+                  }) 
+                  } 
+            </ul>
         </div>
       </div>     
     );

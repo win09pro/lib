@@ -258,7 +258,7 @@ app.get('/api/postCategory', function(req, res, next) {
       Post
      .find({postCategory:postCategory._id})
      .sort({_id:-1})
-     .limit(4)
+     .limit(8)
      .populate('postCategory')
      .exec(function(error,posts){
       if(error) next(error);
