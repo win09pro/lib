@@ -22,6 +22,8 @@ class ViewDetailBook extends React.Component {
     	BookStore.listen(this.onChange);
     	CategoryListStore.listen(this.onChange);
     	BookAction.getDetailBook(this.props.params.id);
+    	BookAction.getRelatedBook(this.props.params.id);
+    	BookAction.getBookNew();
     	CategoryListAction.get();
     }
     componentWillUnmount(){
@@ -57,6 +59,39 @@ class ViewDetailBook extends React.Component {
 				</li>
     		);
     	});
+    	let booknews = this.state.state1.booknews.map((booknew, index) =>{
+    		return(
+    			<li>
+					<div className="new-arrival">
+						<div className="lib-thumb">
+							<a href={"/chi-tiet-sach/"+booknew._id}>
+								<img className="img-resposive" src={booknew.imageUrl} alt={booknew.name}/>
+							</a>
+						</div>
+						<div className="lib-text">
+							<h3>{booknew.name}</h3>
+							<p>{booknew.description}</p>
+						</div>
+					</div>
+				</li>
+    			);
+    	});
+    	let relatedbooks = this.state.state1.relatedbooks.map((relatedbook, index) => {
+    		return(
+    			<div className="col-md-4 col-sm-6">
+					<div className="related-book">
+						<figure>
+							<img className="img-resposive" src={relatedbook.imageUrl} alt={relatedbook.name}/>
+						</figure>
+						<div className="lib-text">
+							<h3>
+								<a href={"/chi-tiet-sach/"+relatedbook._id}>{relatedbook.name}</a>
+							</h3>
+						</div>
+					</div>
+				</div>
+    			);
+    	});
 
     	var book = this.state.state1.detailBook;
 
@@ -82,45 +117,7 @@ class ViewDetailBook extends React.Component {
 								<div className="widget widget-new-arrival">
 									<h2>Sách mới</h2>
 									<ul>
-										<li>
-											<div className="new-arrival">
-												<div className="lib-thumb">
-													<a href="#">
-														<img className="img-resposive" src="/img/img1.jpg" alt="Don Quixote"/>
-													</a>
-												</div>
-												<div className="lib-text">
-													<h3>Don Quixote</h3>
-													<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div className="new-arrival">
-												<div className="lib-thumb">
-													<a href="#">
-														<img className="img-resposive" src="/img/img2.jpg" alt="Don Quixote"/>
-													</a>
-												</div>
-												<div className="lib-text">
-													<h3>Don Quixote</h3>
-													<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div className="new-arrival">
-												<div className="lib-thumb">
-													<a href="#">
-														<img className="img-resposive" src="/img/img1.jpg" alt="Don Quixote"/>
-													</a>
-												</div>
-												<div className="lib-text">
-													<h3>Don Quixote</h3>
-													<p>Sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
-												</div>
-											</div>
-										</li>
+										{booknews}
 									</ul>
 								</div>
 								{/*<!-- widget new arrival end -->*/}
@@ -235,42 +232,7 @@ class ViewDetailBook extends React.Component {
 								<div className="lib-related-book">
 									<h2>Sách liên quan</h2>
 									<div className="row row-related-book">
-										<div className="col-md-4 col-sm-6">
-											<div className="related-book">
-												<figure>
-													<img className="img-resposive" src="/img/img1.jpg" alt=""/>
-												</figure>
-												<div className="lib-text">
-													<h3>
-														<a href="#">Magic</a>
-													</h3>
-												</div>
-											</div>
-										</div>
-										<div className="col-md-4 col-sm-6">
-											<div className="related-book">
-												<figure>
-													<img className="img-resposive" src="/img/img2.jpg" alt=""/>
-												</figure>
-												<div className="lib-text">
-													<h3>
-														<a href="#">Magic</a>
-													</h3>
-												</div>
-											</div>
-										</div>
-										<div className="col-md-4 col-sm-6">
-											<div className="related-book">
-												<figure>
-													<img className="img-resposive" src="/img/img3.jpg" alt=""/>
-												</figure>
-												<div className="lib-text">
-													<h3>
-														<a href="#">Magic</a>
-													</h3>
-												</div>
-											</div>
-										</div>
+										{relatedbooks}
 									</div>
 								</div>	
 								

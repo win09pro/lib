@@ -6,6 +6,9 @@ class BookAction {
 			'getBookHomeSuccess',
 			'getBookHomeFail',
 
+			'getBookNewSuccess',
+			'getBookNewFail',
+
 			'getListAllBookSuccess',
 			'getListAllBookFail',
 
@@ -68,6 +71,32 @@ class BookAction {
 		})
 		.fail((jqXhr) => {
 			this.actions.getDetailBookFail(jqXhr.responseJSON.message);
+		});
+	}
+	getRelatedBook(bookid){
+		$.ajax({
+			url: '/api/relatedbook/' + bookid,
+			type: 'GET',
+		})
+		.done((data) => {
+			console.log(data);
+			this.actions.getRelatedBookSuccess(data);
+		})
+		.fail((jqXhr) => {
+			this.actions.getRelatedBookFail(jqXhr.responseJSON.message);
+		});
+	}
+	getBookNew(){
+		$.ajax({
+			url: '/api/booknew',
+			type: 'GET'
+		})
+		.done((data) => {
+			this.actions.getBookNewSuccess(data);
+			console.log(data);
+		})
+		.fail((jqXhr) => {
+			this.actions.getBookNewFail(jqXhr.responseJSON.message);
 		});
 	}
 	addTransition(payload){

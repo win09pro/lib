@@ -1,6 +1,7 @@
 var book = require('../../../models/book');
 var category = require('../../../models/category');
 var documenttype = require('../../../models/documenttype');
+var ObjectId = require('mongodb').ObjectID;
 
 function BookServer(app){
 
@@ -61,6 +62,25 @@ app.get('/api/bookcate/:name', function(req, res, next) {
   
 });
 //end get list category
+app.get('/api/relatedbook/:id', function(req, res, next){
+  var id = req.params.id;
+  book.findOne({_id: id})
+  .exec(function(err, book1){
+    if(err) return next(err);
+    category.findOne( {_id: book1._cateId}, function(err1, cate){
+      console.log(book1._id);
+      if(err1) return next(err1);
+      book
+      .find( {$and: [{ _cateId:cate._id}, { _id: {$ne: ObjectId(book1._id)} }]})
+      .sort({_id:-1})
+      .limit(3)
+      .exec(function(err2, relatedbooks){
+        if(err2) next(err2);
+        res.send(relatedbooks);
+      });
+    });
+  });
+});
 
 //get book by id
 app.get('/api/book/:id', function(req, res, next){
@@ -181,6 +201,20 @@ app.get('/api/bookhome', function(req, res, next){
   } catch(e){
     res.status(e).send({ message: 'Error when get list book'});
   }
+});
+app.get('/api/booknew', function(req, res, next){
+  
+    book
+    .find()
+    .sort({_id:-1})
+    .limit(3)
+    .populate('_cateId')
+    .exec(function(err, booknews){
+      if(err) next(err);
+
+      res.send(booknews);
+    });
+  
 });
 
 }
