@@ -79,7 +79,7 @@ class MainBook extends React.Component {
                   <img className="img-responsive" src={booktab.imageUrl} alt />
                 </div>
                 <div className="col-md-6 col-sm-12 ">
-                  <h3><a href={"/book/"+booktab._id}>{booktab.name}</a></h3>
+                  <h3><a href={"/chi-tiet-sach/"+booktab._id}>{booktab.name}</a></h3>
                   <h5><i className="fa fa-pencil" /><i> {booktab.author}</i></h5>
                   <h5><i className="fa fa-barcode" /> {booktab.code}</h5>
                   <button type="button" className="btn btn-primary" name="button" onClick={this.addToTransition.bind(this,booktab.code,booktab.name)}>ĐẶT SÁCH</button>
@@ -94,7 +94,7 @@ class MainBook extends React.Component {
                 <img className="img-responsive" src={booktab.imageUrl} alt />
               </div>
               <div className="col-md-6 col-sm-12 ">
-                <h3><a href={"/book/"+booktab._id}>{booktab.name}</a></h3>
+                <h3><a href={"/chi-tiet-sach/"+booktab._id}>{booktab.name}</a></h3>
                 <h5><i className="fa fa-pencil" /><i> {booktab.author}</i></h5>
                 <h5><i className="fa fa-barcode" /> {booktab.code}</h5>
                 <button type="button" className="btn btn-primary" name="button" onClick={this.addToTransition.bind(this,booktab.code,booktab.name)}>ĐẶT SÁCH</button>
@@ -110,6 +110,9 @@ class MainBook extends React.Component {
         <div className="container-fluid">
           <div className="section-heading">
             <h2><i className="fa fa-book" /> TÀI LIỆU MỚI</h2>
+            <div className="link-heading">
+            <a href="/allbook">Xem tất cả <i className="fa fa-angle-right" /></a>
+            </div>
           </div>
           <div className="row">
             <ul className="nav nav-tabs" role="tablist">
