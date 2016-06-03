@@ -742,6 +742,7 @@ slider img {
   float:left;
   width: 100%;
   background-color: #ddd;
+  padding-bottom: 25px;
 
 }
 .news-content .section-heading h2
@@ -751,7 +752,7 @@ slider img {
   background-color: #fff;
   border-radius: 30px;
 }
-.news-content .library-news
+.library-news
 {
   height: 400px;
   width: 100%
@@ -759,18 +760,18 @@ slider img {
   background-color:#000;
   overflow: hidden;
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   border-top: 3px solid #fff;
   border-left: 3px solid #fff;
   border-right: 3px solid #fff;
   border-bottom: 2px solid #00bfff;
 }
- .news-content .library-news img
+.library-news img
 {
  width: 100%;
  height: 200px;
 }
-.news-content .library-news .library-btn
+.library-news .library-btn
 {
   position: absolute;
   z-index: 100;
@@ -806,23 +807,23 @@ slider img {
   background-color: #00bfff;
 
 }
-.news-content .library-news:hover
+.library-news:hover
 {
     border: 3px solid #b3f0ff;
     box-shadow:0px 10px 20px 0px rgba(0,0,0,0.3);
     -moz-box-shadow:0px 10px 20px 0px rgba(0,0,0,0.3);
     -webkit-box-shadow:0px 10px 20px 0px rgba(0,0,0,0.3);
 }
-.news-content .library-news:hover .library-btn
+.library-news:hover .library-btn
 {
   top:25%;
   opacity: 1;
 }
-.news-content .library-news:hover .library-btn a
+.library-news:hover .library-btn a
 {
   color: #fff;
 }
-.news-content .library-news:hover img
+.library-news:hover img
 {
    opacity:0.3;
   -webkit-transform:scaleX(1.1); /* Safari and Chrome */
@@ -831,7 +832,7 @@ slider img {
   -o-transform:scaleX(1.1); /* Opera */
   transform:scaleX(1.1);
 }
-.news-content .library-news .title-news
+.library-news .title-news
 {
   position:relative;
   left: 0;
@@ -844,16 +845,16 @@ slider img {
   margin: 0px;
   border: none;
 }
-.news-content .library-news .title-news  h3
+.library-news .title-news  h3
 {
   color:#004175;
   margin-top: 10px;
 }
-.news-content .library-news:hover .title-news h3
+.library-news:hover .title-news h3
 {
   color: #00bfff;
 }
-.news-content .library-news .title-news .title-news-time
+.library-news .title-news .title-news-time
 {
   position: absolute;
   color: #a3a375;
