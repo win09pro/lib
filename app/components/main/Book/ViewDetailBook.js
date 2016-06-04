@@ -6,6 +6,8 @@ import BookAction from '../../../actions/main/book/BookAction';
 import BookStore from '../../../stores/main/book/BookStore';
 import CategoryListStore from '../../../stores/admin/category/CategoryListStore';
 import CategoryListAction from '../../../actions/admin/category/CategoryListAction';
+import Login from '../Login/Login';
+import LoginActions from '../../../actions/main/Login/LoginActions';
 import {
   ToastContainer,
   ToastMessage,
@@ -24,6 +26,7 @@ class ViewDetailBook extends React.Component {
     	BookAction.getDetailBook(this.props.params.id);
     	BookAction.getRelatedBook(this.props.params.id);
     	BookAction.getBookNew();
+    	BookAction.getComment(this.props.params.id);
     	CategoryListAction.get();
     }
     componentWillUnmount(){
@@ -51,6 +54,24 @@ class ViewDetailBook extends React.Component {
 		    });	 
 		}
 	}
+	addComment(bookId){
+		var userId = localStorage.getItem('userid');
+		var bookId = bookId;
+		var content = this.state.state1.commentContent;
+		if(content.length == 0){
+			BookAction.invalidComment();
+			this.refs.CommentTextField.focus();
+		}
+		else if(!userId){
+			LoginActions.openLoginModal();
+		}
+		else{
+			var date = new Date();
+			
+			BookAction.addComment({bookId:bookId, userId: userId, content:content, date: date});
+		}
+	}
+	
     render() {
     	let listcate = this.state.state2.listcategory.map((cate, index) => {
     		return(
@@ -70,7 +91,7 @@ class ViewDetailBook extends React.Component {
 						</div>
 						<div className="lib-text">
 							<h3>{booknew.name}</h3>
-							<p>{booknew.description}</p>
+							<p>{booknew.description.substr(0, 50)+' ...'}</p>
 						</div>
 					</div>
 				</li>
@@ -95,6 +116,22 @@ class ViewDetailBook extends React.Component {
 
     	var book = this.state.state1.detailBook;
 
+    	let comments = this.state.state1.comments.map((comment, index) =>{
+    		return(
+    			<li>
+					<div className="lib-thumb">
+						<a href="#">
+							<img className="img-resposive" src={comment._userId.avatar} alt={comment._userId.name.first}/>
+						</a>
+					</div>
+					<div className="lib-text">
+						<h4>{comment._userId.name.last + comment._userId.name.first}</h4>
+						<p className="date">{comment.date.substr(0,10)}</p>
+						<p>{comment.content}</p>
+					</div>
+				</li>
+    			);
+    	});
     	return(
 	        <div className="container-fluid padding-0">
 				<div className="wrap-detail-content">
@@ -106,7 +143,7 @@ class ViewDetailBook extends React.Component {
 									<h2 className="mar-0">Tìm kiếm</h2>
 									<div className="input-container">
 										<form method="POST" action="">
-											<input type="text" placeholder="Nhập từ khóa"/>
+											<input type="text" placeholder="Tên sách, tác giả, nhà xuất bản"/>
 											<i className="fa fa-search"></i>
 										</form>
 									</div>
@@ -160,7 +197,7 @@ class ViewDetailBook extends React.Component {
 													
 												</div>
 												<div className="book-text">
-													<p>Danh mục: {this.state.state1.cate.name}.</p>
+													<p>Danh mục: {this.state.state1.cate.name}</p>
 													<p>Tác giả: {book.author}</p>
 													<p>Nhà xuất bản: {book.publisher}</p>
 												</div>
@@ -195,31 +232,18 @@ class ViewDetailBook extends React.Component {
 										<div role="tabpanel" className="tab-pane fade" id="reviews">
 											<div className="lib-comments">
 												<ul>
-													<li>
-														<div className="lib-thumb">
-															<a href="#">
-																<img className="img-resposive" src="/img/img4.jpg" alt=""/>
-															</a>
-														</div>
-														<div className="lib-text">
-															<h4>Trung Quân</h4>
-															<p className="date">April 15,2016</p>
-															<p>Sách này hay...</p>
-														</div>
-													</li>
-													<li>
-														<div className="lib-thumb">
-															<a href="#">
-																<img className="img-resposive" src="/img/img4.jpg" alt=""/>
-															</a>
-														</div>
-														<div className="lib-text">
-															<h4>Trung Quân</h4>
-															<p className="date">April 15,2016</p>
-															<p>Sách này hay...</p>
-														</div>
-													</li>
+													{comments}
 												</ul>
+												<div>
+													<h4>Gửi đánh giá</h4>
+													<textarea rows="4" cols="100" maxLength="400" ref='CommentTextField' value={this.state.state1.commentContent} className="comment" on onChange={BookAction.updateCharCount}>
+													</textarea>
+													<br/>
+													<span className='help-block'>{this.state.state1.helpBlockComment}</span>
+													<span className="">Còn lại {this.state.state1.charcount}/400 ký tự</span>
+													<button type="submit" className='btn btn-primary pull-right' onClick={this.addComment.bind(this, book._id)}>Gửi</button>
+												</div>
+												
 											</div>
 										</div>
 									</div>
@@ -242,6 +266,7 @@ class ViewDetailBook extends React.Component {
 					</div>
 
 				</div>
+				<Login />  
 			</div>
 		);
     }

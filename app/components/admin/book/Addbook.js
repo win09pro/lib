@@ -185,7 +185,7 @@ class AddBook extends React.Component {
                     
 
                                         
-                  <button type='submit' className='btn btn-primary'>Submit</button>
+                  <button type='submit' className='btn btn-primary'>Thêm</button>
                 </form>
               </div>
             </div>            

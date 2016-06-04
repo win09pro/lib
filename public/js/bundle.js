@@ -1585,7 +1585,7 @@ var BookAction = function () {
 	function BookAction() {
 		_classCallCheck(this, BookAction);
 
-		this.generateActions('getBookHomeSuccess', 'getBookHomeFail', 'getBookNewSuccess', 'getBookNewFail', 'getListAllBookSuccess', 'getListAllBookFail', 'getListBookCateSuccess', 'getListBookCateFail', 'getDetailBookSuccess', 'getDetailBookFail', 'getRelatedBookSuccess', 'getRelatedBookFail');
+		this.generateActions('getBookHomeSuccess', 'getBookHomeFail', 'getBookNewSuccess', 'getBookNewFail', 'getListAllBookSuccess', 'getListAllBookFail', 'getListBookCateSuccess', 'getListBookCateFail', 'getDetailBookSuccess', 'getDetailBookFail', 'getRelatedBookSuccess', 'getRelatedBookFail', 'nextpage', 'previouspage', 'updateCharCount', 'invalidComment', 'addCommentSuccess', 'addCommentFail', 'getCommentSuccess', 'getCommentFail');
 	}
 
 	_createClass(BookAction, [{
@@ -1690,6 +1690,35 @@ var BookAction = function () {
 			// .fail((jqXhr) => {
 			// 	this.actions.getDetailBookFail(jqXhr.responseJSON.message);
 			// });
+		}
+	}, {
+		key: 'addComment',
+		value: function addComment(payload) {
+			var _this7 = this;
+
+			$.ajax({
+				url: '/api/addComment',
+				type: 'POST',
+				data: { _bookId: payload.bookId, _userId: payload.userId, content: payload.content, date: payload.date }
+			}).done(function (data) {
+				_this7.actions.addCommentSuccess(data.message);
+			}).fail(function (jqXhr) {
+				_this7.actions.addCommentFail(jqXhr.responseJSON.message);
+			});
+		}
+	}, {
+		key: 'getComment',
+		value: function getComment(bookId) {
+			var _this8 = this;
+
+			$.ajax({
+				url: '/api/getComment/' + bookId,
+				type: 'GET'
+			}).done(function (data) {
+				_this8.actions.getCommentSuccess(data);
+			}).fail(function (jqXhr) {
+				_this8.actions.getCommentFail(jqXhr.responseJSON.message);
+			});
 		}
 	}]);
 
@@ -3552,7 +3581,7 @@ var AddBook = function (_React$Component) {
               _react2.default.createElement(
                 'button',
                 { type: 'submit', className: 'btn btn-primary' },
-                'Submit'
+                'Thêm'
               )
             )
           )
@@ -12132,6 +12161,8 @@ var _CategoryListAction = require('../../../actions/admin/category/CategoryListA
 
 var _CategoryListAction2 = _interopRequireDefault(_CategoryListAction);
 
+var _reactScroll = require('react-scroll');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12209,9 +12240,32 @@ var ListAllBook = function (_React$Component) {
 			}
 		}
 	}, {
+		key: 'handlePreviouspage',
+		value: function handlePreviouspage() {
+			_BookAction2.default.previouspage();
+			_reactScroll.scroller.scrollTo('new', {
+				duration: 1500,
+				delay: 100,
+				smooth: true
+			});
+		}
+	}, {
+		key: 'handleNextpage',
+		value: function handleNextpage() {
+			_BookAction2.default.nextpage();
+			_reactScroll.scroller.scrollTo('new', {
+				duration: 1500,
+				delay: 100,
+				smooth: true
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
+
+			var postviewed = this.state.state1.currentpage * this.state.state1.numpostview;
+			if (postviewed > this.state.state1.numpost) postviewed = this.state.state1.numpost;
 
 			var listcate = this.state.state2.listcategory.map(function (cate, index) {
 				return _react2.default.createElement(
@@ -12251,81 +12305,85 @@ var ListAllBook = function (_React$Component) {
 							_react2.default.createElement(
 								'p',
 								null,
-								booknew.description
+								booknew.description.substr(0, 50) + ' ...'
 							)
 						)
 					)
 				);
 			});
 			var listbook = this.state.state1.listallbook.map(function (book, index) {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'col-md-4 col-sm-6' },
-					_react2.default.createElement(
+				var startindex = (_this2.state.state1.currentpage - 1) * _this2.state.state1.numpostview;
+				var endindex = startindex + _this2.state.state1.numpostview;
+				if (index >= startindex && index < endindex) {
+					return _react2.default.createElement(
 						'div',
-						{ className: 'books-listing' },
+						{ className: 'col-md-4 col-sm-6' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'lib-thumb' },
+							{ className: 'books-listing' },
 							_react2.default.createElement(
-								'a',
-								{ href: "/chi-tiet-sach/" + book._id },
-								_react2.default.createElement('img', { className: 'img-resposive', src: book.imageUrl, alt: '' })
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'lib-text' },
-							_react2.default.createElement(
-								'h3',
-								null,
+								'div',
+								{ className: 'lib-thumb' },
 								_react2.default.createElement(
 									'a',
 									{ href: "/chi-tiet-sach/" + book._id },
-									book.name
+									_react2.default.createElement('img', { className: 'img-resposive', src: book.imageUrl, alt: '' })
 								)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'book-footer' },
-							_react2.default.createElement(
-								'button',
-								{ type: 'submit', className: 'borrow col-xs-12', onClick: _this2.addToTransition.bind(_this2, book.code, book.name) },
-								'Đặt Mượn'
 							),
 							_react2.default.createElement(
 								'div',
-								{ className: 'rating col-xs-12' },
+								{ className: 'lib-text' },
 								_react2.default.createElement(
-									'span',
+									'h3',
 									null,
-									'☆'
+									_react2.default.createElement(
+										'a',
+										{ href: "/chi-tiet-sach/" + book._id },
+										book.name
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'book-footer' },
+								_react2.default.createElement(
+									'button',
+									{ type: 'submit', className: 'borrow col-xs-12', onClick: _this2.addToTransition.bind(_this2, book.code, book.name) },
+									'Đặt Mượn'
 								),
 								_react2.default.createElement(
-									'span',
-									null,
-									'☆'
-								),
-								_react2.default.createElement(
-									'span',
-									null,
-									'☆'
-								),
-								_react2.default.createElement(
-									'span',
-									null,
-									'☆'
-								),
-								_react2.default.createElement(
-									'span',
-									null,
-									'☆'
+									'div',
+									{ className: 'rating col-xs-12' },
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									),
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									),
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									),
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									),
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									)
 								)
 							)
 						)
-					)
-				);
+					);
+				}
 			});
 			return _react2.default.createElement(
 				'div',
@@ -12356,7 +12414,7 @@ var ListAllBook = function (_React$Component) {
 										_react2.default.createElement(
 											'form',
 											{ method: 'POST', action: '' },
-											_react2.default.createElement('input', { type: 'text', placeholder: 'Nhập từ khóa' }),
+											_react2.default.createElement('input', { type: 'text', placeholder: 'Tên sách, tác giả, nhà xuất bản' }),
 											_react2.default.createElement('i', { className: 'fa fa-search' })
 										)
 									)
@@ -12419,10 +12477,41 @@ var ListAllBook = function (_React$Component) {
 									_react2.default.createElement(
 										'div',
 										{ className: 'lib-related-book' },
+										_react2.default.createElement(_reactScroll.Element, { name: 'new', className: '' }),
 										_react2.default.createElement(
 											'div',
 											{ className: 'row row-related-book' },
 											listbook
+										)
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'post-pagination clearfix' },
+									_react2.default.createElement(
+										_reactScroll.Element,
+										{ name: 'nav', className: 'pull-right' },
+										_react2.default.createElement(
+											'label',
+											null,
+											"Hiển thị " + postviewed + "/" + this.state.state1.numpost + " sách"
+										),
+										_react2.default.createElement(
+											'button',
+											{ className: 'btn btn-default',
+												onClick: this.handlePreviouspage.bind(this) },
+											_react2.default.createElement('i', { className: 'fa fa-arrow-left' })
+										),
+										_react2.default.createElement(
+											'button',
+											{ className: 'btn btn-info' },
+											this.state.state1.currentpage
+										),
+										_react2.default.createElement(
+											'button',
+											{ className: 'btn btn-default',
+												onClick: this.handleNextpage.bind(this) },
+											_react2.default.createElement('i', { className: 'fa fa-arrow-right' })
 										)
 									)
 								)
@@ -12440,7 +12529,7 @@ var ListAllBook = function (_React$Component) {
 
 exports.default = ListAllBook;
 
-},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":94,"../../../stores/main/book/BookStore":111,"../Login/Login":66,"localStorage":227,"react":"react","react-bootstrap":379,"react-router":"react-router","react-toastr":439}],77:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":94,"../../../stores/main/book/BookStore":111,"../Login/Login":66,"localStorage":227,"react":"react","react-bootstrap":379,"react-router":"react-router","react-scroll":426,"react-toastr":439}],77:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12486,6 +12575,8 @@ var _CategoryListStore2 = _interopRequireDefault(_CategoryListStore);
 var _CategoryListAction = require('../../../actions/admin/category/CategoryListAction');
 
 var _CategoryListAction2 = _interopRequireDefault(_CategoryListAction);
+
+var _reactScroll = require('react-scroll');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12564,9 +12655,32 @@ var ListBookCate = function (_React$Component) {
 			}
 		}
 	}, {
+		key: 'handlePreviouspage',
+		value: function handlePreviouspage() {
+			_BookAction2.default.previouspage();
+			_reactScroll.scroller.scrollTo('new', {
+				duration: 1500,
+				delay: 100,
+				smooth: true
+			});
+		}
+	}, {
+		key: 'handleNextpage',
+		value: function handleNextpage() {
+			_BookAction2.default.nextpage();
+			_reactScroll.scroller.scrollTo('new', {
+				duration: 1500,
+				delay: 100,
+				smooth: true
+			});
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
+
+			var postviewed = this.state.state1.currentpage * this.state.state1.numpostview;
+			if (postviewed > this.state.state1.numpost) postviewed = this.state.state1.numpost;
 
 			var listcate = this.state.state2.listcategory.map(function (cate, index) {
 				return _react2.default.createElement(
@@ -12601,12 +12715,16 @@ var ListBookCate = function (_React$Component) {
 							_react2.default.createElement(
 								'h3',
 								null,
-								booknew.name
+								_react2.default.createElement(
+									'a',
+									{ href: "/chi-tiet-sach/" + booknew._id },
+									booknew.name
+								)
 							),
 							_react2.default.createElement(
 								'p',
 								null,
-								booknew.description
+								booknew.description.substr(0, 50) + ' ...'
 							)
 						)
 					)
@@ -12614,74 +12732,78 @@ var ListBookCate = function (_React$Component) {
 			});
 			var cateOne = this.state.state1.cateOne;
 			var listbook = this.state.state1.listbookcate.map(function (book, index) {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'col-md-4 col-sm-6' },
-					_react2.default.createElement(
+				var startindex = (_this2.state.state1.currentpage - 1) * _this2.state.state1.numpostview;
+				var endindex = startindex + _this2.state.state1.numpostview;
+				if (index >= startindex && index < endindex) {
+					return _react2.default.createElement(
 						'div',
-						{ className: 'books-listing' },
+						{ className: 'col-md-4 col-sm-6' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'lib-thumb' },
+							{ className: 'books-listing' },
 							_react2.default.createElement(
-								'a',
-								{ href: "/chi-tiet-sach/" + book._id },
-								_react2.default.createElement('img', { className: 'img-resposive', src: book.imageUrl, alt: '' })
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'lib-text' },
-							_react2.default.createElement(
-								'h3',
-								null,
+								'div',
+								{ className: 'lib-thumb' },
 								_react2.default.createElement(
 									'a',
 									{ href: "/chi-tiet-sach/" + book._id },
-									book.name
+									_react2.default.createElement('img', { className: 'img-resposive', src: book.imageUrl, alt: '' })
 								)
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'book-footer' },
-							_react2.default.createElement(
-								'button',
-								{ type: 'submit', className: 'borrow col-xs-12', onClick: _this2.addToTransition.bind(_this2, book.code, book.name) },
-								'Đặt Mượn'
 							),
 							_react2.default.createElement(
 								'div',
-								{ className: 'rating col-xs-12' },
+								{ className: 'lib-text' },
 								_react2.default.createElement(
-									'span',
+									'h3',
 									null,
-									'☆'
+									_react2.default.createElement(
+										'a',
+										{ href: "/chi-tiet-sach/" + book._id },
+										book.name
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'book-footer' },
+								_react2.default.createElement(
+									'button',
+									{ type: 'submit', className: 'borrow col-xs-12', onClick: _this2.addToTransition.bind(_this2, book.code, book.name) },
+									'Đặt Mượn'
 								),
 								_react2.default.createElement(
-									'span',
-									null,
-									'☆'
-								),
-								_react2.default.createElement(
-									'span',
-									null,
-									'☆'
-								),
-								_react2.default.createElement(
-									'span',
-									null,
-									'☆'
-								),
-								_react2.default.createElement(
-									'span',
-									null,
-									'☆'
+									'div',
+									{ className: 'rating col-xs-12' },
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									),
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									),
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									),
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									),
+									_react2.default.createElement(
+										'span',
+										null,
+										'☆'
+									)
 								)
 							)
 						)
-					)
-				);
+					);
+				}
 			});
 			return _react2.default.createElement(
 				'div',
@@ -12712,7 +12834,7 @@ var ListBookCate = function (_React$Component) {
 										_react2.default.createElement(
 											'form',
 											{ method: 'POST', action: '' },
-											_react2.default.createElement('input', { type: 'text', placeholder: 'Nhập từ khóa' }),
+											_react2.default.createElement('input', { type: 'text', placeholder: 'Tên sách, tác giả, nhà xuất bản' }),
 											_react2.default.createElement('i', { className: 'fa fa-search' })
 										)
 									)
@@ -12805,7 +12927,7 @@ var ListBookCate = function (_React$Component) {
 
 exports.default = ListBookCate;
 
-},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":94,"../../../stores/main/book/BookStore":111,"../Login/Login":66,"localStorage":227,"react":"react","react-bootstrap":379,"react-router":"react-router","react-toastr":439}],78:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":94,"../../../stores/main/book/BookStore":111,"../Login/Login":66,"localStorage":227,"react":"react","react-bootstrap":379,"react-router":"react-router","react-scroll":426,"react-toastr":439}],78:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12837,6 +12959,14 @@ var _CategoryListStore2 = _interopRequireDefault(_CategoryListStore);
 var _CategoryListAction = require('../../../actions/admin/category/CategoryListAction');
 
 var _CategoryListAction2 = _interopRequireDefault(_CategoryListAction);
+
+var _Login = require('../Login/Login');
+
+var _Login2 = _interopRequireDefault(_Login);
+
+var _LoginActions = require('../../../actions/main/Login/LoginActions');
+
+var _LoginActions2 = _interopRequireDefault(_LoginActions);
 
 var _reactToastr = require('react-toastr');
 
@@ -12875,6 +13005,7 @@ var ViewDetailBook = function (_React$Component) {
 			_BookAction2.default.getDetailBook(this.props.params.id);
 			_BookAction2.default.getRelatedBook(this.props.params.id);
 			_BookAction2.default.getBookNew();
+			_BookAction2.default.getComment(this.props.params.id);
 			_CategoryListAction2.default.get();
 		}
 	}, {
@@ -12895,7 +13026,7 @@ var ViewDetailBook = function (_React$Component) {
 			var barcode = barcode;
 			var bookname = name;
 			if (!username) {
-				LoginActions.openLoginModal();
+				_LoginActions2.default.openLoginModal();
 			} else {
 				var dateStart = new Date();
 				var dateEnd = new Date();
@@ -12905,6 +13036,23 @@ var ViewDetailBook = function (_React$Component) {
 				this.refs.AAA.success('Bạn đã mượn sách ' + name + ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
 					closeButton: true
 				});
+			}
+		}
+	}, {
+		key: 'addComment',
+		value: function addComment(bookId) {
+			var userId = localStorage.getItem('userid');
+			var bookId = bookId;
+			var content = this.state.state1.commentContent;
+			if (content.length == 0) {
+				_BookAction2.default.invalidComment();
+				this.refs.CommentTextField.focus();
+			} else if (!userId) {
+				_LoginActions2.default.openLoginModal();
+			} else {
+				var date = new Date();
+
+				_BookAction2.default.addComment({ bookId: bookId, userId: userId, content: content, date: date });
 			}
 		}
 	}, {
@@ -12948,7 +13096,7 @@ var ViewDetailBook = function (_React$Component) {
 							_react2.default.createElement(
 								'p',
 								null,
-								booknew.description
+								booknew.description.substr(0, 50) + ' ...'
 							)
 						)
 					)
@@ -12985,6 +13133,40 @@ var ViewDetailBook = function (_React$Component) {
 
 			var book = this.state.state1.detailBook;
 
+			var comments = this.state.state1.comments.map(function (comment, index) {
+				return _react2.default.createElement(
+					'li',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: 'lib-thumb' },
+						_react2.default.createElement(
+							'a',
+							{ href: '#' },
+							_react2.default.createElement('img', { className: 'img-resposive', src: comment._userId.avatar, alt: comment._userId.name.first })
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'lib-text' },
+						_react2.default.createElement(
+							'h4',
+							null,
+							comment._userId.name.last + comment._userId.name.first
+						),
+						_react2.default.createElement(
+							'p',
+							{ className: 'date' },
+							comment.date.substr(0, 10)
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							comment.content
+						)
+					)
+				);
+			});
 			return _react2.default.createElement(
 				'div',
 				{ className: 'container-fluid padding-0' },
@@ -13014,7 +13196,7 @@ var ViewDetailBook = function (_React$Component) {
 										_react2.default.createElement(
 											'form',
 											{ method: 'POST', action: '' },
-											_react2.default.createElement('input', { type: 'text', placeholder: 'Nhập từ khóa' }),
+											_react2.default.createElement('input', { type: 'text', placeholder: 'Tên sách, tác giả, nhà xuất bản' }),
 											_react2.default.createElement('i', { className: 'fa fa-search' })
 										)
 									)
@@ -13124,8 +13306,7 @@ var ViewDetailBook = function (_React$Component) {
 														'p',
 														null,
 														'Danh mục: ',
-														this.state.state1.cate.name,
-														'.'
+														this.state.state1.cate.name
 													),
 													_react2.default.createElement(
 														'p',
@@ -13224,69 +13405,34 @@ var ViewDetailBook = function (_React$Component) {
 												_react2.default.createElement(
 													'ul',
 													null,
+													comments
+												),
+												_react2.default.createElement(
+													'div',
+													null,
 													_react2.default.createElement(
-														'li',
+														'h4',
 														null,
-														_react2.default.createElement(
-															'div',
-															{ className: 'lib-thumb' },
-															_react2.default.createElement(
-																'a',
-																{ href: '#' },
-																_react2.default.createElement('img', { className: 'img-resposive', src: '/img/img4.jpg', alt: '' })
-															)
-														),
-														_react2.default.createElement(
-															'div',
-															{ className: 'lib-text' },
-															_react2.default.createElement(
-																'h4',
-																null,
-																'Trung Quân'
-															),
-															_react2.default.createElement(
-																'p',
-																{ className: 'date' },
-																'April 15,2016'
-															),
-															_react2.default.createElement(
-																'p',
-																null,
-																'Sách này hay...'
-															)
-														)
+														'Gửi đánh giá'
+													),
+													_react2.default.createElement('textarea', { rows: '4', cols: '100', maxLength: '400', ref: 'CommentTextField', value: this.state.state1.commentContent, className: 'comment', on: true, onChange: _BookAction2.default.updateCharCount }),
+													_react2.default.createElement('br', null),
+													_react2.default.createElement(
+														'span',
+														{ className: 'help-block' },
+														this.state.state1.helpBlockComment
 													),
 													_react2.default.createElement(
-														'li',
-														null,
-														_react2.default.createElement(
-															'div',
-															{ className: 'lib-thumb' },
-															_react2.default.createElement(
-																'a',
-																{ href: '#' },
-																_react2.default.createElement('img', { className: 'img-resposive', src: '/img/img4.jpg', alt: '' })
-															)
-														),
-														_react2.default.createElement(
-															'div',
-															{ className: 'lib-text' },
-															_react2.default.createElement(
-																'h4',
-																null,
-																'Trung Quân'
-															),
-															_react2.default.createElement(
-																'p',
-																{ className: 'date' },
-																'April 15,2016'
-															),
-															_react2.default.createElement(
-																'p',
-																null,
-																'Sách này hay...'
-															)
-														)
+														'span',
+														{ className: '' },
+														'Còn lại ',
+														this.state.state1.charcount,
+														'/400 ký tự'
+													),
+													_react2.default.createElement(
+														'button',
+														{ type: 'submit', className: 'btn btn-primary pull-right', onClick: this.addComment.bind(this, book._id) },
+														'Gửi'
 													)
 												)
 											)
@@ -13310,7 +13456,8 @@ var ViewDetailBook = function (_React$Component) {
 							)
 						)
 					)
-				)
+				),
+				_react2.default.createElement(_Login2.default, null)
 			);
 		}
 	}]);
@@ -13320,7 +13467,7 @@ var ViewDetailBook = function (_React$Component) {
 
 exports.default = ViewDetailBook;
 
-},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":94,"../../../stores/main/book/BookStore":111,"localStorage":227,"react":"react","react-bootstrap":379,"react-router":"react-router","react-toastr":439}],79:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":94,"../../../stores/main/book/BookStore":111,"../Login/Login":66,"localStorage":227,"react":"react","react-bootstrap":379,"react-router":"react-router","react-toastr":439}],79:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -17995,9 +18142,65 @@ var BookStore = function () {
     this.cate = {};
     this.cateOne = {};
     this.documenttype = {};
+
+    this.numpostview = 9;
+    this.numpage = 0;
+    this.currentpage = 1;
+    this.numpost = 0;
+
+    this.charcount = 0;
+    this.commentContent = '';
+    this.helpBlockComment = '';
+
+    this.comments = [];
   }
 
   _createClass(BookStore, [{
+    key: 'onPreviouspage',
+    value: function onPreviouspage() {
+      if (this.currentpage > 1) this.currentpage--;
+    }
+  }, {
+    key: 'onNextpage',
+    value: function onNextpage() {
+      if (this.currentpage < this.numpage) this.currentpage++;
+    }
+  }, {
+    key: 'onUpdateCharCount',
+    value: function onUpdateCharCount(e) {
+      this.charcount = 400 - e.target.value.length;
+      this.commentContent = e.target.value;
+    }
+  }, {
+    key: 'onInvalidComment',
+    value: function onInvalidComment() {
+      this.helpBlockComment = 'Vui lòng nhập nội dung';
+    }
+  }, {
+    key: 'onAddCommentSuccess',
+    value: function onAddCommentSuccess(message) {
+      this.charcount = 0;
+      this.commentContent = '';
+      this.helpBlockComment = '';
+    }
+  }, {
+    key: 'onAddCommentFail',
+    value: function onAddCommentFail() {
+      this.charcount = 0;
+      this.commentContent = '';
+      this.helpBlockComment = 'Đã xảy ra lỗi, vui lòng thử lại';
+    }
+  }, {
+    key: 'onGetCommentSuccess',
+    value: function onGetCommentSuccess(data) {
+      this.comments = data;
+    }
+  }, {
+    key: 'onGetCommentFail',
+    value: function onGetCommentFail(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
+    }
+  }, {
     key: 'onGetBookHomeSuccess',
     value: function onGetBookHomeSuccess(data) {
       this.bookhome = data;
@@ -18051,6 +18254,8 @@ var BookStore = function () {
     key: 'onGetListAllBookSuccess',
     value: function onGetListAllBookSuccess(data) {
       this.listallbook = data;
+      this.numpost = data.length;
+      this.numpage = Math.ceil(this.numpost / Number(this.numpostview));
     }
   }, {
     key: 'onGetListAllBookFail',
