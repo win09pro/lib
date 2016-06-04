@@ -19,7 +19,17 @@ class BookAction {
 			'getDetailBookFail',
 
 			'getRelatedBookSuccess',
-			'getRelatedBookFail'
+			'getRelatedBookFail',
+
+			'nextpage',
+      		'previouspage',
+
+      		'updateCharCount',
+      		'invalidComment' ,
+      		'addCommentSuccess',
+      		'addCommentFail'  ,
+      		'getCommentSuccess',
+      		'getCommentFail'
 		);
 	}
 	getBookHome(){
@@ -111,6 +121,31 @@ class BookAction {
 		// .fail((jqXhr) => {
 		// 	this.actions.getDetailBookFail(jqXhr.responseJSON.message);
 		// });
+	}
+	addComment(payload){
+		$.ajax({
+			url: '/api/addComment',
+			type: 'POST',
+			data: {_bookId: payload.bookId , _userId: payload.userId, content: payload.content, date: payload.date}
+		})
+		.done((data) => {
+			this.actions.addCommentSuccess(data.message);
+		})
+		.fail((jqXhr) => {
+			this.actions.addCommentFail(jqXhr.responseJSON.message);
+		});
+	}
+	getComment(bookId){
+		$.ajax({
+			url: '/api/getComment/' + bookId,
+			type: 'GET',
+		})
+		.done((data) => {
+			this.actions.getCommentSuccess(data);
+		})
+		.fail((jqXhr) => {
+			this.actions.getCommentFail(jqXhr.responseJSON.message);
+		});
 	}
 }
 

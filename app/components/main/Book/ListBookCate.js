@@ -13,6 +13,7 @@ import BookAction from '../../../actions/main/book/BookAction';
 import BookStore from '../../../stores/main/book/BookStore';
 import CategoryListStore from '../../../stores/admin/category/CategoryListStore';
 import CategoryListAction from '../../../actions/admin/category/CategoryListAction';
+import {Element,scroller}  from  'react-scroll'; 
 
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class ListBookCate extends React.Component {
@@ -65,7 +66,27 @@ class ListBookCate extends React.Component {
 		    });	 
 		}
 	}
+	handlePreviouspage()
+	{  
+		BookAction.previouspage();
+		scroller.scrollTo('new', {
+		  duration: 1500,
+		  delay: 100,
+		  smooth: true,
+		});
+	}
+	handleNextpage(){
+		BookAction.nextpage();
+		scroller.scrollTo('new', {
+		  duration: 1500,
+		  delay: 100,
+		  smooth: true,
+		});
+	}
     render() {
+    	let postviewed=this.state.state1.currentpage*this.state.state1.numpostview;
+    	if (postviewed>this.state.state1.numpost)  postviewed=this.state.state1.numpost;
+
     	let listcate = this.state.state2.listcategory.map((cate, index) => {
     		return(
     			<li>
@@ -83,8 +104,8 @@ class ListBookCate extends React.Component {
 							</a>
 						</div>
 						<div className="lib-text">
-							<h3>{booknew.name}</h3>
-							<p>{booknew.description}</p>
+							<h3><a href={"/chi-tiet-sach/"+booknew._id}>{booknew.name}</a></h3>
+							<p>{booknew.description.substr(0, 50)+' ...'}</p>
 						</div>
 					</div>
 				</li>
@@ -92,29 +113,33 @@ class ListBookCate extends React.Component {
     	});
     	let cateOne = this.state.state1.cateOne;
         let listbook = this.state.state1.listbookcate.map((book, index) =>{
-        	return(
-        		<div className="col-md-4 col-sm-6">
-	        		<div className="books-listing">
-						<div className="lib-thumb">
-							<a href={"/chi-tiet-sach/"+book._id}>
-								<img className='img-resposive' src={book.imageUrl} alt=''/>
-							</a>
-						</div>
-						<div className="lib-text">
-							<h3>
-								<a href={"/chi-tiet-sach/"+book._id} >{book.name}</a>
-								
-							</h3>
-						</div>
-						<div className="book-footer">
-							<button type="submit" className="borrow col-xs-12" onClick={this.addToTransition.bind(this,book.code,book.name)}>Đặt Mượn</button>
-							<div className="rating col-xs-12">
-	            				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-	        				</div>
+        	let startindex = (this.state.state1.currentpage-1)*this.state.state1.numpostview;
+      		let endindex = startindex + this.state.state1.numpostview;
+      		if(index>=startindex && index<endindex){
+	        	return(
+	        		<div className="col-md-4 col-sm-6">
+		        		<div className="books-listing">
+							<div className="lib-thumb">
+								<a href={"/chi-tiet-sach/"+book._id}>
+									<img className='img-resposive' src={book.imageUrl} alt=''/>
+								</a>
+							</div>
+							<div className="lib-text">
+								<h3>
+									<a href={"/chi-tiet-sach/"+book._id} >{book.name}</a>
+									
+								</h3>
+							</div>
+							<div className="book-footer">
+								<button type="submit" className="borrow col-xs-12" onClick={this.addToTransition.bind(this,book.code,book.name)}>Đặt Mượn</button>
+								<div className="rating col-xs-12">
+		            				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+		        				</div>
+							</div>
 						</div>
 					</div>
-				</div>
-        	);
+	        	);
+	        }
         });
         return(
         	
@@ -130,7 +155,7 @@ class ListBookCate extends React.Component {
 										<h2 className="mar-0">Tìm kiếm</h2>
 										<div className="input-container">
 											<form method="POST" action="">
-												<input type="text" placeholder="Nhập từ khóa"/>
+												<input type="text" placeholder="Tên sách, tác giả, nhà xuất bản"/>
 												<i className="fa fa-search"></i>
 											</form>
 										</div>

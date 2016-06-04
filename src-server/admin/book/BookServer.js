@@ -2,6 +2,7 @@ var book = require('../../../models/book');
 var category = require('../../../models/category');
 var documenttype = require('../../../models/documenttype');
 var ObjectId = require('mongodb').ObjectID;
+var comment = require('../../../models/comment');
 
 function BookServer(app){
 
@@ -62,6 +63,23 @@ app.get('/api/bookcate/:name', function(req, res, next) {
   
 });
 //end get list category
+
+//tim kiem sach
+app.get('/api/search/:text', function(req, res, next) {
+  var text = req.params.text;
+
+      book
+      .find( {$or: [{ name: /text/ }, { author: /text/ }, { publisher: /text/ }]} )
+      .populate('_cateId')
+      .exec(function(err, bookresults){
+        if(err) next(err);
+
+        res.send( bookresults);
+      });    
+  
+});
+//end tim kiem sach
+
 app.get('/api/relatedbook/:id', function(req, res, next){
   var id = req.params.id;
   book.findOne({_id: id})
@@ -215,6 +233,35 @@ app.get('/api/booknew', function(req, res, next){
       res.send(booknews);
     });
   
+});
+
+app.post('/api/addComment', function(req, res, next){
+  var _bookId = req.body._bookId;
+  var _userId = req.body._userId;
+  var content = req.body.content;
+  var date = req.body.date;
+  var com = new comment({           
+        _bookId: _bookId ,
+        _userId: _userId,
+        content: content,
+        date: date         
+      });   
+       com.save(function(err) {
+         if (err) return next(err);     
+         res.send({ message: 'Thêm đánh giá thành công!' });
+       });
+});
+/*get comment*/
+app.get('/api/getComment/:id', function(req, res, next){
+  var id = req.params.id;
+  comment
+        .find({_bookId: id})
+        .populate('_bookId')
+        .populate('_userId')
+        .exec(function(err, comments){
+          if(err) return next(err);
+          res.send(comments);
+        });
 });
 
 }
