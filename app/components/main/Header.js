@@ -27,12 +27,12 @@ class Header extends React.Component {
           <div className="carousel-inner" role="listbox">
             <div className="item active">
               <img src="http://localhost:3000/img/1.jpg" alt="Chania" />
-              <div className="carousel-caption">
+              {/*<div className="carousel-caption">
                 <h1>Check Out this Moose</h1>
                 <p className="lead">This text is super engaging and makes you want to click the button.</p>
                 <a href="#" className="btn btn-lg btn-primary">Learn More</a>
-              </div>
-            </div>
+              </div>*/}
+            </div> 
             <div className="item">
               <img src="/img/2.jpg" alt="Chania" />
             </div>

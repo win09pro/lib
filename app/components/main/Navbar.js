@@ -58,7 +58,7 @@ class Navbar extends React.Component {
                             <li>
                               <a href="#">Giới thiệu</a>
                               <a href="#">Tra cứu</a>
-                              <a href="#">Dịch vụ</a>
+                              <a href="/tin-tuc/dich-vu">Dịch vụ</a>
                               <a href="#">Thông báo</a>
                               <div className="division"></div>
                               <a href="#" type="button" name="button" onClick ={LoginActions.openLoginModal} > <i className="fa fa-user" /> Đăng nhập</a>
@@ -83,7 +83,7 @@ class Navbar extends React.Component {
                             <li>
                               <a href="#">Giới thiệu</a>
                               <a href="#">Tra cứu</a>
-                              <a href="#">Dịch vụ</a>
+                              <a href="/tin-tuc/dich-vu">Dịch vụ</a>
                               <a href="#">Thông báo</a>
                               <div className="division"></div>
                               <a href="/user/profile">
@@ -111,7 +111,7 @@ class Navbar extends React.Component {
               <div id="logo-header" className="col-md-3 col-sm-12">
                 <div className="logo">
                   <a href="/"><img src="http://localhost:3000/img/logo.png" alt="logo" /></a>
-                  <p>BK LIBRARY</p>
+                  <p><a className="logomain" href="/">BK LIBRARY</a></p>
                 </div>
               </div>
               <div className="col-md-9">
@@ -141,7 +141,7 @@ class Navbar extends React.Component {
                         <li><a href="#">Bộ sưu tập chuyên đề</a></li>
                       </ul>                     
                     </li>
-                    <li className="last"><a href="#">DỊCH VỤ</a>         
+                    <li className="last"><a href="/tin-tuc/dich-vu">DỊCH VỤ</a>         
                       <ul>            
                       {servicetab}
                       </ul>

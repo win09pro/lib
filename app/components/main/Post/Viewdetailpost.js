@@ -28,22 +28,7 @@ class Viewdetailpost extends React.Component {
     var htmlToReactParser = new HtmlToReact.Parser(React);
     var reactIntroduce = htmlToReactParser.parse(introduce);
     var reactcontent = htmlToReactParser.parse(content);  
-     let Type = function (num) {
-       switch (num) {
-        case 1:
-           return 'Giới thiệu';
-           break;
-        case 2:
-           return 'Dịch vụ';
-           break;
-        case 3:
-           return 'Trợ giúp';
-           break;
-        case 4:
-           return 'Tin tức';
-           break;
-       }
-    }
+     
     let relativepost = this.state.relativeposts.map((relativepost,index) =>
     {
       return(
@@ -61,15 +46,29 @@ class Viewdetailpost extends React.Component {
             </div>
         );
     });  
-
-    return (
+    var namelink="";
+      switch (this.state.detailpostCategory.nameCate) {
+        case "Dịch vụ":
+          namelink="dich-vu"
+          break;
+        case "Tra cứu":
+          namelink="tra-cuu"
+          break;
+        case "Giới thiệu":
+          namelink="gioi-thieu"
+          break;
+        default:
+          namelink="tat-ca-tin-tuc"
+          break;
+      }
+    return (     
       <div className="container">
         <div className="postnews">
           <div className="postnews-header">
             <ol className="breadcrumb page-breadcrumb pull-left">
               <li><i className="fa fa-home" /><Link to="/"> Trang chủ</Link></li>
-              <li><Link to='/post/listall'>{Type(this.state.detailpostCategory.Type)}</Link></li>
-              <li className="active">{this.state.detailpostCategory.nameCate}</li>
+              <li><Link to={"/tin-tuc/"+namelink}>{this.state.detailpostCategory.nameCate}</Link></li>
+              <li className="active">{this.state.detailpost.title}</li>
             </ol>
           </div>
         </div>

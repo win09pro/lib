@@ -1719,11 +1719,11 @@ var PostActions = function () {
     }
   }, {
     key: 'getAllposts',
-    value: function getAllposts() {
+    value: function getAllposts(nameCate) {
       var _this3 = this;
 
       $.ajax({
-        url: '/api/allposts'
+        url: '/api/allposts/' + nameCate
       }).done(function (data) {
         _this3.actions.getAllPostsuccess(data);
       }).fail(function (jqXhr) {
@@ -8299,11 +8299,6 @@ var ListBooks = function (_React$Component) {
           _react2.default.createElement(
             'td',
             null,
-            user.password
-          ),
-          _react2.default.createElement(
-            'td',
-            null,
             user.name.first
           ),
           _react2.default.createElement(
@@ -8370,22 +8365,17 @@ var ListBooks = function (_React$Component) {
                       _react2.default.createElement(
                         'th',
                         null,
-                        'UserName'
+                        'Tên đăng nhập'
                       ),
                       _react2.default.createElement(
                         'th',
                         null,
-                        'Password'
+                        'Họ lót'
                       ),
                       _react2.default.createElement(
                         'th',
                         null,
-                        'Firstname'
-                      ),
-                      _react2.default.createElement(
-                        'th',
-                        null,
-                        'LastName'
+                        'Tên'
                       ),
                       _react2.default.createElement(
                         'th',
@@ -8395,12 +8385,12 @@ var ListBooks = function (_React$Component) {
                       _react2.default.createElement(
                         'th',
                         null,
-                        'Type'
+                        'Kiểu người dùng'
                       ),
                       _react2.default.createElement(
                         'th',
                         null,
-                        'Status'
+                        'Hành động'
                       ),
                       _react2.default.createElement(
                         'th',
@@ -9039,15 +9029,32 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Footer = function (_React$Component) {
   _inherits(Footer, _React$Component);
 
-  function Footer() {
+  function Footer(props) {
     _classCallCheck(this, Footer);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Footer).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Footer).call(this, props));
   }
 
   _createClass(Footer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+
+      var socket = io.connect();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      //NavbarStore.unlisten(this.onChange);
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(state) {
+      // this.setState(state);
+    }
+  }, {
     key: 'render',
     value: function render() {
+
       return _react2.default.createElement(
         'div',
         { className: 'main-library-footer' },
@@ -9088,7 +9095,7 @@ var Footer = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'col-md-6 col-sm-12' },
+            { className: 'col-md-3 col-sm-12' },
             _react2.default.createElement(
               'h3',
               null,
@@ -9102,7 +9109,7 @@ var Footer = function (_React$Component) {
               _react2.default.createElement(
                 'strong',
                 { style: { color: 'yellow' } },
-                '3'
+                '12'
               )
             ),
             _react2.default.createElement(
@@ -9113,7 +9120,102 @@ var Footer = function (_React$Component) {
               _react2.default.createElement(
                 'strong',
                 { style: { color: 'yellow' } },
-                '12313'
+                '41231'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-3 col-sm-12 col-xs-12' },
+            _react2.default.createElement(
+              'h3',
+              null,
+              'LIÊN KẾT NGOÀI'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'content' },
+              _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col-md-4 col-sm-2 col-xs-2' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'picture' },
+                    _react2.default.createElement(
+                      'a',
+                      { href: 'http://wiki.hcmut.edu.vn/', title: 'BK wiki' },
+                      _react2.default.createElement('img', { className: 'rotate', src: '/img/iconconnect/bkwiki_logo.png', alt: 'icon' })
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col-md-4 col-sm-2 col-xs-2' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'picture' },
+                    _react2.default.createElement(
+                      'a',
+                      { href: 'http://www.vnulib.edu.vn/', title: 'Thư viện trung tâm' },
+                      _react2.default.createElement('img', { className: 'rotate', src: '/img/iconconnect/thuvientrungtam-logo.png', alt: 'icon' })
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col-md-4 col-sm-2 col-xs-2' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'picture' },
+                    _react2.default.createElement(
+                      'a',
+                      { href: 'http://www.glib.hcmuns.edu.vn/', title: 'Thư viện Khoa Học Tự Nhiên' },
+                      _react2.default.createElement('img', { className: '/rotate', src: '/img/iconconnect/logo-khtn.png', alt: 'icon' })
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col-md-4 col-sm-2 col-xs-2' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'picture' },
+                    _react2.default.createElement(
+                      'a',
+                      { href: 'http://lib.uel.edu.vn/', title: 'Thư viện Kinh Tế Luật' },
+                      _react2.default.createElement('img', { className: 'rotate', src: '/img/iconconnect/logo-ktl.png', alt: 'icon' })
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col-md-4 col-sm-2 col-xs-2' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'picture' },
+                    _react2.default.createElement(
+                      'a',
+                      { href: 'http://lib.hcmussh.edu.vn/', title: 'Thư viện Khoa Học xã hội và Nhân văn' },
+                      _react2.default.createElement('img', { className: 'rotate', src: '/img/iconconnect/USSH.jpg', alt: 'icon' })
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'col-md-4 col-sm-2 col-xs-2' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'picture' },
+                    _react2.default.createElement(
+                      'a',
+                      { href: 'http://thuvien.uit.edu.vn/', title: 'Thư viện ĐH Công nghệ thông tin' },
+                      _react2.default.createElement('img', { className: 'rotate', src: '/img/iconconnect/uit2.jpg', alt: 'icon' })
+                    )
+                  )
+                )
               )
             )
           )
@@ -9198,26 +9300,7 @@ var Header = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'item active' },
-            _react2.default.createElement('img', { src: 'http://localhost:3000/img/1.jpg', alt: 'Chania' }),
-            _react2.default.createElement(
-              'div',
-              { className: 'carousel-caption' },
-              _react2.default.createElement(
-                'h1',
-                null,
-                'Check Out this Moose'
-              ),
-              _react2.default.createElement(
-                'p',
-                { className: 'lead' },
-                'This text is super engaging and makes you want to click the button.'
-              ),
-              _react2.default.createElement(
-                'a',
-                { href: '#', className: 'btn btn-lg btn-primary' },
-                'Learn More'
-              )
-            )
+            _react2.default.createElement('img', { src: 'http://localhost:3000/img/1.jpg', alt: 'Chania' })
           ),
           _react2.default.createElement(
             'div',
@@ -9677,7 +9760,7 @@ var Navbar = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     'a',
-                    { href: '#' },
+                    { href: '/tin-tuc/dich-vu' },
                     'Dịch vụ'
                   ),
                   _react2.default.createElement(
@@ -9760,7 +9843,7 @@ var Navbar = function (_React$Component) {
                   ),
                   _react2.default.createElement(
                     'a',
-                    { href: '#' },
+                    { href: '/tin-tuc/dich-vu' },
                     'Dịch vụ'
                   ),
                   _react2.default.createElement(
@@ -9842,7 +9925,11 @@ var Navbar = function (_React$Component) {
                   _react2.default.createElement(
                     'p',
                     null,
-                    'BK LIBRARY'
+                    _react2.default.createElement(
+                      'a',
+                      { className: 'logomain', href: '/' },
+                      'BK LIBRARY'
+                    )
                   )
                 )
               ),
@@ -9966,7 +10053,7 @@ var Navbar = function (_React$Component) {
                       { className: 'last' },
                       _react2.default.createElement(
                         'a',
-                        { href: '#' },
+                        { href: '/tin-tuc/dich-vu' },
                         'DỊCH VỤ'
                       ),
                       _react2.default.createElement(
@@ -10046,6 +10133,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var nameCate = '';
+
 var Listallpost = function (_React$Component) {
   _inherits(Listallpost, _React$Component);
 
@@ -10063,7 +10152,17 @@ var Listallpost = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _Poststore2.default.listen(this.onChange);
-      _PostActions2.default.getAllposts();
+
+      switch (this.props.params.namelink) {
+        case 'dich-vu':
+          nameCate = "Dịch vụ";
+          break;
+        default:
+          nameCate = "Tin tức";
+          break;
+      }
+      console.log(nameCate);
+      _PostActions2.default.getAllposts(nameCate);
     }
   }, {
     key: 'componentWillUnmount',
@@ -10203,7 +10302,7 @@ var Listallpost = function (_React$Component) {
               _react2.default.createElement(
                 'li',
                 { className: 'active' },
-                'Tin tức'
+                nameCate
               )
             )
           )
@@ -10217,7 +10316,7 @@ var Listallpost = function (_React$Component) {
             _react2.default.createElement(
               'h1',
               null,
-              'Tin tức mới nhất'
+              "Tất cả " + nameCate
             )
           ),
           vieweachpost
@@ -10364,8 +10463,8 @@ var Mainpost = function (_React$Component) {
               'div',
               { className: 'link-heading' },
               _react2.default.createElement(
-                'a',
-                { href: '/post/listall' },
+                _reactRouter.Link,
+                { to: '/tin-tuc/tat-ca-tin-tuc' },
                 'Xem tất cả ',
                 _react2.default.createElement('i', { className: 'fa fa-angle-right' })
               )
@@ -10509,22 +10608,7 @@ var Viewdetailpost = function (_React$Component) {
       var htmlToReactParser = new _htmlToReact2.default.Parser(_react2.default);
       var reactIntroduce = htmlToReactParser.parse(introduce);
       var reactcontent = htmlToReactParser.parse(content);
-      var Type = function Type(num) {
-        switch (num) {
-          case 1:
-            return 'Giới thiệu';
-            break;
-          case 2:
-            return 'Dịch vụ';
-            break;
-          case 3:
-            return 'Trợ giúp';
-            break;
-          case 4:
-            return 'Tin tức';
-            break;
-        }
-      };
+
       var relativepost = this.state.relativeposts.map(function (relativepost, index) {
         return _react2.default.createElement(
           'div',
@@ -10554,7 +10638,21 @@ var Viewdetailpost = function (_React$Component) {
           )
         );
       });
-
+      var namelink = "";
+      switch (this.state.detailpostCategory.nameCate) {
+        case "Dịch vụ":
+          namelink = "dich-vu";
+          break;
+        case "Tra cứu":
+          namelink = "tra-cuu";
+          break;
+        case "Giới thiệu":
+          namelink = "gioi-thieu";
+          break;
+        default:
+          namelink = "tat-ca-tin-tuc";
+          break;
+      }
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -10582,14 +10680,14 @@ var Viewdetailpost = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   _reactRouter.Link,
-                  { to: '/post/listall' },
-                  Type(this.state.detailpostCategory.Type)
+                  { to: "/tin-tuc/" + namelink },
+                  this.state.detailpostCategory.nameCate
                 )
               ),
               _react2.default.createElement(
                 'li',
                 { className: 'active' },
-                this.state.detailpostCategory.nameCate
+                this.state.detailpost.title
               )
             )
           )
@@ -14386,7 +14484,7 @@ exports.default = _react2.default.createElement(
         _react2.default.createElement(_reactRouter.Route, { path: '/danh-muc/:name', component: _ListBookCate2.default }),
         _react2.default.createElement(_reactRouter.Route, { path: '/allbook', component: _ListAllBook2.default }),
         _react2.default.createElement(_reactRouter.Route, { path: '/chi-tiet-sach/:id', component: _ViewDetailBook2.default }),
-        _react2.default.createElement(_reactRouter.Route, { path: '/post/listall', component: _Listallpost2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/tin-tuc/:namelink', component: _Listallpost2.default }),
         _react2.default.createElement(_reactRouter.Route, { path: '/user/profile', component: _Userprofille2.default }),
         _react2.default.createElement(_reactRouter.Route, { path: '/user/profile/edit', component: _Editprofile2.default }),
         _react2.default.createElement(_reactRouter.Route, { path: '/user/profile/editpassword', component: _EditPassword2.default }),

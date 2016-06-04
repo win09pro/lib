@@ -271,8 +271,9 @@ app.get('/api/postCategory', function(req, res, next) {
  * /api/mainpost
  * GET get all posts post from dbs
  */
-    app.get('/api/allposts', function(req, res, next) {     
-  PostCategory.findOne({ nameCate: 'Tin tức' }, function(err, postCategory) {
+    app.get('/api/allposts/:nameCate', function(req, res, next) {     
+    var nameCate= req.params.nameCate;   
+    PostCategory.findOne({ nameCate: nameCate}, function(err, postCategory) {
     if (err) return next(err);
     if (!postCategory) {
       return res.status(404).send({ message: 'Không tìm thấy chủ đề bài viết phù hợp' });
