@@ -64,8 +64,7 @@ class ListBooks extends React.Component {
       return (
         <tr key ={index} onClick = {this.getComponent.bind(this)}>
           <td><img src ={user.avatar} width = "35px" height ="35px" /></td>
-          <td><Link to={'/admin/user/'+user._id}>{user.username}</Link></td>          
-          <td>{user.password}</td>
+          <td><Link to={'/admin/user/'+user._id}>{user.username}</Link></td>         
           <td>{user.name.first}</td>
           <td>{user.name.last}</td>
           <td>{user.barcode}</td>
@@ -88,13 +87,12 @@ class ListBooks extends React.Component {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>UserName</th>                      
-                      <th>Password</th>        
-                      <th>Firstname</th>  
-                      <th>LastName</th>
+                      <th>Tên đăng nhập</th>                     
+                      <th>Họ lót</th>  
+                      <th>Tên</th>
                       <th>Barcode</th> 
-                      <th>Type</th> 
-                      <th>Status</th> 
+                      <th>Kiểu người dùng</th> 
+                      <th>Hành động</th> 
                       <th><a className ="deletegroup" onClick ={listUsersActions.openModal} > <i className="fa fa-trash fa-danger fa-fa2x"></i></a></th>
                     </tr>
                   </thead>
