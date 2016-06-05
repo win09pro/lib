@@ -115,7 +115,7 @@ class MainBook extends React.Component {
             </div>
           </div>
           <div className="row">
-            <ul className="nav nav-tabs" role="tablist">
+            <ul className="nav nav-tabs col-sm-12" role="tablist">
               {listbook}
               {/*// <li className="col-md-4 col-sm-6 active" role="presentation">
               //   <a data-toggle="tab" href="#home" aria-expanded="true">
@@ -148,7 +148,7 @@ class MainBook extends React.Component {
               //   </a>
               // </li>*/}
             </ul>
-            <div className="tab-content">
+            <div className="tab-content col-sm-12">
               <ToastContainer ref='AAA' toastMessageFactory={ToastMessageFactory} className="toast-top-right"/>
               {listbooktab}
               {/*<div id="home" className="tab-pane fade in active">

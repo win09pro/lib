@@ -298,6 +298,7 @@ app.get('/api/getComment/:id', function(req, res, next){
         .find({_bookId: id})
         .populate('_bookId')
         .populate('_userId')
+        .sort({_id:-1})
         .exec(function(err, comments){
           if(err) return next(err);
           res.send(comments);
