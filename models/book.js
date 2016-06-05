@@ -10,8 +10,8 @@ var bookSchema = new mongoose.Schema({
   _cateId: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
   imageUrl: String,
   score: Number,
-  numRate: Number
-
+  numRate: Number,
+  tagSearch: String
 
 });
 

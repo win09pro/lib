@@ -64,8 +64,7 @@ class SidebarLeft extends React.Component {
           </form>
 
         <ul className="sidebar-menu">
-            <li className="header">Quản lý</li>
-            <li className="active"><a href="#"><i className="fa fa-link"></i> <span>Link</span></a></li>
+            <li className="header">Quản lý</li>          
             <li onClick =  {AddPostActions.resetAll}><Link to="/admin/post"><i className="fa fa-file-text"></i>
                     <span>Tin tức</span>
                     <small className="label pull-right bg-green">4</small>
@@ -74,15 +73,9 @@ class SidebarLeft extends React.Component {
             <li onClick =  {AddUserActions.resetAll}><Link to="/admin/user/view"><i className="fa fa-user"  ></i><span>Người dùng</span></Link></li>
             <li><Link to='/admin/document-type'><i className="fa fa-book"></i><span> Thể loại </span></Link></li>
             <li><Link to='/admin/category'><i className="fa fa-bars"></i><span> Danh mục </span> </Link></li>
-            <li className="treeview">
-              <a href="#"><i className="fa fa-link"></i> <span>Books and Transitions</span> <i className="fa fa-angle-left pull-right"></i></a>
-              <ul className="treeview-menu">
-                <li><Link to="/admin/book"><i className="fa fa-book"></i><span>Books</span></Link></li>
-                <li><Link to="/admin/tran"><i className="fa fa-link"></i><span>Transitions</span></Link></li>
-              </ul>
-            </li>
-              <li><a href="#"><i className="fa fa-link"></i> <span>Another Link</span></a></li>
-              <li><a href="#"><i className="fa fa-link"></i> <span>Another Link</span></a></li>
+            <li><Link to="/admin/book"><i className="fa fa-book"></i><span>Sách</span></Link></li>
+            <li><Link to="/admin/tran"><i className="fa fa-link"></i><span>Mượn trả sách</span></Link></li>
+            
           </ul>
         </section>
       </aside>

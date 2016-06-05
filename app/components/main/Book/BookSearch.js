@@ -16,7 +16,8 @@ import CategoryListAction from '../../../actions/admin/category/CategoryListActi
 import {Element,scroller}  from  'react-scroll'; 
 
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
-class ListBookCate extends React.Component {
+
+class BookSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {state1:BookStore.getState(), state2:CategoryListStore.getState()};
@@ -25,7 +26,8 @@ class ListBookCate extends React.Component {
     componentDidMount(){
     	BookStore.listen(this.onChange);
     	CategoryListStore.listen(this.onChange);
-    	BookAction.getListBookCate(this.props.params.name);
+    	BookAction.searchText(this.props.params.text);
+    	console.log(this.props.params.text);
     	BookAction.getBookNew();
     	CategoryListAction.get();
     	// console.log(BookAction.getListAllBook());
@@ -98,14 +100,14 @@ class ListBookCate extends React.Component {
 
     	let listcate = this.state.state2.listcategory.map((cate, index) => {
     		return(
-    			<li>
+    			<li key={index}>
 					<a href={"/danh-muc/"+cate.name}>{cate.name}</a>
 				</li>
     		);
     	});
     	let booknews = this.state.state1.booknews.map((booknew, index) =>{
     		return(
-    			<li>
+    			<li key={index}>
 					<div className="new-arrival">
 						<div className="lib-thumb">
 							<a href={"/chi-tiet-sach/"+booknew._id}>
@@ -120,13 +122,12 @@ class ListBookCate extends React.Component {
 				</li>
     			);
     	});
-    	let cateOne = this.state.state1.cateOne;
-        let listbook = this.state.state1.listbookcate.map((book, index) =>{
+        let listBookSearch = this.state.state1.listBookSearch.map((book, index) =>{
         	let startindex = (this.state.state1.currentpage-1)*this.state.state1.numpostview;
       		let endindex = startindex + this.state.state1.numpostview;
       		if(index>=startindex && index<endindex){
 	        	return(
-	        		<div className="col-md-4 col-sm-6">
+	        		<div className="col-md-4 col-sm-6" key={index}>
 		        		<div className="books-listing">
 							<div className="lib-thumb">
 								<a href={"/chi-tiet-sach/"+book._id}>
@@ -194,19 +195,30 @@ class ListBookCate extends React.Component {
 									<div className="row">
 									<ToastContainer ref='AAA' toastMessageFactory={ToastMessageFactory} className="toast-top-right"/>
 										<ol className="breadcrumb page-breadcrumb pull-left">
-							              <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li>   
-							              <li><a href={'/the-loai/'+this.state.state1.documenttype.name}>{this.state.state1.documenttype.name}</a></li>       
-							              <li className="active">{this.props.params.name}</li>
+							              <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li>          
+							              <li className="active">Tìm kiếm</li>
 							            </ol>
 										<div className="lib-related-book">
+										<Element  name="new" className="">
+								          	
+								        </Element>
 											<div className="row row-related-book">
-												{listbook}
+												{listBookSearch}
 											</div>
 										</div>	
 										
 									</div>
 
-									
+									<div className="post-pagination clearfix">      
+								        <Element  name="nav" className="pull-right">      
+								            <label>{"Hiển thị "+ postviewed +"/"+this.state.state1.numpost +" sách" }</label>       
+								            <button className="btn btn-default"
+								            onClick={this.handlePreviouspage.bind(this)}><i className="fa fa-arrow-left"></i></button>
+								            <button className="btn btn-info">{this.state.state1.currentpage}</button>                                   
+								            <button className="btn btn-default"
+								            onClick={this.handleNextpage.bind(this)}><i className="fa fa-arrow-right"></i></button>                   
+								        </Element >
+								    </div>
 								</div>
 							</div>
 						</div>
@@ -219,8 +231,8 @@ class ListBookCate extends React.Component {
     }
 }
 
-ListBookCate.contextTypes = {
+BookSearch.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default ListBookCate;
+export default BookSearch;

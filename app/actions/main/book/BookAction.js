@@ -15,6 +15,9 @@ class BookAction {
 			'getListBookCateSuccess',
 			'getListBookCateFail',
 
+			'getListBookDocSuccess',
+			'getListBookDocFail',
+
 			'getDetailBookSuccess',
 			'getDetailBookFail',
 
@@ -29,7 +32,11 @@ class BookAction {
       		'addCommentSuccess',
       		'addCommentFail'  ,
       		'getCommentSuccess',
-      		'getCommentFail'
+      		'getCommentFail',
+
+      		'updateTextFind',
+      		'searchTextSuccess',
+      		'searchTextFail'
 		);
 	}
 	getBookHome(){
@@ -58,6 +65,7 @@ class BookAction {
 			this.actions.getListAllBookFail(jqXhr.responseJSON.message);
 		});
 	}
+	//lay cac sach theo ten category
 	getListBookCate(catename){
 		console.log(catename);
 		$.ajax({
@@ -69,6 +77,20 @@ class BookAction {
 		})
 		.fail((jqXhr) => {
 			this.actions.getListBookCateFail(jqXhr.responseJSON.message);
+		});
+	}
+	//lay cac sach theo ten documenttype
+	getListBookDoc(docname){
+		// console.log(catename);
+		$.ajax({
+			url: '/api/bookdoc/' + docname,
+			type: 'GET',
+		})
+		.done((data) => {
+			this.actions.getListBookDocSuccess(data);
+		})
+		.fail((jqXhr) => {
+			this.actions.getListBookDocFail(jqXhr.responseJSON.message);
 		});
 	}
 	getDetailBook(bookid){
@@ -129,7 +151,7 @@ class BookAction {
 			data: {_bookId: payload.bookId , _userId: payload.userId, content: payload.content, date: payload.date}
 		})
 		.done((data) => {
-			this.actions.addCommentSuccess(data.message);
+			this.actions.addCommentSuccess(data);
 		})
 		.fail((jqXhr) => {
 			this.actions.addCommentFail(jqXhr.responseJSON.message);
@@ -145,6 +167,18 @@ class BookAction {
 		})
 		.fail((jqXhr) => {
 			this.actions.getCommentFail(jqXhr.responseJSON.message);
+		});
+	}
+	searchText(textFind){
+		$.ajax({
+			url: '/api/search/' + textFind,
+			type: 'GET',
+		})
+		.done((data) => {
+			this.actions.searchTextSuccess(data);
+		})
+		.fail((jqXhr) => {
+			this.actions.searchTextFail(jqXhr.responseJSON.message);
 		});
 	}
 }

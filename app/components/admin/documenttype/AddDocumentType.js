@@ -55,16 +55,16 @@ class AddDocumentType extends React.Component {
                 <form onSubmit={this.handleSubmitDoc.bind(this)}>
 
                   <div className={'form-group ' + this.state.nameValidationState}>
-                  <label className='control-label'>Name</label>
+                  <label className='control-label'>Tên</label>
                   <input type='text' className='form-control' ref='nameTextField' value={this.state.name}
                   onChange={AddDocumentTypeAction.updateName} autoFocus/>
 
                   <span className='help-block'>{this.state.helpBlockName}</span>
                   </div>
                   <div className={'form-group ' + this.state.descriptionValidationState}>
-                  <label className='control-label'>Description</label>
-                  <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.description}
-                  onChange={AddDocumentTypeAction.updateDescription}/>
+                  <label className='control-label'>Mô tả</label>
+                  <textarea className='form-control' ref='DescriptionTextField' value={this.state.description}
+                  onChange={AddDocumentTypeAction.updateDescription}></textarea>
                   <span className='help-block'>{this.state.helpBlockDescription}</span>                    
                   </div>                          
                   <button type='submit' className='btn btn-primary'>Submit</button>

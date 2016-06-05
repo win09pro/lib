@@ -108,7 +108,7 @@ class AddUser extends React.Component {
       }
   };
     return (
-      <div className='container'>
+      <div className='container-fluid'>
         <div className='row flipInX animated'>
           <div className='col-sm-8'>
             <div className='panel panel-danger'>
