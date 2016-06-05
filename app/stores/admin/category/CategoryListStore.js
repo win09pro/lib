@@ -21,7 +21,6 @@ class CategoryListStore {
   onGetCategoryListSuccess(data)
   {
   	this.listcategory = data;
-    console.log(data);
   }
   onGetCategoryListFail(jqXhr) {
     toastr.error(jqXhr.responseJSON.message);

@@ -111,7 +111,7 @@ class MainBook extends React.Component {
           <div className="section-heading">
             <h2><i className="fa fa-book" /> TÀI LIỆU MỚI</h2>
             <div className="link-heading">
-            <a href="/allbook">Xem tất cả <i className="fa fa-angle-right" /></a>
+            <a href="/tat-ca-sach">Xem tất cả <i className="fa fa-angle-right" /></a>
             </div>
           </div>
           <div className="row">

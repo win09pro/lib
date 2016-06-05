@@ -32,6 +32,8 @@ import Listallpost from './components/main/Post/Listallpost';
 import ViewDetailBook from './components/main/book/ViewDetailBook';
 import ListAllBook from './components/main/book/ListAllBook';
 import ListBookCate from './components/main/book/ListBookCate';
+import ListBookDoc from './components/main/book/ListBookDoc';
+import BookSearch from './components/main/book/BookSearch';
 
 import Userprofille from './components/main/User/Userprofille';
 import Editprofile from './components/main/User/Editprofile';
@@ -67,8 +69,10 @@ export default (
   </Route>
   <Route component={Appmain}> 
     <Route path='/' component={Main}/> 
+    <Route path='/tim-kiem/:text' component= {BookSearch}/>
+    <Route path='/the-loai/:name' component = {ListBookDoc} />
     <Route path='/danh-muc/:name' component={ListBookCate}/>
-    <Route path='/allbook' component = {ListAllBook} />
+    <Route path='/tat-ca-sach' component = {ListAllBook} />
     <Route path='/chi-tiet-sach/:id' component = {ViewDetailBook}/> 
     <Route path='/tin-tuc/:namelink' component ={Listallpost}/>   
     <Route path='/user/profile' component ={Userprofille}/>  

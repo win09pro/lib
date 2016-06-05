@@ -13,6 +13,7 @@ class AddBookStore {
     this.description = '';
     this.imageUrl ='';
     this._cateId='';
+    this.tagSearch = '';
 
     this.fileAvatar ={};
     this.imagePreviewUrl='/uploads/avatar.jpg';
@@ -36,7 +37,9 @@ class AddBookStore {
     this.cateValidationState = '';
   }  
 
-  
+  onUpdateTagSearch(e){
+    this.tagSearch = e.target.value;
+  }
   onResetState()
   {
     this.id='';
@@ -48,6 +51,7 @@ class AddBookStore {
     this.description = '';
     this.imageUrl ='';
     this._cateId='';
+    this.tagSearch = '';
 
     this.fileAvatar ={};
     this.imagePreviewUrl='/uploads/avatar.jpg';
@@ -82,6 +86,7 @@ class AddBookStore {
       this.imagePreviewUrl = data.book.imageUrl;
       this.imageUrl=data.book.imageUrl;
       this._cateId =data.book._cateId;
+      this.tagSearch = data.book.tagSearch;
 
 
       this.helpBlockName = '';
@@ -118,6 +123,7 @@ class AddBookStore {
     this.description = '';
     this.imageUrl ='';
     this._cateId='';
+    this.tagSearch = '';
 
     this.fileAvatar ={};
     this.imagePreviewUrl='/uploads/avatar.jpg';
@@ -157,6 +163,7 @@ class AddBookStore {
       this.status = 0;
       this.description = '';
       this._cateId='';
+      this.tagSearch = '';
       this.fileAvatar={};
       this.imagePreviewUrl='/uploads/avatar.jpg';
       this.imageUrl='/uploads/avatar.jpg';

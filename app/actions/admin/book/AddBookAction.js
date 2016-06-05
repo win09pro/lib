@@ -13,6 +13,7 @@ class AddBookAction {
       'updateStatus',
       'updateDescription',
       'updateCate',
+      'updateTagSearch',
 
       'updateImagepreview',
       'updateImagefile',
@@ -75,7 +76,7 @@ class AddBookAction {
       url: '/api/book',
       data: {id:payload.id, name: payload.name, author: payload.author,
        publisher:payload.publisher ,code :payload.code , status: payload.status, description:payload.description,
-        _cateId : payload._cateId, imageUrl :payload.imageUrl }
+        _cateId : payload._cateId, imageUrl :payload.imageUrl, tagSearch:payload.tagSearch }
     })
       .done((data) => {
         this.actions.addBookSuccess(data.message);

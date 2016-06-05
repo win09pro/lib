@@ -14,6 +14,9 @@ class BookStore{
       this.cateOne = {};
       this.documenttype = {};
 
+      this.listbookdoc = [];
+      this.doc = {};
+
       this.numpostview=9;
       this.numpage=0;
       this.currentpage=1;
@@ -24,6 +27,9 @@ class BookStore{
       this.helpBlockComment = '';
 
       this.comments = [];
+
+      this.textFind = '';
+      this.listBookSearch = [];
   	}
     onPreviouspage(){
       if (this.currentpage>1)
@@ -35,6 +41,19 @@ class BookStore{
       if (this.currentpage<this.numpage)
        this.currentpage++;   
     }
+
+    //update text tim kiem
+    onUpdateTextFind(e){
+      this.textFind = e.target.value;
+    }
+    onSearchTextSuccess(data){
+      console.log(data);
+      this.listBookSearch = data;
+    }
+    onSearchTextFail(jqXhr){
+      toastr.error(jqXhr.responseJSON.message);
+    }
+
     onUpdateCharCount(e){
       this.charcount = 400 - e.target.value.length;
       this.commentContent = e.target.value;
@@ -43,10 +62,11 @@ class BookStore{
     {
       this.helpBlockComment='Vui lòng nhập nội dung'; 
     }
-    onAddCommentSuccess(message){
+    onAddCommentSuccess(data){
       this.charcount = 0;
       this.commentContent = '';
       this.helpBlockComment = '';
+      BookAction.getComment(data._bookId);
     }
     onAddCommentFail(){
       this.charcount = 0;
@@ -92,6 +112,14 @@ class BookStore{
       this.documenttype = data.documenttype;
     }
     onGetListBookCateFail(jqXhr){
+      toastr.error(jqXhr.responseJSON.message);
+    }
+    onGetListBookDocSuccess(data){
+      console.log(data);
+      this.listbookdoc = data.bookdocs;
+      this.doc = data.doc;
+    }
+    onGetListBookDocFail(jqXhr){
       toastr.error(jqXhr.responseJSON.message);
     }
   	onGetListAllBookSuccess(data){

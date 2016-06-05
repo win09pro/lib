@@ -83,6 +83,15 @@ class ListBookCate extends React.Component {
 		  smooth: true,
 		});
 	}
+	handleFind(event){
+		var textFind = this.state.state1.textFind;
+		if(textFind.length == 0){
+			this.context.router.push('/tat-ca-sach');
+		}
+		else{
+			this.context.router.push('/tim-kiem/'+textFind);
+		}
+	}
     render() {
     	let postviewed=this.state.state1.currentpage*this.state.state1.numpostview;
     	if (postviewed>this.state.state1.numpost)  postviewed=this.state.state1.numpost;
@@ -126,7 +135,7 @@ class ListBookCate extends React.Component {
 							</div>
 							<div className="lib-text">
 								<h3>
-									<a href={"/chi-tiet-sach/"+book._id} >{book.name}</a>
+									<a href={"/chi-tiet-sach/"+book._id} data-toggle="tooltip" data-placement="bottom" title={book.name}>{book.name}</a>
 									
 								</h3>
 							</div>
@@ -154,8 +163,8 @@ class ListBookCate extends React.Component {
 									<div className="widget widget-search">
 										<h2 className="mar-0">Tìm kiếm</h2>
 										<div className="input-container">
-											<form method="POST" action="">
-												<input type="text" placeholder="Tên sách, tác giả, nhà xuất bản"/>
+											<form method="POST" action="" onSubmit={this.handleFind.bind(this)}>
+												<input type="text" placeholder="Tên sách, tác giả, nhà xuất bản" value={this.state.state1.textFind} onChange={BookAction.updateTextFind}/>
 												<i className="fa fa-search"></i>
 											</form>
 										</div>
@@ -209,5 +218,9 @@ class ListBookCate extends React.Component {
         );
     }
 }
+
+ListBookCate.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 export default ListBookCate;

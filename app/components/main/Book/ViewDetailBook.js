@@ -71,6 +71,15 @@ class ViewDetailBook extends React.Component {
 			BookAction.addComment({bookId:bookId, userId: userId, content:content, date: date});
 		}
 	}
+	handleFind(event){
+		var textFind = this.state.state1.textFind;
+		if(textFind.length == 0){
+			this.context.router.push('/tat-ca-sach');
+		}
+		else{
+			this.context.router.push('/tim-kiem/'+textFind);
+		}
+	}
 	
     render() {
     	let listcate = this.state.state2.listcategory.map((cate, index) => {
@@ -90,7 +99,7 @@ class ViewDetailBook extends React.Component {
 							</a>
 						</div>
 						<div className="lib-text">
-							<h3>{booknew.name}</h3>
+							<h3><a href={"/chi-tiet-sach/"+booknew._id}>{booknew.name}</a></h3>
 							<p>{booknew.description.substr(0, 50)+' ...'}</p>
 						</div>
 					</div>
@@ -125,8 +134,8 @@ class ViewDetailBook extends React.Component {
 						</a>
 					</div>
 					<div className="lib-text">
-						<h4>{comment._userId.name.last + comment._userId.name.first}</h4>
-						<p className="date">{comment.date.substr(0,10)}</p>
+						<h4>{comment._userId.name.first +' '+ comment._userId.name.last}</h4><span><p className="date">{comment.date.substr(0,10)}</p></span>
+						
 						<p>{comment.content}</p>
 					</div>
 				</li>
@@ -142,8 +151,8 @@ class ViewDetailBook extends React.Component {
 								<div className="widget widget-search">
 									<h2 className="mar-0">Tìm kiếm</h2>
 									<div className="input-container">
-										<form method="POST" action="">
-											<input type="text" placeholder="Tên sách, tác giả, nhà xuất bản"/>
+										<form method="POST" action="" onSubmit={this.handleFind.bind(this)}>
+											<input type="text" placeholder="Tên sách, tác giả, nhà xuất bản" value={this.state.state1.textFind} onChange={BookAction.updateTextFind}/>
 											<i className="fa fa-search"></i>
 										</form>
 									</div>
@@ -231,18 +240,19 @@ class ViewDetailBook extends React.Component {
 										</div>
 										<div role="tabpanel" className="tab-pane fade" id="reviews">
 											<div className="lib-comments">
-												<ul>
-													{comments}
-												</ul>
 												<div>
 													<h4>Gửi đánh giá</h4>
-													<textarea rows="4" cols="100" maxLength="400" ref='CommentTextField' value={this.state.state1.commentContent} className="comment" on onChange={BookAction.updateCharCount}>
+													<textarea rows="4" cols="100" maxLength="400" ref='CommentTextField' value={this.state.state1.commentContent} className="comment" onChange={BookAction.updateCharCount}>
 													</textarea>
 													<br/>
 													<span className='help-block'>{this.state.state1.helpBlockComment}</span>
 													<span className="">Còn lại {this.state.state1.charcount}/400 ký tự</span>
 													<button type="submit" className='btn btn-primary pull-right' onClick={this.addComment.bind(this, book._id)}>Gửi</button>
 												</div>
+												<ul>
+													{comments}
+												</ul>
+												
 												
 											</div>
 										</div>
@@ -271,5 +281,9 @@ class ViewDetailBook extends React.Component {
 		);
     }
 }
+
+ViewDetailBook.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 export default ViewDetailBook;

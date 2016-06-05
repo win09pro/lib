@@ -52,17 +52,23 @@ class ListBooks extends React.Component {
    }
   
   render() {
+     function Type_Book(type)
+      {
+        if (type == 1)
+          return "Trống";
+        else if (type ==2)
+          return "Đang chờ";
+        else return "Đang mượn";
+      }
     let bookList = this.state.books.map((book, index) => {
-      console.log(book);
       return (
         <tr key ={index}>
           <td>{index+1}</td>
-          <td><Link to={'admin/book/' + book._id} >{book.name} </Link></td>
+          <td><Link to={'/chi-tiet-sach/' + book._id} >{book.name} </Link></td>
           <td>{book.author}</td>
           <td>{book.publisher}</td>
           <td>{book.code}</td>
-          <td>{book.status}</td>
-          <td>{book.description}</td>
+          <td>{Type_Book(book.status)}</td>
           <td>{book._cateId.name}</td>
           <td><img src ={book.imageUrl} width = "35px" height ="35px" /></td>
           <td><ActionBar editAction={AddBookAction} deleteAction={ListBooksActions} item={book} /></td>
@@ -87,7 +93,6 @@ class ListBooks extends React.Component {
                       <th>Nhà xuất bản</th>      
                       <th>Mã</th> 
                       <th>Tình trạng</th>
-                      <th>Mô tả</th>
                       <th>Danh mục</th>
                       <th>Ảnh</th>
                       <th>Hành động</th> 
