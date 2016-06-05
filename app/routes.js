@@ -74,7 +74,7 @@ export default (
     <Route path='/danh-muc/:name' component={ListBookCate}/>
     <Route path='/tat-ca-sach' component = {ListAllBook} />
     <Route path='/chi-tiet-sach/:id' component = {ViewDetailBook}/> 
-    <Route path='/post/listall' component ={Listallpost}/>   
+    <Route path='/tin-tuc/:namelink' component ={Listallpost}/>   
     <Route path='/user/profile' component ={Userprofille}/>  
     <Route path='/user/profile/edit' component ={Editprofile}/>   
     <Route path='/user/profile/editpassword' component ={EditPassword}/>           

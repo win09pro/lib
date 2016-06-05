@@ -5,6 +5,7 @@ import PostActions from '../../../actions/main/post/PostActions';
 import Poststore from '../../../stores/main/post/Poststore';
 import moment from 'moment';
 import {Element,scroller}  from  'react-scroll'; 
+var nameCate='';
 class Listallpost extends React.Component {
   constructor(props) {
     super(props);    
@@ -13,7 +14,17 @@ class Listallpost extends React.Component {
   }
   componentDidMount() {  
     Poststore.listen(this.onChange);
-    PostActions.getAllposts();
+   
+    switch (this.props.params.namelink) {
+      case 'dich-vu':
+        nameCate="Dịch vụ";
+        break;
+      default:
+        nameCate="Tin tức";
+        break;
+    }
+    console.log(nameCate);
+    PostActions.getAllposts(nameCate);
   }
   componentWillUnmount() {
     Poststore.unlisten(this.onChange);
@@ -82,13 +93,13 @@ class Listallpost extends React.Component {
           <div className="postnews-header">
             <ol className="breadcrumb page-breadcrumb pull-left">
               <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li>          
-              <li className="active">Tin tức</li>
+              <li className="active">{nameCate}</li>
             </ol>
           </div>
         </div>
         <div className="postnews-content">
         <Element  name="titlepost" className="postnews-title">
-          <h1>Tin tức mới nhất</h1>
+          <h1>{"Tất cả "+nameCate}</h1>
         </Element>
         {vieweachpost}
       </div>

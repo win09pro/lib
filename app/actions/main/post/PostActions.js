@@ -43,9 +43,9 @@ class PostActions {
         this.actions.getPostfail(jqXhr.responseJSON.message);
       });
   }  
-    getAllposts(){
+    getAllposts(nameCate){
     $.ajax({    
-      url: '/api/allposts'      
+      url: '/api/allposts/'+nameCate       
     })
       .done((data) => {           
         this.actions.getAllPostsuccess(data);

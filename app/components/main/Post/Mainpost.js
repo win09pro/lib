@@ -42,7 +42,7 @@ class Mainpost extends React.Component {
           <div className="section-heading">
             <h2><i className="fa fa-newspaper-o" /> TIN TỨC</h2>
             <div className="link-heading">
-            <a href="/post/listall">Xem tất cả <i className="fa fa-angle-right" /></a>
+            <Link to="/tin-tuc/tat-ca-tin-tuc">Xem tất cả <i className="fa fa-angle-right" /></Link>
             </div>
           </div> 
              <ul className="postslider">            
