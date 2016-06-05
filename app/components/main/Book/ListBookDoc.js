@@ -16,7 +16,8 @@ import CategoryListAction from '../../../actions/admin/category/CategoryListActi
 import {Element,scroller}  from  'react-scroll'; 
 
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
-class ListBookCate extends React.Component {
+
+class ListBookDoc extends React.Component {
     constructor(props) {
         super(props);
         this.state = {state1:BookStore.getState(), state2:CategoryListStore.getState()};
@@ -25,7 +26,7 @@ class ListBookCate extends React.Component {
     componentDidMount(){
     	BookStore.listen(this.onChange);
     	CategoryListStore.listen(this.onChange);
-    	BookAction.getListBookCate(this.props.params.name);
+    	BookAction.getListBookDoc(this.props.params.name);
     	BookAction.getBookNew();
     	CategoryListAction.get();
     	// console.log(BookAction.getListAllBook());
@@ -83,15 +84,6 @@ class ListBookCate extends React.Component {
 		  smooth: true,
 		});
 	}
-	handleFind(event){
-		var textFind = this.state.state1.textFind;
-		if(textFind.length == 0){
-			this.context.router.push('/tat-ca-sach');
-		}
-		else{
-			this.context.router.push('/tim-kiem/'+textFind);
-		}
-	}
     render() {
     	let postviewed=this.state.state1.currentpage*this.state.state1.numpostview;
     	if (postviewed>this.state.state1.numpost)  postviewed=this.state.state1.numpost;
@@ -121,7 +113,7 @@ class ListBookCate extends React.Component {
     			);
     	});
     	let cateOne = this.state.state1.cateOne;
-        let listbook = this.state.state1.listbookcate.map((book, index) =>{
+        let listbook = this.state.state1.listbookdoc.map((book, index) =>{
         	let startindex = (this.state.state1.currentpage-1)*this.state.state1.numpostview;
       		let endindex = startindex + this.state.state1.numpostview;
       		if(index>=startindex && index<endindex){
@@ -163,8 +155,8 @@ class ListBookCate extends React.Component {
 									<div className="widget widget-search">
 										<h2 className="mar-0">Tìm kiếm</h2>
 										<div className="input-container">
-											<form method="POST" action="" onSubmit={this.handleFind.bind(this)}>
-												<input type="text" placeholder="Tên sách, tác giả, nhà xuất bản" value={this.state.state1.textFind} onChange={BookAction.updateTextFind}/>
+											<form method="POST" action="">
+												<input type="text" placeholder="Tên sách, tác giả, nhà xuất bản"/>
 												<i className="fa fa-search"></i>
 											</form>
 										</div>
@@ -195,7 +187,6 @@ class ListBookCate extends React.Component {
 									<ToastContainer ref='AAA' toastMessageFactory={ToastMessageFactory} className="toast-top-right"/>
 										<ol className="breadcrumb page-breadcrumb pull-left">
 							              <li><i className="fa fa-home" /><a href="/"> Trang chủ</a></li>   
-							              <li><a href={'/the-loai/'+this.state.state1.documenttype.name}>{this.state.state1.documenttype.name}</a></li>       
 							              <li className="active">{this.props.params.name}</li>
 							            </ol>
 										<div className="lib-related-book">
@@ -219,8 +210,4 @@ class ListBookCate extends React.Component {
     }
 }
 
-ListBookCate.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-export default ListBookCate;
+export default ListBookDoc;

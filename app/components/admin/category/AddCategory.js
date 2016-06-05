@@ -98,8 +98,8 @@ class AddCategory extends React.Component {
                   </div>
                   <div className={'form-group ' + this.state.state1.descriptionValidationState}>
                     <label className='control-label'>Mô tả</label>
-                    <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.state1.description}
-                           onChange={AddCategoryAction.updateDescription}/>
+                    <textarea className='form-control' ref='DescriptionTextField' value={this.state.state1.description}
+                           onChange={AddCategoryAction.updateDescription}></textarea>
                     <span className='help-block'>{this.state.state1.helpBlockDescription}</span>
                   </div>
 

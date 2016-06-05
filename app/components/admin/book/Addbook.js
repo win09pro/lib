@@ -54,6 +54,7 @@ class AddBook extends React.Component {
     var description =this.state.state1.description;
     var imageUrl = this.state.state1.imageUrl;
     var _cateId =this.state.state1._cateId;
+    var tagSearch = this.state.state1.tagSearch;
 
     if (!name) {
       AddBookAction.invalidName();
@@ -86,7 +87,7 @@ class AddBook extends React.Component {
     
     if (name && author && publisher && code && status && description && _cateId) {
       AddBookAction.addBook({id:id, name:name, author:author, publisher:publisher, 
-        code:code, status:status, description:description, _cateId:_cateId, imageUrl: this.state.state1.imageUrl});
+        code:code, status:status, description:description, _cateId:_cateId, imageUrl: this.state.state1.imageUrl, tagSearch:tagSearch});
     }
   }
 
@@ -151,8 +152,8 @@ class AddBook extends React.Component {
                   </div> 
                   <div className={'form-group ' + this.state.state1.descriptionValidationState}>
                     <label className='control-label'>Mô tả</label>
-                    <input type='text' className='form-control' ref='DescriptionTextField' value={this.state.state1.description}
-                           onChange={AddBookAction.updateDescription}/>
+                    <textarea className='form-control' ref='DescriptionTextField' value={this.state.state1.description}
+                           onChange={AddBookAction.updateDescription}></textarea>
                     <span className='help-block'>{this.state.helpBlockDescription}</span>                    
                   </div> 
 
@@ -163,6 +164,12 @@ class AddBook extends React.Component {
                       {categoryList}
                     </select>
                     <span className='help-block'>{this.state.state1.helpBlockCate}</span>                    
+                  </div>
+                  <div className={'form-group '}>
+                    <label className='control-label'>Từ khóa tìm kiếm</label>
+                    <input type='text' className='form-control' ref='' value={this.state.state1.tagSearch}
+                           onChange={AddBookAction.updateTagSearch}/>
+                                       
                   </div>
 
                   <div className='form-group has-success'>
@@ -184,7 +191,7 @@ class AddBook extends React.Component {
 
                     
 
-                                        
+                  <div className ="clear-both"></div>                      
                   <button type='submit' className='btn btn-primary'>Thêm</button>
                 </form>
               </div>

@@ -25,6 +25,7 @@ app.get('/api/listbook', function(req, res, next) {
   try{
     book
     .find()
+    .sort({_id:-1})
     .populate('_cateId')
     .exec(function(err, books){
       if(err) next(err);
@@ -64,12 +65,48 @@ app.get('/api/bookcate/:name', function(req, res, next) {
 });
 //end get list category
 
+//get list book theo documenttype
+app.get('/api/bookdoc/:name', function(req, res, next) {
+  var name = req.params.name;
+
+  documenttype.findOne({ name:name})
+  .exec( function(err, doc){
+    if (err) return next(err);
+    category
+    .find({_documenttype: doc._id})
+
+    .exec(function(err2, cates){
+      if(err2) next(err2);
+      // console.log(cates);
+      var _query = [];
+
+      cates.forEach(function(e){
+        _query.push(e._id);
+      });
+
+      book
+      .find({ _cateId: { $in : _query } })
+    
+      .exec(function(err1, bookdocs){
+        if(err1) next(err1);
+        res.send({cates:cates, bookdocs:bookdocs, doc:doc});
+      });
+
+    });
+   
+  });
+    
+  
+});
+//end get list documenttype
+
 //tim kiem sach
 app.get('/api/search/:text', function(req, res, next) {
   var text = req.params.text;
-
+    console.log(new RegExp(text, "i"))
       book
-      .find( {$or: [{ name: /text/ }, { author: /text/ }, { publisher: /text/ }]} )
+      // .find( { name: { $regex: new RegExp(text, "i") }}  )
+      .find( {$or: [{ name: { $regex: new RegExp(text, "i") } }, { author: { $regex: new RegExp(text, "i") } }, { publisher: { $regex: new RegExp(text, "i") } }, { tagSearch: { $regex: new RegExp(text, "i") } } ]} )
       .populate('_cateId')
       .exec(function(err, bookresults){
         if(err) next(err);
@@ -143,7 +180,7 @@ app.post('/api/book', function(req, res, next) {
   var description = req.body.description;
   var imageUrl = req.body.imageUrl;
   var _cateId = req.body._cateId;
-
+  var tagSearch = req.body.tagSearch;
   
 
   book.findOne({ _id: id }, function(err, bookRes) {
@@ -158,7 +195,8 @@ app.post('/api/book', function(req, res, next) {
         status: status,
         description: description,
         imageUrl: imageUrl,
-        _cateId: _cateId            
+        _cateId: _cateId ,
+        tagSearch: tagSearch           
       });   
        bookRes.save(function(err) {
          if (err) return next(err);     
@@ -177,7 +215,9 @@ app.post('/api/book', function(req, res, next) {
         status: status,
         description: description,
         imageUrl: imageUrl,
-        _cateId: _cateId   } }, function(err) {
+        _cateId: _cateId ,
+        tagSearch: tagSearch
+          } }, function(err) {
       if (err) return next(err);
       res.send({ message: bookname + ' has been updated successfully!' });
     });
@@ -248,7 +288,7 @@ app.post('/api/addComment', function(req, res, next){
       });   
        com.save(function(err) {
          if (err) return next(err);     
-         res.send({ message: 'Thêm đánh giá thành công!' });
+         res.send(com);
        });
 });
 /*get comment*/
