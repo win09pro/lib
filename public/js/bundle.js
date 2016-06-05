@@ -9019,12 +9019,12 @@ var MainBook = function (_React$Component) {
             { className: 'row' },
             _react2.default.createElement(
               'ul',
-              { className: 'nav nav-tabs', role: 'tablist' },
+              { className: 'nav nav-tabs col-sm-12', role: 'tablist' },
               listbook
             ),
             _react2.default.createElement(
               'div',
-              { className: 'tab-content' },
+              { className: 'tab-content col-sm-12' },
               _react2.default.createElement(_reactToastr.ToastContainer, { ref: 'AAA', toastMessageFactory: ToastMessageFactory, className: 'toast-top-right' }),
               listbooktab
             )
