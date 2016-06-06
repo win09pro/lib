@@ -36,6 +36,17 @@ class ListAllBook extends React.Component {
     }
     onChange(state) {
     	this.setState({state1:BookStore.getState(), state2:CategoryListStore.getState()});
+    	if(this.state.state1.showAlert=="Error")
+		{
+			this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+			closeButton: true,
+		});      
+		}
+		else if(this.state.state1.showAlert=="Success"){
+			this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+			closeButton: true,
+		});         
+		}
   	}
  //  	addAlert(id,name) {
  //  		console.log(id);
@@ -61,9 +72,6 @@ class ListAllBook extends React.Component {
 			dateEnd.setDate(dateEnd.getDate() + 2);
 			// console.log(date);
 			BookAction.addTransition({barcode:barcode, bookname: bookname, username:username, dateStart: dateStart, dateEnd: dateEnd});
-			this.refs.AAA.success('Bạn đã mượn sách '+name+ ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-		      closeButton: true,
-		    });	 
 		}
 	}
 	handlePreviouspage()

@@ -97,11 +97,10 @@ class BookStore{
      onAddtransSuccess(message)
      {
       console.log(message);
-      this.showAlert = message;
+      this.showAlert = message;     
      }
      onAddtransFail()
      {
-
      }
   	onGetDetailBookSuccess(data){
   		this.detailBook = data.book;
