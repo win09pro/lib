@@ -21,39 +21,23 @@ class MainBook extends React.Component {
     BookStore.listen(this.onChange);
     BookAction.getBookHome();    
   }
-  shouldComponentUpdate(){
-     if(this.state.showAlert=="Error")
-     {
-       this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
-          closeButton: true,
-        });      
-      }
-     else if(this.state.showAlert=="Success"){
-         this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-          closeButton: true,
-        });         
-     }
-    
-     return true;
-  }
-  componentWillUpdate(){
-     if(this.state.showAlert=="Error")
-     {
-       this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
-          closeButton: true,
-        });      
-     }
-     else if(this.state.showAlert=="Success"){
-         this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-          closeButton: true,
-        }); 
-     }    
-  }
+
   componentWillUnmount(){
       BookStore.unlisten(this.onChange);
   }
   onChange(state) {
     this.setState(state);
+       if(this.state.showAlert=="Error")
+         {
+           this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+              closeButton: true,
+            });      
+          }
+         else if(this.state.showAlert=="Success"){
+             this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+              closeButton: true,
+            });         
+         }
   }
   addToTransition(barcode,name){
     var username = localStorage.getItem('username');

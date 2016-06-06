@@ -8839,34 +8839,6 @@ var MainBook = function (_React$Component) {
       _BookAction2.default.getBookHome();
     }
   }, {
-    key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate() {
-      if (this.state.showAlert == "Error") {
-        this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
-          closeButton: true
-        });
-      } else if (this.state.showAlert == "Success") {
-        this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-          closeButton: true
-        });
-      }
-
-      return true;
-    }
-  }, {
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate() {
-      if (this.state.showAlert == "Error") {
-        this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
-          closeButton: true
-        });
-      } else if (this.state.showAlert == "Success") {
-        this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-          closeButton: true
-        });
-      }
-    }
-  }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       _BookStore2.default.unlisten(this.onChange);
@@ -8875,6 +8847,15 @@ var MainBook = function (_React$Component) {
     key: 'onChange',
     value: function onChange(state) {
       this.setState(state);
+      if (this.state.showAlert == "Error") {
+        this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+          closeButton: true
+        });
+      } else if (this.state.showAlert == "Success") {
+        this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+          closeButton: true
+        });
+      }
     }
   }, {
     key: 'addToTransition',
@@ -12197,6 +12178,15 @@ var BookSearch = function (_React$Component) {
 		key: 'onChange',
 		value: function onChange(state) {
 			this.setState({ state1: _BookStore2.default.getState(), state2: _CategoryListStore2.default.getState() });
+			if (this.state.state1.showAlert == "Error") {
+				this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+					closeButton: true
+				});
+			} else if (this.state.state1.showAlert == "Success") {
+				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+					closeButton: true
+				});
+			}
 		}
 		//  	addAlert(id,name) {
 		//  		console.log(id);
@@ -12225,9 +12215,6 @@ var BookSearch = function (_React$Component) {
 				dateEnd.setDate(dateEnd.getDate() + 2);
 				// console.log(date);
 				_BookAction2.default.addTransition({ barcode: barcode, bookname: bookname, username: username, dateStart: dateStart, dateEnd: dateEnd });
-				this.refs.AAA.success('Bạn đã mượn sách ' + name + ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-					closeButton: true
-				});
 			}
 		}
 	}, {
@@ -12630,6 +12617,15 @@ var ListAllBook = function (_React$Component) {
 		key: 'onChange',
 		value: function onChange(state) {
 			this.setState({ state1: _BookStore2.default.getState(), state2: _CategoryListStore2.default.getState() });
+			if (this.state.state1.showAlert == "Error") {
+				this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+					closeButton: true
+				});
+			} else if (this.state.state1.showAlert == "Success") {
+				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+					closeButton: true
+				});
+			}
 		}
 		//  	addAlert(id,name) {
 		//  		console.log(id);
@@ -12658,9 +12654,6 @@ var ListAllBook = function (_React$Component) {
 				dateEnd.setDate(dateEnd.getDate() + 2);
 				// console.log(date);
 				_BookAction2.default.addTransition({ barcode: barcode, bookname: bookname, username: username, dateStart: dateStart, dateEnd: dateEnd });
-				this.refs.AAA.success('Bạn đã mượn sách ' + name + ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-					closeButton: true
-				});
 			}
 		}
 	}, {
@@ -13062,7 +13055,17 @@ var ListBookCate = function (_React$Component) {
 	}, {
 		key: 'onChange',
 		value: function onChange(state) {
+
 			this.setState({ state1: _BookStore2.default.getState(), state2: _CategoryListStore2.default.getState() });
+			if (this.state.state1.showAlert == "Error") {
+				this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+					closeButton: true
+				});
+			} else if (this.state.state1.showAlert == "Success") {
+				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+					closeButton: true
+				});
+			}
 		}
 		//  	addAlert(id,name) {
 		//  		console.log(id);
@@ -13091,9 +13094,6 @@ var ListBookCate = function (_React$Component) {
 				dateEnd.setDate(dateEnd.getDate() + 2);
 				// console.log(date);
 				_BookAction2.default.addTransition({ barcode: barcode, bookname: bookname, username: username, dateStart: dateStart, dateEnd: dateEnd });
-				this.refs.AAA.success('Bạn đã mượn sách ' + name + ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-					closeButton: true
-				});
 			}
 		}
 	}, {
@@ -13475,6 +13475,15 @@ var ListBookDoc = function (_React$Component) {
 		key: 'onChange',
 		value: function onChange(state) {
 			this.setState({ state1: _BookStore2.default.getState(), state2: _CategoryListStore2.default.getState() });
+			if (this.state.state1.showAlert == "Error") {
+				this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+					closeButton: true
+				});
+			} else if (this.state.state1.showAlert == "Success") {
+				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+					closeButton: true
+				});
+			}
 		}
 		//  	addAlert(id,name) {
 		//  		console.log(id);
@@ -13503,9 +13512,6 @@ var ListBookDoc = function (_React$Component) {
 				dateEnd.setDate(dateEnd.getDate() + 2);
 				// console.log(date);
 				_BookAction2.default.addTransition({ barcode: barcode, bookname: bookname, username: username, dateStart: dateStart, dateEnd: dateEnd });
-				this.refs.AAA.success('Bạn đã mượn sách ' + name + ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-					closeButton: true
-				});
 			}
 		}
 	}, {
@@ -13863,6 +13869,15 @@ var ViewDetailBook = function (_React$Component) {
 		key: 'onChange',
 		value: function onChange(state) {
 			this.setState({ state1: _BookStore2.default.getState(), state2: _CategoryListStore2.default.getState() });
+			if (this.state.state1.showAlert == "Error") {
+				this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+					closeButton: true
+				});
+			} else if (this.state.state1.showAlert == "Success") {
+				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+					closeButton: true
+				});
+			}
 		}
 	}, {
 		key: 'addToTransition',
@@ -13878,9 +13893,6 @@ var ViewDetailBook = function (_React$Component) {
 				dateEnd.setDate(dateEnd.getDate() + 2);
 				// console.log(date);
 				_BookAction2.default.addTransition({ barcode: barcode, bookname: bookname, username: username, dateStart: dateStart, dateEnd: dateEnd });
-				this.refs.AAA.success('Bạn đã mượn sách ' + name + ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-					closeButton: true
-				});
 			}
 		}
 	}, {
