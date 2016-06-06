@@ -20,6 +20,7 @@ class UserprofilleStore {
       this.fileAvatar ={};
       this.imagePreviewUrl='';
       this.imageUrl='';
+      this.trans =[];
 
       this.user ={};
       this.userfullname ={};
@@ -41,6 +42,16 @@ class UserprofilleStore {
       this.helpBlocktype='';
       this.helpBlockUpload ='';
       }
+
+      onGetTransSuccess(data)
+      {
+        console.log(data);
+        this.trans =data;
+      }
+      onGetTransFail(mesage)
+      {
+        this.trans =[];
+      }  
 
       onUpdatepasswordUserSuccess()
       {

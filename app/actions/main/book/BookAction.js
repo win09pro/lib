@@ -21,6 +21,9 @@ class BookAction {
 			'getDetailBookSuccess',
 			'getDetailBookFail',
 
+			'addtransSuccess',
+			'addtransFail',
+
 			'getRelatedBookSuccess',
 			'getRelatedBookFail',
 
@@ -136,13 +139,13 @@ class BookAction {
 			url: '/api/addtransition',
 			type: 'POST',
 			data: {barcode: payload.barcode , bookname: payload.bookname, username: payload.username, dateBorrow: payload.dateStart, dateReturn: payload.dateEnd}
+		})
+		.done((data) => {
+			this.actions.addtransSuccess(data.message);
+		})
+		.fail((jqXhr) => {
+			this.actions.addtransFail(jqXhr);
 		});
-		// .done((data) => {
-		// 	this.actions.getDetailBookSuccess(data);
-		// })
-		// .fail((jqXhr) => {
-		// 	this.actions.getDetailBookFail(jqXhr.responseJSON.message);
-		// });
 	}
 	addComment(payload){
 		$.ajax({

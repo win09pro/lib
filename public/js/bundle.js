@@ -1449,7 +1449,7 @@ var UserprofilleActions = function () {
   function UserprofilleActions() {
     _classCallCheck(this, UserprofilleActions);
 
-    this.generateActions('addUserSuccess', 'addUserFail', 'updateuserName', 'updateoldpassword', 'updatepassword', 'updaterepassword', 'updatefirstName', 'updatelastName', 'updateType', 'updateImagepreview', 'updateImagefile', 'invaliduserName', 'invalidpassword', 'invalidrepassword', 'invalidfirstName', 'invalidlastName', 'invalidType', 'invalidOldpassword', 'passwordNotSame', 'oldpasswordCorrect', 'oldpasswordUncorrect', 'resetAll', 'clearAll', 'getUserSuccess', 'getUserFail', 'uploadSuccess', 'uploadFail', 'handleUpload', 'alreadyHaduser', 'usernameok', 'updatepasswordUserSuccess');
+    this.generateActions('addUserSuccess', 'addUserFail', 'updateuserName', 'updateoldpassword', 'updatepassword', 'updaterepassword', 'updatefirstName', 'updatelastName', 'updateType', 'updateImagepreview', 'updateImagefile', 'invaliduserName', 'invalidpassword', 'invalidrepassword', 'invalidfirstName', 'invalidlastName', 'invalidType', 'invalidOldpassword', 'passwordNotSame', 'oldpasswordCorrect', 'oldpasswordUncorrect', 'resetAll', 'clearAll', 'getUserSuccess', 'getUserFail', 'getTransSuccess', 'getTransFail', 'uploadSuccess', 'uploadFail', 'handleUpload', 'alreadyHaduser', 'usernameok', 'updatepasswordUserSuccess');
   }
 
   _createClass(UserprofilleActions, [{
@@ -1536,9 +1536,21 @@ var UserprofilleActions = function () {
       });
     }
   }, {
+    key: 'getTransbyUser',
+    value: function getTransbyUser(userName) {
+      var _this6 = this;
+
+      $.ajax({
+        url: '/api/transition/' + userName }).done(function (data) {
+        _this6.actions.getTransSuccess(data);
+      }).fail(function (jqXhr) {
+        _this6.actions.getTransFail(jqXhr);
+      });
+    }
+  }, {
     key: 'updateimformationUser',
     value: function updateimformationUser(payload) {
-      var _this6 = this;
+      var _this7 = this;
 
       $.ajax({
         type: 'POST',
@@ -1552,9 +1564,9 @@ var UserprofilleActions = function () {
           avatar: payload.avatar
         }
       }).done(function (data) {
-        _this6.actions.addUserSuccess(data.message);
+        _this7.actions.addUserSuccess(data.message);
       }).fail(function (jqXhr) {
-        _this6.actions.addUserFail(jqXhr.responseJSON.message);
+        _this7.actions.addUserFail(jqXhr.responseJSON.message);
       });
     }
   }]);
@@ -1585,7 +1597,7 @@ var BookAction = function () {
 	function BookAction() {
 		_classCallCheck(this, BookAction);
 
-		this.generateActions('getBookHomeSuccess', 'getBookHomeFail', 'getBookNewSuccess', 'getBookNewFail', 'getListAllBookSuccess', 'getListAllBookFail', 'getListBookCateSuccess', 'getListBookCateFail', 'getListBookDocSuccess', 'getListBookDocFail', 'getDetailBookSuccess', 'getDetailBookFail', 'getRelatedBookSuccess', 'getRelatedBookFail', 'nextpage', 'previouspage', 'updateCharCount', 'invalidComment', 'addCommentSuccess', 'addCommentFail', 'getCommentSuccess', 'getCommentFail', 'updateTextFind', 'searchTextSuccess', 'searchTextFail');
+		this.generateActions('getBookHomeSuccess', 'getBookHomeFail', 'getBookNewSuccess', 'getBookNewFail', 'getListAllBookSuccess', 'getListAllBookFail', 'getListBookCateSuccess', 'getListBookCateFail', 'getListBookDocSuccess', 'getListBookDocFail', 'getDetailBookSuccess', 'getDetailBookFail', 'addtransSuccess', 'addtransFail', 'getRelatedBookSuccess', 'getRelatedBookFail', 'nextpage', 'previouspage', 'updateCharCount', 'invalidComment', 'addCommentSuccess', 'addCommentFail', 'getCommentSuccess', 'getCommentFail', 'updateTextFind', 'searchTextSuccess', 'searchTextFail');
 	}
 
 	_createClass(BookAction, [{
@@ -1698,59 +1710,59 @@ var BookAction = function () {
 	}, {
 		key: 'addTransition',
 		value: function addTransition(payload) {
+			var _this8 = this;
+
 			$.ajax({
 				url: '/api/addtransition',
 				type: 'POST',
 				data: { barcode: payload.barcode, bookname: payload.bookname, username: payload.username, dateBorrow: payload.dateStart, dateReturn: payload.dateEnd }
+			}).done(function (data) {
+				_this8.actions.addtransSuccess(data.message);
+			}).fail(function (jqXhr) {
+				_this8.actions.addtransFail(jqXhr);
 			});
-			// .done((data) => {
-			// 	this.actions.getDetailBookSuccess(data);
-			// })
-			// .fail((jqXhr) => {
-			// 	this.actions.getDetailBookFail(jqXhr.responseJSON.message);
-			// });
 		}
 	}, {
 		key: 'addComment',
 		value: function addComment(payload) {
-			var _this8 = this;
+			var _this9 = this;
 
 			$.ajax({
 				url: '/api/addComment',
 				type: 'POST',
 				data: { _bookId: payload.bookId, _userId: payload.userId, content: payload.content, date: payload.date }
 			}).done(function (data) {
-				_this8.actions.addCommentSuccess(data);
+				_this9.actions.addCommentSuccess(data);
 			}).fail(function (jqXhr) {
-				_this8.actions.addCommentFail(jqXhr.responseJSON.message);
+				_this9.actions.addCommentFail(jqXhr.responseJSON.message);
 			});
 		}
 	}, {
 		key: 'getComment',
 		value: function getComment(bookId) {
-			var _this9 = this;
+			var _this10 = this;
 
 			$.ajax({
 				url: '/api/getComment/' + bookId,
 				type: 'GET'
 			}).done(function (data) {
-				_this9.actions.getCommentSuccess(data);
+				_this10.actions.getCommentSuccess(data);
 			}).fail(function (jqXhr) {
-				_this9.actions.getCommentFail(jqXhr.responseJSON.message);
+				_this10.actions.getCommentFail(jqXhr.responseJSON.message);
 			});
 		}
 	}, {
 		key: 'searchText',
 		value: function searchText(textFind) {
-			var _this10 = this;
+			var _this11 = this;
 
 			$.ajax({
 				url: '/api/search/' + textFind,
 				type: 'GET'
 			}).done(function (data) {
-				_this10.actions.searchTextSuccess(data);
+				_this11.actions.searchTextSuccess(data);
 			}).fail(function (jqXhr) {
-				_this10.actions.searchTextFail(jqXhr.responseJSON.message);
+				_this11.actions.searchTextFail(jqXhr.responseJSON.message);
 			});
 		}
 	}]);
@@ -8827,6 +8839,34 @@ var MainBook = function (_React$Component) {
       _BookAction2.default.getBookHome();
     }
   }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate() {
+      if (this.state.showAlert == "Error") {
+        this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+          closeButton: true
+        });
+      } else if (this.state.showAlert == "Success") {
+        this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+          closeButton: true
+        });
+      }
+
+      return true;
+    }
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate() {
+      if (this.state.showAlert == "Error") {
+        this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+          closeButton: true
+        });
+      } else if (this.state.showAlert == "Success") {
+        this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+          closeButton: true
+        });
+      }
+    }
+  }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       _BookStore2.default.unlisten(this.onChange);
@@ -8850,9 +8890,6 @@ var MainBook = function (_React$Component) {
         dateEnd.setDate(dateEnd.getDate() + 2);
         // console.log(date);
         _BookAction2.default.addTransition({ barcode: barcode, bookname: bookname, username: username, dateStart: dateStart, dateEnd: dateEnd });
-        this.refs.AAA.success('Bạn đã mượn sách ' + name + ' thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
-          closeButton: true
-        });
       }
     }
   }, {
@@ -9009,12 +9046,12 @@ var MainBook = function (_React$Component) {
             { className: 'row' },
             _react2.default.createElement(
               'ul',
-              { className: 'nav nav-tabs', role: 'tablist' },
+              { className: 'nav nav-tabs col-sm-12', role: 'tablist' },
               listbook
             ),
             _react2.default.createElement(
               'div',
-              { className: 'tab-content' },
+              { className: 'tab-content col-sm-12' },
               _react2.default.createElement(_reactToastr.ToastContainer, { ref: 'AAA', toastMessageFactory: ToastMessageFactory, className: 'toast-top-right' }),
               listbooktab
             )
@@ -11736,6 +11773,10 @@ var _UserprofilleStore = require('../../../stores/main/User/UserprofilleStore');
 
 var _UserprofilleStore2 = _interopRequireDefault(_UserprofilleStore);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -11765,6 +11806,7 @@ var Userprofille = function (_React$Component) {
         this.context.router.push('/');
       } else {
         _UserprofilleActions2.default.getUserById(_localStorage2.default.getItem('userid'));
+        _UserprofilleActions2.default.getTransbyUser(_localStorage2.default.getItem('username'));
       }
     }
   }, {
@@ -11782,6 +11824,9 @@ var Userprofille = function (_React$Component) {
     value: function render() {
       function Type_User(type) {
         if (type == 1) return "Admin1";else if (type == 2) return "Admin2";else return "Thường";
+      }
+      function Status(st) {
+        if (st == 1) return 'Trống';else if (st == 2) return 'Đang chờ';else if (st == 3) return 'Đang mượn';
       }
       return _react2.default.createElement(
         'div',
@@ -11978,11 +12023,6 @@ var Userprofille = function (_React$Component) {
                       _react2.default.createElement(
                         'th',
                         { className: 'none-top' },
-                        'Mã giao dịch'
-                      ),
-                      _react2.default.createElement(
-                        'th',
-                        { className: 'none-top' },
                         'Mã sách'
                       ),
                       _react2.default.createElement(
@@ -12010,162 +12050,42 @@ var Userprofille = function (_React$Component) {
                   _react2.default.createElement(
                     'tbody',
                     null,
-                    _react2.default.createElement(
-                      'tr',
-                      null,
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '1'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4123'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4112323'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        'Giáo dục quốc phòng'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '29/02/2016'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '29/03/2016'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        'Chưa trả'
-                      )
-                    ),
-                    _react2.default.createElement(
-                      'tr',
-                      null,
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '2'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4123'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4112323'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        'Giáo dục quốc phòng'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '29/02/2016'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '29/03/2016'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        'Chưa trả'
-                      )
-                    ),
-                    _react2.default.createElement(
-                      'tr',
-                      null,
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '3'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4123'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4112323'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        'Giáo dục quốc phòng'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '29/02/2016'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '29/03/2016'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        'Chưa trả'
-                      )
-                    ),
-                    _react2.default.createElement(
-                      'tr',
-                      null,
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4123'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '4112323'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        'Giáo dục quốc phòng'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '29/02/2016'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        '29/03/2016'
-                      ),
-                      _react2.default.createElement(
-                        'td',
-                        null,
-                        'Chưa trả'
-                      )
-                    )
+                    this.state.trans.map(function (tran, index) {
+                      return _react2.default.createElement(
+                        'tr',
+                        { key: index },
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          index
+                        ),
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          tran.barcode
+                        ),
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          tran.bookname
+                        ),
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          (0, _moment2.default)(tran.dateBorrow).format('DD/MM/YYYY')
+                        ),
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          (0, _moment2.default)(tran.dateReturn).format('DD/MM/YYYY')
+                        ),
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          Status(tran.status)
+                        )
+                      );
+                    })
                   )
                 )
               )
@@ -12184,7 +12104,7 @@ Userprofille.contextTypes = {
 };
 exports.default = Userprofille;
 
-},{"../../../actions/main/User/UserprofilleActions":23,"../../../stores/main/User/UserprofilleStore":112,"localStorage":182,"react":"react","react-router":"react-router","react-scroll":449}],76:[function(require,module,exports){
+},{"../../../actions/main/User/UserprofilleActions":23,"../../../stores/main/User/UserprofilleStore":112,"localStorage":182,"moment":183,"react":"react","react-router":"react-router","react-scroll":449}],76:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -18721,6 +18641,7 @@ var UserprofilleStore = function () {
             this.fileAvatar = {};
             this.imagePreviewUrl = '';
             this.imageUrl = '';
+            this.trans = [];
 
             this.user = {};
             this.userfullname = {};
@@ -18744,6 +18665,17 @@ var UserprofilleStore = function () {
       }
 
       _createClass(UserprofilleStore, [{
+            key: 'onGetTransSuccess',
+            value: function onGetTransSuccess(data) {
+                  console.log(data);
+                  this.trans = data;
+            }
+      }, {
+            key: 'onGetTransFail',
+            value: function onGetTransFail(mesage) {
+                  this.trans = [];
+            }
+      }, {
             key: 'onUpdatepasswordUserSuccess',
             value: function onUpdatepasswordUserSuccess() {
                   this.setlogout = true;
@@ -19109,6 +19041,8 @@ var BookStore = function () {
     this.cateOne = {};
     this.documenttype = {};
 
+    this.showAlert = "aaaaaaa";
+
     this.listbookdoc = [];
     this.doc = {};
 
@@ -19208,6 +19142,15 @@ var BookStore = function () {
   }, {
     key: 'onGetBookNewFail',
     value: function onGetBookNewFail() {}
+  }, {
+    key: 'onAddtransSuccess',
+    value: function onAddtransSuccess(message) {
+      console.log(message);
+      this.showAlert = message;
+    }
+  }, {
+    key: 'onAddtransFail',
+    value: function onAddtransFail() {}
   }, {
     key: 'onGetDetailBookSuccess',
     value: function onGetDetailBookSuccess(data) {

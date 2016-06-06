@@ -32,6 +32,8 @@ class UserprofilleActions {
       'clearAll',
       'getUserSuccess',
       'getUserFail',
+      'getTransSuccess',
+      'getTransFail',
       'uploadSuccess',
       'uploadFail',
       'handleUpload',
@@ -120,6 +122,18 @@ class UserprofilleActions {
         this.actions.getUserFail(jqXhr.responseJSON.message);
       });
   }
+
+  getTransbyUser(userName) {
+    $.ajax({
+      url: '/api/transition/'+userName})
+      .done((data) => {      
+        this.actions.getTransSuccess(data);
+      })
+      .fail((jqXhr) => {       
+        this.actions.getTransFail(jqXhr);
+      });
+  }
+
   updateimformationUser(payload)
   {
 
