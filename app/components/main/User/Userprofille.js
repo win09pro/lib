@@ -4,6 +4,7 @@ import {animateScroll}  from  'react-scroll';
 import localStorage from 'localStorage';
 import UserprofilleActions from '../../../actions/main/User/UserprofilleActions';
 import UserprofilleStore from '../../../stores/main/User/UserprofilleStore';
+import moment from 'moment';
 
 class Userprofille extends React.Component {
    constructor(props)
@@ -20,6 +21,7 @@ class Userprofille extends React.Component {
     }  
      else{
       UserprofilleActions.getUserById(localStorage.getItem('userid'));
+      UserprofilleActions.getTransbyUser(localStorage.getItem('username'));
      }
 
   }
@@ -37,6 +39,14 @@ class Userprofille extends React.Component {
         else if (type ==2)
           return "Admin2";
         else return "Thường";
+      }
+      function Status(st){
+        if(st == 1)
+          return 'Trống';
+        else if(st == 2)
+          return 'Đang chờ';
+        else if(st == 3)
+          return 'Đang mượn';
       }
     return (
      <div className="user-profile-content">
@@ -106,8 +116,7 @@ class Userprofille extends React.Component {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th className="none-top">#</th>
-                      <th className="none-top">Mã giao dịch</th>
+                      <th className="none-top">#</th>                      
                       <th className="none-top">Mã sách</th>
                       <th className="none-top">Tên sách</th>
                       <th className="none-top">Ngày mượn</th>
@@ -115,42 +124,20 @@ class Userprofille extends React.Component {
                       <th className="none-top">Tình trạng</th>
                     </tr></thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>4123</td>
-                      <td>4112323</td>
-                      <td>Giáo dục quốc phòng</td>
-                      <td>29/02/2016</td>
-                      <td>29/03/2016</td>
-                      <td>Chưa trả</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>4123</td>
-                      <td>4112323</td>
-                      <td>Giáo dục quốc phòng</td>
-                      <td>29/02/2016</td>
-                      <td>29/03/2016</td>
-                      <td>Chưa trả</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>4123</td>
-                      <td>4112323</td>
-                      <td>Giáo dục quốc phòng</td>
-                      <td>29/02/2016</td>
-                      <td>29/03/2016</td>
-                      <td>Chưa trả</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>4123</td>
-                      <td>4112323</td>
-                      <td>Giáo dục quốc phòng</td>
-                      <td>29/02/2016</td>
-                      <td>29/03/2016</td>
-                      <td>Chưa trả</td>
-                    </tr>
+                    {this.state.trans.map((tran,index) =>
+                      {    
+                        return(
+                          <tr key={index}>
+                            <td>{index}</td>
+                            <td>{tran.barcode}</td>
+                            <td>{tran.bookname}</td>
+                            <td>{moment(tran.dateBorrow).format('DD/MM/YYYY')}</td>
+                            <td>{moment(tran.dateReturn).format('DD/MM/YYYY')}</td>                            
+                            <td>{Status(tran.status)}</td>
+                          </tr>
+                          );
+                      }) 
+                      }          
                   </tbody>
                 </table>
               </div>

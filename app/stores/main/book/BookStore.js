@@ -14,6 +14,8 @@ class BookStore{
       this.cateOne = {};
       this.documenttype = {};
 
+      this.showAlert ="aaaaaaa";
+
       this.listbookdoc = [];
       this.doc = {};
 
@@ -92,6 +94,15 @@ class BookStore{
     onGetBookNewFail(){
 
     }
+     onAddtransSuccess(message)
+     {
+      console.log(message);
+      this.showAlert = message;
+     }
+     onAddtransFail()
+     {
+
+     }
   	onGetDetailBookSuccess(data){
   		this.detailBook = data.book;
       this.cate = data.cate;

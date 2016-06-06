@@ -9,24 +9,35 @@ app.post('/api/addtransition', function(req, res, next) {
 	var dateBorrow = req.body.dateBorrow;
 	var dateReturn = req.body.dateReturn;
 	var status = req.body.status;
+	transition.findOne({ barcode: barcode, status: { $in : [2,3] }  })
+  	.exec(function(err, trans) {
+	    if (err) return next(err);
+	    if (!trans) {
+	      	try{
+				var trans = new transition({
+					barcode : barcode,
+					username : username,
+					bookname: bookname,
+					dateBorrow : dateBorrow,
+					dateReturn : dateReturn,
+					status: status
+				});
+				trans.save(function(err){
+					if(err) return next(err);
+					res.send({message: 'Success'});
+				});
+				}
+				catch(e){
+					res.status(e).send({ message: 'Co loi xay ra.' });
+				}
+	    }   
+	    else
+	    	{
+	    		res.send({message: 'Error'});
+	    	}
+	    });
+    
 
-	try{
-		var trans = new transition({
-			barcode : barcode,
-			username : username,
-			bookname: bookname,
-			dateBorrow : dateBorrow,
-			dateReturn : dateReturn,
-			status: status
-		});
-		trans.save(function(err){
-			if(err) return next(err);
-			res.send({message: 'Them giao dich muon thanh cong!'});
-		});
-	}
-	catch(e){
-		res.status(e).send({ message: 'Co loi xay ra.' });
-	}
 });
 
 app.get('/api/alltransition', function(req, res, next){
@@ -54,6 +65,20 @@ app.get('/api/tran/:id', function(req, res, next){
       return res.status(404).send({ message: 'Transition not found.' });
     }   
      res.send(tran);
+    });
+    
+});
+// get transition by usrename
+app.get('/api/transition/:userName', function(req, res, next){
+  var userName = req.params.userName;
+  transition.find({ username: userName })
+  .exec(function(err, trans) {
+    if (err) return next(err);
+
+    if (!trans) {
+      return res.status(404).send({ message: 'Transition not found.' });
+    }   
+     res.send(trans);
     });
     
 });
