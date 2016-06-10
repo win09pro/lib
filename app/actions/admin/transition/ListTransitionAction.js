@@ -25,10 +25,27 @@ class ListTransitionAction {
        'getTransitionSuccess',
        'getTransitionFail',
 
+       'deleteTranSuccess',
+       'deleteTranFail',
+
        'openModal',
       'closeModal'
        
     );
+  }
+  delete(id)
+  {
+    $.ajax({
+      type: 'POST',
+      url: '/api/delete-tran',
+      data: { id: id}
+    })
+      .done((data) => {
+        this.actions.deleteTranSuccess(data.message);
+      })
+      .fail((jqXhr) => {
+        this.actions.deleteTranFail(jqXhr.responseJSON.message);
+      });
   }
   get() {
     $.ajax({    
@@ -70,7 +87,7 @@ class ListTransitionAction {
     $.ajax({
       url: '/api/addtransition',
       type: 'POST',
-      data: {id: payload.idTrans, barcode: payload.barcode , username: payload.username, dateBorrow: payload.dateBorrow, 
+      data: {id: payload.id, barcode: payload.barcode , username: payload.username, dateBorrow: payload.dateBorrow, 
         dateReturn: payload.dateReturn, status: payload.status}
     })
     .done((data) => {

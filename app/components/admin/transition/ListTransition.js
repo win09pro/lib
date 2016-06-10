@@ -3,8 +3,8 @@ import ListTransitionStore from '../../../stores/admin/transition/ListTransition
 import ListTransitionAction from '../../../actions/admin/transition/ListTransitionAction';
 
 import {Link} from 'react-router';
-import TranActionBar from '../../../shared/TranActionBar';
 import {Modal} from 'react-bootstrap';
+import ActionBar from '../../../shared/ActionBar';
 
 class ListTransition extends React.Component {
     constructor(props) {
@@ -68,7 +68,7 @@ class ListTransition extends React.Component {
 	          <td>{dtBorrow}</td>
 	          <td>{dtReturn}</td>
 	          <td>{Status(tran.status)}</td>
-	          <td><TranActionBar editAction={ListTransitionAction} deleteAction={ListTransitionAction} item={tran} /></td>
+	          <td><ActionBar editAction={ListTransitionAction} deleteAction={ListTransitionAction} item={tran} /></td>
 	          <td>            
 	            <input type ='checkbox' data-ref ={tran._id} onClick = {this.handleChange.bind(this)} />             
 	          </td>
@@ -87,8 +87,8 @@ class ListTransition extends React.Component {
 	                  <thead>
 	                    <tr>
 	                      <th>STT</th>
-	                       <th>Username người mượn</th>
-	                       <th>Barcode sách</th>  
+	                      <th>Username người mượn</th>
+	                      <th>Barcode sách</th>  
 	                      <th>Tên sách</th>      
 	                      <th>Ngày mượn</th> 
 	                      <th>Ngày trả</th>
