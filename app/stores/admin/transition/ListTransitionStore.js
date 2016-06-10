@@ -46,18 +46,30 @@ class ListTransitionStore{
 	  {
 	      this.modalIsOpen=false;
 	  }
+	onDeleteTranSuccess(message)
+	{
+		this.deletemessage = message;
+		ListTransitionAction.get();
+	}
+	onDeleteTranFail(jqXhr)
+	{
+		toastr.error(jqXhr.responseJSON.message);
+	}
   	onGetAllTransitionSuccess(data){
   		this.trans = data;
-  		console.log(data);
   	}
   	onGetAllTransitionFail(jqXhr){
   		toastr.error(jqXhr.responseJSON.message);
   	}
   	onGetTransitionSuccess(data){
   		this.id=data._id;
-	    this._userId = data._userId;
-	    this._bookId = data._bookId;
+  		
+	   	this.username = data.username;
+	    this.barcode = data.barcode;
+	    this.bookname = data.bookname;
 	    this.status = data.status;
+	    this.dateBorrow = data.dateBorrow;
+	    this.dateReturn = data.dateReturn;
   	}
   	onGetTransitionFail(jqXhr)
 	   {

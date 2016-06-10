@@ -3,17 +3,17 @@ var transition = require('../../../models/transition');
 function TransitionServer(app){
 
 app.post('/api/addtransition', function(req, res, next) {
+	var id = req.body.id;
 	var barcode = req.body.barcode;
 	var username = req.body.username;
 	var bookname = req.body.bookname;
 	var dateBorrow = req.body.dateBorrow;
 	var dateReturn = req.body.dateReturn;
 	var status = req.body.status;
-	transition.findOne({ barcode: barcode, status: { $in : [2,3] }  })
-  	.exec(function(err, trans) {
+	transition.findOne({ _id: id}, function(err, trans) {
 	    if (err) return next(err);
 	    if (!trans) {
-	      	try{
+	      	
 				var trans = new transition({
 					barcode : barcode,
 					username : username,
@@ -26,16 +26,20 @@ app.post('/api/addtransition', function(req, res, next) {
 					if(err) return next(err);
 					res.send({message: 'Success'});
 				});
-				}
-				catch(e){
-					res.status(e).send({ message: 'Co loi xay ra.' });
-				}
 	    }   
 	    else
 	    	{
-	    		res.send({message: 'Error'});
+	    		trans.update({ $set: { barcode : barcode,
+					username : username,
+					bookname: bookname,
+					dateBorrow : dateBorrow,
+					dateReturn : dateReturn,
+					status: status } }, function(err) {
+			     	if (err) return next(err);
+			      	res.send({ message: 'Transition has been updated successfully!' });
+			    });
 	    	}
-	    });
+	});
     
 
 });
@@ -55,7 +59,7 @@ app.get('/api/alltransition', function(req, res, next){
 });
 
 // get transition by id
-app.get('/api/tran/:id', function(req, res, next){
+app.get('/api/transition/:id', function(req, res, next){
   var id = req.params.id;
   transition.findOne({ _id: id })
   .exec(function(err, tran) {
@@ -83,6 +87,23 @@ app.get('/api/transition/:userName', function(req, res, next){
     
 });
 // end get transition by id
+
+// DELETE tran
+app.post('/api/delete-tran', function(req, res, next) {
+  var id = req.body.id;
+  transition.remove({name:''})  ;
+  transition.findOne({ _id: id }, function(err, tran) {
+    if (err) return next(err);
+
+    if (!tran) {
+      return res.status(404).send({ message: 'transition not found.' });
+    }   
+    tran.remove();
+    res.send({ message: tran.name + ' has been deleted.' });
+
+    
+  });
+});
 
 }
 
