@@ -1612,7 +1612,7 @@ var BookAction = function () {
 	function BookAction() {
 		_classCallCheck(this, BookAction);
 
-		this.generateActions('getBookHomeSuccess', 'getBookHomeFail', 'getBookNewSuccess', 'getBookNewFail', 'getListAllBookSuccess', 'getListAllBookFail', 'getListBookCateSuccess', 'getListBookCateFail', 'getListBookDocSuccess', 'getListBookDocFail', 'getDetailBookSuccess', 'getDetailBookFail', 'addtransSuccess', 'addtransFail', 'getRelatedBookSuccess', 'getRelatedBookFail', 'nextpage', 'previouspage', 'updateCharCount', 'invalidComment', 'addCommentSuccess', 'addCommentFail', 'getCommentSuccess', 'getCommentFail', 'updateTextFind', 'searchTextSuccess', 'searchTextFail');
+		this.generateActions('getBookHomeSuccess', 'getBookHomeFail', 'getBookNewSuccess', 'getBookNewFail', 'getListAllBookSuccess', 'getListAllBookFail', 'getListBookCateSuccess', 'getListBookCateFail', 'getListBookDocSuccess', 'getListBookDocFail', 'getDetailBookSuccess', 'getDetailBookFail', 'addtransSuccess', 'addtransFail', 'getRelatedBookSuccess', 'getRelatedBookFail', 'nextpage', 'previouspage', 'updateCharCount', 'invalidComment', 'addCommentSuccess', 'addCommentFail', 'getCommentSuccess', 'getCommentFail', 'updateTextFind', 'searchTextSuccess', 'searchTextFail', 'rateBookSuccess', 'rateBookFail', 'getRateOfABookSuccess', 'getRateOfABookFail');
 	}
 
 	_createClass(BookAction, [{
@@ -1778,6 +1778,35 @@ var BookAction = function () {
 				_this11.actions.searchTextSuccess(data);
 			}).fail(function (jqXhr) {
 				_this11.actions.searchTextFail(jqXhr.responseJSON.message);
+			});
+		}
+	}, {
+		key: 'rateBook',
+		value: function rateBook(payload) {
+			var _this12 = this;
+
+			$.ajax({
+				url: '/api/rateBook',
+				type: 'POST',
+				data: { _bookid: payload.bookId, _userid: payload.userId, value: payload.value }
+			}).done(function (data) {
+				_this12.actions.rateBookSuccess(data);
+			}).fail(function (jqXhr) {
+				_this12.actions.rateBookFail(jqXhr.responseJSON.message);
+			});
+		}
+	}, {
+		key: 'getRateOfABook',
+		value: function getRateOfABook(bookId) {
+			var _this13 = this;
+
+			$.ajax({
+				url: '/api/getRateOfABook/' + bookId,
+				type: 'GET'
+			}).done(function (data) {
+				_this13.actions.getRateOfABookSuccess(data);
+			}).fail(function (jqXhr) {
+				_this13.actions.getRateOfABookFail(jqXhr.responseJSON.message);
 			});
 		}
 	}]);
@@ -2275,7 +2304,7 @@ var Footer = function (_React$Component) {
 
 exports.default = Footer;
 
-},{"../../actions/FooterActions":1,"../../stores/FooterStore":90,"react":"react","react-router":"react-router","react-scroll":428}],32:[function(require,module,exports){
+},{"../../actions/FooterActions":1,"../../stores/FooterStore":90,"react":"react","react-router":"react-router","react-scroll":429}],32:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6984,7 +7013,7 @@ var ListBooks = function (_React$Component) {
 
 exports.default = ListBooks;
 
-},{"../../../actions/admin/post/AddPostActions":13,"../../../actions/admin/post/listPostsActions":15,"../../../shared/ActionBar":87,"../../../stores/admin/post/listPostsStore":105,"./AddPost":48,"moment":299,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":428}],52:[function(require,module,exports){
+},{"../../../actions/admin/post/AddPostActions":13,"../../../actions/admin/post/listPostsActions":15,"../../../shared/ActionBar":87,"../../../stores/admin/post/listPostsStore":105,"./AddPost":48,"moment":299,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":429}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9063,7 +9092,7 @@ var MainBook = function (_React$Component) {
 
 exports.default = MainBook;
 
-},{"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-toastr":441}],64:[function(require,module,exports){
+},{"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-toastr":443}],64:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9300,7 +9329,7 @@ var Footer = function (_React$Component) {
 
 exports.default = Footer;
 
-},{"react":"react","react-router":"react-router","react-scroll":428}],65:[function(require,module,exports){
+},{"react":"react","react-router":"react-router","react-scroll":429}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -10425,7 +10454,7 @@ var Listallpost = function (_React$Component) {
 
 exports.default = Listallpost;
 
-},{"../../../actions/main/post/PostActions":25,"../../../stores/main/post/Poststore":114,"moment":299,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":428}],70:[function(require,module,exports){
+},{"../../../actions/main/post/PostActions":25,"../../../stores/main/post/Poststore":114,"moment":299,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":429}],70:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11404,7 +11433,7 @@ EditPassword.contextTypes = {
 };
 exports.default = EditPassword;
 
-},{"../../../actions/main/Login/LoginActions":20,"../../../actions/main/MainnavbarActions":21,"../../../actions/main/User/UserprofilleActions":23,"../../../shared/ImgUpload":88,"../../../stores/main/User/UserprofilleStore":112,"localStorage":229,"react":"react","react-router":"react-router","react-scroll":428}],74:[function(require,module,exports){
+},{"../../../actions/main/Login/LoginActions":20,"../../../actions/main/MainnavbarActions":21,"../../../actions/main/User/UserprofilleActions":23,"../../../shared/ImgUpload":88,"../../../stores/main/User/UserprofilleStore":112,"localStorage":229,"react":"react","react-router":"react-router","react-scroll":429}],74:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11741,7 +11770,7 @@ Editprofile.contextTypes = {
 };
 exports.default = Editprofile;
 
-},{"../../../actions/main/MainnavbarActions":21,"../../../actions/main/User/UserprofilleActions":23,"../../../shared/ImgUpload":88,"../../../stores/main/User/UserprofilleStore":112,"localStorage":229,"react":"react","react-router":"react-router","react-scroll":428}],75:[function(require,module,exports){
+},{"../../../actions/main/MainnavbarActions":21,"../../../actions/main/User/UserprofilleActions":23,"../../../shared/ImgUpload":88,"../../../stores/main/User/UserprofilleStore":112,"localStorage":229,"react":"react","react-router":"react-router","react-scroll":429}],75:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12101,7 +12130,7 @@ Userprofille.contextTypes = {
 };
 exports.default = Userprofille;
 
-},{"../../../actions/main/User/UserprofilleActions":23,"../../../stores/main/User/UserprofilleStore":112,"localStorage":229,"moment":299,"react":"react","react-router":"react-router","react-scroll":428}],76:[function(require,module,exports){
+},{"../../../actions/main/User/UserprofilleActions":23,"../../../stores/main/User/UserprofilleStore":112,"localStorage":229,"moment":299,"react":"react","react-router":"react-router","react-scroll":429}],76:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12117,6 +12146,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRouter = require('react-router');
 
 var _reactBootstrap = require('react-bootstrap');
+
+var _reactStarRatingComponent = require('react-star-rating-component');
+
+var _reactStarRatingComponent2 = _interopRequireDefault(_reactStarRatingComponent);
 
 var _Login = require('../Login/Login');
 
@@ -12189,6 +12222,11 @@ var BookSearch = function (_React$Component) {
 		value: function componentWillUnmount() {
 			_BookStore2.default.unlisten(this.onChange);
 			_CategoryListStore2.default.unlisten(this.onChange);
+		}
+	}, {
+		key: 'onStarClick',
+		value: function onStarClick(name, value) {
+			this.setState({ rating: value });
 		}
 	}, {
 		key: 'onChange',
@@ -12267,6 +12305,8 @@ var BookSearch = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
+
+			var rating = this.state.state1.rating.rating;
 
 			var postviewed = this.state.state1.currentpage * this.state.state1.numpostview;
 			if (postviewed > this.state.state1.numpost) postviewed = this.state.state1.numpost;
@@ -12359,35 +12399,7 @@ var BookSearch = function (_React$Component) {
 									{ type: 'submit', className: 'borrow col-xs-12', onClick: _this2.addToTransition.bind(_this2, book.code, book.name) },
 									'Đặt Mượn'
 								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'rating col-xs-12' },
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									)
-								)
+								_react2.default.createElement('div', { className: 'rating col-xs-12' })
 							)
 						)
 					);
@@ -12541,7 +12553,7 @@ BookSearch.contextTypes = {
 
 exports.default = BookSearch;
 
-},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":428,"react-toastr":441}],77:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":429,"react-star-rating-component":438,"react-toastr":443}],77:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12557,6 +12569,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRouter = require('react-router');
 
 var _reactBootstrap = require('react-bootstrap');
+
+var _reactStarRatingComponent = require('react-star-rating-component');
+
+var _reactStarRatingComponent2 = _interopRequireDefault(_reactStarRatingComponent);
 
 var _Login = require('../Login/Login');
 
@@ -12628,6 +12644,11 @@ var ListAllBook = function (_React$Component) {
 		value: function componentWillUnmount() {
 			_BookStore2.default.unlisten(this.onChange);
 			_CategoryListStore2.default.unlisten(this.onChange);
+		}
+	}, {
+		key: 'onStarClick',
+		value: function onStarClick(name, value) {
+			this.setState({ rating: value });
 		}
 	}, {
 		key: 'onChange',
@@ -12706,6 +12727,8 @@ var ListAllBook = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
+
+			var rating = this.state.state1.rating.rating;
 
 			var postviewed = this.state.state1.currentpage * this.state.state1.numpostview;
 			if (postviewed > this.state.state1.numpost) postviewed = this.state.state1.numpost;
@@ -12798,35 +12821,7 @@ var ListAllBook = function (_React$Component) {
 									{ type: 'submit', className: 'borrow col-xs-12', onClick: _this2.addToTransition.bind(_this2, book.code, book.name) },
 									'Đặt Mượn'
 								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'rating col-xs-12' },
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									)
-								)
+								_react2.default.createElement('div', { className: 'rating col-xs-12' })
 							)
 						)
 					);
@@ -12980,7 +12975,7 @@ ListAllBook.contextTypes = {
 
 exports.default = ListAllBook;
 
-},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":428,"react-toastr":441}],78:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":429,"react-star-rating-component":438,"react-toastr":443}],78:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12996,6 +12991,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRouter = require('react-router');
 
 var _reactBootstrap = require('react-bootstrap');
+
+var _reactStarRatingComponent = require('react-star-rating-component');
+
+var _reactStarRatingComponent2 = _interopRequireDefault(_reactStarRatingComponent);
 
 var _Login = require('../Login/Login');
 
@@ -13067,6 +13066,11 @@ var ListBookCate = function (_React$Component) {
 		value: function componentWillUnmount() {
 			_BookStore2.default.unlisten(this.onChange);
 			_CategoryListStore2.default.unlisten(this.onChange);
+		}
+	}, {
+		key: 'onStarClick',
+		value: function onStarClick(name, value) {
+			this.setState({ rating: value });
 		}
 	}, {
 		key: 'onChange',
@@ -13146,6 +13150,8 @@ var ListBookCate = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
+
+			var rating = this.state.state1.rating.rating;
 
 			var postviewed = this.state.state1.currentpage * this.state.state1.numpostview;
 			if (postviewed > this.state.state1.numpost) postviewed = this.state.state1.numpost;
@@ -13239,35 +13245,7 @@ var ListBookCate = function (_React$Component) {
 									{ type: 'submit', className: 'borrow col-xs-12', onClick: _this2.addToTransition.bind(_this2, book.code, book.name) },
 									'Đặt Mượn'
 								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'rating col-xs-12' },
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									)
-								)
+								_react2.default.createElement('div', { className: 'rating col-xs-12' })
 							)
 						)
 					);
@@ -13399,7 +13377,7 @@ ListBookCate.contextTypes = {
 
 exports.default = ListBookCate;
 
-},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":428,"react-toastr":441}],79:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":429,"react-star-rating-component":438,"react-toastr":443}],79:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -13415,6 +13393,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRouter = require('react-router');
 
 var _reactBootstrap = require('react-bootstrap');
+
+var _reactStarRatingComponent = require('react-star-rating-component');
+
+var _reactStarRatingComponent2 = _interopRequireDefault(_reactStarRatingComponent);
 
 var _Login = require('../Login/Login');
 
@@ -13488,6 +13470,11 @@ var ListBookDoc = function (_React$Component) {
 			_CategoryListStore2.default.unlisten(this.onChange);
 		}
 	}, {
+		key: 'onStarClick',
+		value: function onStarClick(name, value) {
+			this.setState({ rating: value });
+		}
+	}, {
 		key: 'onChange',
 		value: function onChange(state) {
 			this.setState({ state1: _BookStore2.default.getState(), state2: _CategoryListStore2.default.getState() });
@@ -13554,6 +13541,8 @@ var ListBookDoc = function (_React$Component) {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
+
+			var rating = this.state.state1.rating.rating;
 
 			var postviewed = this.state.state1.currentpage * this.state.state1.numpostview;
 			if (postviewed > this.state.state1.numpost) postviewed = this.state.state1.numpost;
@@ -13647,35 +13636,7 @@ var ListBookDoc = function (_React$Component) {
 									{ type: 'submit', className: 'borrow col-xs-12', onClick: _this2.addToTransition.bind(_this2, book.code, book.name) },
 									'Đặt Mượn'
 								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'rating col-xs-12' },
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									),
-									_react2.default.createElement(
-										'span',
-										null,
-										'☆'
-									)
-								)
+								_react2.default.createElement('div', { className: 'rating col-xs-12' })
 							)
 						)
 					);
@@ -13794,7 +13755,7 @@ var ListBookDoc = function (_React$Component) {
 
 exports.default = ListBookDoc;
 
-},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":428,"react-toastr":441}],80:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-scroll":429,"react-star-rating-component":438,"react-toastr":443}],80:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -13810,6 +13771,14 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRouter = require('react-router');
 
 var _reactBootstrap = require('react-bootstrap');
+
+var _reactStarRatingComponent = require('react-star-rating-component');
+
+var _reactStarRatingComponent2 = _interopRequireDefault(_reactStarRatingComponent);
+
+var _reactRating = require('react-rating');
+
+var _reactRating2 = _interopRequireDefault(_reactRating);
 
 var _BookAction = require('../../../actions/main/book/BookAction');
 
@@ -13869,17 +13838,36 @@ var ViewDetailBook = function (_React$Component) {
 		value: function componentDidMount() {
 			_BookStore2.default.listen(this.onChange);
 			_CategoryListStore2.default.listen(this.onChange);
+			// get rate of a book
+			_BookAction2.default.getRateOfABook(this.props.params.id);
+
 			_BookAction2.default.getDetailBook(this.props.params.id);
 			_BookAction2.default.getRelatedBook(this.props.params.id);
 			_BookAction2.default.getBookNew();
 			_BookAction2.default.getComment(this.props.params.id);
 			_CategoryListAction2.default.get();
+
+			this.refs.ct.focus();
 		}
 	}, {
 		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
 			_BookStore2.default.unlisten(this.onChange);
 			_CategoryListStore2.default.unlisten(this.onChange);
+		}
+	}, {
+		key: 'onStarClick',
+		value: function onStarClick(bookId, value, name) {
+			var value = value;
+			this.setState({ rating: value });
+			var bookId = bookId;
+			var userId = localStorage.getItem('userid');
+
+			if (!userId) {
+				_LoginActions2.default.openLoginModal();
+			} else {
+				_BookAction2.default.rateBook({ bookId: bookId, userId: userId, value: value });
+			}
 		}
 	}, {
 		key: 'onChange',
@@ -13941,6 +13929,7 @@ var ViewDetailBook = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var rating = parseFloat(this.state.state1.averageRate);
 			var listcate = this.state.state2.listcategory.map(function (cate, index) {
 				return _react2.default.createElement(
 					'li',
@@ -14060,7 +14049,7 @@ var ViewDetailBook = function (_React$Component) {
 			});
 			return _react2.default.createElement(
 				'div',
-				{ className: 'container-fluid padding-0' },
+				{ className: 'container-fluid padding-0', ref: 'ct' },
 				_react2.default.createElement(
 					'div',
 					{ className: 'wrap-detail-content' },
@@ -14221,29 +14210,17 @@ var ViewDetailBook = function (_React$Component) {
 													'div',
 													{ className: 'rating' },
 													_react2.default.createElement(
-														'span',
-														null,
-														'☆'
+														'div',
+														{ id: 'rate-custom' },
+														_react2.default.createElement(_reactRating2.default, { initialRate: rating, empty: 'fa fa-star-o', full: 'fa fa-star', onClick: this.onStarClick.bind(this, book._id) })
 													),
 													_react2.default.createElement(
 														'span',
-														null,
-														'☆'
-													),
-													_react2.default.createElement(
-														'span',
-														null,
-														'☆'
-													),
-													_react2.default.createElement(
-														'span',
-														null,
-														'☆'
-													),
-													_react2.default.createElement(
-														'span',
-														null,
-														'☆'
+														{ className: 'rate-value' },
+														this.state.state1.averageRate,
+														'/5 trong tổng số ',
+														this.state.state1.numOfRate,
+														' phiếu bầu'
 													)
 												)
 											)
@@ -14362,7 +14339,7 @@ ViewDetailBook.contextTypes = {
 
 exports.default = ViewDetailBook;
 
-},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-router":"react-router","react-toastr":441}],81:[function(require,module,exports){
+},{"../../../actions/admin/category/CategoryListAction":8,"../../../actions/main/Login/LoginActions":20,"../../../actions/main/book/BookAction":24,"../../../stores/admin/category/CategoryListStore":96,"../../../stores/main/book/BookStore":113,"../Login/Login":66,"localStorage":229,"react":"react","react-bootstrap":381,"react-rating":424,"react-router":"react-router","react-star-rating-component":438,"react-toastr":443}],81:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -19073,6 +19050,12 @@ var BookStore = function () {
     _classCallCheck(this, BookStore);
 
     this.bindActions(_BookAction2.default);
+    // rating
+    this.rating = 0;
+    this.numOfRate = 0;
+    this.averageRate = 0;
+    this.bookIdtoGetRate = '';
+
     this.bookhome = [];
     this.listallbook = [];
     this.listbookcate = [];
@@ -19093,7 +19076,7 @@ var BookStore = function () {
     this.currentpage = 1;
     this.numpost = 0;
 
-    this.charcount = 0;
+    this.charcount = 400;
     this.commentContent = '';
     this.helpBlockComment = '';
 
@@ -19249,6 +19232,34 @@ var BookStore = function () {
   }, {
     key: 'onGetListAllBookFail',
     value: function onGetListAllBookFail() {
+      toastr.error(jqXhr.responseJSON.message);
+    }
+
+    // rating action
+
+  }, {
+    key: 'onRateBookSuccess',
+    value: function onRateBookSuccess(data) {
+      this.numOfRate = data.numOfRate;
+      this.averageRate = data.averageRate;
+      // this.bookIdtoGetRate = data.bookId;
+      // BookAction.getRateOfABook(data.bookId);
+    }
+  }, {
+    key: 'onRateBookFail',
+    value: function onRateBookFail(jqXhr) {
+      toastr.error(jqXhr.responseJSON.message);
+    }
+  }, {
+    key: 'onGetRateOfABookSuccess',
+    value: function onGetRateOfABookSuccess(data) {
+      this.numOfRate = data.numOfRate;
+      this.averageRate = data.averageRate;
+      this.rating = data.averageRate;
+    }
+  }, {
+    key: 'onGetRateOfABookFail',
+    value: function onGetRateOfABookFail(jqXhr) {
       toastr.error(jqXhr.responseJSON.message);
     }
   }]);
@@ -36625,7 +36636,7 @@ FeedHandler.prototype.onend = function(){
 
 module.exports = FeedHandler;
 
-},{"./index.js":223,"util":468}],218:[function(require,module,exports){
+},{"./index.js":223,"util":470}],218:[function(require,module,exports){
 var Tokenizer = require("./Tokenizer.js");
 
 /*
@@ -36979,7 +36990,7 @@ Parser.prototype.done = Parser.prototype.end;
 
 module.exports = Parser;
 
-},{"./Tokenizer.js":221,"events":207,"util":468}],219:[function(require,module,exports){
+},{"./Tokenizer.js":221,"events":207,"util":470}],219:[function(require,module,exports){
 module.exports = ProxyHandler;
 
 function ProxyHandler(cbs){
@@ -37043,7 +37054,7 @@ Object.keys(EVENTS).forEach(function(name){
 		throw Error("wrong number of arguments!");
 	}
 });
-},{"../":223,"./WritableStream.js":222,"util":468}],221:[function(require,module,exports){
+},{"../":223,"./WritableStream.js":222,"util":470}],221:[function(require,module,exports){
 module.exports = Tokenizer;
 
 var decodeCodePoint = require("entities/lib/decode_codepoint.js"),
@@ -37973,7 +37984,7 @@ WritableStream.prototype._write = function(chunk, encoding, cb){
 	this._parser.write(chunk);
 	cb();
 };
-},{"./Parser.js":218,"readable-stream":129,"stream":450,"util":468}],223:[function(require,module,exports){
+},{"./Parser.js":218,"readable-stream":129,"stream":452,"util":470}],223:[function(require,module,exports){
 var Parser = require("./Parser.js"),
     DomHandler = require("domhandler");
 
@@ -46911,7 +46922,7 @@ Dropdown.Menu = _DropdownMenu2['default'];
 
 exports['default'] = Dropdown;
 module.exports = exports['default'];
-},{"./ButtonGroup":309,"./DropdownMenu":319,"./DropdownToggle":320,"./utils/CustomPropTypes":383,"./utils/ValidComponentChildren":385,"./utils/bootstrapUtils":386,"./utils/createChainedFunction":389,"babel-runtime/helpers/class-call-check":122,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/inherits":124,"babel-runtime/helpers/interop-require-default":125,"classnames":132,"dom-helpers/activeElement":157,"dom-helpers/query/contains":167,"keycode":228,"lodash-compat/collection/find":231,"lodash-compat/object/omit":293,"react":"react","react-dom":"react-dom","react-prop-types/lib/all":418,"react-prop-types/lib/elementType":421,"react-prop-types/lib/isRequiredForA11y":422,"uncontrollable":464}],318:[function(require,module,exports){
+},{"./ButtonGroup":309,"./DropdownMenu":319,"./DropdownToggle":320,"./utils/CustomPropTypes":383,"./utils/ValidComponentChildren":385,"./utils/bootstrapUtils":386,"./utils/createChainedFunction":389,"babel-runtime/helpers/class-call-check":122,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/inherits":124,"babel-runtime/helpers/interop-require-default":125,"classnames":132,"dom-helpers/activeElement":157,"dom-helpers/query/contains":167,"keycode":228,"lodash-compat/collection/find":231,"lodash-compat/object/omit":293,"react":"react","react-dom":"react-dom","react-prop-types/lib/all":418,"react-prop-types/lib/elementType":421,"react-prop-types/lib/isRequiredForA11y":422,"uncontrollable":466}],318:[function(require,module,exports){
 'use strict';
 
 var _inherits = require('babel-runtime/helpers/inherits')['default'];
@@ -50431,7 +50442,7 @@ Navbar.Link = createSimpleWrapper('a', 'link', 'NavbarLink');
 
 exports['default'] = Navbar;
 module.exports = exports['default'];
-},{"./Grid":326,"./NavbarBrand":354,"./NavbarCollapse":355,"./NavbarHeader":356,"./NavbarToggle":357,"./deprecated/Navbar":380,"./styleMaps":382,"./utils/ValidComponentChildren":385,"./utils/bootstrapUtils":386,"./utils/deprecationWarning":391,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/interop-require-default":125,"babel-runtime/helpers/object-without-properties":127,"classnames":132,"react":"react","react-prop-types/lib/deprecated":420,"react-prop-types/lib/elementType":421,"uncontrollable":464}],354:[function(require,module,exports){
+},{"./Grid":326,"./NavbarBrand":354,"./NavbarCollapse":355,"./NavbarHeader":356,"./NavbarToggle":357,"./deprecated/Navbar":380,"./styleMaps":382,"./utils/ValidComponentChildren":385,"./utils/bootstrapUtils":386,"./utils/deprecationWarning":391,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/interop-require-default":125,"babel-runtime/helpers/object-without-properties":127,"classnames":132,"react":"react","react-prop-types/lib/deprecated":420,"react-prop-types/lib/elementType":421,"uncontrollable":466}],354:[function(require,module,exports){
 'use strict';
 
 var _inherits = require('babel-runtime/helpers/inherits')['default'];
@@ -51125,7 +51136,7 @@ exports['default'] = OverlayTrigger;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"./Overlay":358,"./utils/createChainedFunction":389,"_process":302,"babel-runtime/core-js/object/keys":120,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/interop-require-default":125,"dom-helpers/query/contains":167,"lodash-compat/object/pick":295,"react":"react","react-dom":"react-dom","warning":469}],360:[function(require,module,exports){
+},{"./Overlay":358,"./utils/createChainedFunction":389,"_process":302,"babel-runtime/core-js/object/keys":120,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/interop-require-default":125,"dom-helpers/query/contains":167,"lodash-compat/object/pick":295,"react":"react","react-dom":"react-dom","warning":471}],360:[function(require,module,exports){
 'use strict';
 
 var _extends = require('babel-runtime/helpers/extends')['default'];
@@ -52460,7 +52471,7 @@ exports['default'] = ResponsiveEmbed;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"_process":302,"babel-runtime/helpers/class-call-check":122,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/inherits":124,"babel-runtime/helpers/interop-require-default":125,"babel-runtime/helpers/object-without-properties":127,"classnames":132,"react":"react","warning":469}],370:[function(require,module,exports){
+},{"_process":302,"babel-runtime/helpers/class-call-check":122,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/inherits":124,"babel-runtime/helpers/interop-require-default":125,"babel-runtime/helpers/object-without-properties":127,"classnames":132,"react":"react","warning":471}],370:[function(require,module,exports){
 'use strict';
 
 var _extends = require('babel-runtime/helpers/extends')['default'];
@@ -54826,7 +54837,7 @@ var _curry = curry;
 exports._curry = _curry;
 }).call(this,require('_process'))
 
-},{"../styleMaps":382,"_process":302,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/interop-require-default":125,"invariant":226,"react":"react","warning":469}],387:[function(require,module,exports){
+},{"../styleMaps":382,"_process":302,"babel-runtime/helpers/extends":123,"babel-runtime/helpers/interop-require-default":125,"invariant":226,"react":"react","warning":471}],387:[function(require,module,exports){
 'use strict';
 
 var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
@@ -55020,7 +55031,7 @@ exports['default'] = deprecationWarning;
 module.exports = exports['default'];
 }).call(this,require('_process'))
 
-},{"_process":302,"babel-runtime/helpers/class-call-check":122,"babel-runtime/helpers/inherits":124,"babel-runtime/helpers/interop-require-default":125,"warning":469}],392:[function(require,module,exports){
+},{"_process":302,"babel-runtime/helpers/class-call-check":122,"babel-runtime/helpers/inherits":124,"babel-runtime/helpers/interop-require-default":125,"warning":471}],392:[function(require,module,exports){
 /*eslint-disable react/prop-types */
 'use strict';
 
@@ -55530,7 +55541,7 @@ Modal.manager = modalManager;
 
 exports['default'] = Modal;
 module.exports = exports['default'];
-},{"./ModalManager":393,"./Portal":395,"./utils/addEventListener":399,"./utils/addFocusListener":400,"./utils/getContainer":402,"./utils/ownerDocument":406,"dom-helpers/activeElement":157,"dom-helpers/query/contains":167,"dom-helpers/util/inDOM":184,"react":"react","react-prop-types/lib/elementType":408,"react-prop-types/lib/mountable":409,"warning":469}],393:[function(require,module,exports){
+},{"./ModalManager":393,"./Portal":395,"./utils/addEventListener":399,"./utils/addFocusListener":400,"./utils/getContainer":402,"./utils/ownerDocument":406,"dom-helpers/activeElement":157,"dom-helpers/query/contains":167,"dom-helpers/util/inDOM":184,"react":"react","react-prop-types/lib/elementType":408,"react-prop-types/lib/mountable":409,"warning":471}],393:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -58517,7 +58528,7 @@ function deprecated(propType, explanation) {
 }
 
 module.exports = exports['default'];
-},{"warning":469}],421:[function(require,module,exports){
+},{"warning":471}],421:[function(require,module,exports){
 arguments[4][408][0].apply(exports,arguments)
 },{"./common":419,"dup":408,"react":"react"}],422:[function(require,module,exports){
 "use strict";
@@ -58576,6 +58587,400 @@ function createSinglePropFromChecker() {
 
 module.exports = exports['default'];
 },{}],424:[function(require,module,exports){
+/*! react-rating - 0.4.0 | (c) 2015, 2016  dreyescat | MIT | https://github.com/dreyescat/react-rating */
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory(require("react"));
+	else if(typeof define === 'function' && define.amd)
+		define(["react"], factory);
+	else if(typeof exports === 'object')
+		exports["ReactRating"] = factory(require("react"));
+	else
+		root["ReactRating"] = factory(root["React"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/lib";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(1);
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	var React = __webpack_require__(2);
+	var Style = __webpack_require__(3);
+	var Symbol = __webpack_require__(5);
+
+	// Returns the index of the rate in the range (start, stop, step).
+	// Returns undefined index if the rate is outside the range.
+	// NOTE: A range.step of 0 produces an empty range and consequently returns an
+	// undefined index.
+	var indexOf = function indexOf(range, rate) {
+	  // Check the rate is in the proper range [start..stop] according to
+	  // the start, stop and step properties in props.
+	  var step = range.step;
+	  var start = step > 0 ? range.start : range.stop;
+	  var stop = step > 0 ? range.stop : range.start;
+	  if (step && start <= rate && rate <= stop) {
+	    // The index corresponds to the number of steps of size props.step
+	    // that fits between rate and start.
+	    // This index does not need to be a whole number because we can have
+	    // fractional symbols, and consequently fractional/float indexes.
+	    return (rate - range.start) / step;
+	  }
+	};
+
+	var Rating = React.createClass({
+	  displayName: 'Rating',
+
+	  // Define propTypes only in development.
+	  propTypes: "boolean" !== 'undefined' && (true) && {
+	    start: React.PropTypes.number,
+	    stop: React.PropTypes.number,
+	    step: React.PropTypes.number,
+	    initialRate: React.PropTypes.number,
+	    placeholderRate: React.PropTypes.number,
+	    empty: React.PropTypes.oneOfType([
+	    // Array of class names and/or style objects.
+	    React.PropTypes.arrayOf(React.PropTypes.oneOfType[(React.PropTypes.string, React.PropTypes.object)]),
+	    // Class names.
+	    React.PropTypes.string,
+	    // Style objects.
+	    React.PropTypes.object]),
+	    placeholder: React.PropTypes.oneOfType([
+	    // Array of class names and/or style objects.
+	    React.PropTypes.arrayOf(React.PropTypes.oneOfType[(React.PropTypes.string, React.PropTypes.object)]),
+	    // Class names.
+	    React.PropTypes.string,
+	    // Style objects.
+	    React.PropTypes.object]),
+	    full: React.PropTypes.oneOfType([
+	    // Array of class names and/or style objects.
+	    React.PropTypes.arrayOf(React.PropTypes.oneOfType[(React.PropTypes.string, React.PropTypes.object)]),
+	    // Class names.
+	    React.PropTypes.string,
+	    // Style objects.
+	    React.PropTypes.object]),
+	    readonly: React.PropTypes.bool,
+	    fractions: React.PropTypes.number,
+	    scale: React.PropTypes.number,
+	    onChange: React.PropTypes.func,
+	    onClick: React.PropTypes.func,
+	    onRate: React.PropTypes.func
+	  },
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      start: 0,
+	      stop: 5,
+	      step: 1,
+	      empty: Style.empty,
+	      placeholder: Style.placeholder,
+	      full: Style.full,
+	      fractions: 1,
+	      scale: 3,
+	      onChange: function onChange(rate) {},
+	      onClick: function onClick(rate) {},
+	      onRate: function onRate(rate) {}
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.setState({
+	      // detect the computed direction style for the mounted component
+	      direction: window.getComputedStyle(this.refs.container, null).getPropertyValue("direction")
+	    });
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var rate = nextProps.initialRate > 0 ? nextProps.initialRate : nextProps.placeholderRate;
+	    this.setState({
+	      index: indexOf(nextProps, rate)
+	    });
+	  },
+	  getInitialState: function getInitialState() {
+	    var index = this.props.initialRate > 0 ? this.props.initialRate : this.props.placeholderRate;
+	    return {
+	      index: this._rateToIndex(index),
+	      indexOver: undefined,
+	      // Default direction is left to right
+	      direction: 'ltr'
+	    };
+	  },
+	  handleMouseDown: function handleMouseDown(i, event) {
+	    var index = i + this._fractionalIndex(event);
+	    this.props.onClick(this._indexToRate(index));
+	    if (this.state.index !== index) {
+	      this.props.onChange(this._indexToRate(index));
+	      this.setState({
+	        index: index,
+	        selected: true
+	      });
+	    }
+	  },
+	  handleMouseLeave: function handleMouseLeave() {
+	    this.props.onRate();
+	    this.setState({
+	      indexOver: undefined
+	    });
+	  },
+	  handleMouseMove: function handleMouseMove(i, event) {
+	    var index = i + this._fractionalIndex(event);
+	    if (this.state.indexOver !== index) {
+	      this.props.onRate(this._indexToRate(index));
+	      this.setState({
+	        indexOver: index
+	      });
+	    }
+	  },
+	  // Calculate the rate of an index according the the start and step.
+	  _indexToRate: function _indexToRate(index) {
+	    return this.props.start + Math.floor(index) * this.props.step + this.props.step * this._roundToFraction(index % 1);
+	  },
+	  // Calculate the corresponding index for a rate according to the provided
+	  // props or this.props.
+	  _rateToIndex: function _rateToIndex(rate) {
+	    return indexOf(this.props, rate);
+	  },
+	  _roundToFraction: function _roundToFraction(index) {
+	    // Get the closest top fraction.
+	    var fraction = Math.ceil(index % 1 * this.props.fractions) / this.props.fractions;
+	    // Truncate decimal trying to avoid float precission issues.
+	    var precision = Math.pow(10, this.props.scale);
+	    return Math.floor(index) + Math.floor(fraction * precision) / precision;
+	  },
+	  _fractionalIndex: function _fractionalIndex(event) {
+	    var x = this.state.direction === 'rtl' ? event.currentTarget.getBoundingClientRect().right - event.clientX : event.clientX - event.currentTarget.getBoundingClientRect().left;
+	    return this._roundToFraction(x / event.currentTarget.offsetWidth);
+	  },
+	  render: function render() {
+	    var symbolNodes = [];
+	    var empty = [].concat(this.props.empty);
+	    var placeholder = [].concat(this.props.placeholder);
+	    var full = [].concat(this.props.full);
+	    // The symbol with the mouse over prevails over the selected one.
+	    var index = this.state.indexOver !== undefined ? this.state.indexOver : this.state.index;
+	    // The index of the last full symbol or NaN if index is undefined.
+	    var lastFullIndex = Math.floor(index);
+	    // Render the number of whole symbols.
+
+	    var icon = !this.state.selected && !this.props.initialRate && this.props.placeholderRate > 0 && this.state.indexOver == undefined ? placeholder : full;
+
+	    for (var i = 0; i < Math.floor(this._rateToIndex(this.props.stop)); i++) {
+	      // Return the percentage of the decimal part of the last full index,
+	      // 100 percent for those below the last full index or 0 percent for those
+	      // indexes NaN or above the last full index.
+	      var percent = i - lastFullIndex === 0 ? index % 1 * 100 : i - lastFullIndex < 0 ? 100 : 0;
+
+	      symbolNodes.push(React.createElement(Symbol, {
+	        key: i,
+	        background: empty[i % empty.length],
+	        icon: icon[i % icon.length],
+	        percent: percent,
+	        onMouseDown: !this.props.readonly && this.handleMouseDown.bind(this, i),
+	        onMouseMove: !this.props.readonly && this.handleMouseMove.bind(this, i),
+	        direction: this.state.direction
+	      }));
+	    }
+	    var _props = this.props;
+	    var start = _props.start;
+	    var stop = _props.stop;
+	    var step = _props.step;
+	    var empty = _props.empty;
+	    var initialRate = _props.initialRate;
+	    var placeholderRate = _props.placeholderRate;
+	    var placeholder = _props.placeholder;
+	    var full = _props.full;
+	    var readonly = _props.readonly;
+	    var fractions = _props.fractions;
+	    var scale = _props.scale;
+	    var onChange = _props.onChange;
+	    var onClick = _props.onClick;
+	    var onRate = _props.onRate;
+
+	    var other = _objectWithoutProperties(_props, ['start', 'stop', 'step', 'empty', 'initialRate', 'placeholderRate', 'placeholder', 'full', 'readonly', 'fractions', 'scale', 'onChange', 'onClick', 'onRate']);
+
+	    return React.createElement(
+	      'span',
+	      _extends({ ref: 'container', onMouseLeave: !readonly && this.handleMouseLeave }, other),
+	      symbolNodes
+	    );
+	  }
+	});
+
+	module.exports = Rating;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var merge = __webpack_require__(4);
+
+	var style = {
+	  display: 'inline-block',
+	  borderRadius: '50%',
+	  border: '5px double white',
+	  width: 30,
+	  height: 30
+	};
+
+	module.exports = {
+	  empty: merge(style, {
+	    backgroundColor: '#ccc'
+	  }),
+	  full: merge(style, {
+	    backgroundColor: 'black'
+	  }),
+	  placeholder: merge(style, {
+	    backgroundColor: 'red'
+	  })
+	};
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function () {
+	  var res = {};
+	  for (var i = 0; i < arguments.length; i++) {
+	    var obj = arguments[i];
+	    for (var k in obj) {
+	      res[k] = obj[k];
+	    }
+	  }
+	  return res;
+	};
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var React = __webpack_require__(2);
+
+	var PercentageSymbol = React.createClass({
+	  displayName: 'PercentageSymbol',
+
+	  // Define propTypes only in development. They will be void in production.
+	  propTypes: "boolean" !== 'undefined' && (true) && {
+	    icon: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object, React.PropTypes.element]),
+	    background: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object, React.PropTypes.element]),
+	    percent: React.PropTypes.number
+	  },
+	  // Return the corresponding React node for an icon.
+	  _iconNode: function _iconNode(icon) {
+	    // If it is already a React Element just return it.
+	    if (React.isValidElement(icon)) {
+	      return icon;
+	    }
+	    // If it is an object, try to use it as a CSS style object.
+	    if (typeof icon === 'object' && icon !== null) {
+	      return React.createElement('div', { style: icon });
+	    }
+	    // If it is a string, use it as class names.
+	    if (Object.prototype.toString.call(icon) === '[object String]') {
+	      return React.createElement('div', { className: icon });
+	    }
+	  },
+	  render: function render() {
+	    var _iconContainerStyle;
+
+	    var backgroundNode = this._iconNode(this.props.background);
+	    var iconNode = this._iconNode(this.props.icon);
+	    var iconContainerStyle = (_iconContainerStyle = {
+	      display: 'inline-block',
+	      position: 'absolute',
+	      overflow: 'hidden',
+	      top: 0
+	    }, _defineProperty(_iconContainerStyle, this.props.direction === 'rtl' ? 'right' : 'left', 0), _defineProperty(_iconContainerStyle, 'width', this.props.percent !== undefined ? this.props.percent + '%' : 'auto'), _iconContainerStyle);
+	    var style = {
+	      cursor: this.props.onMouseDown || this.props.onMouseOver ? 'pointer' : 'auto',
+	      display: 'inline-block',
+	      position: 'relative'
+	    };
+	    return React.createElement(
+	      'span',
+	      { style: style,
+	        onMouseDown: this.props.onMouseDown,
+	        onMouseMove: this.props.onMouseMove },
+	      backgroundNode,
+	      React.createElement(
+	        'span',
+	        { style: iconContainerStyle },
+	        iconNode
+	      )
+	    );
+	  }
+	});
+
+	module.exports = PercentageSymbol;
+
+/***/ }
+/******/ ])
+});
+;
+},{"react":"react"}],425:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -58589,7 +58994,7 @@ var Button = React.createClass({
 
 module.exports = Helpers.Scroll(Button);
 
-},{"../mixins/Helpers":429,"react":"react"}],425:[function(require,module,exports){
+},{"../mixins/Helpers":430,"react":"react"}],426:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -58604,7 +59009,7 @@ var DirectLink = React.createClass({
 
 module.exports = Helpers.Scroll(DirectLink, directScroller);
 
-},{"../mixins/Helpers":429,"../mixins/direct-scroller":432,"react":"react"}],426:[function(require,module,exports){
+},{"../mixins/Helpers":430,"../mixins/direct-scroller":433,"react":"react"}],427:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -58617,7 +59022,7 @@ var Element = React.createClass({
 });
 
 module.exports = Helpers.Element(Element);
-},{"../mixins/Helpers":429,"react":"react"}],427:[function(require,module,exports){
+},{"../mixins/Helpers":430,"react":"react"}],428:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -58631,7 +59036,7 @@ var Link = React.createClass({
 
 module.exports = Helpers.Scroll(Link);
 
-},{"../mixins/Helpers":429,"react":"react"}],428:[function(require,module,exports){
+},{"../mixins/Helpers":430,"react":"react"}],429:[function(require,module,exports){
 exports.Link = require('./components/Link.js');
 exports.DirectLink = require('./components/DirectLink.js');
 exports.Button = require('./components/Button.js');
@@ -58643,7 +59048,7 @@ exports.Events = require('./mixins/scroll-events.js');
 exports.scrollSpy = require('./mixins/scroll-spy.js');
 exports.animateScroll = require('./mixins/animate-scroll.js');
 
-},{"./components/Button.js":424,"./components/DirectLink.js":425,"./components/Element.js":426,"./components/Link.js":427,"./mixins/Helpers.js":429,"./mixins/animate-scroll.js":430,"./mixins/direct-scroller.js":432,"./mixins/scroll-events.js":433,"./mixins/scroll-spy.js":434,"./mixins/scroller.js":435}],429:[function(require,module,exports){
+},{"./components/Button.js":425,"./components/DirectLink.js":426,"./components/Element.js":427,"./components/Link.js":428,"./mixins/Helpers.js":430,"./mixins/animate-scroll.js":431,"./mixins/direct-scroller.js":433,"./mixins/scroll-events.js":434,"./mixins/scroll-spy.js":435,"./mixins/scroller.js":436}],430:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -58826,7 +59231,7 @@ var Helpers = {
 
 module.exports = Helpers;
 
-},{"./animate-scroll":430,"./scroll-spy":434,"./scroller":435,"react":"react","react-dom":"react-dom"}],430:[function(require,module,exports){
+},{"./animate-scroll":431,"./scroll-spy":435,"./scroller":436,"react":"react","react-dom":"react-dom"}],431:[function(require,module,exports){
 var assign = require('object-assign');
 
 var smooth = require('./smooth');
@@ -58987,7 +59392,7 @@ module.exports = {
   scrollMore: scrollMore,
 };
 
-},{"./cancel-events":431,"./scroll-events":433,"./smooth":436,"object-assign":300}],431:[function(require,module,exports){
+},{"./cancel-events":432,"./scroll-events":434,"./smooth":437,"object-assign":300}],432:[function(require,module,exports){
 var events = ['mousedown', 'mousewheel', 'touchmove', 'keydown']
 
 module.exports = {
@@ -59002,7 +59407,7 @@ module.exports = {
 	}
 };
 
-},{}],432:[function(require,module,exports){
+},{}],433:[function(require,module,exports){
 var Helpers  = require('../mixins/Helpers');
 var scroller = require('../mixins/scroller');
 
@@ -59015,7 +59420,7 @@ scroller.get = function(name) {
 
 module.exports = scroller;
 
-},{"../mixins/Helpers":429,"../mixins/scroller":435}],433:[function(require,module,exports){
+},{"../mixins/Helpers":430,"../mixins/scroller":436}],434:[function(require,module,exports){
 
 var Events = {
 	registered : {},
@@ -59030,7 +59435,7 @@ var Events = {
 };
 
 module.exports = Events;
-},{}],434:[function(require,module,exports){
+},{}],435:[function(require,module,exports){
 var scrollSpy = {
   
   spyCallbacks: [],
@@ -59078,7 +59483,7 @@ var scrollSpy = {
 }
 
 module.exports = scrollSpy;
-},{}],435:[function(require,module,exports){
+},{}],436:[function(require,module,exports){
 var animateScroll = require('./animate-scroll');
 var events = require('./scroll-events');
 
@@ -59154,7 +59559,7 @@ module.exports = {
 };
 
 
-},{"./animate-scroll":430,"./scroll-events":433}],436:[function(require,module,exports){
+},{"./animate-scroll":431,"./scroll-events":434}],437:[function(require,module,exports){
 module.exports = {
  /*
   * https://github.com/oblador/angular-scroll (duScrollDefaultEasing)
@@ -59168,7 +59573,166 @@ module.exports = {
     return 1-Math.pow((1-x)*2, 2)/2;
   }
 }
-},{}],437:[function(require,module,exports){
+},{}],438:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StarRatingComponent = function (_Component) {
+    _inherits(StarRatingComponent, _Component);
+
+    function StarRatingComponent(props) {
+        _classCallCheck(this, StarRatingComponent);
+
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StarRatingComponent).call(this));
+
+        _this.state = {
+            value: props.value
+        };
+        return _this;
+    }
+
+    _createClass(StarRatingComponent, [{
+        key: 'onChange',
+        value: function onChange(value) {
+            var editing = this.props.editing;
+
+            if (!editing) {
+                return;
+            }
+
+            this.setState({ value: value });
+        }
+    }, {
+        key: 'onStarClick',
+        value: function onStarClick(i, value, name) {
+            var _props = this.props;
+            var onStarClick = _props.onStarClick;
+            var editing = _props.editing;
+
+            if (!editing) {
+                return;
+            }
+            onStarClick && onStarClick(i, value, name);
+        }
+    }, {
+        key: 'renderStars',
+        value: function renderStars() {
+            var _props2 = this.props;
+            var name = _props2.name;
+            var starCount = _props2.starCount;
+            var starColor = _props2.starColor;
+            var editing = _props2.editing;
+            var renderStarIcon = _props2.renderStarIcon;
+            var value = this.state.value;
+
+            var starStyles = {
+                float: 'right',
+                cursor: editing ? 'pointer' : 'default'
+            };
+            var radioStyles = {
+                display: 'none',
+                position: 'absolte',
+                marginLeft: -9999
+            };
+
+            // populate stars
+            var starNodes = [];
+            for (var i = starCount; i > 0; i--) {
+                var id = name + '_' + i;
+                var starNodeInput = _react2.default.createElement('input', {
+                    key: 'input_' + id,
+                    style: radioStyles,
+                    className: 'dv-star-rating-input',
+                    type: 'radio',
+                    name: name,
+                    id: id,
+                    value: i,
+                    checked: value === i,
+                    onChange: this.onChange.bind(this, i, name)
+                });
+                var starNodeLabel = _react2.default.createElement(
+                    'label',
+                    {
+                        key: 'label_' + id,
+                        style: value >= i ? { float: starStyles.float, cursor: starStyles.cursor, color: starColor } : starStyles,
+                        className: 'dv-star-rating-star',
+                        htmlFor: id,
+                        onClick: this.onStarClick.bind(this, i, value, name)
+                    },
+                    typeof renderStarIcon === 'function' ? renderStarIcon(i, value, name) : _react2.default.createElement(
+                        'i',
+                        { style: { fontStyle: 'normal' } },
+                        '★'
+                    )
+                );
+                starNodes.push(starNodeInput);
+                starNodes.push(starNodeLabel);
+            }
+
+            return starNodes;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props3 = this.props;
+            var editing = _props3.editing;
+            var className = _props3.className;
+
+            var classes = (0, _classnames2.default)('dv-star-rating', {
+                'dv-star-rating-non-editable': !editing
+            }, className);
+
+            return _react2.default.createElement(
+                'div',
+                { style: { display: 'inline-block', position: 'relative' }, className: classes },
+                this.renderStars()
+            );
+        }
+    }]);
+
+    return StarRatingComponent;
+}(_react.Component);
+
+StarRatingComponent.propTypes = {
+    name: _react.PropTypes.string.isRequired,
+    value: _react.PropTypes.number,
+    editing: _react.PropTypes.bool,
+    starCount: _react.PropTypes.number,
+    starColor: _react.PropTypes.string,
+    onStarClick: _react.PropTypes.func,
+    renderStarIcon: _react.PropTypes.func
+};
+StarRatingComponent.defaultProps = {
+    starCount: 5,
+    value: 0,
+    editing: true,
+    starColor: '#ffb400'
+};
+exports.default = StarRatingComponent;
+module.exports = exports['default'];
+
+},{"classnames":132,"react":"react"}],439:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59361,7 +59925,7 @@ ToastContainer.defaultProps = {
   onClick: function onClick() {}
 };
 exports.default = ToastContainer;
-},{"./ToastMessage":439,"react":"react","react-addons-update":443}],438:[function(require,module,exports){
+},{"./ToastMessage":441,"react":"react","react-addons-update":445}],440:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59563,7 +60127,7 @@ exports.default = {
     this.isHiding = isHiding;
   }
 };
-},{"element-class":442,"react-dom":"react-dom","react/lib/ReactTransitionEvents":444}],439:[function(require,module,exports){
+},{"element-class":444,"react-dom":"react-dom","react/lib/ReactTransitionEvents":446}],441:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59691,7 +60255,7 @@ ToastMessage.animation = animation;
 ToastMessage.jQuery = jQuery;
 
 exports.default = ToastMessage;
-},{"./animationMixin":438,"./jQueryMixin":440,"classnames":132,"react":"react","react-addons-update":443}],440:[function(require,module,exports){
+},{"./animationMixin":440,"./jQueryMixin":442,"classnames":132,"react":"react","react-addons-update":445}],442:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59780,7 +60344,7 @@ exports.default = {
     });
   }
 };
-},{"react-dom":"react-dom"}],441:[function(require,module,exports){
+},{"react-dom":"react-dom"}],443:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59800,7 +60364,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.ToastContainer = _ToastContainer2.default;
 exports.ToastMessage = _ToastMessage2.default;
-},{"./ToastContainer":437,"./ToastMessage":439}],442:[function(require,module,exports){
+},{"./ToastContainer":439,"./ToastMessage":441}],444:[function(require,module,exports){
 module.exports = function(opts) {
   return new ElementClass(opts)
 }
@@ -59861,9 +60425,9 @@ ElementClass.prototype.toggle = function(className) {
   else this.add(className)
 }
 
-},{}],443:[function(require,module,exports){
+},{}],445:[function(require,module,exports){
 module.exports = require('react/lib/update');
-},{"react/lib/update":446}],444:[function(require,module,exports){
+},{"react/lib/update":448}],446:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -59937,7 +60501,7 @@ var ReactTransitionEvents = {
 };
 
 module.exports = ReactTransitionEvents;
-},{"./getVendorPrefixedEventName":445,"fbjs/lib/ExecutionEnvironment":447}],445:[function(require,module,exports){
+},{"./getVendorPrefixedEventName":447,"fbjs/lib/ExecutionEnvironment":449}],447:[function(require,module,exports){
 /**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -60039,7 +60603,7 @@ function getVendorPrefixedEventName(eventName) {
 }
 
 module.exports = getVendorPrefixedEventName;
-},{"fbjs/lib/ExecutionEnvironment":447}],446:[function(require,module,exports){
+},{"fbjs/lib/ExecutionEnvironment":449}],448:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-present, Facebook, Inc.
@@ -60151,7 +60715,7 @@ function update(value, spec) {
 module.exports = update;
 }).call(this,require('_process'))
 
-},{"_process":302,"fbjs/lib/invariant":448,"fbjs/lib/keyOf":449,"object-assign":300}],447:[function(require,module,exports){
+},{"_process":302,"fbjs/lib/invariant":450,"fbjs/lib/keyOf":451,"object-assign":300}],449:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -60187,7 +60751,7 @@ var ExecutionEnvironment = {
 };
 
 module.exports = ExecutionEnvironment;
-},{}],448:[function(require,module,exports){
+},{}],450:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -60240,7 +60804,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 }).call(this,require('_process'))
 
-},{"_process":302}],449:[function(require,module,exports){
+},{"_process":302}],451:[function(require,module,exports){
 "use strict";
 
 /**
@@ -60275,7 +60839,7 @@ var keyOf = function (oneKeyObj) {
 };
 
 module.exports = keyOf;
-},{}],450:[function(require,module,exports){
+},{}],452:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -60404,12 +60968,12 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":207,"inherits":225,"readable-stream/duplex.js":452,"readable-stream/passthrough.js":458,"readable-stream/readable.js":459,"readable-stream/transform.js":460,"readable-stream/writable.js":461}],451:[function(require,module,exports){
+},{"events":207,"inherits":225,"readable-stream/duplex.js":454,"readable-stream/passthrough.js":460,"readable-stream/readable.js":461,"readable-stream/transform.js":462,"readable-stream/writable.js":463}],453:[function(require,module,exports){
 arguments[4][131][0].apply(exports,arguments)
-},{"dup":131}],452:[function(require,module,exports){
+},{"dup":131}],454:[function(require,module,exports){
 module.exports = require("./lib/_stream_duplex.js")
 
-},{"./lib/_stream_duplex.js":453}],453:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":455}],455:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -60485,7 +61049,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"./_stream_readable":455,"./_stream_writable":457,"core-util-is":156,"inherits":225,"process-nextick-args":301}],454:[function(require,module,exports){
+},{"./_stream_readable":457,"./_stream_writable":459,"core-util-is":156,"inherits":225,"process-nextick-args":301}],456:[function(require,module,exports){
 // a passthrough stream.
 // basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
@@ -60512,7 +61076,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":456,"core-util-is":156,"inherits":225}],455:[function(require,module,exports){
+},{"./_stream_transform":458,"core-util-is":156,"inherits":225}],457:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -61396,7 +61960,7 @@ function indexOf(xs, x) {
 }
 }).call(this,require('_process'))
 
-},{"./_stream_duplex":453,"_process":302,"buffer":130,"core-util-is":156,"events":207,"inherits":225,"isarray":451,"process-nextick-args":301,"string_decoder/":462,"util":129}],456:[function(require,module,exports){
+},{"./_stream_duplex":455,"_process":302,"buffer":130,"core-util-is":156,"events":207,"inherits":225,"isarray":453,"process-nextick-args":301,"string_decoder/":464,"util":129}],458:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -61577,7 +62141,7 @@ function done(stream, er) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":453,"core-util-is":156,"inherits":225}],457:[function(require,module,exports){
+},{"./_stream_duplex":455,"core-util-is":156,"inherits":225}],459:[function(require,module,exports){
 (function (process){
 // A bit simpler than readable streams.
 // Implement an async ._write(chunk, encoding, cb), and it'll handle all
@@ -62097,10 +62661,10 @@ function CorkedRequest(state) {
 }
 }).call(this,require('_process'))
 
-},{"./_stream_duplex":453,"_process":302,"buffer":130,"core-util-is":156,"events":207,"inherits":225,"process-nextick-args":301,"util-deprecate":466}],458:[function(require,module,exports){
+},{"./_stream_duplex":455,"_process":302,"buffer":130,"core-util-is":156,"events":207,"inherits":225,"process-nextick-args":301,"util-deprecate":468}],460:[function(require,module,exports){
 module.exports = require("./lib/_stream_passthrough.js")
 
-},{"./lib/_stream_passthrough.js":454}],459:[function(require,module,exports){
+},{"./lib/_stream_passthrough.js":456}],461:[function(require,module,exports){
 var Stream = (function (){
   try {
     return require('st' + 'ream'); // hack to fix a circular dependency issue when used with browserify
@@ -62114,13 +62678,13 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":453,"./lib/_stream_passthrough.js":454,"./lib/_stream_readable.js":455,"./lib/_stream_transform.js":456,"./lib/_stream_writable.js":457}],460:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":455,"./lib/_stream_passthrough.js":456,"./lib/_stream_readable.js":457,"./lib/_stream_transform.js":458,"./lib/_stream_writable.js":459}],462:[function(require,module,exports){
 module.exports = require("./lib/_stream_transform.js")
 
-},{"./lib/_stream_transform.js":456}],461:[function(require,module,exports){
+},{"./lib/_stream_transform.js":458}],463:[function(require,module,exports){
 module.exports = require("./lib/_stream_writable.js")
 
-},{"./lib/_stream_writable.js":457}],462:[function(require,module,exports){
+},{"./lib/_stream_writable.js":459}],464:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -62343,7 +62907,7 @@ function base64DetectIncompleteChar(buffer) {
   this.charLength = this.charReceived ? 3 : 0;
 }
 
-},{"buffer":130}],463:[function(require,module,exports){
+},{"buffer":130}],465:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -62489,7 +63053,7 @@ function createUncontrollable(mixins, set) {
 }
 
 module.exports = exports['default'];
-},{"./utils":465,"react":"react"}],464:[function(require,module,exports){
+},{"./utils":467,"react":"react"}],466:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -62521,7 +63085,7 @@ function set(component, propName, handler, value, args) {
 
 exports['default'] = _createUncontrollable2['default']([mixin], set);
 module.exports = exports['default'];
-},{"./createUncontrollable":463}],465:[function(require,module,exports){
+},{"./createUncontrollable":465}],467:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -62636,7 +63200,7 @@ function has(o, k) {
 }
 }).call(this,require('_process'))
 
-},{"_process":302,"invariant":226,"react":"react"}],466:[function(require,module,exports){
+},{"_process":302,"invariant":226,"react":"react"}],468:[function(require,module,exports){
 (function (global){
 
 /**
@@ -62708,14 +63272,14 @@ function config (name) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],467:[function(require,module,exports){
+},{}],469:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],468:[function(require,module,exports){
+},{}],470:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -63306,7 +63870,7 @@ function hasOwnProperty(obj, prop) {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./support/isBuffer":467,"_process":302,"inherits":225}],469:[function(require,module,exports){
+},{"./support/isBuffer":469,"_process":302,"inherits":225}],471:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.

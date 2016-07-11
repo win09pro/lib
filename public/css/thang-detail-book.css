@@ -241,7 +241,7 @@ h2.mar-0{
 }
 .fade{
 	opacity: 0;
-	transition:opacity .15s linear;
+	transition: opacity .15s linear;
 }
 .lib-comments{
 	margin-bottom: 30px;
@@ -407,7 +407,7 @@ nav{
 	float: right;
 }
 .rating span{
-	color: #00BFFF;
+	color: #E3E3E3;
 }
 .rating{
 	float: left;
@@ -415,7 +415,15 @@ nav{
 .rating >span{
 	display: inline-block;
 	position: relative;
-	font-size: 20px;
+	font-size: 25px;
+}
+
+#rate-custom{
+	font-size: 30px;
+	color: #E3E3E3;
+}
+#rate-custom div.fa-star{
+	color: #00BFFF;
 }
 
 

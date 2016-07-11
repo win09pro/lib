@@ -36,7 +36,7 @@ app.post('/api/addtransition', function(req, res, next) {
 					dateReturn : dateReturn,
 					status: status } }, function(err) {
 			     	if (err) return next(err);
-			      	res.send({ message: 'Transition has been updated successfully!' });
+			      	res.send({ message: 'Cập nhật thành công!' });
 			    });
 	    	}
 	});
@@ -54,7 +54,7 @@ app.get('/api/alltransition', function(req, res, next){
 	      res.send(listtrans);
 	    })
   	} catch(e){
-    	res.status(e).send({ message: 'Error when get list Transition'});
+    	res.status(e).send({ message: 'Lỗi khi tìm giao dịch mượn trả.'});
   	}
 });
 
@@ -66,7 +66,7 @@ app.get('/api/transition/:id', function(req, res, next){
     if (err) return next(err);
 
     if (!tran) {
-      return res.status(404).send({ message: 'Transition not found.' });
+      return res.status(404).send({ message: 'Không tìm thấy.' });
     }   
      res.send(tran);
     });
@@ -80,7 +80,7 @@ app.get('/api/transition/:userName', function(req, res, next){
     if (err) return next(err);
 
     if (!trans) {
-      return res.status(404).send({ message: 'Transition not found.' });
+      return res.status(404).send({ message: 'Không tìm thấy.' });
     }   
      res.send(trans);
     });
@@ -96,10 +96,10 @@ app.post('/api/delete-tran', function(req, res, next) {
     if (err) return next(err);
 
     if (!tran) {
-      return res.status(404).send({ message: 'transition not found.' });
+      return res.status(404).send({ message: 'Không tìm thấy.' });
     }   
     tran.remove();
-    res.send({ message: tran.name + ' has been deleted.' });
+    res.send({ message: tran.name + ' đã xóa.' });
 
     
   });

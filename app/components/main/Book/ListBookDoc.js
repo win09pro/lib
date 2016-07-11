@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
+import StarRatingComponent from 'react-star-rating-component';
 import Login from '../Login/Login';
 import LoginActions from '../../../actions/main/Login/LoginActions';
 import {
@@ -35,6 +36,9 @@ class ListBookDoc extends React.Component {
     componentWillUnmount(){
     	BookStore.unlisten(this.onChange);
     	CategoryListStore.unlisten(this.onChange);
+    }
+    onStarClick(name, value) {
+        this.setState({rating: value});
     }
     onChange(state) {
     	this.setState({state1:BookStore.getState(), state2:CategoryListStore.getState()});
@@ -94,6 +98,7 @@ class ListBookDoc extends React.Component {
 		});
 	}
     render() {
+    	const { rating } = this.state.state1.rating;
     	let postviewed=this.state.state1.currentpage*this.state.state1.numpostview;
     	if (postviewed>this.state.state1.numpost)  postviewed=this.state.state1.numpost;
 
@@ -143,7 +148,12 @@ class ListBookDoc extends React.Component {
 							<div className="book-footer">
 								<button type="submit" className="borrow col-xs-12" onClick={this.addToTransition.bind(this,book.code,book.name)}>Đặt Mượn</button>
 								<div className="rating col-xs-12">
-		            				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+		            				{/*<span><StarRatingComponent 
+					                    name={"rate"+ (index+1)} 
+					                    starCount={5}
+					                    value={rating}
+					                    onStarClick={this.onStarClick.bind(this)} />
+					               	</span>*/}
 		        				</div>
 							</div>
 						</div>
