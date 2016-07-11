@@ -1,5 +1,6 @@
 # Library
-Đề tài thực tập tốt nghiệp
+Luận Văn Tốt Nghiệp
+Đề tài: Quản Lý Thư Viện
 # Cách chạy:
 npm install
 bower install
