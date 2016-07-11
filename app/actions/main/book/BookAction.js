@@ -39,7 +39,12 @@ class BookAction {
 
       		'updateTextFind',
       		'searchTextSuccess',
-      		'searchTextFail'
+      		'searchTextFail',
+
+      		'rateBookSuccess',
+      		'rateBookFail',
+      		'getRateOfABookSuccess',
+      		'getRateOfABookFail'
 		);
 	}
 	getBookHome(){
@@ -182,6 +187,31 @@ class BookAction {
 		})
 		.fail((jqXhr) => {
 			this.actions.searchTextFail(jqXhr.responseJSON.message);
+		});
+	}
+	rateBook(payload){
+		$.ajax({
+			url: '/api/rateBook',
+			type: 'POST',
+			data: {_bookid: payload.bookId, _userid: payload.userId, value: payload.value}
+		})
+		.done((data) => {
+			this.actions.rateBookSuccess(data);
+		})
+		.fail((jqXhr) =>{
+			this.actions.rateBookFail(jqXhr.responseJSON.message);
+		});
+	}
+	getRateOfABook(bookId){
+		$.ajax({
+			url: '/api/getRateOfABook/' + bookId,
+			type: 'GET',
+		})
+		.done((data) =>{
+			this.actions.getRateOfABookSuccess(data);
+		})
+		.fail((jqXhr) =>{
+			this.actions.getRateOfABookFail(jqXhr.responseJSON.message);
 		});
 	}
 }

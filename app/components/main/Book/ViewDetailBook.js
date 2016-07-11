@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Modal} from 'react-bootstrap';
+import StarRatingComponent from 'react-star-rating-component';
+import Rating from 'react-rating';
 
 import BookAction from '../../../actions/main/book/BookAction';
 import BookStore from '../../../stores/main/book/BookStore';
@@ -23,15 +25,33 @@ class ViewDetailBook extends React.Component {
     componentDidMount(){
     	BookStore.listen(this.onChange);
     	CategoryListStore.listen(this.onChange);
+    	// get rate of a book
+    	BookAction.getRateOfABook(this.props.params.id);
+
     	BookAction.getDetailBook(this.props.params.id);
     	BookAction.getRelatedBook(this.props.params.id);
     	BookAction.getBookNew();
     	BookAction.getComment(this.props.params.id);
     	CategoryListAction.get();
+
+    	this.refs.ct.focus();
     }
     componentWillUnmount(){
     	BookStore.unlisten(this.onChange);
     	CategoryListStore.unlisten(this.onChange);
+    }
+    onStarClick(bookId, value, name) {
+    	var value = value;
+        this.setState({rating: value});
+        var bookId = bookId;
+        var userId = localStorage.getItem('userid');
+
+        if(!userId){
+        	LoginActions.openLoginModal();
+        }
+        else{
+        	BookAction.rateBook({bookId: bookId, userId: userId, value: value});
+        }
     }
     onChange(state) {
     	this.setState({state1:BookStore.getState(), state2:CategoryListStore.getState()});
@@ -91,6 +111,7 @@ class ViewDetailBook extends React.Component {
 	}
 	
     render() {
+    	var rating = parseFloat(this.state.state1.averageRate);
     	let listcate = this.state.state2.listcategory.map((cate, index) => {
     		return(
     			<li>
@@ -151,7 +172,7 @@ class ViewDetailBook extends React.Component {
     			);
     	});
     	return(
-	        <div className="container-fluid padding-0">
+	        <div className="container-fluid padding-0" ref="ct">
 				<div className="wrap-detail-content">
 					<div className="container">	
 						<div className="row">
@@ -221,7 +242,17 @@ class ViewDetailBook extends React.Component {
 												</div>
 												<button type="submit" className="borrow" onClick={this.addToTransition.bind(this,book.code,book.name)}>Đặt Mượn</button>
 												<div className="rating">
-	                                        		<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+													<div id="rate-custom">
+														<Rating initialRate={rating} empty="fa fa-star-o" full="fa fa-star" onClick={this.onStarClick.bind(this, book._id)}/>
+													</div>
+													{/*<span><StarRatingComponent 
+									                    name="rate1" 
+									                    starCount={5}
+									                    value={rating}
+									                    onStarClick={this.onStarClick.bind(this, book._id)} />
+
+									               	</span>*/}
+	                                        		<span className="rate-value">{this.state.state1.averageRate}/5 trong tổng số {this.state.state1.numOfRate} phiếu bầu</span>
 	                                    		</div>
 											</div>
 										</div>

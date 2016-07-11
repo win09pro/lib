@@ -3,6 +3,7 @@ var category = require('../../../models/category');
 var documenttype = require('../../../models/documenttype');
 var ObjectId = require('mongodb').ObjectID;
 var comment = require('../../../models/comment');
+var rating = require('../../../models/rating');
 
 function BookServer(app){
 
@@ -202,28 +203,27 @@ app.post('/api/book', function(req, res, next) {
          if (err) return next(err);     
          res.send({ message: bookname + ' has been added successfully!' });
        });
-     } catch (e) {
-      res.status(e).send({ message: bookname+ 'error when add new.' });
+      } catch (e) {
+        res.status(e).send({ message: bookname+ 'error when add new.' });
+      }
     }
-  }
-  else
-  {
-    bookRes.update({ $set: { name: bookname ,
-        author: author,
-        publisher: publisher,
-        code: code,
-        status: status,
-        description: description,
-        imageUrl: imageUrl,
-        _cateId: _cateId ,
-        tagSearch: tagSearch
-          } }, function(err) {
-      if (err) return next(err);
-      res.send({ message: bookname + ' has been updated successfully!' });
-    });
-    
-    
-  }});
+    else
+    {
+      bookRes.update({ $set: { name: bookname ,
+          author: author,
+          publisher: publisher,
+          code: code,
+          status: status,
+          description: description,
+          imageUrl: imageUrl,
+          _cateId: _cateId ,
+          tagSearch: tagSearch
+            } }, function(err) {
+        if (err) return next(err);
+        res.send({ message: bookname + ' has been updated successfully!' });
+      });
+    }
+  });
 });
 // end add book
 
@@ -303,6 +303,83 @@ app.get('/api/getComment/:id', function(req, res, next){
           if(err) return next(err);
           res.send(comments);
         });
+});
+
+// save rating 
+app.post('/api/rateBook', function(req, res, next){
+  var _bookid = req.body._bookid;
+  var _userid = req.body._userid;
+  var value = req.body.value;
+  var averageRate = 0;
+
+  rating.findOne({ $and: [ {_userid: _userid}, {_bookid: _bookid} ] }, function(err1, rateRes){
+    if(err1 || (!rateRes)){
+        var rate = new rating({
+          _userid: _userid,
+          _bookid: _bookid,
+          value: value
+        });
+        rate.save(function(err){
+          if(err) return next(err);
+          rating.find({_bookid: _bookid}).count(function(err3, numOfRate){
+            rating.find({_bookid: _bookid}, function(err7, rateBooks){
+              rateBooks.forEach( function(rate){
+                  averageRate += (rate.value/numOfRate);
+              });
+              var averageRate1 = averageRate.toFixed(2);
+              res.send({numOfRate: numOfRate, averageRate: averageRate1, bookId: _bookid});
+            });
+            // res.send({numOfRate: numOfRate, averageRate: averageRate, bookId: _bookid});
+          });
+        });
+    }
+    else{
+      rateRes.update({ $set: {value: value}}, function(err2){
+          if(err2) return next(err2);
+          rating.find({_bookid: _bookid}).count(function(err5, numOfRate){
+            rating.find({_bookid: _bookid}, function(err7, rateBooks){
+              rateBooks.forEach( function(rate){
+                  averageRate += (rate.value/numOfRate);
+              });
+              var averageRate1 = averageRate.toFixed(2);
+              res.send({numOfRate: numOfRate, averageRate: averageRate1, bookId: _bookid});
+            });
+            // res.send({numOfRate: numOfRate, averageRate: averageRate, bookId: _bookid});
+          });
+      });
+    }
+  });
+});
+
+// get Rate of a book
+app.get('/api/getRateOfABook/:id', function(req, res, next){
+    var id = req.params.id;
+    var averageRate = 0;
+    
+    rating.find({_bookid: id}).count(function(err, numOfRate){
+        if(err || (!numOfRate)) return next(err);
+        // console.log(numOfRate);
+        rating.find({_bookid: id}, function(err7, rateBooks){
+          // console.log(rateBooks);
+              var arr = [];
+              rateBooks.forEach(function(rate){
+                  arr.push(rate.value);
+                  // console.log(rate.value);
+                  // averageRate += (rate.value/numOfRate);
+                  
+                  // console.log(arr);
+              });
+              // console.log(arr);
+              for(var i=0; i< arr.length; i++){
+                averageRate += (arr[i]/numOfRate);
+                console.log(arr[i]/arr.length);
+              }
+              var averageRate1 = averageRate.toFixed(2);
+              console.log(averageRate);
+              res.send({numOfRate: numOfRate, averageRate: averageRate1});
+            });
+        // res.send({numOfRate: numOfRate, averageRate: averageRate});
+      });
 });
 
 }
