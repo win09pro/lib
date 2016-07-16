@@ -9,36 +9,47 @@ app.post('/api/addtransition', function(req, res, next) {
 	var dateBorrow = req.body.dateBorrow;
 	var dateReturn = req.body.dateReturn;
 	var status = req.body.status;
-	transition.findOne({ barcode: barcode, status: { $in : [2,3] }  })
-  	.exec(function(err, trans) {
-	    if (err) return next(err);
-	    if (!trans) {
-	      	try{
-				var trans = new transition({
-					barcode : barcode,
-					username : username,
-					bookname: bookname,
-					dateBorrow : dateBorrow,
-					dateReturn : dateReturn,
-					status: status
-				});
-				trans.save(function(err){
-					if(err) return next(err);
-					res.send({message: 'Success'});
-				});
-				}
-				catch(e){
-					res.status(e).send({ message: 'Co loi xay ra.' });
-				}
-	    }   
-	    else
-	    	{
-	    		res.send({message: 'Error'});
-	    	}
-	    });
-    
-
-});
+	var numBook = 0;
+	transition
+	.find({username:username, status: { $in : [2,3] }})
+	.exec(function(error, transitions){
+		if(error) return next(err);
+		numBook = transitions.length;
+		if (numBook>=3)
+		{
+			res.send({message: 'GreaterNum'});
+		}
+		else
+		{
+			transition.findOne({ barcode: barcode, status: { $in : [2,3] }  })
+		  	.exec(function(err, trans) {
+			    if (err) return next(err);
+			    if (!trans) {
+			      	try{
+						var trans = new transition({
+							barcode : barcode,
+							username : username,
+							bookname: bookname,
+							dateBorrow : dateBorrow,
+							dateReturn : dateReturn,
+							status: status
+						});
+						trans.save(function(err){
+							if(err) return next(err);
+							res.send({message: 'Success'});
+						});
+						}
+						catch(e){
+							res.status(e).send({ message: 'Co loi xay ra.' });
+						}
+			    }   
+			    else
+			    	{
+			    		res.send({message: 'Error'});
+			    	}
+			    });
+		}
+	})});
 
 app.get('/api/alltransition', function(req, res, next){
 	try{

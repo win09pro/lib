@@ -29,7 +29,7 @@ class MainBook extends React.Component {
     this.setState(state);
        if(this.state.showAlert=="Error")
          {
-           this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+           this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn!', 'Thông báo', {
               closeButton: true,
             });      
           }
@@ -37,6 +37,11 @@ class MainBook extends React.Component {
              this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
               closeButton: true,
             });         
+         }
+         else if(this.state.showAlert=="GreaterNum"){
+           this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
+              closeButton: true,
+            });  
          }
   }
   addToTransition(barcode,name){

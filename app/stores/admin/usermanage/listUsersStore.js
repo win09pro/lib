@@ -43,5 +43,15 @@ class listUsersStore {
   {
     toastr.error(jqXhr.responseJSON.message);
   }
+   onUpdateArrayId(id)
+  {
+    this.arrayIDtoDel.push(id);
+  }
+  onRemoveArrayId(id)
+  {
+    var index = this.arrayIDtoDel.indexOf(id);   
+    this.arrayIDtoDel.splice(index,1);    
+  }
+
 }
 export default alt.createStore(listUsersStore);

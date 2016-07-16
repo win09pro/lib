@@ -2,6 +2,8 @@ import React from 'react';
 import ListTransitionStore from '../../../stores/admin/transition/ListTransitionStore';
 import ListTransitionAction from '../../../actions/admin/transition/ListTransitionAction';
 
+import AddTranAction from '../../../actions/transition/AddTranAction';
+
 import {Link} from 'react-router';
 import TranActionBar from '../../../shared/TranActionBar';
 import {Modal} from 'react-bootstrap';
@@ -68,7 +70,7 @@ class ListTransition extends React.Component {
 	          <td>{dtBorrow}</td>
 	          <td>{dtReturn}</td>
 	          <td>{Status(tran.status)}</td>
-	          <td><TranActionBar editAction={ListTransitionAction} deleteAction={ListTransitionAction} item={tran} /></td>
+	          <td><TranActionBar editAction={AddTranAction} deleteAction={ListTransitionAction} item={tran} /></td>
 	          <td>            
 	            <input type ='checkbox' data-ref ={tran._id} onClick = {this.handleChange.bind(this)} />             
 	          </td>

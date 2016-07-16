@@ -47,6 +47,11 @@ class ListAllBook extends React.Component {
 			closeButton: true,
 		});         
 		}
+		 else if(this.state.state1.showAlert=="GreaterNum"){
+           this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
+              closeButton: true,
+            });  
+         }
   	}
  //  	addAlert(id,name) {
  //  		console.log(id);

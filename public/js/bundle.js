@@ -7574,6 +7574,10 @@ var _ListTransitionAction = require('../../../actions/admin/transition/ListTrans
 
 var _ListTransitionAction2 = _interopRequireDefault(_ListTransitionAction);
 
+var _AddTranAction = require('../../../actions/transition/AddTranAction');
+
+var _AddTranAction2 = _interopRequireDefault(_AddTranAction);
+
 var _reactRouter = require('react-router');
 
 var _TranActionBar = require('../../../shared/TranActionBar');
@@ -7696,7 +7700,7 @@ var ListTransition = function (_React$Component) {
 					_react2.default.createElement(
 						'td',
 						null,
-						_react2.default.createElement(_TranActionBar2.default, { editAction: _ListTransitionAction2.default, deleteAction: _ListTransitionAction2.default, item: tran })
+						_react2.default.createElement(_TranActionBar2.default, { editAction: _AddTranAction2.default, deleteAction: _ListTransitionAction2.default, item: tran })
 					),
 					_react2.default.createElement(
 						'td',
@@ -7853,7 +7857,7 @@ var ListTransition = function (_React$Component) {
 
 exports.default = ListTransition;
 
-},{"../../../actions/admin/transition/ListTransitionAction":17,"../../../shared/TranActionBar":89,"../../../stores/admin/transition/ListTransitionStore":106,"react":"react","react-bootstrap":264,"react-router":"react-router"}],58:[function(require,module,exports){
+},{"../../../actions/admin/transition/ListTransitionAction":17,"../../../actions/transition/AddTranAction":26,"../../../shared/TranActionBar":89,"../../../stores/admin/transition/ListTransitionStore":106,"react":"react","react-bootstrap":264,"react-router":"react-router"}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8848,11 +8852,15 @@ var MainBook = function (_React$Component) {
     value: function onChange(state) {
       this.setState(state);
       if (this.state.showAlert == "Error") {
-        this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn', 'Thông báo', {
+        this.refs.AAA.warning('Sách đã được đặt trước, cảm ơn bạn!', 'Thông báo', {
           closeButton: true
         });
       } else if (this.state.showAlert == "Success") {
         this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+          closeButton: true
+        });
+      } else if (this.state.showAlert == "GreaterNum") {
+        this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
           closeButton: true
         });
       }
@@ -9064,6 +9072,14 @@ var _reactRouter = require('react-router');
 
 var _reactScroll = require('react-scroll');
 
+var _NavbarStore = require('../../stores/NavbarStore');
+
+var _NavbarStore2 = _interopRequireDefault(_NavbarStore);
+
+var _NavbarActions = require('../../actions/NavbarActions');
+
+var _NavbarActions2 = _interopRequireDefault(_NavbarActions);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9072,33 +9088,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//import FooterStore from '../../stores/FooterStore'
-//import FooterActions from '../../actions/FooterActions';
-
 var Footer = function (_React$Component) {
   _inherits(Footer, _React$Component);
 
   function Footer(props) {
     _classCallCheck(this, Footer);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Footer).call(this, props));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Footer).call(this, props));
+
+    _this.state = _NavbarStore2.default.getState();
+    _this.onChange = _this.onChange.bind(_this);
+    return _this;
   }
 
   _createClass(Footer, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-
+      _NavbarStore2.default.listen(this.onChange);
       var socket = io.connect();
+
+      socket.on('onlineUsers', function (data) {
+        _NavbarActions2.default.updateOnlineUsers(data);
+      });
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      //NavbarStore.unlisten(this.onChange);
+      _NavbarStore2.default.unlisten(this.onChange);
     }
   }, {
     key: 'onChange',
     value: function onChange(state) {
-      // this.setState(state);
+      this.setState(state);
     }
   }, {
     key: 'render',
@@ -9158,7 +9179,7 @@ var Footer = function (_React$Component) {
               _react2.default.createElement(
                 'strong',
                 { style: { color: 'yellow' } },
-                '12'
+                this.state.onlineUsers
               )
             ),
             _react2.default.createElement(
@@ -9284,7 +9305,7 @@ var Footer = function (_React$Component) {
 
 exports.default = Footer;
 
-},{"react":"react","react-router":"react-router","react-scroll":449}],65:[function(require,module,exports){
+},{"../../actions/NavbarActions":2,"../../stores/NavbarStore":91,"react":"react","react-router":"react-router","react-scroll":449}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -12186,6 +12207,10 @@ var BookSearch = function (_React$Component) {
 				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
 					closeButton: true
 				});
+			} else if (this.state.state1.showAlert == "GreaterNum") {
+				this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
+					closeButton: true
+				});
 			}
 		}
 		//  	addAlert(id,name) {
@@ -12623,6 +12648,10 @@ var ListAllBook = function (_React$Component) {
 				});
 			} else if (this.state.state1.showAlert == "Success") {
 				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+					closeButton: true
+				});
+			} else if (this.state.state1.showAlert == "GreaterNum") {
+				this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
 					closeButton: true
 				});
 			}
@@ -13065,6 +13094,10 @@ var ListBookCate = function (_React$Component) {
 				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
 					closeButton: true
 				});
+			} else if (this.state.state1.showAlert == "GreaterNum") {
+				this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
+					closeButton: true
+				});
 			}
 		}
 		//  	addAlert(id,name) {
@@ -13483,6 +13516,10 @@ var ListBookDoc = function (_React$Component) {
 				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
 					closeButton: true
 				});
+			} else if (this.state.state1.showAlert == "GreaterNum") {
+				this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
+					closeButton: true
+				});
 			}
 		}
 		//  	addAlert(id,name) {
@@ -13875,6 +13912,10 @@ var ViewDetailBook = function (_React$Component) {
 				});
 			} else if (this.state.state1.showAlert == "Success") {
 				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+					closeButton: true
+				});
+			} else if (this.state.state1.showAlert == "GreaterNum") {
+				this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
 					closeButton: true
 				});
 			}
