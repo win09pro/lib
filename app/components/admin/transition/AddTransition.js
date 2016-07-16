@@ -23,7 +23,8 @@ class AddTransition extends React.Component {
 	  }
 	  handleSubmitTransition(event){
 	  	event.preventDefault();
-    	var idTrans = this.state.id;
+    	var id = this.state.id;
+    	console.log(id);
     	var username = this.state.username;
     	var barcode = this.state.barcode;
     	var bookname = this.state.bookname;
@@ -56,8 +57,8 @@ class AddTransition extends React.Component {
     		ListTransitionAction.invalidStatus();
     		this.refs.statusTextField.focus();
     	}
-    	if(username && barcode && bookname && numDate && dateBorrow && dateReturn && status){
-    		ListTransitionAction.addTransition({id: idTrans, username:username, barcode:barcode,
+    	if(username && barcode && bookname && dateBorrow && dateReturn && status){
+    		ListTransitionAction.addTransition({id: id, username:username, barcode:barcode,
     		bookname:bookname, dateBorrow: dateBorrow, dateReturn: dateReturn, status:status});
     	}
     }

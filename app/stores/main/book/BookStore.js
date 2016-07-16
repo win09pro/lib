@@ -4,6 +4,12 @@ import BookAction from '../../../actions/main/book/BookAction';
 class BookStore{
 	constructor() {
 	    this.bindActions(BookAction);
+      // rating
+      this.rating = 0;
+      this.numOfRate = 0;
+      this.averageRate = 0;
+      this.bookIdtoGetRate = '';
+
 	    this.bookhome = [];
 	    this.listallbook = [];
       this.listbookcate = [];
@@ -24,7 +30,7 @@ class BookStore{
       this.currentpage=1;
       this.numpost=0;
 
-      this.charcount = 0;
+      this.charcount = 400;
       this.commentContent = '';
       this.helpBlockComment = '';
 
@@ -140,6 +146,26 @@ class BookStore{
   	onGetListAllBookFail(){
   		toastr.error(jqXhr.responseJSON.message);
   	}
+
+    // rating action
+    onRateBookSuccess(data){
+      this.numOfRate = data.numOfRate;
+      this.averageRate = data.averageRate;
+      // this.bookIdtoGetRate = data.bookId;
+      // BookAction.getRateOfABook(data.bookId);
+    }
+    onRateBookFail(jqXhr){
+      toastr.error(jqXhr.responseJSON.message);
+    }
+    onGetRateOfABookSuccess(data){
+      this.numOfRate = data.numOfRate;
+      this.averageRate = data.averageRate;
+      this.rating = data.averageRate;
+    }
+    onGetRateOfABookFail(jqXhr){
+      toastr.error(jqXhr.responseJSON.message);
+    }
+    
 }
 
 export default alt.createStore(BookStore);
