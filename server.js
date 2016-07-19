@@ -94,6 +94,8 @@ app.post('/api/imageupload', upload.single('file'), function (req, res, next) {
 //   // });
 //   res.status(200);
 // });
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 Postserver(app);
 Userserver(app);
@@ -220,7 +222,7 @@ BookServer(app);
 /*
 TransitionServer
 */
-TransitionServer(app);
+TransitionServer(app,io);
 
 
 app.use(function(req, res) {
@@ -238,13 +240,11 @@ app.use(function(req, res) {
     }
   });
 });
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+
 var onlineUsers = 0;
 
 io.sockets.on('connection', function(socket) {
   onlineUsers++;
-
   io.sockets.emit('onlineUsers', { onlineUsers: onlineUsers });
 
   socket.on('disconnect', function() {

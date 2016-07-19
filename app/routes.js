@@ -66,9 +66,9 @@ export default (
     <Route path='/admin/AddTran' component={AddTran} />
     <Route path='/admin/tran' component={HomeTransition} />
 
-  </Route>
+  </Route>  
   <Route component={Appmain}> 
-    <Route path='/' component={Main}/> 
+    <Route path='/' component={Main}/>
     <Route path='/tim-kiem/:text' component= {BookSearch}/>
     <Route path='/the-loai/:name' component = {ListBookDoc} />
     <Route path='/danh-muc/:name' component={ListBookCate}/>

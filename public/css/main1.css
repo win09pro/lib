@@ -38,6 +38,10 @@ h1,h2,h3,h4,h5,h6
   left:0px;
   top:0px;
 }
+.library-header #library-header-container{
+      width: 100%;
+    padding: 0px;
+}
 .library-header .header-container
 {
   float:left;
@@ -728,6 +732,7 @@ slider img {
   width: 100%;
   padding: 0px;
   background-color: #fff;
+  margin-top: 106px;
 }
 .library-content h2
 {

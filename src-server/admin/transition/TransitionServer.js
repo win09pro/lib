@@ -1,6 +1,9 @@
 var transition = require('../../../models/transition');
 
-function TransitionServer(app){
+function TransitionServer(app,io){
+
+
+
 
 app.post('/api/addtransition', function(req, res, next) {
 	var id = req.body.id;
@@ -10,39 +13,88 @@ app.post('/api/addtransition', function(req, res, next) {
 	var dateBorrow = req.body.dateBorrow;
 	var dateReturn = req.body.dateReturn;
 	var status = req.body.status;
-	transition.findOne({ _id: id}, function(err, trans) {
-	    if (err) return next(err);
-	    if (!trans) {
+var numBook = 0;
+transition
+.find({username:username, status: { $in : [2,3] }})
+.exec(function(error, transitions){
+	if(error) return next(err);
+	numBook = transitions.length;
+
+		transition.findOne({ _id: id, status: { $in : [2,3] }  })
+	  	.exec(function(err, trans) {
+		    if (err) return next(err);
+		    if (!trans) {
+		    	if (numBook>=3) {
+				res.send({message: 'GreaterNum'});
+				} else {
+					var trans = new transition({
+						barcode : barcode,
+						username : username,
+						bookname: bookname,
+						dateBorrow : dateBorrow,
+						dateReturn : dateReturn,
+						status: status
+					});
+					trans.save(function(err){
+						if(err) return next(err);
+						res.send({message: 'Success'});
+						io.sockets.emit('addtransition',{username:username,bookname:bookname});
+					});
+				}	    
+		    }   
+		    else
+		    	{
+		    		trans.update({ $set: { 
+		    			barcode : barcode,
+	 					username : username,
+	 					bookname: bookname,
+	 					dateBorrow : dateBorrow,
+	 					dateReturn : dateReturn,
+ 						status: status }},
+ 						function(err) {
+	 			     	if (err) return next(err);
+	 			      	res.send({ message: 'Cập nhật thành công!' });
+ 			    });
+		    	}
+		    });
+	})
+});
+// 	transition.findOne({ _id: id}, function(err, trans) {
+// 	    if (err) return next(err);
+// 	    if (!trans) {
 	      	
-				var trans = new transition({
-					barcode : barcode,
-					username : username,
-					bookname: bookname,
-					dateBorrow : dateBorrow,
-					dateReturn : dateReturn,
-					status: status
-				});
-				trans.save(function(err){
-					if(err) return next(err);
-					res.send({message: 'Success'});
-				});
-	    }   
-	    else
-	    	{
-	    		trans.update({ $set: { barcode : barcode,
-					username : username,
-					bookname: bookname,
-					dateBorrow : dateBorrow,
-					dateReturn : dateReturn,
-					status: status } }, function(err) {
-			     	if (err) return next(err);
-			      	res.send({ message: 'Cập nhật thành công!' });
-			    });
-	    	}
-	});
+// 			var trans = new transition({
+// 				barcode : barcode,
+// 				username : username,
+// 				bookname: bookname,
+// 				dateBorrow : dateBorrow,
+// 				dateReturn : dateReturn,
+// 				status: status
+// 			});
+// 			trans.save(function(err){
+// 				if(err) return next(err);
+// 				res.send({message: 'Success'});
+// 				io.sockets.emit('addtransition',{username:username,bookname:bookname});
+// 			});
+			
+// 	    }   
+// 	    else
+// 	    	{
+// 	    		trans.update({ $set: { barcode : barcode,
+// 					username : username,
+// 					bookname: bookname,
+// 					dateBorrow : dateBorrow,
+// 					dateReturn : dateReturn,
+// 					status: status } }, function(err) {
+// 			     	if (err) return next(err);
+// 			      	res.send({ message: 'Cập nhật thành công!' });
+// 			    });
+// 	    	}
+
+// 	});
     
 
-});
+// });
 
 app.get('/api/alltransition', function(req, res, next){
 	try{
@@ -73,7 +125,7 @@ app.get('/api/transition/:id', function(req, res, next){
     
 });
 // get transition by usrename
-app.get('/api/transition/:userName', function(req, res, next){
+app.get('/api/transition/username/:userName', function(req, res, next){
   var userName = req.params.userName;
   transition.find({ username: userName })
   .exec(function(err, trans) {

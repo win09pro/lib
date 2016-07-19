@@ -125,7 +125,7 @@ class UserprofilleActions {
 
   getTransbyUser(userName) {
     $.ajax({
-      url: '/api/transition/'+userName})
+      url: '/api/transition/username/'+userName})
       .done((data) => {      
         this.actions.getTransSuccess(data);
       })
