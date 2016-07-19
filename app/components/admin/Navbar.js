@@ -5,6 +5,11 @@ import NavbarActions from '../../actions/NavbarActions';
 import AdminloginActions from '../../actions/admin/login/AdminloginActions';
 import {Modal} from 'react-bootstrap';
 import localStorage from 'localStorage';
+import {
+  ToastContainer,
+  ToastMessage,
+} from 'react-toastr';
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +24,13 @@ class Navbar extends React.Component {
     socket.on('onlineUsers', (data) => {
       NavbarActions.updateOnlineUsers(data);
     });
+
+    socket.on('addtransition', ({username,bookname}) => {
+      this.refs.toast.success(username+ ' đăng ký '+bookname, 'Đăng ký mượn sách', {
+          closeButton: true,
+      });
+    });
+
 
     $(document).ajaxStart(() => {
       NavbarActions.updateAjaxAnimation('fadeIn');
@@ -37,7 +49,8 @@ class Navbar extends React.Component {
   onChange(state) {
     this.setState(state);
   }
-   handleSubmit(event) {
+
+  handleSubmit(event) {
     event.preventDefault();
 
     let searchQuery = this.state.searchQuery.trim();
@@ -50,7 +63,9 @@ class Navbar extends React.Component {
       });
     }
   }
-
+  test(e) {
+    console.log("abcde");
+  }
   render() {
     let style={'text-align':'center'};    
     let adminname =localStorage.getItem('adminusername');
@@ -174,9 +189,12 @@ class Navbar extends React.Component {
                   </li>
                   <li className="footer">
                     <a href="#">View all tasks</a>
-                  </li>
+                  </li>              
                 </ul>
-              </li>              
+              </li> 
+              <li>
+                <button type="button" className="btn btn-primary" name="button" onClick={this.test.bind(this)}>TEST</button>
+              </li>             
               <li className="dropdown user user-menu">                
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">               
                   <img src={avatar} className="user-image" alt="User Image" />                
@@ -218,6 +236,7 @@ class Navbar extends React.Component {
             </ul>
           </div>
         </nav>
+         <ToastContainer ref='toast' toastMessageFactory={ToastMessageFactory} className="toast-top-right"/>
       </header>
     );
   }

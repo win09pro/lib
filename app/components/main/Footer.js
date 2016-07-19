@@ -1,28 +1,31 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {animateScroll}  from  'react-scroll'; 
-//import FooterStore from '../../stores/FooterStore'
-//import FooterActions from '../../actions/FooterActions';
+import NavbarStore from '../../stores/NavbarStore';
+import NavbarActions from '../../actions/NavbarActions';
+
 
 class Footer extends React.Component {
-    constructor(props) {
+   constructor(props) {
     super(props);
-  
+    this.state = NavbarStore.getState();
+    this.onChange = this.onChange.bind(this);
   }
-  componentDidMount() {
-   
-   
+  componentDidMount() { 
+     NavbarStore.listen(this.onChange);
     let socket = io.connect();
 
-   
+    socket.on('onlineUsers', (data) => {
+      NavbarActions.updateOnlineUsers(data);
+    });
 
   }
    componentWillUnmount() {
-    //NavbarStore.unlisten(this.onChange);
+      NavbarStore.unlisten(this.onChange);
   }
 
   onChange(state) {
-   // this.setState(state);
+   this.setState(state);
   }
   render() {
 
@@ -39,7 +42,7 @@ class Footer extends React.Component {
           </div>
           <div className="col-md-3 col-sm-12">
             <h3>THỐNG KÊ</h3>
-            <h5><i className="fa fa-user" /> Đang trực tuyến: <strong style={{color: 'yellow'}}>12</strong></h5>
+            <h5><i className="fa fa-user" /> Đang trực tuyến: <strong style={{color: 'yellow'}}>{this.state.onlineUsers}</strong></h5>
             <h5><i className="fa fa-users" /> Tổng lượt truy cập: <strong style={{color: 'yellow'}}>41231</strong></h5>
           </div>
           <div className="col-md-3 col-sm-12 col-xs-12">

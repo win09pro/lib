@@ -13,6 +13,7 @@ class Mainpost extends React.Component {
   componentDidMount() {  
     Poststore.listen(this.onChange);
     PostActions.get();
+
   }
   componentWillUnmount() {
     Poststore.unlisten(this.onChange);

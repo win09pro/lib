@@ -102,7 +102,6 @@ class BookStore{
     }
      onAddtransSuccess(message)
      {
-      console.log(message);
       this.showAlert = message;     
      }
      onAddtransFail()
