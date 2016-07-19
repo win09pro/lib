@@ -7619,6 +7619,10 @@ var _ListTransitionAction = require('../../../actions/admin/transition/ListTrans
 
 var _ListTransitionAction2 = _interopRequireDefault(_ListTransitionAction);
 
+var _AddTranAction = require('../../../actions/transition/AddTranAction');
+
+var _AddTranAction2 = _interopRequireDefault(_AddTranAction);
+
 var _reactRouter = require('react-router');
 
 var _reactBootstrap = require('react-bootstrap');
@@ -7898,7 +7902,7 @@ var ListTransition = function (_React$Component) {
 
 exports.default = ListTransition;
 
-},{"../../../actions/admin/transition/ListTransitionAction":17,"../../../shared/ActionBar":87,"../../../stores/admin/transition/ListTransitionStore":106,"react":"react","react-bootstrap":264,"react-router":"react-router"}],58:[function(require,module,exports){
+},{"../../../actions/admin/transition/ListTransitionAction":17,"../../../actions/transition/AddTranAction":26,"../../../shared/ActionBar":87,"../../../stores/admin/transition/ListTransitionStore":106,"react":"react","react-bootstrap":264,"react-router":"react-router"}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -13083,6 +13087,10 @@ var ListBookCate = function (_React$Component) {
 				});
 			} else if (this.state.state1.showAlert == "Success") {
 				this.refs.AAA.success('Bạn đã mượn sách thành công. Vào trang cá nhân để xem chi tiết!', 'Mượn sách', {
+					closeButton: true
+				});
+			} else if (this.state.state1.showAlert == "GreaterNum") {
+				this.refs.AAA.info('Bạn đã đã đặt hoặc mượn đủ số lượng sách.', 'Thông báo', {
 					closeButton: true
 				});
 			}
